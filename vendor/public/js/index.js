@@ -1,10 +1,6 @@
-let vanName = document.getElementById('van_name')
-let password = document.getElementById('password')
-let login = document.getElementById('login')
-login.onmouseover = function() {
+let vanName = document.getElementsByName('van_name')
+let password = document.getElementsByName('password')
+let submit = document.getElementById('vanlogin')
+submit.onmouseover = function() {
     this.style.cursor = 'pointer'
-}
-
-function submit_information() {
-
 }

@@ -11,12 +11,12 @@
 
 <body>
     <div class="logo"></div>
-    <form action="/van_name_url/" method="GET">
-        <input type="text" placeholder="Van Name" class="textbox_style van_name" id="van_name">
+    <form action="/login" method="GET">
+        <input type="text" placeholder="Van Name" class="textbox_style van_name" name="van_name">
         <span><a href="#">New Vendor? Register here</a></span>
-        <input type="text" placeholder="Password" class="textbox_style password" id="password">
+        <input type="text" placeholder="Password" class="textbox_style password" name="password">
         <span><a href="#">Forgot password?</a></span>
-        <button class="login" onclick="submit_information()" id="login">Log in</button>
+        <input type="submit" value='Log In' id='vanlogin'>
     </form>
     <script src="../js/index.js"></script>
 </body>
