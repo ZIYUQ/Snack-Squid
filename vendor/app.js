@@ -10,7 +10,6 @@ app.use('/', express.static('html'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-require('dotenv').config()
 
 
 //set up vanRouter
@@ -29,24 +28,8 @@ app.get('/', (req, res) => {
 app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/registration.html'))
 })
-const db = require('./db')
-const { Van } = require('./models/van')
 
-app.post('/register', (req, res) => {
-    const newVan = new Van({
-        van_name: req.body.vanName,
-        password: req.body.password,
-        email_address: req.body.emailAddress,
-        mobile_number: req.body.mobileNumber
-    })
-    db.collection('vans').insertOne(newVan)
-    res.send('Data received:\n' + JSON.stringify(newVan))
-})
-
-app.get('/allvans', (req, res) => {
-    const allvans = db.collection('Vans')
-    res.send(allvans)
-})
+app.use('/register', vanRouter)
 
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')

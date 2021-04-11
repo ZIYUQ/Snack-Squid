@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
 const db = require('../db')
 
+// Van model
 const vanSchema = new mongoose.Schema({
     van_name: { type: String, required: true, unique: true },
     password: { type: String, required: true, unique: true },
-    email_address: { type: String },
-    mobile_number: { type: String },
+    email_address: { type: String, required: true, unique: true },
+    mobile_number: { type: String, required: true, unique: true },
     location: { type: String }
 })
 
