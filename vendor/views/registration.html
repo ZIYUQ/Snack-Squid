@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/registration.css">
+</head>
+
+<body>
+    <div class="logo"></div>
+    <div class="board">
+        <p class=registration>Registration</p>
+        <div class="information">
+            <form action="/register" method="POST">
+                <input type="text" placeholder="Van Name" class="textbox_style" name="vanName">
+                <input type="text" placeholder="Email Address" class="textbox_style" name="emailAddress">
+                <input type="text" placeholder="Mobile Number" class="textbox_style" name="mobileNumber">
+                <input type="text" placeholder="Password" class="textbox_style" name="password">
+                <input type="text" placeholder="Confirm Password" class="textbox_style" name="comfirmPassword">
+                <input type="submit" value="Sign Up" class="signup" id="signup">
+            </form>
+        </div>
+    </div>
+    <script src="/js/registration.js"></script>
+</body>
+
+</html>
