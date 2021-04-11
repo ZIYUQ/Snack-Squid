@@ -5,3 +5,6 @@ views 网页的布局和外观
 routes 定义了在浏览指定页面时会发生什么
 public 存储css，javascript和images
 middleware 处理input 和 output还有各个组件的联系 
+
+4.11
+customer->model 连接mongo
