@@ -3,6 +3,8 @@ const app = express()
 const path = require('path')  
 app.use(express.json())
 
+const {snack} = require("./model/index")
+
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
