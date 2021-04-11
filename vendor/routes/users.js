@@ -1,19 +1,21 @@
 const { Router } = require('express')
 const express = require('express')
 const userRouter = express.Router()
-
-userRouter.get('/login', (req, res) => {
-    res.render('login')
+const db = require('../db')
+userRouter.get('/', function(req, res, next) {
+    res.render('users-form')
 })
 
-userRouter.get('/register', (req, res) => {
-    res.render('register')
-})
-
-userRouter.post('/register', (req, res) => {})
-
-userRouter.post('/login', (req, res, next) => {
-
+const { Van } = require('../db')
+userRouter.post('/register', async(req, res) => {
+    const newVan = new Van({
+        van_name: req.body.vanName,
+        password: req.body.password
+    })
+    newVan.save((err, result) => {
+        if (err) res.send(err)
+        return res.send(result)
+    })
 })
 
 module.exports = userRouter
