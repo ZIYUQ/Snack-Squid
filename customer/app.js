@@ -10,11 +10,11 @@ app.use(express.static('views/homepage'))
 const {snack} = require("./model/index")
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/homepage/homepage.html'))
+    res.sendFile(path.join(__dirname + '/views/homepage.html'))
 })
 
 app.get('/menu/:van_id', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/menu/menu.html'))
+    res.sendFile(path.join(__dirname + '/views/menu.html'))
 })
 
 app.all('*', (req, res) => {  // 'default' route to catch user errors
