@@ -1,3 +1,5 @@
+// Connect with database
+
 const mongoose = require("mongoose")
 
 // Connect to MongoDB --- Replace this with your Connection String
@@ -25,4 +27,5 @@ db.once("open", async() => {
     console.log("Mongo connection started on " + db.host + ":" + db.port)
 })
 
+//export database
 module.exports = db

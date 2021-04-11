@@ -25,10 +25,12 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/index.html'))
 })
 
+// get registration html page
 app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/registration.html'))
 })
 
+// routers in register
 app.use('/register', vanRouter)
 
 app.listen(port, () => {
