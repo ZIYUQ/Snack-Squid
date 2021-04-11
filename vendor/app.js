@@ -30,7 +30,7 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/registration.html'))
 })
 const db = require('./db')
-const { Van } = require('./db')
+const { Van } = require('./models/van')
 
 app.post('/register', (req, res) => {
     const newVan = new Van({
