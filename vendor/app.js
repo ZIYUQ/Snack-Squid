@@ -16,8 +16,6 @@ app.use(bodyParser.json())
 const vanRouter = require('./routes/vanRoutes')
     //Use directory public to serve images, css files, javascript
 
-const useRouter = require('./routes/users')
-const userRouter = require('./routes/users')
 app.use(express.static('public'))
 
 // get index html page

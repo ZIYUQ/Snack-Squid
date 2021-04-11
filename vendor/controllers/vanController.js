@@ -11,8 +11,12 @@ const addVan = (req, res) => {
         mobile_number: req.body.mobileNumber,
         location: null
     })
-    db.collection('vans').insertOne(newVan)
-    res.send('Data received:\n' + JSON.stringify(newVan))
+    newVan.save((err, result) => {
+        if (err) res.send(err)
+        db.collection('vans').insertOne(newVan)
+        res.send('Data received:\n' + JSON.stringify(newVan))
+    })
+
 }
 
 module.exports = {
