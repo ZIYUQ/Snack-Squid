@@ -3,22 +3,33 @@ const db = require('../db')
 
 
 // add new Van
-const addVan = (req, res) => {
-    const newVan = new Van({
-        van_name: req.body.vanName,
-        password: req.body.password,
-        email_address: req.body.emailAddress,
-        mobile_number: req.body.mobileNumber,
-        location: null
-    })
-    newVan.save((err, result) => {
-        if (err) res.send(err)
-        db.collection('vans').insertOne(newVan)
-        res.send('Data received:\n' + JSON.stringify(newVan))
-    })
-
+const getVanByName = async(req, res) => {
+    result = await Van.find({ name: req.body.name }, {})
+    res.send(result)
 }
 
+const getAllVan = async(req, res) => {
+    result = await Van.find({}, { name: true })
+    res.send(result)
+}
+
+const addVan = async(req, res) => { //usingPOSTforPostmandemo
+    const newVan = new Van({
+        name: req.body.name,
+        password: req.body.password,
+        email_address: req.body.email_address,
+        mobile_number: req.body.mobile_number,
+        location: null,
+        open: false
+    })
+    newVan.save((err, result) => {
+        //callback-styleerror-handler
+        if (err) res.send(err)
+        db.collection('Vans').insertOne(newVan)
+    })
+}
 module.exports = {
+    getVanByName,
+    getAllVan,
     addVan
 }
