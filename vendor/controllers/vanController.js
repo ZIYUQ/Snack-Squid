@@ -3,22 +3,14 @@ const db = require('../db')
 
 
 // add new Van
-const addVan = (req, res) => {
-    const newVan = new Van({
-        van_name: req.body.vanName,
-        password: req.body.password,
-        email_address: req.body.emailAddress,
-        mobile_number: req.body.mobileNumber,
-        location: null
-    })
-    newVan.save((err, result) => {
+
+const getAllVan = (req, res) => {
+    db.collection('Vans').find().toArray((err, result) => {
         if (err) res.send(err)
-        db.collection('vans').insertOne(newVan)
-        res.send('Data received:\n' + JSON.stringify(newVan))
+        return res.send(result)
     })
-
 }
-
 module.exports = {
-    addVan
+    getVanByName,
+    getAllVan
 }

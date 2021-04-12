@@ -42,7 +42,7 @@ body {
     display: block;
     height: 26px;
     width: 360px;
-    margin-top: 24px;
+    margin-top: 5px;
     padding-left: 4px;
     font-size: 18px;
     color: #999;
@@ -63,4 +63,12 @@ body {
     font-family: 'Times New Roman', Times, serif;
     color: #B58169;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.16);
+}
+
+span {
+    display: block;
+    color: red;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 5px;
+    visibility: hidden;
 }

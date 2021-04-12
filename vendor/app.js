@@ -20,16 +20,15 @@ app.use(express.static('public'))
 
 // get index html page
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/index.html'))
+    res.send('<h1>mark as openForBusiness</h1>')
 })
 
 // get registration html page
-app.get('/register', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/registration.html'))
-})
+app.use('/van-management', vanRouter)
+
 
 // routers in register
-app.use('/register', vanRouter)
+
 
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
