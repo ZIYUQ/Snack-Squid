@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 //set up vanRouter
 const vanRouter = require('./routes/vanRoutes')
     //Use directory public to serve images, css files, javascript
-
+const openRouter = require('./routes/openRoutes')
 app.use(express.static('public'))
 
 // get index html page
@@ -26,9 +26,8 @@ app.get('/', (req, res) => {
 // get registration html page
 app.use('/van-management', vanRouter)
 
-
-// routers in register
-
+app.use('/open-for-business', openRouter)
+    // routers in register
 
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
