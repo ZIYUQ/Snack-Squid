@@ -9,7 +9,7 @@ const mongoose = require("mongoose")
 // const menuSchema = new mongoose.Schema({
 //     name: {type:String, require:true},
 //     price:{type: Number, require:true},
-//     photo:String,
+//     phote:String,
 //     type: String,
 //     description: String
 // })
