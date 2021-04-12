@@ -2,7 +2,7 @@ require('dotenv').config()
 const mongoose = require("mongoose")
 
 // Connect to MongoDB --- Replace this with your Connection String
-CONNECTION_STRING = "mongodb+srv://squid:snacksquid@snacksquid.2vwkd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+CONNECTION_STRING = "mongodb+srv://snacksquid:snacksquid@ss-cluster.rthtf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 MONGO_URL =
  CONNECTION_STRING.replace("<username>",process.env.MONGO_USERNAME).replace("<passw ord>",process.env.MONGO_PASSWORD)
