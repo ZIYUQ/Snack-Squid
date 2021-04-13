@@ -6,10 +6,18 @@ const mongoose = require("mongoose")
 const menuSchema = new mongoose.Schema({
     name: {type:String, require:true},
     price:{type: Number, require:true},
-    phote:String,
+    photo:String,
     type: String,
     description: String
 })
 
+const customerSchema = new mongoose.Schema({
+    givenName: { type: String, required: true },
+    familyName: { type: String, required: true},
+    email_address: { type: String, required: true, unique: true },
+    password: { type: String, required: true}
+})
+
 const menu = mongoose.model("menu", menuSchema)
-module.exports = {menu}
+const customer = mongoose.model("customer", customerSchema)
+module.exports = {menu, customer}

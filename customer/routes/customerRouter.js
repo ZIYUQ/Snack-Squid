@@ -3,11 +3,12 @@ const express = require("express")
 const customerRouter = express.Router()
 const customerController = require('../controllers/customerController')
 
-// get menu
-customerRouter.get('/', customerController.getMenu)
+customerRouter.get('/', customerController.getAllCustomer)
 
-// get detail of food
-customerRouter.get('/:snack', customerController.getSnackDetail)
+// get info of customer
+customerRouter.get('/:givenName', customerController.getCustomerByName)
 
+// add new customer
+customerRouter.post('/signup', customerController.addNewCustomer)
 
 module.exports = customerRouter
