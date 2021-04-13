@@ -1,32 +1,56 @@
 const mongoose = require("mongoose")
 
-const menu = mongoose.model("menu")
+const customer = mongoose.model("customer")
 
 // const db = require('../model/index')
 
-const getMenu = async (req, res)=>{
-    try{
-        result = await menu.find({}, {name: true, price: true, picture: true, _id:false})
-        res.send(result)
-    } catch(err){
-        res.status(400)
-        res.send("error")
-    }
+// get all user
+const getAllCustomer = async (req, res) => {
+    try {
+      const allcustomer = await customer.find()
+      return res.send(allcustomer)
+    } catch (err) {
+      res.status(400)
+      return res.send("Database query failed")
+  } 
 }
 
-const getSnackDetail = async (req,res)=>{
+
+// get user info
+const getCustomerByName = async (req,res)=>{
     try{
-        const result = await menu.findOne({name :req.params.snack}, {name:true, description:true, _id: false})
-        if (result === null){
-            res.send(404)
-            return res.send("food not found")
+        const user = await customer.findOne({givenName: req.params.givenName}, 
+            {givenName: true, email_address: true, _id: false})
+        if (user === null){
+            res.status(404)
+            return res.send("New user? Sign up now!")
         }
-        return res.send(result)
+        return res.send(user)
     } catch(err){
         res.status(400)
         res.send("error")
     }
-    
 }
 
-module.exports = {getMenu, getSnackDetail}
+// add new customer
+const addNewCustomer = async (req, res) => {
+    try{
+        const newUser = new customer({
+            givenName: req.body.givenName,
+            familyName: req.body.familyName,
+            email_address: req.body.email_address,
+            password: req.body.password
+        })
+
+        await newUser.save(function (err){
+            if (err) console.log(err)
+        })
+        return res.send(newUser)
+
+    }catch(err){
+        res.status(400)
+        res.send("insert data fail")
+    }
+}
+
+module.exports = {getAllCustomer, getCustomerByName, addNewCustomer}
