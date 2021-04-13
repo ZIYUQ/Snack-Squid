@@ -1,18 +1,18 @@
 const { Van } = require('../models/van')
 const db = require('../db')
 
-
-// add new Van
+// find the van by name
 const getVanByName = async(req, res) => {
-    result = await Van.find({ name: req.body.name }, {})
+    result = await db.collection('Vans').findOne({ name: req.body.name })
     res.send(result)
 }
 
+// return all teh van
 const getAllVan = async(req, res) => {
-    result = await Van.find({}, { name: true })
-    res.send(result)
-}
-
+        result = await Van.find({})
+        res.send(result)
+    }
+    // add new Van
 const addVan = async(req, res) => { //usingPOSTforPostmandemo
     const newVan = new Van({
         name: req.body.name,
@@ -28,6 +28,7 @@ const addVan = async(req, res) => { //usingPOSTforPostmandemo
         db.collection('Vans').insertOne(newVan)
     })
 }
+
 module.exports = {
     getVanByName,
     getAllVan,

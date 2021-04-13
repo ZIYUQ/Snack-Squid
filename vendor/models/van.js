@@ -13,7 +13,8 @@ const vanSchema = new mongoose.Schema({
 
 
 const orderSchema = new mongoose.Schema({
-    vanId: { type: mongoose.Schema.Types.ObjectId, ref: 'Van' }
+    vanId: { type: mongoose.Schema.Types.ObjectId, ref: 'Van' },
+    customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' }
 })
 
 const Van = mongoose.model('Van', vanSchema)
