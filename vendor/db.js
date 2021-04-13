@@ -7,7 +7,7 @@ CONNECTION_STRING = 'mongodb+srv://snacksquid:7PjugUwztiqEZXxh@ss-cluster.rthtf.
 MONGO_URL =
     CONNECTION_STRING.replace("<username>", process.env.MONGO_USERNAME).replace("<password>", process.env.MONGO_PASSWORD)
 
-mongoose.connect(MONGO_URL || "mongodb://localhost/Vans", {
+mongoose.connect(MONGO_URL || "mongodb://localhost/info30005", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,

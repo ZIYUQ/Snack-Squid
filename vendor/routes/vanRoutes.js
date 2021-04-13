@@ -5,6 +5,8 @@ const vanController = require('../controllers/vanController')
     // find the van by name
 vanRouter.get('/:name', vanController.getVanByName)
 
+vanRouter.get('/id=:id', vanController.getVanById)
+
 // get all vans
 vanRouter.get('/', vanController.getAllVan)
 

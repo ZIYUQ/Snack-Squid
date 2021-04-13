@@ -4,12 +4,13 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 3000
 
-
 app.use(express.json())
 app.use('/', express.static('html'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+const { Van } = require('./models/van')
+const db = require('./db')
 
 
 //set up vanRouter
@@ -20,7 +21,19 @@ app.use(express.static('public'))
 
 // get index html page
 app.get('/', (req, res) => {
-    res.send('<h1>mark as openForBusiness</h1>')
+    res.sendFile(path.join(__dirname + '/views/index.html'))
+})
+
+app.post('/', async(req, res) => {
+    result = await Van.findOne({
+        name: req.body.name,
+        password: req.body.password
+    }, { _id: true })
+    if (result) {
+        res.redirect('/open-for-business/id=' + result['_id'])
+    } else {
+        res.send('<h1>no such van</h1>')
+    }
 })
 
 // get registration html page

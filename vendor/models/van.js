@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const db = require('../db')
 
 // Van model
 const vanSchema = new mongoose.Schema({
@@ -11,11 +10,14 @@ const vanSchema = new mongoose.Schema({
     open: { type: Boolean }
 })
 
-
+const menuSchema = new mongoose.Schema({})
 const orderSchema = new mongoose.Schema({
     vanId: { type: mongoose.Schema.Types.ObjectId, ref: 'Van' },
-    customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' }
+    customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
+    foods: [{ menuSchema, quality: { type: String } }]
 })
 
 const Van = mongoose.model('Van', vanSchema)
-module.exports = { Van }
+const Order = mongoose.model('Order', orderSchema)
+    //const Order = mongoose.model('Order', orderSchema)
+module.exports = { Van, Order }
