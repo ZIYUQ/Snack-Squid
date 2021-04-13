@@ -12,3 +12,6 @@ customer->model 连接mongo
 vendor 
 连接了mongodb， 在index界面点击new register可以跳转至register页面， 在里面输入信息后按提交可以把数据传入数据库
 email，vanname，password，mobile number 是必要的而且得不同
+
+4.14
+log in之后跳转至相关账号的open-for-business界面， 并且设置open 为open
