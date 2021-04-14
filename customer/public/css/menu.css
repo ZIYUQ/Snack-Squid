@@ -2,5 +2,39 @@ body {
     background-image: url("../images/background_menu.jpeg");
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: contain;
+    background-size: cover;
 }
+
+.icon{
+    background: url("../images/snacksquid_icon1.png");
+    position: absolute;
+    height: 120px;
+    width: 120px;
+    background-size: 120px 120px;
+    left: 3%;
+    top: 1%;
+    border-radius: 100px;
+}
+
+.menu_headline{
+    background: url("../images/menu_headline.png");
+    background-repeat: no-repeat;
+    position: relative;
+    height: 874px;
+    width: 224px;
+    background-size: 80%;
+    left: 50%;
+    top: 10%;
+}
+
+.profile_icon{
+    background: url("../images/profile_icon.png");
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-size: 100%;
+    left: 100%;
+    top: 10%;
+}
+

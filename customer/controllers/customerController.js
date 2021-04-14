@@ -1,32 +1,22 @@
-const mongoose = require("mongoose")
+const { Customers } = require('../model/customers')
 
-const menu = mongoose.model("menu")
-
-// const db = require('../model/index')
-
-const getMenu = async (req, res)=>{
-    try{
-        result = await menu.find({}, {name: true, price: true, picture: true, _id:false})
-        res.send(result)
-    } catch(err){
-        res.status(400)
-        res.send("error")
-    }
+const getAllCustomers = async(req, res) => {
+    let result = await Customers.find({}, {givenName: true, familyName: true, email_address: true})
+    res.send(result)
 }
 
-const getSnackDetail = async (req,res)=>{
-    try{
-        const result = await menu.findOne({name :req.params.snack}, {name:true, description:true, _id: false})
-        if (result === null){
-            res.send(404)
-            return res.send("food not found")
-        }
-        return res.send(result)
-    } catch(err){
-        res.status(400)
-        res.send("error")
-    }
-    
+const getCustomerByEmail = async(req, res) => {
+    let result = await Customers.find({email_address: req.body.name}, {})
+    res.send(result)
 }
 
-module.exports = {getMenu, getSnackDetail}
+const login = async(req, res) => {
+    let result = await Customers.find({email_address: req.body.name, password: req.body.name}, {})
+    res.send(result)
+}
+
+module.exports = {
+    getAllCustomers,
+    getCustomerByEmail,
+    login
+}
