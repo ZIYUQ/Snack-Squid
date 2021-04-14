@@ -1,12 +1,17 @@
-const { Menu } = require('../models/menu')
+const { menu } = require('../models/menu')
 
 const getAllMenu = async(req, res) => {
-    let result = await Menu.find({}, {name: true, price: true, type: true})
-    res.send(result)
+    try{
+        result = await menu.find({}, {name: true, price: true, _id:false})
+        res.send(result)
+    } catch(err){
+        res.status(400)
+        res.send("error")
+    }
 }
 
 const getDetails = async(req, res) => {
-    let result = await Menu.find({name: req.params.name}, {})
+    let result = await menu.find({name: req.params.name}, {})
     res.send(result)
 }
 

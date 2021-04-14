@@ -1,4 +1,4 @@
-const { Customers } = require('../model/customers')
+const { Customers } = require('../models/customers')
 
 const getAllCustomers = async(req, res) => {
     let result = await Customers.find({}, {givenName: true, familyName: true, email_address: true})
