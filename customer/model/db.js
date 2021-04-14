@@ -18,6 +18,22 @@ const customerSchema = new mongoose.Schema({
     password: { type: String, required: true}
 })
 
+// const cartSchema = new mongoose.Schema({
+//     food: {type: String, required: true},
+//     quantity: {type: Number, default:1, required: true}
+// })
+
+const orderSchema = new mongoose.Schema({
+    orderDetail: {food:{type: String, required:true},
+                   quantity: {type: Number, default: 1}},
+    order_time: {type: Date, default: Date.now},
+    fulfilled: {tyepe: Boolean, default: false},
+    customer_name: {type: mongoose.Schema.Types.ObjectId, ref: 'customer'}
+})
+
 const menu = mongoose.model("menu", menuSchema)
 const customer = mongoose.model("customer", customerSchema)
-module.exports = {menu, customer}
+// const cart = mongoose.model('cart', cartSchema)
+const order = mongoose.model('order', orderSchema)
+
+module.exports = {menu, customer, order}
