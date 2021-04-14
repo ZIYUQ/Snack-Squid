@@ -24,13 +24,14 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/index.html'))
 })
 
+// log in page, enter Peter for van name, enter 8888 for password
 app.post('/', async(req, res) => {
     result = await Van.findOne({
         name: req.body.name,
         password: req.body.password
-    }, { _id: true })
+    }, { name: true })
     if (result) {
-        res.redirect('/open-for-business/id=' + result['_id'])
+        res.redirect('/open-for-business/name=' + result['name'])
     } else {
         res.send('<h1>no such van</h1>')
     }

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 // Van model
 const vanSchema = new mongoose.Schema({
+    vanId: { type: String, required: true, unique: true },
     name: { type: String, required: true, unique: true },
     password: { type: String, required: true, unique: true },
     email_address: { type: String, required: true, unique: true },

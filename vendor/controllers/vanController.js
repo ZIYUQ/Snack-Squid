@@ -5,8 +5,13 @@ const db = require('../db')
 
 // return all teh van
 const getAllVan = async(req, res) => {
-        result = await Van.find({}, { name: true, _id: false })
-        res.send(result)
+        try {
+            const vans = await Van.find()
+            return res.send(vans)
+        } catch (err) {
+            res.status(400)
+            return res.send("Database query failed")
+        }
     }
     // add new Van
 const addVan = async(req, res) => { //usingPOSTforPostmandemo
@@ -15,7 +20,7 @@ const addVan = async(req, res) => { //usingPOSTforPostmandemo
         password: req.body.password,
         email_address: req.body.email_address,
         mobile_number: req.body.mobile_number,
-        location: null,
+        location: "",
         open: false
     })
     newVan.save((err, result) => {
@@ -25,40 +30,53 @@ const addVan = async(req, res) => { //usingPOSTforPostmandemo
     })
 }
 
+// find van by id
 const getVanById = async(req, res) => {
-    result = await Van.findOne({ _id: req.params.id }, {})
-    if (result) {
-        res.send(result)
-    } else {
-        res.send('<h1> no such van </h1>')
+    try {
+        const oneVan = await Van.findOne({
+            _id: req.params.id
+        })
+        if (oneVan === null) {
+            res.status(404)
+            return res.send("Van not found")
+        }
+        return res.send(oneVan)
+    } catch (err) {
+        res.status(400)
+        return res.send("Database query failed")
     }
 }
 
 const getVanByNameAndPassword = async(req, res) => {
-    result = await Van.findOne({
-        name: req.params.name,
-        password: req.params.password
-            //password: req.params.password
-    }, {})
-
-    if (result) {
-        res.send(result)
-    } else {
-        res.send('<h1> no such van </h1>')
+    try {
+        const oneVan = await Van.findOne({
+            name: req.params.name,
+            password: req.params.password
+        })
+        if (oneVan === null) {
+            res.status(404)
+            return res.send("Van not found")
+        }
+        return res.send(oneVan)
+    } catch (err) {
+        res.status(400)
+        return res.send("Database query failed")
     }
 }
 
 const getVanByName = async(req, res) => {
-    result = await Van.find({
-        name: req.params.name
-    }, {})
-    if (result) {
-        res.send(result)
-    } else {
-        res.send('<h1> no such van </h1>')
+    try {
+        const oneVan = await Van.findOne({ name: req.params.name })
+        if (oneVan === null) {
+            res.status(404)
+            return res.send("Van not found")
+        }
+        return res.send(oneVan)
+    } catch (err) {
+        res.status(400)
+        return res.send("Database query failed")
     }
 }
-
 
 module.exports = {
     getAllVan,

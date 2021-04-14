@@ -14,4 +14,5 @@ vendor
 email，vanname，password，mobile number 是必要的而且得不同
 
 4.14
-log in之后跳转至相关账号的open-for-business界面， 并且设置open 为open
+vendor
+log in之后跳转至相关账号的open-for-business界面， 并且设置在open前添加location 设置open 为open

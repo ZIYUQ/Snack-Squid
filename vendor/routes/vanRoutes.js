@@ -3,9 +3,7 @@ const express = require('express')
 const vanRouter = express.Router()
 const vanController = require('../controllers/vanController')
     // find the van by name
-vanRouter.get('/:name', vanController.getVanByName)
-
-vanRouter.get('/id=:id', vanController.getVanById)
+vanRouter.get('/name=:name', vanController.getVanByName)
 
 // get all vans
 vanRouter.get('/', vanController.getAllVan)
