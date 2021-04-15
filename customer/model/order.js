@@ -26,7 +26,7 @@ const cartSchema = new mongoose.Schema([{
 
 const orderSchema = new mongoose.Schema({
     order_time: { type: Date, default: Date.now },
-    fulfilled: { tyepe: Boolean, default: false },
+    fulfilled: { type: Boolean, default: false },
     van_name: { type: String, ref: 'vans' },
     customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' },
     details: cartSchema
