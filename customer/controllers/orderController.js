@@ -1,13 +1,13 @@
-const { order } = require('../models/order')
+const { Order } = require('../models/order')
 
 const placeOrder = async(req, res)=>{
-    try{
-        let newOrder = req.body
-        menu.push
-    }catch(err){
-        res.status(400)
-        res.send("place order fail")
-    }
+    const newOrder = new Order({
+        name: req.body.name
+    })
+    newOrder.save((err, result) => {
+        //callback-style error-handler
+        if (err) res.send(err)
+        return res.send(result)})
 }
 
 module.exports = {

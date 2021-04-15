@@ -11,6 +11,6 @@ router.get('/', (req, res) =>{
 
 router.get('/:name', menuController.getDetails)
 
-router.post('/', orderController.placeOrder);
+router.post('/order', orderController.placeOrder);
 
 module.exports = router
