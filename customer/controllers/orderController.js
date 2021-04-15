@@ -2,7 +2,6 @@ const { cart } = require("../model/cart")
 
 const { menu } = require("../model/order")
 const addcart = require('../model/cart')
-    // const cart = mongoose.model('cart')
 const { order } = require("../model/order")
 
 // add food in cart

@@ -6,7 +6,7 @@ const db = require('./db')
     // const exphbs = require('express-handle')
 
 const customerRouter = require('./routes/customerRouter')
-const snackRouter = require('./routes/snackRouter')
+const menuRouter = require('./routes/menuRouter')
 const orderRouter = require('./routes/orderRouter')
 app.use(bodyParser.json())
 
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname + '/views/menu.html'))
 // })
 
-app.use('/menu', snackRouter)
+app.use('/menu', menuRouter)
 
 app.use('/customer', customerRouter)
 
