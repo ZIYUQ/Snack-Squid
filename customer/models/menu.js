@@ -3,12 +3,15 @@ const db = require('../db')
 
 // menu model
 const menuSchema = new mongoose.Schema({
-    name: {type:String, require:true},
-    price:{type: Number, require:true},
-    type: String,
+    foodId: { type: int },
+    name: { type: String, require: true },
     description: String,
-    photo:String,
+    photo: String,
+    price: { type: Number, require: true },
+    type: String,
+
+
 })
 const menu = mongoose.model("menu", menuSchema)
 
-module.exports = {menu}
+module.exports = { menu }
