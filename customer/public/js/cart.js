@@ -36,6 +36,7 @@ function setAddItems(product){
                 ...cartItems,
                 [product.name]: product
             }
+            cartItems[product.name].inCart = 0;
         }
         cartItems[product.name].inCart += 1;
     } else{
@@ -47,10 +48,12 @@ function setAddItems(product){
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 }
 
-function removeCartNumber(product){
+function subCartNumber(product){
+    let cartItems = localStorage.getItem('productsInCart');
+    cartItems = JSON.parse(cartItems);
     let productNumbers = localStorage.getItem('cartNumbers');
     productNumbers = parseInt(productNumbers);
-    if (productNumbers > 1){
+    if (cartItems[product.name].inCart >= 1){
         localStorage.setItem('cartNumbers', productNumbers - 1);
         document.querySelector('.cart span').textContent = productNumbers;
     } else {
@@ -88,11 +91,21 @@ function onLoadCartNumbers(){
     }
 }
 
-function totalCost(product){
+function addTotalCost(product){
     let cartCost = localStorage.getItem('totalCost');
     if (cartCost != null){
         cartCost = parseInt(cartCost);
         localStorage.setItem('totalCost', cartCost + product.price);
+    } else {
+        localStorage.setItem('totalCost', product.price);
+    }
+}
+
+function subTotalCost(product){
+    let cartCost = localStorage.getItem('totalCost');
+    if (cartCost != null){
+        cartCost = parseInt(cartCost);
+        localStorage.setItem('totalCost', cartCost - product.price);
     } else {
         localStorage.setItem('totalCost', product.price);
     }
@@ -103,14 +116,15 @@ for (let i=0; i < addCarts.length; i++){
     addCarts[i].addEventListener('click', () => {
         addCartNumber(products[i]);
         onLoadCartNumbers();
-        totalCost(products[i]);
+        addTotalCost(products[i]);
     })
 }
 
 for (let i=0; i < removeCarts.length; i++){
     removeCarts[i].addEventListener('click', () => {
-        removeCartNumber(products[i]);
+        subCartNumber(products[i]);
         onLoadCartNumbers();
+        subTotalCost(products[i]);
     })
 }
 
