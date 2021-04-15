@@ -30,7 +30,7 @@ app.use('/menu', snackRouter)
 
 app.use('/customer', customerRouter)
 
-app.use('/cart', orderRouter)
+app.use('/order', orderRouter)
 
 app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')

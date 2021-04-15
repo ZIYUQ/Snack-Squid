@@ -1,8 +1,9 @@
 const mongoose = require("mongoose")
+const { placeOrder } = require("../controllers/orderController")
 
 // menu model
 const menuSchema = new mongoose.Schema({
-    foodId: int,
+    foodId: Number,
     name: { type: String, require: true },
     price: { type: Number, require: true },
     photo: String,
@@ -17,19 +18,22 @@ const customerSchema = new mongoose.Schema({
     password: { type: String, required: true }
 })
 
+const cartSchema = new mongoose.Schema([{
+    foodId: { type: String, ref: 'menu' },
+    quality: { type: Number, required: true }
+
+}])
+
 const orderSchema = new mongoose.Schema({
-    orderDetail: [{
-        foodId: { type: Number, ref: 'menu' },
-        quantity: { type: Number, default: 1 }
-    }],
     order_time: { type: Date, default: Date.now },
     fulfilled: { tyepe: Boolean, default: false },
-    van: { type: mongoose.Schema.Types.ObjectId, ref: 'vans' },
-    customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' }
+    van_name: { type: String, ref: 'vans' },
+    customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' },
+    details: cartSchema
 })
 
 const menu = mongoose.model("menu", menuSchema)
 const customer = mongoose.model("customer", customerSchema)
 const order = mongoose.model('order', orderSchema)
-
-module.exports = { menu, customer, order }
+const cart = mongoose.model('cart', cartSchema)
+module.exports = { menu, customer, order, cart }

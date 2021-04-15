@@ -2,15 +2,13 @@ const mongoose = require('mongoose')
 
 // Van model
 const vanSchema = new mongoose.Schema({
-    vanId: { type: String, required: true, unique: true },
-    name: { type: String, required: true, unique: true },
+    van_name: { type: String, required: true, unique: true },
     password: { type: String, required: true, unique: true },
-    email_address: { type: String, required: true, unique: true },
-    mobile_number: { type: String, required: true, unique: true },
-    location: { type: String },
-    open: { type: Boolean }
+    email_address: { type: String, required: true },
+    mobile_number: { type: String, required: true },
+    location: String,
+    open: Boolean
 })
-
 
 const orderSchema = new mongoose.Schema({
     orderDetail: [{

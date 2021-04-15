@@ -9,11 +9,6 @@ const { order } = require("../model/order")
 // add food in cart
 const addToCart = async(req, res) => {
     try {
-        food = await menu.findOne({ name: req.body.food })
-        if (food === null) {
-            res.send(404)
-            return res.send("food not found")
-        }
         addcart.push(req.body)
         res.send(addcart)
 
@@ -33,14 +28,12 @@ const placeOrder = async(req, res) => {
         const newOrder = new order({
             orderDetail: addcart
         })
-
         await newOrder.save(function(err) {
             if (err) console.log(err)
         })
         return res.send(newOrder)
 
     } catch (err) {
-
         res.status(400)
         res.send("place order fail")
     }

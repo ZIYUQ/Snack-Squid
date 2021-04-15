@@ -1,7 +1,7 @@
 const { Van } = require('../models/van')
 const db = require('../db')
 
-// find the van by name
+// find the van by van_name
 
 // return all teh van
 const getAllVan = async(req, res) => {
@@ -16,7 +16,7 @@ const getAllVan = async(req, res) => {
     // add new Van
 const addVan = async(req, res) => { //usingPOSTforPostmandemo
     const newVan = new Van({
-        name: req.body.name,
+        van_name: req.body.van_name,
         password: req.body.password,
         email_address: req.body.email_address,
         mobile_number: req.body.mobile_number,
@@ -50,7 +50,7 @@ const getVanById = async(req, res) => {
 const getVanByNameAndPassword = async(req, res) => {
     try {
         const oneVan = await Van.findOne({
-            name: req.params.name,
+            van_van_name: req.params.van_van_name,
             password: req.params.password
         })
         if (oneVan === null) {
@@ -66,7 +66,9 @@ const getVanByNameAndPassword = async(req, res) => {
 
 const getVanByName = async(req, res) => {
     try {
-        const oneVan = await Van.findOne({ name: req.params.name })
+        const oneVan = await Van.findOne({
+            van_name: req.params.van_name
+        })
         if (oneVan === null) {
             res.status(404)
             return res.send("Van not found")
