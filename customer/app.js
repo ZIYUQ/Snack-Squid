@@ -4,20 +4,20 @@ const app = express()
 const path = require('path')  
 const bodyParser = require('body-parser')
 
-const exphbs = require('express-handle')
+// const exphbs = require('express-handle')
 
 const customerRouter = require('./routes/customerRouter')
 const snackRouter = require('./routes/snackRouter')
 const orderRouter = require('./routes/orderRouter')
 app.use(bodyParser.json())
 
-app.engine('hbs', exphbs({
-	defaultlayout: 'main',
-	extname: 'hbs'
-}))
+// app.engine('hbs', exphbs({
+// 	defaultlayout: 'main',
+// 	extname: 'hbs'
+// }))
 
 app.use(express.static('public'))
-app.set('view engine', 'hbs')
+// app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/homepage.html'))
