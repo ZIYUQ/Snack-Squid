@@ -4,7 +4,9 @@ const path = require("path");
 
 const router = express.Router()
 
-router.get('/', controller.getAllMenu)
+router.get('/', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../views/menu.html'))
+})
 
 router.get('/:name', controller.getDetails)
 
