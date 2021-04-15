@@ -1,3 +1,5 @@
+const { Timestamp } = require('bson')
+const { Int32 } = require('bson')
 const mongoose = require('mongoose')
 
 // Van model
@@ -11,14 +13,14 @@ const vanSchema = new mongoose.Schema({
     open: { type: Boolean }
 })
 
-const menuSchema = new mongoose.Schema({})
+
 const orderSchema = new mongoose.Schema({
-    vanId: { type: mongoose.Schema.Types.ObjectId, ref: 'Van' },
+    //orderTime: { type:  },
+    vanName: { type: String, ref: 'Van' },
     customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
-    foods: [{ menuSchema, quality: { type: String } }]
+    //details: [{ foodSchema, quality: { type: String } }]
 })
 
 const Van = mongoose.model('Van', vanSchema)
 const Order = mongoose.model('Order', orderSchema)
-    //const Order = mongoose.model('Order', orderSchema)
 module.exports = { Van, Order }

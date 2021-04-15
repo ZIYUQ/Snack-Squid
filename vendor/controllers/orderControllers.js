@@ -1,6 +1,6 @@
 const { Order } = require('../models/van')
 const getAllOrder = async(req, res) => {
-    result = Order.find({ _id: req.params._id })
+    result = Order.find({ vanName: req.params.name })
     if (result) {
         res.send(result)
     } else {

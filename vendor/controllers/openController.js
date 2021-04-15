@@ -14,7 +14,7 @@ const openForBusiness = async(req, res) => {
         if (req.body === null) {
             return res.send("you have to enter location")
         } else {
-            if (req.body.location === "" || req.body.location === null) {
+            if (req.body.location === "" || req.body.location === undefined) {
                 return res.send("you have to enter location")
             } else {
                 if (thisVan['open'] === false) {
@@ -47,7 +47,7 @@ const updateLocation = async(van_name, van_location, res) => {
 
 const closeForBusiness = async(req, res) => {
     try {
-        let thisVan = await Van.updateOne({ name: req.params.name }, { $set: { open: false } })
+        await Van.updateOne({ name: req.params.name }, { $set: { open: false, location: "" } })
     } catch (err) {
         res.status(400).send('Database query failed')
     }

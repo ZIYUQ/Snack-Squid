@@ -6,11 +6,11 @@ const db = require('../db')
 // return all teh van
 const getAllVan = async(req, res) => {
         try {
-            const vans = await Van.find()
+            const vans = await Van.find({})
             return res.send(vans)
         } catch (err) {
-            res.status(400)
-            return res.send("Database query failed")
+
+            return res.status(400).send("Database query failed")
         }
     }
     // add new Van
