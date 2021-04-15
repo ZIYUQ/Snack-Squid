@@ -43,6 +43,10 @@ app.use('/van-management', vanRouter)
 app.use('/open-for-business', openRouter)
     // routers in register
 
+app.all('*', (req, res) => { // 'default' route to catch user errors
+    res.status(404).send('<p>invalid request</p>')
+})
+
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
 })

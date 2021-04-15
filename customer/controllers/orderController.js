@@ -1,51 +1,50 @@
 const mongoose = require("mongoose")
-const cart = require("../model/cart")
+const { cart } = require("../model/cart")
 
-const menu = mongoose.model('menu')
+const { menu } = require("../model/order")
 const addcart = require('../model/cart')
-// const cart = mongoose.model('cart')
-const order = mongoose.model('order')
+    // const cart = mongoose.model('cart')
+const { order } = require("../model/order")
 
 // add food in cart
-const addToCart = async (req, res)=>{
-    try{
-        food = await menu.findOne({name: req.body.food})
-        if (food === null){
+const addToCart = async(req, res) => {
+    try {
+        food = await menu.findOne({ name: req.body.food })
+        if (food === null) {
             res.send(404)
             return res.send("food not found")
         }
         addcart.push(req.body)
         res.send(addcart)
-    
-    }catch(err){
+
+    } catch (err) {
         res.status(400)
         res.send("add to cart fail")
     }
 }
 
-const viewCart = (req,res)=>{
+const viewCart = (req, res) => {
     res.send(addcart)
 }
 
-const placeOrder = async(req, res)=>{
-    try{
+const placeOrder = async(req, res) => {
+    try {
         // convert cart into order
-       
         const newOrder = new order({
             orderDetail: addcart
         })
-        
-        await newOrder.save(function (err){
+
+        await newOrder.save(function(err) {
             if (err) console.log(err)
         })
         return res.send(newOrder)
-        
-    }catch(err){
+
+    } catch (err) {
 
         res.status(400)
         res.send("place order fail")
     }
-   
+
 }
 
-module.exports = {addToCart, placeOrder, viewCart}
+module.exports = { addToCart, placeOrder, viewCart }

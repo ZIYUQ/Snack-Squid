@@ -1,10 +1,9 @@
 const express = require('express')
-require("./model")
 const app = express()
-const path = require('path')  
+const path = require('path')
 const bodyParser = require('body-parser')
-
-// const exphbs = require('express-handle')
+const db = require('./db')
+    // const exphbs = require('express-handle')
 
 const customerRouter = require('./routes/customerRouter')
 const snackRouter = require('./routes/snackRouter')
@@ -17,7 +16,7 @@ app.use(bodyParser.json())
 // }))
 
 app.use(express.static('public'))
-// app.set('view engine', 'hbs')
+    // app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/homepage.html'))
@@ -33,7 +32,7 @@ app.use('/customer', customerRouter)
 
 app.use('/cart', orderRouter)
 
-app.all('*', (req, res) => {  // 'default' route to catch user errors
+app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')
 })
 
