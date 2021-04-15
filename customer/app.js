@@ -6,7 +6,7 @@ const db = require('./db')
     // const exphbs = require('express-handle')
 
 const customerRouter = require('./routes/customerRouter')
-const snackRouter = require('./routes/snackRouter')
+const snackRouter = require('./routes/menuRouter')
 const orderRouter = require('./routes/orderRouter')
 app.use(bodyParser.json())
 
