@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 // Menu model
 const menuSchema = new mongoose.Schema({
-    foodId: Number,
+    food_id: { type: Number, unique: true},
     name: { type: String, require: true },
     price: { type: Number, require: true },
     photo: String,
