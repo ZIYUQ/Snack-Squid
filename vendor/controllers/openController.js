@@ -10,7 +10,7 @@ const findAllOpen = async(req, res) => {
 // find the van by name and change the value open as true
 const openForBusiness = async(req, res) => {
     try {
-        let thisVan = await Van.findOne({ van_name: req.params.name }, { open: true })
+        let thisVan = await Van.findOne({ van_name: req.params.van_name }, { open: true })
         if (req.body === null) {
             return res.send("you have to enter location")
         } else {
@@ -51,7 +51,6 @@ const closeForBusiness = async(req, res) => {
         res.status(400).send('Database query failed')
     }
 }
-
 
 module.exports = {
     findAllOpen,

@@ -1,5 +1,3 @@
-const mongoose = require("mongoose")
-
 const { menu } = require('../model/order')
 
 // get menu

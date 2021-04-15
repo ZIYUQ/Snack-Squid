@@ -15,7 +15,6 @@ const getAllCustomer = async(req, res) => {
     }
 }
 
-
 // get user info
 const getCustomerByName = async(req, res) => {
     try {
@@ -26,8 +25,7 @@ const getCustomerByName = async(req, res) => {
         }
         return res.send(user)
     } catch (err) {
-        res.status(400)
-        res.send("error")
+        return res.status(400).send("error")
     }
 }
 
@@ -40,15 +38,13 @@ const addNewCustomer = async(req, res) => {
             email_address: req.body.email_address,
             password: req.body.password
         })
-
         await newUser.save(function(err) {
             if (err) console.log(err)
         })
         return res.send(newUser)
 
     } catch (err) {
-        res.status(400)
-        res.send("insert data fail")
+        return res.status(400).send("insert data fail")
     }
 }
 

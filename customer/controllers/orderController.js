@@ -1,4 +1,3 @@
-const mongoose = require("mongoose")
 const { cart } = require("../model/cart")
 
 const { menu } = require("../model/order")

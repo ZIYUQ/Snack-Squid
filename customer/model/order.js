@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const { placeOrder } = require("../controllers/orderController")
 
 // menu model
 const menuSchema = new mongoose.Schema({
