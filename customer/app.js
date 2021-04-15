@@ -7,7 +7,6 @@ const db = require('./db')
 
 const customerRouter = require('./routes/customerRouter')
 const menuRouter = require('./routes/menuRouter')
-const orderRouter = require('./routes/orderRouter')
 app.use(bodyParser.json())
 
 // app.engine('hbs', exphbs({
@@ -29,8 +28,6 @@ app.get('/', (req, res) => {
 app.use('/menu', menuRouter)
 
 app.use('/customer', customerRouter)
-
-app.use('/order', orderRouter)
 
 app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')

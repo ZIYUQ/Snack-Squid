@@ -1,12 +1,16 @@
 const express = require("express")
 
-const menuRouter = express.Router()
+const router = express.Router()
 const menuController = require('../controllers/menuController')
+const orderController = require('../controllers/orderController')
 
 // get menu
-menuRouter.get('/', menuController.getMenu)
+router.get('/', menuController.getMenu)
 
 // get detail of food
-menuRouter.get('/:food_name', menuController.getMenuDetails)
+router.get('/:food_name', menuController.getMenuDetails)
 
-module.exports = menuRouter
+// place order
+router.post('/', orderController.placeOrder)
+
+module.exports = router

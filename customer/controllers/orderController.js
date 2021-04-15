@@ -1,41 +1,17 @@
-const { cart } = require("../model/cart")
-
-const { menu } = require("../model/order")
-const addcart = require('../model/cart')
-const { order } = require("../model/order")
-
-// add food in cart
-const addToCart = async(req, res) => {
-    try {
-        addcart.push(req.body)
-        res.send(addcart)
-
-    } catch (err) {
-        res.status(400)
-        res.send("add to cart fail")
-    }
-}
-
-const viewCart = (req, res) => {
-    res.send(addcart)
-}
+const { Order } = require("../model/order")
 
 const placeOrder = async(req, res) => {
-    try {
-        // convert cart into order
-        const newOrder = new order({
-            orderDetail: addcart
-        })
-        await newOrder.save(function(err) {
-            if (err) console.log(err)
-        })
-        return res.send(newOrder)
-
-    } catch (err) {
-        res.status(400)
-        res.send("place order fail")
-    }
-
+    const newOrder = new Order({
+        van_name: req.body.van_name,
+        given_name: req.body.given_name,
+        family_name: req.body.family_name,
+        email_address: req.body.email_address
+    })
+    newOrder.save((err, result) => {
+        //callback-style error-handler
+        if (err) res.send(err)
+        return res.send(result)
+    })
 }
 
-module.exports = { addToCart, placeOrder, viewCart }
+module.exports = { placeOrder }

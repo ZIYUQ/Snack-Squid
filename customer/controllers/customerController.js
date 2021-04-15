@@ -1,14 +1,14 @@
 const mongoose = require("mongoose")
 
-const { customer } = require("../model/order")
+const { Customer } = require("../model/order")
 
 // const db = require('../model/index')
 
 // get all user
 const getAllCustomer = async(req, res) => {
     try {
-        const allcustomer = await customer.find()
-        return res.send(allcustomer)
+        const allCustomer = await Customer.find()
+        return res.send(allCustomer)
     } catch (err) {
         res.status(400)
         return res.send("Database query failed")
@@ -18,7 +18,7 @@ const getAllCustomer = async(req, res) => {
 // get user info
 const getCustomerByName = async(req, res) => {
     try {
-        const user = await customer.findOne({ givenName: req.params.givenName }, { givenName: true, email_address: true, _id: false })
+        const user = await Customer.findOne({ givenName: req.params.givenName }, { givenName: true, email_address: true, _id: false })
         if (user === null) {
             res.status(404)
             return res.send("New user? Sign up now!")
@@ -32,7 +32,7 @@ const getCustomerByName = async(req, res) => {
 // add new customer
 const addNewCustomer = async(req, res) => {
     try {
-        const newUser = new customer({
+        const newUser = new Customer({
             givenName: req.body.givenName,
             familyName: req.body.familyName,
             email_address: req.body.email_address,
