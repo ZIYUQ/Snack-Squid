@@ -3,7 +3,7 @@ const db = require('../db')
 
 // menu model
 const menuSchema = new mongoose.Schema({
-    foodId: { type: int },
+    foodId: { type: String },
     name: { type: String, require: true },
     description: String,
     photo: String,
