@@ -8,4 +8,5 @@ orderRouter.post('/', orderController.addToCart)
 
 orderRouter.get('/order', orderController.placeOrder)
 
+orderRouter.get('/', orderController.viewCart)
 module.exports = orderRouter

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const cart = require("../model/cart")
 
 const menu = mongoose.model('menu')
 const addcart = require('../model/cart')
@@ -13,25 +14,28 @@ const addToCart = async (req, res)=>{
             res.send(404)
             return res.send("food not found")
         }
-        let orderfood = req.body
-        addcart.push(orderfood)
+        addcart.push(req.body)
         res.send(addcart)
+    
     }catch(err){
         res.status(400)
         res.send("add to cart fail")
     }
 }
 
+const viewCart = (req,res)=>{
+    res.send(addcart)
+}
 
 const placeOrder = async(req, res)=>{
     try{
         // convert cart into order
-        orderdetail = addcart
+       
         const newOrder = new order({
-            orderDetail: orderdetail
+            orderDetail: addcart
         })
         
-        await order.save(function (err){
+        await newOrder.save(function (err){
             if (err) console.log(err)
         })
         return res.send(newOrder)
@@ -44,4 +48,4 @@ const placeOrder = async(req, res)=>{
    
 }
 
-module.exports = {addToCart, placeOrder}
+module.exports = {addToCart, placeOrder, viewCart}
