@@ -7,6 +7,6 @@ const menuController = require('../controllers/menuController')
 menuRouter.get('/', menuController.getMenu)
 
 // get detail of food
-menuRouter.get('/:food', menuController.getMenuDetails)
+menuRouter.get('/:food_name', menuController.getMenuDetails)
 
 module.exports = menuRouter

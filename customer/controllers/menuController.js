@@ -11,16 +11,8 @@ const getMenu = async(req, res) => {
 }
 
 const getMenuDetails = async(req, res) => {
-    try {
-        const result = await menu.findOne({ food_name: req.params.snack }, { food_name: true, description: true, _id: false })
-        if (result === null) {
-            res.send(404)
-            return res.send("food not found")
-        }
-        return res.send(result)
-    } catch (err) {
-        return res.status(400).send("error")
-    }
+    let result = await menu.find({food_name: req.params.food_name}, {})
+    res.send(result)
 }
 
 module.exports = { getMenu, getMenuDetails }
