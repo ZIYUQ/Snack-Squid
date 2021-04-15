@@ -24,10 +24,10 @@ function addCartNumber(product){
         localStorage.setItem('cartNumbers', 1);
         document.querySelector('.cart span').textContent = 1;
     }
-    setItems(product);
+    setAddItems(product);
 }
 
-function setItems(product){
+function setAddItems(product){
     let cartItems = localStorage.getItem('productsInCart');
     cartItems = JSON.parse(cartItems);
     if (cartItems != null){
@@ -44,14 +44,10 @@ function setItems(product){
             [product.name]: product
         }
     }
-
     localStorage.setItem("productsInCart", JSON.stringify(cartItems));
-
-
-
 }
 
-function removeCartNumber(){
+function removeCartNumber(product){
     let productNumbers = localStorage.getItem('cartNumbers');
     productNumbers = parseInt(productNumbers);
     if (productNumbers > 1){
@@ -61,6 +57,28 @@ function removeCartNumber(){
         localStorage.setItem('cartNumbers', 0);
         document.querySelector('.cart span').textContent = 0;
     }
+    setRemoveItems(product);
+}
+
+function deleteItem(input, key) {
+    delete input[key];
+    return input
+}
+
+function setRemoveItems(product){
+    let cartItems = localStorage.getItem('productsInCart');
+    cartItems = JSON.parse(cartItems);
+
+    if (cartItems != null) {
+        if (cartItems[product.name].inCart > 0) {
+            cartItems[product.name].inCart -= 1;
+        }
+    }
+    if (cartItems[product.name].inCart == 0){
+        cartItems = deleteItem(cartItems, product.name);
+    }
+
+    localStorage.setItem("productsInCart", JSON.stringify(cartItems));
 }
 
 function onLoadCartNumbers(){
@@ -91,7 +109,7 @@ for (let i=0; i < addCarts.length; i++){
 
 for (let i=0; i < removeCarts.length; i++){
     removeCarts[i].addEventListener('click', () => {
-        removeCartNumber();
+        removeCartNumber(products[i]);
         onLoadCartNumbers();
     })
 }
