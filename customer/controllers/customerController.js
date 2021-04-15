@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const { customer } = require('../model/cart')
+const { customer } = require("../model/order")
 
 // const db = require('../model/index')
 

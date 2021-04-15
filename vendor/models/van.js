@@ -13,10 +13,14 @@ const vanSchema = new mongoose.Schema({
 
 
 const orderSchema = new mongoose.Schema({
-    //orderTime: { type:  },
-    vanName: { type: String, ref: 'Van' },
-    customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer' },
-    //details: [{ foodSchema, quality: { type: String } }]
+    orderDetail: [{
+        foodId: { type: Number, ref: 'menu' },
+        quantity: { type: Number, default: 1 }
+    }],
+    order_time: { type: Date, default: Date.now },
+    fulfilled: { tyepe: Boolean, default: false },
+    van: { type: mongoose.Schema.Types.ObjectId, ref: 'vans' },
+    customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' }
 })
 
 const Van = mongoose.model('Van', vanSchema)

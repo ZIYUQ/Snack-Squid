@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 
 // menu model
 const menuSchema = new mongoose.Schema({
+    foodId: int,
     name: { type: String, require: true },
     price: { type: Number, require: true },
     photo: String,
@@ -18,7 +19,7 @@ const customerSchema = new mongoose.Schema({
 
 const orderSchema = new mongoose.Schema({
     orderDetail: [{
-        food: { type: String, required: true },
+        foodId: { type: Number, ref: 'menu' },
         quantity: { type: Number, default: 1 }
     }],
     order_time: { type: Date, default: Date.now },
