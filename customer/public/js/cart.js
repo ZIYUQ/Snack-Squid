@@ -70,8 +70,14 @@ function onLoadCartNumbers(){
     }
 }
 
-function totalCost(){
-
+function totalCost(product){
+    let cartCost = localStorage.getItem('totalCost');
+    if (cartCost != null){
+        cartCost = parseInt(cartCost);
+        localStorage.setItem('totalCost', cartCost + product.price);
+    } else {
+        localStorage.setItem('totalCost', product.price);
+    }
 }
 
 //
@@ -79,7 +85,7 @@ for (let i=0; i < addCarts.length; i++){
     addCarts[i].addEventListener('click', () => {
         addCartNumber(products[i]);
         onLoadCartNumbers();
-        totalCost(product[i]);
+        totalCost(products[i]);
     })
 }
 
