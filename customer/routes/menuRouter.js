@@ -1,12 +1,12 @@
 const express = require("express")
 
 const menuRouter = express.Router()
-const snackController = require('../controllers/menuController')
+const menuController = require('../controllers/menuController')
 
 // get menu
-menuRouter.get('/', snackController.getMenu)
+menuRouter.get('/', menuController.getMenu)
 
 // get detail of food
-menuRouter.get('/:snack', snackController.getSnackDetail)
+menuRouter.get('/:food', menuController.getMenuDetails)
 
 module.exports = menuRouter

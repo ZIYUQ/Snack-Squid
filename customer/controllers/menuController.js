@@ -12,7 +12,7 @@ const getMenu = async(req, res) => {
     }
 }
 
-const getSnackDetail = async(req, res) => {
+const getMenuDetails = async(req, res) => {
     try {
         const result = await menu.findOne({ name: req.params.snack }, { name: true, description: true, _id: false })
         if (result === null) {
@@ -25,4 +25,4 @@ const getSnackDetail = async(req, res) => {
     }
 }
 
-module.exports = { getMenu, getSnackDetail }
+module.exports = { getMenu, getMenuDetails }
