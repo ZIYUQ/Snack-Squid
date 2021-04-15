@@ -1,5 +1,6 @@
 const express = require('express')
-const controller = require('../controllers/menuController')
+const menuController = require('../controllers/menuController')
+const orderController = require('../controllers/orderController')
 const path = require("path");
 
 const router = express.Router()
@@ -8,6 +9,8 @@ router.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../views/menu.html'))
 })
 
-router.get('/:name', controller.getDetails)
+router.get('/:name', menuController.getDetails)
+
+router.post('/', orderController.placeOrder);
 
 module.exports = router

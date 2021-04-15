@@ -2,12 +2,13 @@ const mongoose = require('mongoose')
 const db = require('../db')
 
 const orderSchema = new mongoose.Schema({
-    givenName: {type: String, require:true},
-    familyName:{type: String, require:true},
-    email_address:String,
-    password: String
+    orderDetail: [{food:{type: String, required:true}, quantity: {type: Number, default: 1}}],
+    order_time: {type: Date, default: Date.now},
+    fulfilled: {type: Boolean, default: false},
+    van:{type: mongoose.Schema.Types.ObjectId, ref: 'vans'},
+    customer_name: {type: mongoose.Schema.Types.ObjectId, ref: 'customer'}
 })
 
-const Orders = mongoose.model("orders", customerSchema)
+const Orders = mongoose.model("orders", orderSchema)
 
 module.exports = { Orders }

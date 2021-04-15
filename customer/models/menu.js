@@ -9,9 +9,8 @@ const menuSchema = new mongoose.Schema({
     photo: String,
     price: { type: Number, require: true },
     type: String,
-
-
 })
-const menu = mongoose.model("menu", menuSchema)
 
-module.exports = { menu }
+const Menu = mongoose.model("menu", menuSchema)
+
+module.exports = { Menu }

@@ -2,7 +2,7 @@ const { menu } = require('../models/menu')
 
 const getAllMenu = async(req, res) => {
     try{
-        result = await menu.find({}, {name: true, price: true, _id:false})
+        let result = await menu.find({}, {name: true, price: true, _id:false})
         res.send(result)
     } catch(err){
         res.status(400)
@@ -17,5 +17,5 @@ const getDetails = async(req, res) => {
 
 module.exports = {
     getAllMenu,
-    getDetails
+    getDetails,
 }
