@@ -16,12 +16,25 @@ const cartSchema = new mongoose.Schema([{
 
 }])
 
+
+const feedbackSchema = new mongoose.Schema({
+    _id: false,
+    ratings: { type: Number, min: 1, max: 5 },
+    comment: { type: String }
+})
+
 const orderSchema = new mongoose.Schema({
+    given_name: { type: String },
+    family_name: { type: String },
+    email_address: { type: String },
+    van_name: { type: String },
     order_time: { type: Date, default: Date.now },
-    fulfilled: { type: Boolean, default: false },
-    van_name: { type: String, ref: 'vans' },
-    customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' },
-    details: cartSchema
+    status: String,
+    details: { type: [cartSchema], required: true },
+    total: { type: Number, required: true },
+    timestamp: { type: Number, default: 10, required: false },
+    discount: { type: Boolean, default: false, required: false },
+    feedback: { type: feedbackSchema },
 })
 
 const Van = mongoose.model('Van', vanSchema)

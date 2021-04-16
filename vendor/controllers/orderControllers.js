@@ -35,7 +35,7 @@ const fulfillOrder = async(req, res) => {
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
-            await Order.updateOne({ _id: id }, { $set: { status: 'waiting for pick up' } })
+            await Order.updateOne({ _id: id }, { $set: { status: 'ready' } })
             res.send('fulfilled')
         } else {
             res.send('no order found')
