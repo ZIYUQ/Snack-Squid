@@ -20,33 +20,35 @@ const openRouter = require('./routes/openRoutes')
 
 const orderRouter = require('./routes/orderRoutes')
 
+const registerRouter = require('./routes/registerRoutes')
+
+const loginRouter = require('./routes/loginRoutes')
+
 app.use(express.static('public'))
 
-// get index html page
+// get index html page log in page, enter Peter for van name, enter 8888 for password
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/index.html'))
 })
 
-// log in page, enter Peter for van name, enter 8888 for password
-app.post('/', async(req, res) => {
-    result = await Van.findOne({
-        name: req.body.name,
-        password: req.body.password
-    }, { name: true })
-    if (result) {
-        res.redirect('/open-for-business/name=' + result['name'])
-    } else {
-        res.send('<h1>no such van</h1>')
-    }
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/registration.html'))
 })
 
-// get registration html page
+app.get('/open-for-business/name=:van_name', (req, res) => {
+    res.send("Please post location")
+})
+
 app.use('/van-management', vanRouter)
 
 app.use('/open-for-business', openRouter)
-    // routers in register
+
+app.use('/', loginRouter)
 
 app.use('/order', orderRouter)
+    // routers in register
+app.use('/register', registerRouter)
 
 app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')

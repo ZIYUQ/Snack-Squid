@@ -15,20 +15,25 @@ const getAllVan = async(req, res) => {
 }
 
 // add new Van
-const addVan = async(req, res) => { //usingPOSTforPostmandemo
+const addVan = (req, res) => {
+    if (!req.body.vanName) {
+        return res.status(404).send('you have to enter a valid van_name')
+    }
+    if (!req.body.password) {
+        return res.status(404).send('you have to enter the password')
+    }
+    if (req.body.comfirmPassword != req.body.password) {
+        return res.status(404).send('you have to enter the same password')
+    }
     const newVan = new Van({
-        van_name: req.body.van_name,
+        van_name: req.body.vanName,
         password: req.body.password,
-        email_address: req.body.email_address,
-        mobile_number: req.body.mobile_number,
-        location: "",
-        open: false
+        email_address: req.body.emailAddress,
+        mobile_number: req.body.mobileNumber,
+        location: null
     })
-    newVan.save((err, result) => {
-        //callback-style error-handler
-        if (err) res.send(err)
-        return res.send(result)
-    })
+    db.collection('Vans').insertOne(newVan)
+    return res.redirect('/')
 }
 
 // find van by id
@@ -81,10 +86,22 @@ const getVanByName = async(req, res) => {
     }
 }
 
+const login = async(req, res) => {
+    result = await Van.findOne({
+        van_name: req.body.van_name,
+        password: req.body.password
+    }, { van_name: true })
+    if (result) {
+        res.redirect('/open-for-business/name=' + result['van_name'])
+    } else {
+        res.send('<h1>no such van</h1>')
+    }
+}
 module.exports = {
     getAllVan,
     addVan,
     getVanById,
     getVanByName,
-    getVanByNameAndPassword
+    getVanByNameAndPassword,
+    login
 }
