@@ -2,7 +2,7 @@ const { Order } = require('../models/van')
 
 const getVanOrder = async(req, res) => {
     try {
-        result = await Order.find({ van_name: req.params.van_name }, {})
+        result = await Order.find({ van_name: req.params.van_name, fulfilled: false }, {})
         if (result) {
             return res.send(result)
         } else {
