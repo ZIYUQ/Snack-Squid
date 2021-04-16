@@ -24,15 +24,17 @@ const cartSchema = new mongoose.Schema([{
 }])
 
 const orderSchema = new mongoose.Schema({
-    order_time: { type: Date, default: Date.now },
-    fulfilled: { type: Boolean, default: false },
-    van_name: { type: String, ref: 'vans' },
-    customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' },
-    details: cartSchema
+    order_time: { type: Date , default: Date.now },
+    status: { type: String, default: "preparing" },
+    van_name: { type: String },
+    given_name: { type: String },
+    family_name: { type: String },
+    email_address: { type: String}},
+    // avoid __v
+    { versionKey: false
 })
 
-const menu = mongoose.model("menu", menuSchema)
-const customer = mongoose.model("customer", customerSchema)
-const order = mongoose.model('order', orderSchema)
-const cart = mongoose.model('cart', cartSchema)
-module.exports = { menu, customer, order, cart }
+const Customer = mongoose.model("customer", customerSchema)
+const Order = mongoose.model('order', orderSchema)
+
+module.exports = { Customer, Order }
