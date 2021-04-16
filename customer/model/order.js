@@ -22,12 +22,13 @@ const orderSchema = new mongoose.Schema({
     order_time: { type: Date , default: Date.now },
     status: { type: String, default: "preparing" },
     details: { type: [cartSchema], required: true },
-    total: { type: Number , required: true},
+    total: { type: Number , default:0},
     timestamp: { type: Number , default: 10, required: false },
     discount:{ type: Boolean, default: false, required: false},
     feedback: { type: feedbackSchema },
 })
 
 const Order = mongoose.model('order', orderSchema)
+const Cart = mongoose.model('cart', cartSchema)
 
-module.exports = { Order }
+module.exports = { Order, Cart }
