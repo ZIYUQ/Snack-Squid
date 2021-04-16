@@ -17,6 +17,9 @@ const db = require('./db')
 const vanRouter = require('./routes/vanRoutes')
     //Use directory public to serve images, css files, javascript
 const openRouter = require('./routes/openRoutes')
+
+const orderRouter = require('./routes/orderRoutes')
+
 app.use(express.static('public'))
 
 // get index html page
@@ -42,6 +45,8 @@ app.use('/van-management', vanRouter)
 
 app.use('/open-for-business', openRouter)
     // routers in register
+
+app.use('/order', orderRouter)
 
 app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')

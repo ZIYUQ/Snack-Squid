@@ -5,15 +5,16 @@ const db = require('../db')
 
 // return all teh van
 const getAllVan = async(req, res) => {
-        try {
-            const vans = await Van.find({})
-            return res.send(vans)
-        } catch (err) {
+    try {
+        const vans = await Van.find({})
+        return res.send(vans)
+    } catch (err) {
 
-            return res.status(400).send("Database query failed")
-        }
+        return res.status(400).send("Database query failed")
     }
-    // add new Van
+}
+
+// add new Van
 const addVan = async(req, res) => { //usingPOSTforPostmandemo
     const newVan = new Van({
         van_name: req.body.van_name,

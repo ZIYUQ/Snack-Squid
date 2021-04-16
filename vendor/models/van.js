@@ -10,15 +10,18 @@ const vanSchema = new mongoose.Schema({
     open: Boolean
 })
 
+const cartSchema = new mongoose.Schema([{
+    foodId: { type: String, ref: 'menu' },
+    quality: { type: Number, required: true }
+
+}])
+
 const orderSchema = new mongoose.Schema({
-    orderDetail: [{
-        foodId: { type: Number, ref: 'menu' },
-        quantity: { type: Number, default: 1 }
-    }],
     order_time: { type: Date, default: Date.now },
-    fulfilled: { tyepe: Boolean, default: false },
-    van: { type: mongoose.Schema.Types.ObjectId, ref: 'vans' },
-    customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' }
+    fulfilled: { type: Boolean, default: false },
+    van_name: { type: String, ref: 'vans' },
+    customer_name: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' },
+    details: cartSchema
 })
 
 const Van = mongoose.model('Van', vanSchema)
