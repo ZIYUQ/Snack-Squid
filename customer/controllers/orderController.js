@@ -6,6 +6,7 @@ const placeOrder = async(req, res) => {
         given_name: req.body.given_name,
         family_name: req.body.family_name,
         email_address: req.body.email_address,
+        status: "preparing",
         details: req.body.details,
         total: req.body.total
     })
