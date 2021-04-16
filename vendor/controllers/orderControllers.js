@@ -28,7 +28,7 @@ const getAllOrder = async(req, res) => {
 
 const fulfillOrder = async(req, res) => {
     try {
-        await Order.updateOne({ _id: req.body._id }, { $set: { fulfilled: req.body.fulfilled } })
+        await Order.updateOne({ _id: req.body._id }, { $set: { status: 'waiting for pick up' } })
         return res.send('fulfilled')
     } catch (err) {
         return res.status(400).send('Database query failed')
