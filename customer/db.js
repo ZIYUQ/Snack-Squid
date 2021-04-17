@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 CONNECTION_STRING = "mongodb+srv://snacksquid:7PjugUwztiqEZXxh@ss-cluster.rthtf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 MONGO_URL =
-    CONNECTION_STRING.replace("<username>", process.env.MONGO_USERNAME).replace("<passw ord>", process.env.MONGO_PASSWORD)
+    CONNECTION_STRING.replace("<username>", process.env.MONGO_USERNAME).replace("<password>", process.env.MONGO_PASSWORD)
 
 mongoose.connect(MONGO_URL || "mongodb://localhost/info30005", {
     useNewUrlParser: true,
