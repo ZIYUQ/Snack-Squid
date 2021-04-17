@@ -1,14 +1,11 @@
 const express = require("express")
-const path = require("path");
 const menuController = require('../controllers/menuController')
 const orderController = require('../controllers/orderController')
 
 const router = express.Router()
 
 // show menu page
-router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/menu.html'))
-})
+router.get('/', (req, res) => menuController.getMenu(req, res))
 
 // get details of food
 router.get('/:food_name', menuController.getMenuDetails)
