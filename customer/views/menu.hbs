@@ -1,0 +1,45 @@
+<title>Menu</title>
+
+<link rel = "stylesheet" href="../css/menu.css">
+
+<li class="cart">
+    <ion-icon name="basket"></ion-icon>Cart = <span>0</span>
+</li>
+
+<div class="container">
+    <div class="image">
+        <a class="addCart addCart1" href="#">Add A</a>
+        <a class="removeCart removeCart1" href="#">Remove A</a>
+    </div>
+    <div class="image">
+        <a class="addCart addCart2" href="#">Add B</a>
+        <a class="removeCart removeCart2" href="#">Remove B</a>
+    </div>
+</div>
+
+
+<div class="products-container">
+    <div  class="product-header">
+        <h5 class="product-title">PRODUCT</h5>
+        <h5 class="price">PRICE</h5>
+        <h5 class="quantity">QUANTITY</h5>
+        <h5  class="total">TOTAL</h5>
+    </div>
+
+    <div class="products">
+    </div>
+
+
+</div>
+
+<ul>
+    {{#each snacks}}
+
+        <li>
+            <a href="/foods/{{this.food_name}}">{{this.food_name}}</a>
+        </li>
+
+    {{/each}}
+</ul>
+
+<script src="../js/cart.js"></script>
