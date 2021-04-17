@@ -2,11 +2,13 @@ const express = require('express')
 const path = require('path')
 const db = require('./db')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 const customerRouter = require('./routes/customerRouter')
 const menuRouter = require('./routes/menuRouter')
 
 const app = express()
+app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true })) // replaces body-parser
 app.use(express.static('public'))
 
