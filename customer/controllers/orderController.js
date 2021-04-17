@@ -21,16 +21,22 @@ const { addNewCustomer } = require("./customerController")
 
 const placeOrder = async(req, res) =>{
     try{
-        const newOrder = new Order({})
+        const newOrder = new Order({
+            van_name: req.body.van_name,
+            given_name: req.body.given_name,
+            family_name: req.body.family_name,
+            email_address: req.body.email_address,
+        })
         
         var total_price = 0
         var i = 0
         
-        while (!(req.body[i] === undefined)){
+        while (!(req.body.details[i] === undefined)){
             
-            let foodorder = req.body[i]
+            let foodorder = req.body.details[i]
             // get the food price
-            foodprice = await Menu.findOne({food_name: req.body[i].food_name}, {price:true, _id: false})
+            foodprice = await Menu.findOne({food_name: req.body.details[i].food_name}, {price:true, _id: false})
+            console.log(foodprice)
             foodorder["price"] = foodprice.price
 
             // store the one food record in cart
@@ -45,6 +51,7 @@ const placeOrder = async(req, res) =>{
         // update the total price
         await newOrder.save()
         await Order.updateOne({_id:newOrder._id}, {$set: { total: total_price}})
+
         result = await Order.findOne({_id: newOrder._id})
         res.send(result)
     }catch(err){
