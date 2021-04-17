@@ -1,21 +1,21 @@
 const express = require('express')
-const app = express()
 const path = require('path')
-const bodyParser = require('body-parser')
 const db = require('./db')
-    // const exphbs = require('express-handle')
+const exphbs = require('express-handlebars')
 
 const customerRouter = require('./routes/customerRouter')
 const menuRouter = require('./routes/menuRouter')
-app.use(bodyParser.json())
 
-// app.engine('hbs', exphbs({
-// 	defaultlayout: 'main',
-// 	extname: 'hbs'
-// }))
-
+const app = express()
+app.use(express.urlencoded({ extended: true })) // replaces body-parser
 app.use(express.static('public'))
-    // app.set('view engine', 'hbs')
+
+app.engine('hbs', exphbs({
+    defaultlayout: 'main',
+ 	extname: 'hbs'
+}))
+
+app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/homepage.html'))
@@ -32,7 +32,6 @@ app.use('/customer', customerRouter)
 app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')
 })
-
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
