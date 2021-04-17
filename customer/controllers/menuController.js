@@ -5,15 +5,19 @@ const getMenu = async(req, res) => {
     try{
         const snacks = await Menu.find({ type: 'snack' }, { food_name: true, price: true, photo: true }).lean()
         const drinks = await Menu.find({ type: 'drink' }, { food_name: true, price: true, photo: true }).lean()
-        res.render('menu.hbs', {"snacks": snacks})
+        res.render('menu', {"snacks": snacks, "drinks": drinks})
     } catch (err){
         console.log(err)
     }
 }
 
-const getMenuDetails = async(req, res) => {
-    let result = await Menu.find({ food_name: req.params.food_name }, {})
-    res.send(result)
+const getFoodDetails = async(req, res) => {
+    try{
+        const food = await Menu.find({ _id: req.params._id }, { food_name: true, price: true, photo: true , description: true}).lean()
+        res.render('foodDetails', {"food": food})
+    } catch (err){
+        console.log(err)
+    }
 }
 
-module.exports = { getMenu, getMenuDetails }
+module.exports = { getMenu, getFoodDetails }

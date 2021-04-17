@@ -1,0 +1,12 @@
+{{#each food}}
+    <title>Menu: {{this.food_name}}</title>
+
+    <h1>{{this.food_name}}</h1>
+    <p>price: {{this.price}}</p>
+    <p>description: {{this.description}}</p>
+    <div class="image">
+        <a class="addCart" href="#">+</a>
+        <a class="removeCart" href="#">-</a>
+    </div>
+
+{{/each}}

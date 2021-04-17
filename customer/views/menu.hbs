@@ -32,12 +32,34 @@
 
 </div>
 
+<h1>Snacks</h1>
 <ul>
     {{#each snacks}}
 
         <li>
-            <a href="/foods/{{this.food_name}}">{{this.food_name}}</a>
+            <a href="/menu/food_id={{this._id}}">{{this.food_name}}</a>
+            <p>price = {{this.price}}</p>
         </li>
+        <div class="image">
+            <a class="addCart" href="#">+</a>
+            <a class="removeCart" href="#">-</a>
+        </div>
+
+    {{/each}}
+</ul>
+
+<h1>Drinks</h1>
+<ul>
+    {{#each drinks}}
+
+        <li>
+            <a href="/foods/{{this._id}}">{{this.food_name}}</a>
+            <p>price = {{this.price}}</p>
+        </li>
+        <div class="image">
+            <a class="addCart" href="#">+</a>
+            <a class="removeCart" href="#">-</a>
+        </div>
 
     {{/each}}
 </ul>
