@@ -32,12 +32,13 @@ const placeOrder = async(req, res) =>{
         var total_price = 0
         var i = 0
         
+        // get food price and count the total pirce
         while (!(req.body.details[i] === undefined)){
             
             let foodorder = req.body.details[i]
             // get the food price
             foodprice = await Menu.findOne({food_name: req.body.details[i].food_name}, {price:true, _id: false})
-            console.log(foodprice)
+           
             foodorder["price"] = foodprice.price
 
             // store the one food record in cart
