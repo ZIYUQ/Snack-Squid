@@ -3,22 +3,6 @@ const { Menu } = require("../model/menu")
 const { Cart } = require("../model/order")
 const { addNewCustomer } = require("./customerController")
 
-// const placeOrder = async(req, res) => {
-//     const newOrder = new Order({
-//         van_name: req.body.van_name,
-//         given_name: req.body.given_name,
-//         family_name: req.body.family_name,
-//         email_address: req.body.email_address,
-//         details: req.body.details,
-//         total: req.body.total
-//     })
-//     newOrder.save((err, result) => {
-//         //callback-style error-handler
-//         if (err) res.send(err)
-//         return res.send(result)
-//     })
-// }
-
 const placeOrder = async(req, res) =>{
     try{
         const newOrder = new Order({
@@ -57,7 +41,7 @@ const placeOrder = async(req, res) =>{
         result = await Order.findOne({_id: newOrder._id})
         res.send(result)
     }catch(err){
-        return res.status(400).send("error")
+        return res.status(400).send("send order failed!")
     }
 }
 
