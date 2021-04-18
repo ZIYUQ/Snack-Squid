@@ -1,6 +1,5 @@
 let addCarts = document.querySelectorAll('.addCart');
 let removeCarts = document.querySelectorAll('.removeCart');
-
 let foodSelectors = document.querySelectorAll('.food_price');
 let foods = []
 for (let i=0; i < foodSelectors.length; i++){
@@ -15,21 +14,17 @@ for (let i=0; i < foodSelectors.length; i++){
 
 }
 
-// increase number for cart icon
-function addCartNumber(food){
-    let cartNumbers = localStorage.getItem('cartNumbers');
-    cartNumbers = parseInt(cartNumbers);
-    if (cartNumbers){
-        localStorage.setItem('cartNumbers', cartNumbers + 1);
-        document.querySelector('.cart span').textContent = cartNumbers;
-    } else {
-        localStorage.setItem('cartNumbers', 1);
-        document.querySelector('.cart span').textContent = 1;
-    }
-    setAddItems(food);
+cartNumbers = localStorage.getItem('cartNumbers');
+if (cartNumbers == undefined){
+    document.getElementById("basket_span").innerHTML = 0;
+}
+else {
+    cartNumbers = parseInt(cartNumbers)
+    document.getElementById("basket_span").innerHTML = cartNumbers;
 }
 
-// add item into localStorage
+
+// food quantity + 1 in localStorage
 function setAddItems(food){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
@@ -54,29 +49,7 @@ function setAddItems(food){
     localStorage.setItem("inCart", JSON.stringify(cartItems));
 }
 
-// decrease number for cart icon
-function subCartNumber(food){
-    let cartItems = localStorage.getItem('inCart');
-    cartItems = JSON.parse(cartItems);
-    let cartNumbers = localStorage.getItem('cartNumbers');
-    cartNumbers = parseInt(cartNumbers);
-    
-    for (let i=0; i < cartItems.length; i++){
-        if (cartItems[i]["food_name"] == food.food_name){
-            if (cartItems[i]["quantity"] >= 1){
-                localStorage.setItem('cartNumbers', cartNumbers - 1);
-                document.querySelector('.cart span').textContent = cartNumbers;
-            } else {
-                localStorage.setItem('cartNumbers', 0);
-                document.querySelector('.cart span').textContent = 0;
-            }
-        }
-    }
-    
-    setRemoveItems(food);
-}
-
-//
+// food quantity - 1 in localStorage
 function setRemoveItems(food){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
@@ -97,11 +70,15 @@ function setRemoveItems(food){
     localStorage.setItem("inCart", JSON.stringify(cartItems));
 }
 
-function onLoadCartNumbers(){
-    let cartNumbers = localStorage.getItem('cartNumbers');
-    if (cartNumbers){
-        document.querySelector('.cart span').textContent = cartNumbers;
+function updateCartNumbers(){
+    let cartItems = localStorage.getItem('inCart');
+    cartItems = JSON.parse(cartItems);
+    let cartNumbers = 0
+    for (let i=0; i < cartItems.length; i++){
+        cartNumbers += cartItems[i].quantity;
     }
+    localStorage.setItem('cartNumbers', cartNumbers);
+    document.getElementById("basket_span").innerHTML = cartNumbers;
 }
 
 function updateTotalCost(){
@@ -118,21 +95,20 @@ function updateTotalCost(){
 // when "+" is clicked, do everything required
 for (let i=0; i < addCarts.length; i++){
     addCarts[i].addEventListener('click', () => {
-        addCartNumber(foods[i]);
-        onLoadCartNumbers();
-        updateTotalCost()
-        displayCart();
+        setAddItems(foods[i])
+        updateCartNumbers();
+        updateTotalCost();
+        //displayCart();
     })
 }
 
 // when "-" is clicked, do everything required
 for (let i=0; i < removeCarts.length; i++){
     removeCarts[i].addEventListener('click', () => {
-        subCartNumber(foods[i]);
-        onLoadCartNumbers();
-        //subTotalCost(foods[i]);
-        updateTotalCost()
-        displayCart();
+        setRemoveItems(foods[i]);
+        updateCartNumbers();
+        updateTotalCost();
+        //displayCart();
     })
 }
 
@@ -140,7 +116,7 @@ for (let i=0; i < removeCarts.length; i++){
 function displayCart(){
     let cartItems = localStorage.getItem("inCart");
     cartItems = JSON.parse(cartItems);
-    let foodContainer = document.querySelector(".foods");
+    let foodContainer = document.querySelector(".snacks");
     let cartCost = localStorage.getItem('totalCost');
 
     if (cartItems && foodContainer){
@@ -190,6 +166,4 @@ function placeOrder(){
     localStorage.removeItem('totalCost');
     localStorage.removeItem('cartNumbers');
 }
-
-onLoadCartNumbers();
 

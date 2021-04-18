@@ -1,12 +1,40 @@
+<section id="menuPage">
+    <title>Menu</title>
+
+    <link rel="stylesheet" href="../css/menu.css">
+
+    <h3 class="cart">
+        <ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span>
+    </h3>
+
+
+    <div class="products-container">
+        <div class="product-header">
+            <h5 class="product-title">PRODUCT</h5>
+            <h5 class="price">PRICE</h5>
+            <h5 class="quantity">QUANTITY</h5>
+            <h5 class="total">TOTAL</h5>
+        </div>
+
+        <div class="products">
+        </div>
+
+
+    </div>
+
 {{#each food}}
     <title>Menu: {{this.food_name}}</title>
 
     <h1>{{this.food_name}}</h1>
-    <p>price: {{this.price}}</p>
     <p>description: {{this.description}}</p>
-    <div class="image">
-        <a class="addCart" href="#">+</a>
-        <a class="removeCart" href="#">-</a>
-    </div>
+    <p class="food_price" id="{{this.food_name}}">{{this.price}}</p>
+    <button type="button" class="addCart">+</button>
+    <button type="button" class="removeCart">-</button>
 
 {{/each}}
+
+<button onclick="placeOrder()">Place Order</button>
+
+<script src="../js/cart.js"></script>
+
+</section>
