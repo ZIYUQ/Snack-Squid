@@ -41,11 +41,11 @@
 <ul>
     {{#each drinks}}
 
+        <div class="image" id={{this._id}}>
         <li>
-            <a href="/foods/{{this._id}}">{{this.food_name}}</a>
+            <a href="/menu/food_id={{this._id}}">{{this.food_name}}</a>
             <p>price = {{this.price}}</p>
         </li>
-        <div class="image">
             <a class="addCart" href="#">+</a>
             <a class="removeCart" href="#">-</a>
         </div>
