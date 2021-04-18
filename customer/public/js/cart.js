@@ -34,7 +34,7 @@ let products = [
         quantity: 0
     },
     {
-        food_name: "Espresso",
+        food_name: "Cappuccino",
         price: 5,
         quantity: 0
     },
