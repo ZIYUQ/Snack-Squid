@@ -98,7 +98,7 @@ for (let i=0; i < addCarts.length; i++){
         setAddItems(foods[i])
         updateCartNumbers();
         updateTotalCost();
-        //displayCart();
+        displayCart();
     })
 }
 
@@ -108,7 +108,7 @@ for (let i=0; i < removeCarts.length; i++){
         setRemoveItems(foods[i]);
         updateCartNumbers();
         updateTotalCost();
-        //displayCart();
+        displayCart();
     })
 }
 
@@ -116,8 +116,10 @@ for (let i=0; i < removeCarts.length; i++){
 function displayCart(){
     let cartItems = localStorage.getItem("inCart");
     cartItems = JSON.parse(cartItems);
-    let foodContainer = document.querySelector(".snacks");
+    let foodContainer = document.querySelector(".products-container");
     let cartCost = localStorage.getItem('totalCost');
+    console.log(cartItems);
+    console.log(foodContainer);
 
     if (cartItems && foodContainer){
         foodContainer.innerHTML = '';
