@@ -3,16 +3,49 @@ let removeCarts = document.querySelectorAll('.removeCart');
 
 let products = [
     {
-        food_name: "Product A",
-        price: 100,
+        food_name: "Small Cake",
+        price: 4,
         quantity: 0
     },
     {
-        food_name: "Product B",
-        price: 50,
+        food_name: "Big Cake",
+        price: 8,
+        quantity: 0
+    },
+    {
+        food_name: "Plain Biscuit",
+        price: 4,
+        quantity: 0
+    },
+
+    {
+        food_name: "Fancy Biscuit",
+        price: 7,
+        quantity: 0
+    },
+    {
+        food_name: "Latte",
+        price: 5,
+        quantity: 0
+    },
+    {
+        food_name: "Long Black",
+        price: 5,
+        quantity: 0
+    },
+    {
+        food_name: "Espresso",
+        price: 5,
+        quantity: 0
+    },
+    {
+        food_name: "Flat white",
+        price: 5,
         quantity: 0
     }
 ]
+
+
 
 // increase number for cart icon
 function addCartNumber(product){
@@ -33,19 +66,22 @@ function setAddItems(product){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     if (cartItems != null){
-        if (cartItems[product.food_name] == undefined){
-            cartItems = {
-                ...cartItems,
-                [product.food_name]: product
+        let flag = 0;
+        for (let i=0; i < cartItems.length; i++){
+            if (cartItems[i]["food_name"] == product.food_name){
+                cartItems[i]["quantity"] += 1;
+                flag = 1;
             }
-            cartItems[product.food_name].quantity = 0;
         }
-        cartItems[product.food_name].quantity += 1;
+        if (flag == 0){
+            product.quantity = 1;
+            cartItems.push(product)
+        }
     } else{
         product.quantity = 1;
-        cartItems = {
-            [product.food_name]: product
-        }
+        cartItems = [
+            product
+        ]
     }
     localStorage.setItem("inCart", JSON.stringify(cartItems));
 }
@@ -136,7 +172,6 @@ function displayCart(){
     cartItems = JSON.parse(cartItems);
     let productContainer = document.querySelector(".products");
     let cartCost = localStorage.getItem('totalCost');
-    console.log(cartItems);
 
     if (cartItems && productContainer){
         productContainer.innerHTML = '';
@@ -169,6 +204,21 @@ function displayCart(){
                 </h4>
         `;
     }
+}
+
+function placeOrder(){
+    let cartItems = localStorage.getItem('inCart');
+    const options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: cartItems
+    };
+    fetch('/menu', options);
+    localStorage.removeItem('inCart');
+    localStorage.removeItem('totalCost');
+    localStorage.removeItem('cartNumbers');
 }
 
 onLoadCartNumbers();

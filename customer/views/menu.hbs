@@ -6,24 +6,13 @@
     <ion-icon name="basket"></ion-icon>Cart = <span>0</span>
 </li>
 
-<div class="container">
-    <div class="image">
-        <a class="addCart addCart1" href="#">Add A</a>
-        <a class="removeCart removeCart1" href="#">Remove A</a>
-    </div>
-    <div class="image">
-        <a class="addCart addCart2" href="#">Add B</a>
-        <a class="removeCart removeCart2" href="#">Remove B</a>
-    </div>
-</div>
-
 
 <div class="products-container">
     <div  class="product-header">
         <h5 class="product-title">PRODUCT</h5>
         <h5 class="price">PRICE</h5>
         <h5 class="quantity">QUANTITY</h5>
-        <h5  class="total">TOTAL</h5>
+        <h5 class="total">TOTAL</h5>
     </div>
 
     <div class="products">
@@ -36,13 +25,13 @@
 <ul>
     {{#each snacks}}
 
+        <div class="image" id={{this._id}}>
         <li>
             <a href="/menu/food_id={{this._id}}">{{this.food_name}}</a>
             <p>price = {{this.price}}</p>
-        </li>
-        <div class="image">
             <a class="addCart" href="#">+</a>
             <a class="removeCart" href="#">-</a>
+        </li>
         </div>
 
     {{/each}}
@@ -63,5 +52,7 @@
 
     {{/each}}
 </ul>
+
+<button onclick="placeOrder()">Place Order</button>
 
 <script src="../js/cart.js"></script>

@@ -20,12 +20,13 @@ const { addNewCustomer } = require("./customerController")
 // }
 
 const placeOrder = async(req, res) =>{
+    console.log(req.body)
     try{
         const newOrder = new Order({
-            van_name: req.body.van_name,
-            given_name: req.body.given_name,
-            family_name: req.body.family_name,
-            email_address: req.body.email_address,
+            van_name: "Peter",
+            given_name: "Cathy",
+            family_name: "Yu",
+            email_address: "email@address.com",
             status: "preparing"
         })
         
@@ -33,11 +34,11 @@ const placeOrder = async(req, res) =>{
         var i = 0
         
         // get food price and count the total pirce
-        while (!(req.body.details[i] === undefined)){
+        while (!(req.body[i] === undefined)){
             
-            let foodorder = req.body.details[i]
+            let foodorder = req.body[i]
             // get the food price
-            foodprice = await Menu.findOne({food_name: req.body.details[i].food_name}, {price:true, _id: false})
+            foodprice = await Menu.findOne({food_name: req.body[i].food_name}, {price:true, _id: false})
            
             foodorder["price"] = foodprice.price
 
