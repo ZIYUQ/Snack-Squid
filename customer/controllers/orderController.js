@@ -20,7 +20,6 @@ const { addNewCustomer } = require("./customerController")
 // }
 
 const placeOrder = async(req, res) =>{
-    console.log(req.body)
     try{
         const newOrder = new Order({
             van_name: "Peter",

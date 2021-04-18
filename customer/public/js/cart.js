@@ -1,157 +1,126 @@
 let addCarts = document.querySelectorAll('.addCart');
 let removeCarts = document.querySelectorAll('.removeCart');
 
-let products = [
-    {
-        food_name: "Small Cake",
-        price: 4,
-        quantity: 0
-    },
-    {
-        food_name: "Big Cake",
-        price: 8,
-        quantity: 0
-    },
-    {
-        food_name: "Plain Biscuit",
-        price: 4,
-        quantity: 0
-    },
-
-    {
-        food_name: "Fancy Biscuit",
-        price: 7,
-        quantity: 0
-    },
-    {
-        food_name: "Latte",
-        price: 5,
-        quantity: 0
-    },
-    {
-        food_name: "Long Black",
-        price: 5,
-        quantity: 0
-    },
-    {
-        food_name: "Espresso",
-        price: 5,
-        quantity: 0
-    },
-    {
-        food_name: "Flat white",
-        price: 5,
+let foodSelectors = document.querySelectorAll('.food_price');
+let foods = []
+for (let i=0; i < foodSelectors.length; i++){
+    let food_name = foodSelectors[i].id;
+    let food_price = parseInt(foodSelectors[i].innerHTML);
+    food = {
+        food_name: food_name,
+        price: food_price,
         quantity: 0
     }
-]
+    foods.push(food)
 
-
+}
 
 // increase number for cart icon
-function addCartNumber(product){
-    let productNumbers = localStorage.getItem('cartNumbers');
-    productNumbers = parseInt(productNumbers);
-    if (productNumbers){
-        localStorage.setItem('cartNumbers', productNumbers + 1);
-        document.querySelector('.cart span').textContent = productNumbers;
+function addCartNumber(food){
+    let cartNumbers = localStorage.getItem('cartNumbers');
+    cartNumbers = parseInt(cartNumbers);
+    if (cartNumbers){
+        localStorage.setItem('cartNumbers', cartNumbers + 1);
+        document.querySelector('.cart span').textContent = cartNumbers;
     } else {
         localStorage.setItem('cartNumbers', 1);
         document.querySelector('.cart span').textContent = 1;
     }
-    setAddItems(product);
+    setAddItems(food);
 }
 
 // add item into localStorage
-function setAddItems(product){
+function setAddItems(food){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     if (cartItems != null){
         let flag = 0;
         for (let i=0; i < cartItems.length; i++){
-            if (cartItems[i]["food_name"] == product.food_name){
+            if (cartItems[i]["food_name"] == food.food_name){
                 cartItems[i]["quantity"] += 1;
                 flag = 1;
             }
         }
         if (flag == 0){
-            product.quantity = 1;
-            cartItems.push(product)
+            food.quantity = 1;
+            cartItems.push(food)
         }
     } else{
-        product.quantity = 1;
+        food.quantity = 1;
         cartItems = [
-            product
+            food
         ]
     }
     localStorage.setItem("inCart", JSON.stringify(cartItems));
 }
 
 // decrease number for cart icon
-function subCartNumber(product){
+function subCartNumber(food){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
-    let productNumbers = localStorage.getItem('cartNumbers');
-    productNumbers = parseInt(productNumbers);
-    if (cartItems[product.food_name].quantity >= 1){
-        localStorage.setItem('cartNumbers', productNumbers - 1);
-        document.querySelector('.cart span').textContent = productNumbers;
-    } else {
-        localStorage.setItem('cartNumbers', 0);
-        document.querySelector('.cart span').textContent = 0;
+    let cartNumbers = localStorage.getItem('cartNumbers');
+    cartNumbers = parseInt(cartNumbers);
+    
+    for (let i=0; i < cartItems.length; i++){
+        if (cartItems[i]["food_name"] == food.food_name){
+            if (cartItems[i]["quantity"] >= 1){
+                localStorage.setItem('cartNumbers', cartNumbers - 1);
+                document.querySelector('.cart span').textContent = cartNumbers;
+            } else {
+                localStorage.setItem('cartNumbers', 0);
+                document.querySelector('.cart span').textContent = 0;
+            }
+        }
     }
-    setRemoveItems(product);
+    
+    setRemoveItems(food);
 }
 
 //
-function setRemoveItems(product){
+function setRemoveItems(food){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
-
-    if (cartItems != null) {
-        if (cartItems[product.food_name].quantity > 0) {
-            cartItems[product.food_name].quantity -= 1;
+    for (let i=0; i < cartItems.length; i++){
+        if (cartItems[i]["food_name"] == food.food_name){
+            if (cartItems != null) {
+                if (cartItems[i]["quantity"] > 0) {
+                    cartItems[i]["quantity"] -= 1;
+                }
+            }
+            if (cartItems[i]["quantity"] == 0){
+                cartItems.splice(i, 1);
+                //delete cartItems[i];
+            }
         }
-    }
-    if (cartItems[product.food_name].quantity == 0){
-        delete cartItems[product.food_name];
     }
 
     localStorage.setItem("inCart", JSON.stringify(cartItems));
 }
 
 function onLoadCartNumbers(){
-    let productNumbers = localStorage.getItem('cartNumbers');
-    if (productNumbers){
-        document.querySelector('.cart span').textContent = productNumbers;
+    let cartNumbers = localStorage.getItem('cartNumbers');
+    if (cartNumbers){
+        document.querySelector('.cart span').textContent = cartNumbers;
     }
 }
 
-function addTotalCost(product){
-    let cartCost = localStorage.getItem('totalCost');
-    if (cartCost != null){
-        cartCost = parseInt(cartCost);
-        localStorage.setItem('totalCost', cartCost + product.price);
-    } else {
-        localStorage.setItem('totalCost', product.price);
+function updateTotalCost(){
+    let cartItems = localStorage.getItem('inCart');
+    cartItems = JSON.parse(cartItems);
+    let cartCost = 0;
+    for (let i=0; i < cartItems.length; i++){
+        let cost = cartItems[i].price * cartItems[i].quantity;
+        cartCost += cost;
     }
-}
-
-function subTotalCost(product){
-    let cartCost = localStorage.getItem('totalCost');
-    if (cartCost != null){
-        cartCost = parseInt(cartCost);
-        localStorage.setItem('totalCost', cartCost - product.price);
-    } else {
-        localStorage.setItem('totalCost', product.price);
-    }
+    localStorage.setItem('cartCost', cartCost);
 }
 
 // when "+" is clicked, do everything required
 for (let i=0; i < addCarts.length; i++){
     addCarts[i].addEventListener('click', () => {
-        addCartNumber(products[i]);
+        addCartNumber(foods[i]);
         onLoadCartNumbers();
-        addTotalCost(products[i]);
+        updateTotalCost()
         displayCart();
     })
 }
@@ -159,31 +128,32 @@ for (let i=0; i < addCarts.length; i++){
 // when "-" is clicked, do everything required
 for (let i=0; i < removeCarts.length; i++){
     removeCarts[i].addEventListener('click', () => {
-        subCartNumber(products[i]);
+        subCartNumber(foods[i]);
         onLoadCartNumbers();
-        subTotalCost(products[i]);
+        //subTotalCost(foods[i]);
+        updateTotalCost()
         displayCart();
     })
 }
 
-
+// display cart
 function displayCart(){
     let cartItems = localStorage.getItem("inCart");
     cartItems = JSON.parse(cartItems);
-    let productContainer = document.querySelector(".products");
+    let foodContainer = document.querySelector(".foods");
     let cartCost = localStorage.getItem('totalCost');
 
-    if (cartItems && productContainer){
-        productContainer.innerHTML = '';
+    if (cartItems && foodContainer){
+        foodContainer.innerHTML = '';
         Object.values(cartItems).map(item => {
-            productContainer.innerHTML += `
-                <div class="product">
+            foodContainer.innerHTML += `
+                <div class="food">
                     <ion-icon name="close-circle"></ion-icon>
                     <img src="./images/${item.food_name}.jpg">
                     <span>${item.food_name}</span>
                 </div>
                 <div class="price">${item.price},00</div>
-                <div class=""quantity>
+                <div class="quantity">
                 <ion-icon class="decrease"
                 name="arrow-dropright-circle"></ion-icon>
                 </div>
@@ -194,7 +164,7 @@ function displayCart(){
             
         });
 
-        productContainer.innerHTML += `
+        foodContainer.innerHTML += `
             <div class="bassketTotalContainer">
                 <h4 class="basketTotalTitle">
                     Basket Total

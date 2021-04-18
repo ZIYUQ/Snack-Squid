@@ -24,13 +24,12 @@
 <h1>Snacks</h1>
 <ul>
     {{#each snacks}}
-
         <div class="image" id={{this._id}}>
         <li>
             <a href="/menu/food_id={{this._id}}">{{this.food_name}}</a>
-            <p>price = {{this.price}}</p>
-            <a class="addCart" href="#">+</a>
-            <a class="removeCart" href="#">-</a>
+            <p class="food_price" id="{{this.food_name}}">{{this.price}}</p>
+            <button type="button" class="addCart">+</button>
+            <button type="button" class="removeCart">-</button>
         </li>
         </div>
 
@@ -44,10 +43,10 @@
         <div class="image" id={{this._id}}>
         <li>
             <a href="/menu/food_id={{this._id}}">{{this.food_name}}</a>
-            <p>price = {{this.price}}</p>
+            <p class="food_price" id="{{this.food_name}}">{{this.price}}</p>
+            <button type="button" class="addCart">+</button>
+            <button type="button" class="removeCart">-</button>
         </li>
-            <a class="addCart" href="#">+</a>
-            <a class="removeCart" href="#">-</a>
         </div>
 
     {{/each}}
