@@ -1,4 +1,4 @@
-<section id="menuPage">
+<section id="menu">
     <title>Menu</title>
 
     <link rel="stylesheet" href="../css/menu.css">
@@ -17,6 +17,7 @@
         </div>
 
         <div class="products">
+
         </div>
 
 
@@ -25,6 +26,7 @@
 {{#each food}}
     <title>Menu: {{this.food_name}}</title>
 
+    <img src="../images/{{this.photo}}" alt="">
     <h1>{{this.food_name}}</h1>
     <p>description: {{this.description}}</p>
     <p class="food_price" id="{{this.food_name}}">{{this.price}}</p>
