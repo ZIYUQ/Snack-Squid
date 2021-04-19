@@ -9,10 +9,6 @@ app.use('/', express.static('html'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-const { Van } = require('./models/van')
-const db = require('./db')
-
-
 //set up vanRouter
 const vanRouter = require('./routes/vanRoutes')
     //Use directory public to serve images, css files, javascript

@@ -32,8 +32,12 @@ const addVan = (req, res) => {
         mobile_number: req.body.mobileNumber,
         location: null
     })
-    db.collection('Vans').insertOne(newVan)
-    return res.redirect('/')
+    newVan.save((err, result) => {
+        if (err) return err
+        res.send(result)
+        return res.redirect('/')
+    })
+
 }
 
 // find van by id

@@ -23,7 +23,7 @@ app.use(express.static('public'))
 
 app.engine('hbs', exphbs({
     defaultlayout: 'main',
- 	extname: 'hbs'
+    extname: 'hbs'
 }))
 
 app.set('view engine', 'hbs')
@@ -39,11 +39,11 @@ app.use('/customer/menu', menuRouterCT)
 
 // Vendor app
 app.get('/vendor', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/index.html'))
+    res.sendFile(path.join(__dirname + '/views/vendor/index.html'))
 })
 
 app.get('/vendor/register', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/registration.html'))
+    res.sendFile(path.join(__dirname + '/views/vendor/registration.html'))
 })
 
 app.get('/vendor/open-for-business/name=:van_name', (req, res) => {
@@ -57,9 +57,8 @@ app.use('/vendor/open-for-business', openRouterVD)
 app.use('/vendor', loginRouterVD)
 
 app.use('/vendor/order', orderRouterVD)
-// routers in register
+    // routers in register
 app.use('/vendor/register', registerRouterVD)
-
 
 app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')

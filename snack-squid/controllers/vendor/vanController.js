@@ -1,5 +1,4 @@
 const { Van } = require('../../model/van')
-const db = require('../../db')
 
 // find the van by van_name
 
@@ -22,9 +21,9 @@ const addVan = (req, res) => {
     if (!req.body.password) {
         return res.status(404).send('you have to enter the password')
     }
-    if (req.body.comfirmPassword != req.body.password) {
-        return res.status(404).send('you have to enter the same password')
-    }
+    // if (req.body.comfirmPassword != req.body.password) {
+    //     return res.status(404).send('you have to enter the same password')
+    // }
     const newVan = new Van({
         van_name: req.body.vanName,
         password: req.body.password,
@@ -32,8 +31,11 @@ const addVan = (req, res) => {
         mobile_number: req.body.mobileNumber,
         location: null
     })
-    db.collection('Vans').insertOne(newVan)
-    return res.redirect('/')
+    newVan.save((err, result) => {
+        if (err) res.send(err)
+        res.redirect('/vendor')
+    })
+
 }
 
 // find van by id

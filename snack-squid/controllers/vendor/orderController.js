@@ -1,5 +1,4 @@
-const { Order } = require('../../model/van')
-const orderRouter = require('../../routes/vendor/orderRouter')
+const { Order } = require('../../model/order')
 
 const getVanOrder = async(req, res) => {
     try {
