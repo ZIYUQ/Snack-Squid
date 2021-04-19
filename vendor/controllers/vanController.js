@@ -1,5 +1,4 @@
 const { Van } = require('../models/van')
-const db = require('../db')
 
 // find the van by van_name
 
@@ -9,7 +8,6 @@ const getAllVan = async(req, res) => {
         const vans = await Van.find({})
         return res.send(vans)
     } catch (err) {
-
         return res.status(400).send("Database query failed")
     }
 }
@@ -22,22 +20,30 @@ const addVan = (req, res) => {
     if (!req.body.password) {
         return res.status(404).send('you have to enter the password')
     }
-    if (req.body.comfirmPassword != req.body.password) {
-        return res.status(404).send('you have to enter the same password')
-    }
+    // if (req.body.comfirmPassword != req.body.password) {
+    //     return res.status(404).send('you have to enter the same password')
+    // }
     const newVan = new Van({
         van_name: req.body.vanName,
         password: req.body.password,
         email_address: req.body.emailAddress,
         mobile_number: req.body.mobileNumber,
-        location: null
+        location: "",
+        open: false
     })
+    newVan.save((err, result) => {
+        if (err) res.send(err)
+        return res.send(result)
+    })
+<<<<<<< Updated upstream
     newVan.save((err, result) => {
         if (err) return err
         res.send(result)
         return res.redirect('/')
     })
 
+=======
+>>>>>>> Stashed changes
 }
 
 // find van by id
@@ -96,11 +102,12 @@ const login = async(req, res) => {
         password: req.body.password
     }, { van_name: true })
     if (result) {
-        res.redirect('/open-for-business/name=' + result['van_name'])
+        res.send(result)
     } else {
         res.send('<h1>no such van</h1>')
     }
 }
+
 module.exports = {
     getAllVan,
     addVan,
