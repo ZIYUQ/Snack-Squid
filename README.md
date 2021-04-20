@@ -33,7 +33,7 @@ Notes:
 2. If the route is working, a json formatted output will be sent to you.
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
-2. To see details of one food. go to [https://snack-squid.herokuapp.com/customer/menu/:tag] with GET method. Replace **:tag** with one of the following:
+2. To see the details of one specific food. go to [https://snack-squid.herokuapp.com/customer/menu/:tag] with GET method. Replace **:tag** with one of the following:
     |      Food     |      :tag     |
     | :---          |          ---: |
     | Small Cake    | small-cake    |
@@ -48,7 +48,11 @@ Notes:
     ```    
     [    
         {
-            "foodTag": tag
+            "foodTag": tag,
+            "quantity": quantity
+        },
+        {
+            "foodTag": tag,
             "quantity": quantity
         }
     ]
