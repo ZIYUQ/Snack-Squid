@@ -1,5 +1,4 @@
 const { Van } = require('../models/van')
-const db = require('../db')
 
 // find the van by van_name
 
@@ -9,7 +8,6 @@ const getAllVan = async(req, res) => {
         const vans = await Van.find({})
         return res.send(vans)
     } catch (err) {
-
         return res.status(400).send("Database query failed")
     }
 }
@@ -22,18 +20,23 @@ const addVan = (req, res) => {
     if (!req.body.password) {
         return res.status(404).send('you have to enter the password')
     }
-    if (req.body.comfirmPassword != req.body.password) {
-        return res.status(404).send('you have to enter the same password')
-    }
+    // if (req.body.comfirmPassword != req.body.password) {
+    //     return res.status(404).send('you have to enter the same password')
+    // }
     const newVan = new Van({
         van_name: req.body.vanName,
         password: req.body.password,
         email_address: req.body.emailAddress,
         mobile_number: req.body.mobileNumber,
-        location: null
+        location: "",
+        open: false
     })
-    db.collection('Vans').insertOne(newVan)
-    return res.redirect('/')
+
+    newVan.save((err, result) => {
+        if (err) return err
+        return res.redirect('/')
+    })
+
 }
 
 // find van by id
@@ -87,14 +90,23 @@ const getVanByName = async(req, res) => {
 }
 
 const login = async(req, res) => {
-    result = await Van.findOne({
-        van_name: req.body.van_name,
-        password: req.body.password
-    }, { van_name: true })
-    if (result) {
-        res.redirect('/open-for-business/name=' + result['van_name'])
-    } else {
-        res.send('<h1>no such van</h1>')
+    try {
+        Van.findOne({
+            van_name: req.body.van_name,
+            password: req.body.password
+        }).then((userInfo) => {
+            if (!userInfo) {
+                console.log('van is not exist')
+                return
+            }
+            let data = {}
+            data['username'] = userInfo.van_name
+            data['password'] = userInfo.password
+            req.session.userInfo = data
+            res.redirect('/open-for-business')
+        })
+    } catch (err) {
+        console.log(err)
     }
 }
 module.exports = {

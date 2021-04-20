@@ -125,7 +125,7 @@ function displayCart(){
             foodContainer.innerHTML += `
                 <div class="food">
                     <ion-icon name="close-circle"></ion-icon>
-                    <img src="../customer/images/${item.food_name}.jpg">
+                    <img src="/customer/images/${item.food_name}.jpg">
                     <span>${item.food_name}</span>
                 </div>
                 <div class="price">${item.price},00</div>

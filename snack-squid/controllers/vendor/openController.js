@@ -1,5 +1,4 @@
 const { Van } = require('../../model/van')
-const db = require('../../db')
 
 // print all vans that are open
 const findAllOpen = async(req, res) => {

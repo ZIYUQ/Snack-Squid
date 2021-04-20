@@ -7,9 +7,16 @@ const findAllOpen = async(req, res) => {
     res.send(result)
 }
 
+const findOpenByVan = async(req, res) => {
+    res.send(req.session.userInfo.username)
+        // result = await Van.find({ van_name: req.session.username, open: true }, {})
+        // res.send(result)
+}
+
+
 // find the van by name and change the value open as true
 const openForBusiness = async(req, res) => {
-    let name = req.params.van_name
+    let name = req.session.userInfo.van_name
     let location = req.body.location
     try {
         let thisVan = await Van.findOne({ van_name: name }, { open: true })
@@ -33,7 +40,7 @@ const openForBusiness = async(req, res) => {
         }
 
     } catch (err) {
-        res.status(400).send('Database query failed')
+        res.send(err)
     }
 }
 
@@ -60,5 +67,6 @@ module.exports = {
     findAllOpen,
     openForBusiness,
     closeForBusiness,
-    updateLocation
+    updateLocation,
+    findOpenByVan
 }

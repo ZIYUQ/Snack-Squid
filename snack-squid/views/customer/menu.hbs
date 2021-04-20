@@ -1,7 +1,7 @@
 <section id="menu">
     <title>Menu</title>
 
-    <link rel="stylesheet" href="../customer/css/menu.css">
+    <link rel="stylesheet" href="/customer/css/menu.css">
 
     <h3 class="cart">
         <ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span>
@@ -27,7 +27,7 @@
     {{#each snacks}}
         <div class="image" id={{this._id}}>
         <li>
-            <img src="../customer/images/{{this.photo}}" alt="">
+            <img src="/customer/images/{{this.photo}}" alt="">
             <a href="menu/food_id={{this._id}}">{{this.food_name}}</a>
             <p class="food_price" id="{{this.food_name}}">{{this.price}}</p>
             <button type="button" class="addCart">+</button>
@@ -44,7 +44,7 @@
 
         <div class="image" id={{this._id}}>
         <li>
-            <img src="../customer/images/{{this.photo}}" alt="">
+            <img src="/customer/images/{{this.photo}}" alt="">
             <a href="menu/food_id={{this._id}}">{{this.food_name}}</a>
             <p class="food_price" id="{{this.food_name}}">{{this.price}}</p>
             <button type="button" class="addCart">+</button>
@@ -57,7 +57,7 @@
 
     <button onclick="placeOrder()">Place Order</button>
 
-    <script src="../customer/js/cart.js"></script>
+    <script src="/customer/js/cart.js"></script>
 
 
 </section>
