@@ -21,7 +21,7 @@ const openForBusiness = async(req, res) => {
                 if (thisVan['open'] === false) {
                     if (updateLocation(name, location, res)) {
                         await Van.updateOne({ van_name: name }, { $set: { open: true } })
-                        return res.redirect('/order/name=:van_name')
+                        res.redirect('/vendor/order/name=' + name)
                     } else {
                         return res.send('no location')
                     }
