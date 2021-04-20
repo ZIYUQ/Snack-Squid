@@ -21,11 +21,14 @@
 
     <div class = "container">
         <h1 id="title">MENU</h1>
-        <div id="subtitle1">
-            <div id="snackicon-img"></div>
-            <h2>Snacks</h2>
-        </div>
+        {{!-- 大括号 --}}
             <div class="snacks">
+            {{!-- snack圆形小图标 --}}
+            <div id="subtitle1">
+                <div id="snackicon-img"></div>
+                <h2>Snacks</h2>
+            </div>
+            {{!-- snack item --}}
             {{#each snacks}}
                 <div class="foodListing" id="{{this.food_id}}">
                     <a href="/menu/food_id={{this._id}}">
@@ -41,14 +44,18 @@
 
                 </div>
             {{/each}}
+
             </div>
 
 
-        <div id="subtitle2">
-            <div id="drinkicon-img"></div>
-            <h2>Drinks</h2>
-        </div>
+
             <div class="drinks">
+                
+            <div id="subtitle2">
+                <div id="drinkicon-img"></div>
+                <h2>Drinks</h2>
+            </div>
+
             {{#each drinks}}
                 <div class="foodListing" id="{{this.food_id}}">
                     <a href="/menu/food_id={{this._id}}">
