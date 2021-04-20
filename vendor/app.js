@@ -3,6 +3,8 @@ const app = express()
 const path = require('path')
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 8080
+const cookie = require('cookie-parser')
+const session = require('express-session')
 
 app.use(express.json())
 app.use('/', express.static('html'))
@@ -22,6 +24,16 @@ const loginRouter = require('./routes/loginRoutes')
 
 app.use(express.static('public'))
 
+app.use(cookie('express_cookie'))
+app.use(session({
+    secret: 'express_cookie',
+    resave: false,
+    saveUnitialized: true,
+    cookie: { maxAge: 60 * 1000 * 30 },
+    rolling: true
+}))
+
+
 // get index html page log in page, enter Peter for van name, enter 8888 for password
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/index.html'))
@@ -31,8 +43,8 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/registration.html'))
 })
 
-app.get('/open-for-business/name=:van_name', (req, res) => {
-    res.send("Please post location")
+app.get('/open-for-business/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/open.html'))
 })
 
 app.use('/van-management', vanRouter)
