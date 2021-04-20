@@ -1,7 +1,7 @@
 <section id="menu">
     <title>Menu</title>
 
-    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="../css/menu.css">
 {{!-- 
     <h3 class="cart">
         <ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span>
@@ -32,7 +32,7 @@
             {{#each snacks}}
                 <div class="foodListing" id="{{this.food_id}}">
                     <a href="/menu/food_id={{this._id}}">
-                    <img src="images/{{this.photo}}" alt="{{this.food_name}}"></a>
+                    <img src="../images/{{this.photo}}" alt="{{this.food_name}}"></a>
 
                         <div id="food-detail">
                         <span class="foodname">{{this.food_name}}</span>
@@ -59,7 +59,7 @@
             {{#each drinks}}
                 <div class="foodListing" id="{{this.food_id}}">
                     <a href="/menu/food_id={{this._id}}">
-                    <img src="images/{{this.photo}}" alt="{{this.food_name}}"></a>
+                    <img src="../images/{{this.photo}}" alt="{{this.food_name}}"></a>
 
                     <div id="food-detail">
                     <span class="foodname">{{this.food_name}}</span>
