@@ -9,8 +9,8 @@ const placeOrder = async(req, res) =>{
         // get food price and calculate the total price
         for (let i=0; i < cart.length; i++){
             // get the food price
-            let foodId = new ObjectId(cart[i]["foodId"])
-            let foodDetails = await Menu.findOne({ _id: foodId }, { foodName: true, price:true })
+            let foodTag = cart[i]["foodTag"]
+            let foodDetails = await Menu.findOne({ tag: foodTag }, { foodName: true, price:true })
             cart[i]["foodName"] = foodDetails.foodName
             cart[i]["price"] = foodDetails.price
             totalPrice += cart[i]["price"] * cart[i]["quantity"]
@@ -18,10 +18,10 @@ const placeOrder = async(req, res) =>{
 
         // create new order
         const newOrder = new Order({
-            van_name: "Peter",
+            vanName: "SnackSquid",
             givenName: "Cathy",
             familyName: "Yu",
-            emailAddress: "email@address.com",
+            emailAddress: "cathyu@gmail.com",
             details: cart,
             total: totalPrice,
             status: "preparing"

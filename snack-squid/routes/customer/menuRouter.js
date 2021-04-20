@@ -8,7 +8,7 @@ const router = express.Router()
 router.get('/', (req, res) => menuController.getMenu(req, res))
 
 // get details of food
-router.get('/food_id=:_id', menuController.getFoodDetails)
+router.get('/:tag', menuController.getFoodDetails)
 
 // place order
 router.post('/', orderController.placeOrder)
