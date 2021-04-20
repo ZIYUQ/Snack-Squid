@@ -95,7 +95,7 @@ const login = async(req, res) => {
         password: req.body.password
     }, { vanName: true })
     if (result) {
-        res.redirect('/open-for-business/name=' + result['vanName'])
+        res.redirect('/open-for-business/:' + result['vanName'])
     } else {
         res.send('<h1>no such van</h1>')
     }
