@@ -30,7 +30,7 @@ Project is created with:
 ## Deliverable 2 Instruction
 Notes: 
 1. Use *Postman* to test our routes.
-2. If the route works, a json formatted output will be sent to you.
+2. If the route is working, a json formatted output will be sent to you.
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
 2. To see details of one food. go to [https://snack-squid.herokuapp.com/customer/menu/:tag] with GET method. Replace **:tag** with one of the following:
