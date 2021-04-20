@@ -35,6 +35,7 @@ Notes:
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
 2. To see details of one food. go to [https://snack-squid.herokuapp.com/customer/menu/:tag] with GET method. Replace **:tag** with one of the following:
     |      Food     |      :tag     |
+    | :---          |          ---: |
     | Small Cake    | small-cake    |
     | Big Cake      | big-cake      |
     | Plain Biscuit | plain-biscuit |
@@ -43,7 +44,7 @@ Notes:
     | Long Black    | long-black    |
     | Cappuccino    | cappuccino    |
     | Flat White    | flat-white    |
-3. To place an order, go to [https://snack-squid.herokuapp.com/customer/menu] with POST method and insert yout order as shown below
+3. To place an order, go to [https://snack-squid.herokuapp.com/customer/menu] with POST method and insert yout order in this format
     [
         {
             "foodTag": tag
