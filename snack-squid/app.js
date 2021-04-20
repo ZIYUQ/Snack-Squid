@@ -46,7 +46,7 @@ app.get('/vendor/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/vendor/registration.html'))
 })
 
-app.get('/vendor/open-for-business/name=:van_name', (req, res) => {
+app.get('/vendor/open-for-business/name=:vanName', (req, res) => {
     res.send("Please post location")
 })
 

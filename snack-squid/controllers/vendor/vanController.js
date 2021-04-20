@@ -1,6 +1,6 @@
 const { Van } = require('../../model/van')
 
-// find the van by van_name
+// find the van by vanName
 
 // return all teh van
 const getAllVan = async(req, res) => {
@@ -16,7 +16,7 @@ const getAllVan = async(req, res) => {
 // add new Van
 const addVan = (req, res) => {
     if (!req.body.vanName) {
-        return res.status(404).send('you have to enter a valid van_name')
+        return res.status(404).send('you have to enter a valid vanName')
     }
     if (!req.body.password) {
         return res.status(404).send('you have to enter the password')
@@ -25,15 +25,16 @@ const addVan = (req, res) => {
     //     return res.status(404).send('you have to enter the same password')
     // }
     const newVan = new Van({
-        van_name: req.body.vanName,
+        vanName: req.body.vanName,
         password: req.body.password,
-        email_address: req.body.emailAddress,
-        mobile_number: req.body.mobileNumber,
-        location: null
+        emailAddress: req.body.emailAddress,
+        mobileNumber: req.body.mobileNumber,
+        location: null,
+        open: false
     })
     newVan.save((err, result) => {
         if (err) res.send(err)
-        res.redirect('/vendor')
+        res.send(result)
     })
 
 }
@@ -58,7 +59,7 @@ const getVanById = async(req, res) => {
 const getVanByNameAndPassword = async(req, res) => {
     try {
         const oneVan = await Van.findOne({
-            van_van_name: req.params.van_van_name,
+            vanName: req.params.vanName,
             password: req.params.password
         })
         if (oneVan === null) {
@@ -75,7 +76,7 @@ const getVanByNameAndPassword = async(req, res) => {
 const getVanByName = async(req, res) => {
     try {
         const oneVan = await Van.findOne({
-            van_name: req.params.van_name
+            vanName: req.params.vanName
         })
         if (oneVan === null) {
             res.status(404)
@@ -90,11 +91,11 @@ const getVanByName = async(req, res) => {
 
 const login = async(req, res) => {
     result = await Van.findOne({
-        van_name: req.body.van_name,
+        vanName: req.body.vanName,
         password: req.body.password
-    }, { van_name: true })
+    }, { vanName: true })
     if (result) {
-        res.redirect('/open-for-business/name=' + result['van_name'])
+        res.redirect('/open-for-business/name=' + result['vanName'])
     } else {
         res.send('<h1>no such van</h1>')
     }
