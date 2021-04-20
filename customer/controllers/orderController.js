@@ -5,8 +5,9 @@ const { addNewCustomer } = require("./customerController")
 
 const placeOrder = async(req, res) =>{
     try{
+        const van = req.params.van_name
         const newOrder = new Order({
-            van_name: "Peter",
+            van_name: van,
             given_name: "Cathy",
             family_name: "Yu",
             email_address: "email@address.com",
