@@ -45,12 +45,14 @@ Notes:
     | Cappuccino    | cappuccino    |
     | Flat White    | flat-white    |
 3. To place an order, go to [https://snack-squid.herokuapp.com/customer/menu] with POST method and insert yout order in this format
-    [
+    ```    
+    [    
         {
             "foodTag": tag
             "quantity": quantity
         }
     ]
+    ```
     and replace **tag** with **:tag** in the table provided above. An order detail will be sent to you in json format once the order has been sent successfully. Please note that you are only required to insert foodTag and quantity as you are assummed logged in and a van is assummed selected.
 
 
