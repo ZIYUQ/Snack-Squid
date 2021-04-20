@@ -161,7 +161,8 @@ function placeOrder(){
         },
         body: cartItems
     };
-    fetch('/menu', options);
+    // fetch('/menu', options);
+    fetch('/menu/van=van_name', options);
     localStorage.removeItem('inCart');
     localStorage.removeItem('totalCost');
     localStorage.removeItem('cartNumbers');

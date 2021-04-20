@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 const customerRouter = require('./routes/customerRouter')
 const menuRouter = require('./routes/menuRouter')
+const findVanRouter = require('./routes/findVanRouter')
 
 const app = express()
 app.use(express.json())
@@ -27,6 +28,8 @@ app.get('/', (req, res) => {
 app.use('/menu', menuRouter)
 
 app.use('/customer', customerRouter)
+
+app.use('/findvan', findVanRouter)
 
 app.all('*', (req, res) => { // 'default' route to catch user errors
     res.status(404).send('<p>invalid request</p>')

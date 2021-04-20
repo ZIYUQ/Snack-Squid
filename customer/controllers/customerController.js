@@ -1,4 +1,5 @@
 const { Customer } = require("../model/customer")
+const customerRouter = require("../routes/customerRouter")
 
 // const db = require('../model/index')
 
@@ -43,6 +44,18 @@ const addNewCustomer = async(req, res) => {
 
     } catch (err) {
         return res.status(400).send("insert data fail")
+    }
+}
+
+const login = async (req, res) =>{
+    try{
+        user = await customer.find(
+            {email_address: req.body.email_address,
+             password: req.body.password
+         }, {givenName: true})
+        res.send(user)
+    }catch (err){
+        return res.status(400).send("error")
     }
 }
 
