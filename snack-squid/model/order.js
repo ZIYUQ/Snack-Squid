@@ -2,7 +2,8 @@ const mongoose = require("mongoose")
 
 const cartSchema = new mongoose.Schema({
     _id: false,
-    food_name: { type: String, required: true },
+    foodId: { type: mongoose.Types.ObjectId, ref: "menu" },
+    foodName: { type: String, required: true },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true, min: 1 }
 
@@ -15,14 +16,14 @@ const feedbackSchema = new mongoose.Schema({
 })
 
 const orderSchema = new mongoose.Schema({
-    given_name: { type: String },
-    family_name: { type: String },
-    email_address: { type: String },
-    van_name: { type: String },
-    order_time: { type: Date, default: Date.now },
+    givenName: { type: String },
+    familyName: { type: String },
+    emailAddress: { type: String },
+    vanName: { type: String },
+    orderTime: { type: Date, default: Date.now , required: false},
     status: String,
     details: { type: [cartSchema], required: true },
-    total: { type: Number , default:0},
+    total: { type: Number , required: true},
     timestamp: { type: Number , default: 10, required: false },
     discount:{ type: Boolean, default: false, required: false},
     feedback: { type: feedbackSchema },
