@@ -3,11 +3,15 @@
 
 # Snack Squid Repository
 
+## Updates
+### 23 April 2021
+To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction).
+
+
 ## Table of contents
 * [Team Members](#team-members)
-* [Deliverable 2 Instruction](#deliverable-2-instruction)
-* [General Info](#general-info)
 * [Technologies](#technologies)
+* [Deliverable 2 Instruction](#deliverable-2-instruction)
 * [Code Implementation](#code-implementation)
 
 ## Team Members
@@ -28,7 +32,7 @@ Project is created with:
 * mongoose : 5.12.3
 
 ## Deliverable 2 Instruction
-Notes: 
+### Notes: 
 1. Use *Postman* to test our routes.
 2. If the route is working, a json formatted output will be sent to you.
 ### Customer
