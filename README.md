@@ -57,10 +57,21 @@ Notes:
 
 ### Vendor
 1. To set the van status, using the route [http://snack-squid.herokuapp.com/vendor/open-for-business/:vanName] using POST method. If you have "location" in you req.body, it will update the location and change open status as true. If you have no location, it will send a message "You have to enter location"
+[
+    {
+        "location": "Melbourne"
+    }
+]
 
 2. To show the list of all outstanding orders,go to [http://snack-squid.herokuapp.com/vendor/order] and it will show the orders of all vans. If want to get orders for specific van, using [http://snack-squid.herokuapp.com/vendor/order/:vanName]
 
 3. To mark an order as "fulfilled", go to [http://snack-squid.herokuapp.com/vendor/order/:vanName] and use "_id" in req.body to look up specific order of the van and mark it as fulfilled. The status of order in mongodb will be "fulfilled"
+[
+    {
+        "_id_": "607eef20e3dfec21027b9b93"
+    }
+]
+
 
 **Now Get ready to complete all the tasks:**
 
