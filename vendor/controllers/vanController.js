@@ -35,15 +35,12 @@ const addVan = (req, res) => {
         if (err) res.send(err)
         return res.send(result)
     })
-<<<<<<< Updated upstream
     newVan.save((err, result) => {
         if (err) return err
         res.send(result)
         return res.redirect('/')
     })
 
-=======
->>>>>>> Stashed changes
 }
 
 // find van by id
@@ -97,17 +94,25 @@ const getVanByName = async(req, res) => {
 }
 
 const login = async(req, res) => {
-    result = await Van.findOne({
-        van_name: req.body.van_name,
-        password: req.body.password
-    }, { van_name: true })
-    if (result) {
-        res.send(result)
-    } else {
-        res.send('<h1>no such van</h1>')
+    try {
+        Van.findOne({
+            van_name: req.body.van_name,
+            password: req.body.password
+        }).then((userInfo) => {
+            if (!userInfo) {
+                console.log('van is not exist')
+                return
+            }
+            let data = {}
+            data['username'] = userInfo.van_name
+            data['password'] = userInfo.password
+            req.session.userInfo = data
+            res.redirect('/open-for-business')
+        })
+    } catch (err) {
+        console.log(err)
     }
 }
-
 module.exports = {
     getAllVan,
     addVan,
