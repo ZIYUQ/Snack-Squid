@@ -3,7 +3,7 @@ const { Menu } = require('../../model/menu')
 // get menu
 const getMenu = async(req, res) => {
     try{
-        const foods = await Menu.find({ type: 'snack' }, { food_name: true, price: true, photo: true }).lean()
+        const foods = await Menu.find({}, { food_name: true, price: true, photo: true }).lean()
         const snacks = await Menu.find({ type: 'snack' }, { food_name: true, price: true, photo: true }).lean()
         const drinks = await Menu.find({ type: 'drink' }, { food_name: true, price: true, photo: true }).lean()
         //res.render('customer/menu', {"snacks": snacks, "drinks": drinks})
