@@ -31,13 +31,9 @@ const addVan = (req, res) => {
         location: "",
         open: false
     })
-    newVan.save((err, result) => {
-        if (err) res.send(err)
-        return res.send(result)
-    })
+
     newVan.save((err, result) => {
         if (err) return err
-        res.send(result)
         return res.redirect('/')
     })
 
