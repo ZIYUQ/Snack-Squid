@@ -13,7 +13,7 @@ const getMenu = async(req, res) => {
 
 const getFoodDetails = async(req, res) => {
     try{
-        const food = await Menu.find({ _id: req.params._id }, { food_name: true, price: true, photo: true , description: true}).lean()
+        const food = await Menu.find({ _id: req.params._id }, { foodName: true, price: true, photo: true , description: true}).lean()
         res.render('foodDetails', {"food": food})
     } catch (err){
         console.log(err)
