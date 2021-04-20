@@ -1,8 +1,11 @@
 body {
     width: 1024px;
     height: 768px;
-    background-color: blue;
     margin: auto;
+    background:  url(../images/RegistrationBG.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .logo {
