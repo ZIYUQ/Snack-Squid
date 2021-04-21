@@ -46,9 +46,9 @@ app.get('/vendor/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/vendor/registration.html'))
 })
 
-app.get('/vendor/open-for-business/:vanName', (req, res) => {
-    res.send('Please post location')
-})
+// app.get('/vendor/open-for-business/:vanName', (req, res) => {
+//     res.send('Please post location')
+// })
 
 app.get("/vendor/order/:vanName", (req, res) => {
     res.send('You can mark an order by its id to be fulfilled')

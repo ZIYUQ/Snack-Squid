@@ -16,13 +16,13 @@ To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-
 
 ## Team Members
 
-| Name         |   State  |
-| :---         |     ---: |
-| Tom Zhi Hern | Amazing! |
-| Qian Ziyu    | Amazing! |
-| Yu Kaixin    | Amazing! |
-| Yi Qiteng    | Amazing! |
-| Chen Yi      | Amazing! |
+| Name         |   State  |  StudentID  |
+| :---         |   -----  |       ---:  |
+| Tom Zhi Hern | Working  |   1068268   |
+| Qian Ziyu    | Working  |   1067810   |
+| Yu Kaixin    | Working  |   1118795   |
+| Yi Qiteng    | Working  |   1048534   |
+| Chen Yi      | Working  |
 
 
 ## Technologies
@@ -64,7 +64,7 @@ Project is created with:
     and replace **tag** with **:tag** in the table provided above. An order detail will be sent to you in json format once the order has been sent successfully. Please note that you are only required to insert foodTag and quantity as you are assummed logged in and a van is assummed selected.
 
 ### Vendor
-1. To set the van status, using the route [http://snack-squid.herokuapp.com/vendor/open-for-business/:vanName] using POST method. If you have "location" in you req.body, it will update the location and change open status as true. If you have no location, it will send a message "You have to enter location"
+1. To set the van status, using the route [http://snack-squid.herokuapp.com/vendor/open-for-business/:[samplevan]] using POST method. If you have "location" in you req.body, it will update the location and change open status as true. If you have no location, it will send a message "You have to enter location"
 [
     {
         "location": "Melbourne"

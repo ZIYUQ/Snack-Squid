@@ -1,9 +1,19 @@
 const { Van } = require('../../model/van')
 
 // print all vans that are open
-const findAllOpen = async(req, res) => {
-    result = await Van.find({ open: true }, {})
-    res.send(result)
+
+
+const findVanByName = async(req, res) => {
+    try {
+        result = await Van.findOne({ vanName: req.params.vanName }, { password: false })
+        if (result) {
+            return res.send(result)
+        } else {
+            return res.status(404).send("Van not found")
+        }
+    } catch (err) {
+        return res.status(400).send("Database query failed")
+    }
 }
 
 // find the van by name and change the value open as true
@@ -56,7 +66,7 @@ const closeForBusiness = async(req, res) => {
 }
 
 module.exports = {
-    findAllOpen,
+    findVanByName,
     openForBusiness,
     closeForBusiness,
     updateLocation
