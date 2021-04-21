@@ -1,7 +1,9 @@
 const { Order } = require('../../model/order')
 
+// Find all outstanding order
 const getVanOrder = async(req, res) => {
     try {
+        // Return if the order status is preparing
         result = await Order.find({ vanName: req.params.vanName, status: "preparing" }, {})
         if (result) {
             return res.send(result)
@@ -26,14 +28,17 @@ const getAllOrder = async(req, res) => {
     }
 }
 
+// Fulfill the order 
 const fulfillOrder = async(req, res) => {
     let id = req.body._id
+        // Find the order to be fulfilled by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")
     }
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
+            // Set status as fulfilled
             await Order.updateOne({ _id: id }, { $set: { status: 'fulfilled' } })
             return res.send('fulfilled')
         } else {

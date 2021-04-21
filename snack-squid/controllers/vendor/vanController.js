@@ -24,12 +24,13 @@ const addVan = (req, res) => {
     // if (req.body.comfirmPassword != req.body.password) {
     //     return res.status(404).send('you have to enter the same password')
     // }
+    // Set name, password, email address and mobile number
     const newVan = new Van({
         vanName: req.body.vanName,
         password: req.body.password,
         emailAddress: req.body.emailAddress,
         mobileNumber: req.body.mobileNumber,
-        location: null,
+        location: "",
         open: false
     })
     newVan.save((err, result) => {
@@ -56,23 +57,7 @@ const getVanById = async(req, res) => {
     }
 }
 
-const getVanByNameAndPassword = async(req, res) => {
-    try {
-        const oneVan = await Van.findOne({
-            vanName: req.params.vanName,
-            password: req.params.password
-        })
-        if (oneVan === null) {
-            res.status(404)
-            return res.send("Van not found")
-        }
-        return res.send(oneVan)
-    } catch (err) {
-        res.status(400)
-        return res.send("Database query failed")
-    }
-}
-
+// find van by its name 
 const getVanByName = async(req, res) => {
     try {
         const oneVan = await Van.findOne({
@@ -89,6 +74,8 @@ const getVanByName = async(req, res) => {
     }
 }
 
+// Check vanName and password when login
+// If van is valid, allow the van to set up location and open
 const login = async(req, res) => {
     result = await Van.findOne({
         vanName: req.body.vanName,
@@ -105,6 +92,5 @@ module.exports = {
     addVan,
     getVanById,
     getVanByName,
-    getVanByNameAndPassword,
     login
 }
