@@ -5,7 +5,7 @@
 
 ## Updates
 ### 23 April 2021
-To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction). Note: please mark **"snack-squid"** folder.
+To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction). Note: please mark **"snack-squid"** folder. Commit Id is
 
 
 ## Table of contents
@@ -37,8 +37,11 @@ Project is created with:
 2. If the route is working, a json formatted output will be sent to you.
 
 ### Accessing MongoDB Atlas
-Username: snacksquid
-Password: 7PjugUwztiqEZXxh
+- Username: snacksquid
+- Password: 7PjugUwztiqEZXxh
+
+### Commit ID
+
 
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
