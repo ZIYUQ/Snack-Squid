@@ -11,6 +11,6 @@ router.get('/', (req, res) => menuController.getMenu(req, res))
 router.get('/:tag', menuController.getFoodDetails)
 
 // place order
-router.post('/', orderController.placeOrder)
+router.post('/place-order', orderController.placeOrder)
 
 module.exports = router
