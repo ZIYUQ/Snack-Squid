@@ -46,7 +46,9 @@ Project is created with:
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
    ![img-01](img/img-01.png)
-1. To see the details of one specific food. go to [https://snack-squid.herokuapp.com/customer/menu/:tag] with GET method. Replace **:tag** with one of the following:
+1. To see the details of one specific food. go to [https://snack-squid.herokuapp.com/customer/menu/:tag] with GET method. 
+    ![img-02](img/img-02.png)
+    Replace **quantity** and **foodTag** with one of the following:
     |      Food     |      :tag     |
     | :---          |          ---: |
     | Small Cake    | small-cake    |
@@ -57,7 +59,6 @@ Project is created with:
     | Long Black    | long-black    |
     | Cappuccino    | cappuccino    |
     | Flat White    | flat-white    |
-    ![img-02](img/img-02.png)
 1. To place an order, go to [https://snack-squid.herokuapp.com/customer/menu] with POST method and insert yout order in this format
     ![img-03](img/img-03.png)
     An order detail will be sent to you in json format once the order has been sent successfully. Please note that you are only required to insert foodTag and quantity as you are assummed logged in and a van is assummed selected.
