@@ -5,7 +5,7 @@
 
 ## Updates
 ### 23 April 2021
-To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction). Note: please mark **"snack-squid"** folder. Commit Id is
+To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction). Note: please "*snack-squid*" folder.
 
 
 ## Table of contents
@@ -35,14 +35,6 @@ Project is created with:
 ### Notes: 
 1. Use *Postman* to test our routes.
 2. If the route is working, a json formatted output will be sent to you.
-
-### Accessing MongoDB Atlas
-- Username: snacksquid
-- Password: 7PjugUwztiqEZXxh
-
-### Commit ID
-
-
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
    ![img-01](img/img-01.png)
@@ -69,9 +61,11 @@ Project is created with:
         "location": "Melbourne"
     }
 ]
+    ![img-04](img/img-04.png)
+2. To show the list of all outstanding orders,go to [http://snack-squid.herokuapp.com/vendor/order] and it will show the orders of all vans. If want 
+to get orders for specific van, using [http://snack-squid.herokuapp.com/vendor/order/:vanName]
 
-2. To show the list of all outstanding orders,go to [http://snack-squid.herokuapp.com/vendor/order] and it will show the orders of all vans. If want to get orders for specific van, using [http://snack-squid.herokuapp.com/vendor/order/:vanName]
-
+    ![img-05](img/img-05.png)
 3. To mark an order as "fulfilled", go to [http://snack-squid.herokuapp.com/vendor/order/:vanName] and use "_id" in req.body to look up specific order of the van and mark it as fulfilled. The status of order in mongodb will be "fulfilled"
     ``` 
     [
@@ -81,6 +75,7 @@ Project is created with:
     ]
     ``` 
 
+    ![img-06](img/img-06.png)
 
 **Now Get ready to complete all the tasks:**
 
