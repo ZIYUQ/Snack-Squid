@@ -10,9 +10,13 @@ const placeOrder = async(req, res) =>{
         for (let i=0; i < cart.length; i++){
             // get the food price
             let foodTag = cart[i]["foodTag"]
-            let foodDetails = await Menu.findOne({ tag: foodTag }, { foodName: true, price:true })
-            cart[i]["foodName"] = foodDetails.foodName
-            cart[i]["price"] = foodDetails.price
+            try {
+                let foodDetails = await Menu.findOne({tag: foodTag}, {foodName: true, price: true})
+                cart[i]["foodName"] = foodDetails.foodName
+                cart[i]["price"] = foodDetails.price
+            } catch (err) {
+                return res.send("Database query failed!")
+            }
             totalPrice += cart[i]["price"] * cart[i]["quantity"]
         }
 
