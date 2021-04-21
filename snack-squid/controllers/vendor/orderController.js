@@ -29,15 +29,15 @@ const getAllOrder = async(req, res) => {
 const fulfillOrder = async(req, res) => {
     let id = req.body._id
     if (id === undefined || id === null) {
-        res.send("no order found")
+        return res.send("no order found")
     }
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
             await Order.updateOne({ _id: id }, { $set: { status: 'fulfilled' } })
-            res.send('fulfilled')
+            return res.send('fulfilled')
         } else {
-            res.send('no order found')
+            return res.send('no order found,please enter order id')
         }
     } catch (err) {
         return res.status(400).send('Database query failed')
