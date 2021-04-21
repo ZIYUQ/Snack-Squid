@@ -22,7 +22,7 @@ To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-
 | Qian Ziyu    | Working  |   1067810   |
 | Yu Kaixin    | Working  |   1118795   |
 | Yi Qiteng    | Working  |   1048534   |
-| Chen Yi      | Working  |
+| Chen Yi      | Working  |   911748    |
 
 
 ## Technologies
