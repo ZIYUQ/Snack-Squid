@@ -5,7 +5,7 @@
 
 ## Updates
 ### 23 April 2021
-To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction). Note: please "*snack-squid*" folder.
+To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction). Note: please mark **"snack-squid"** folder.
 
 
 ## Table of contents
@@ -35,6 +35,11 @@ Project is created with:
 ### Notes: 
 1. Use *Postman* to test our routes.
 2. If the route is working, a json formatted output will be sent to you.
+
+### Accessing MongoDB Atlas
+Username: snacksquid
+Password: 7PjugUwztiqEZXxh
+
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
    ![img-01](img/img-01.png)
