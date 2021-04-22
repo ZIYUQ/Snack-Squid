@@ -34,7 +34,7 @@ const addNewCustomer = async(req, res) => {
         const newUser = new Customer({
             givenName: req.body.givenName,
             familyName: req.body.familyName,
-            email_address: req.body.email_address,
+            emailAddress: req.body.emailAddress,
             password: req.body.password
         })
         await newUser.save(function(err) {
@@ -47,14 +47,14 @@ const addNewCustomer = async(req, res) => {
     }
 }
 
-const login = async (req, res) =>{
-    try{
-        user = await customer.find(
-            {email_address: req.body.email_address,
-             password: req.body.password
-         }, {givenName: true})
+const login = async(req, res) => {
+    try {
+        user = await customer.find({
+            email_address: req.body.email_address,
+            password: req.body.password
+        }, { givenName: true })
         res.send(user)
-    }catch (err){
+    } catch (err) {
         return res.status(400).send("error")
     }
 }
