@@ -25,7 +25,7 @@ const orderSchema = new mongoose.Schema({
         vanName: { type: String }
     },
     orderTime: { type: Date, default: Date.now , required: false},
-    status: String,
+    status: { type: String, enum: ["preparing", "fulfilled", "completed", "cancelled"] },
     details: { type: [cartSchema], required: true },
     total: { type: Number },
     timestamp: { type: Number , default: 10, required: false },
