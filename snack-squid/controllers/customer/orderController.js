@@ -14,11 +14,19 @@ const placeOrder = async(req, res) =>{
         let customerId
         let givenName
         let familyName
+        // try{
+        //     let customerDetails = await Customer.findOne({ emailAddress: emailAddress }, { givenName: true, familyName: true })
+        //     customerId = customerDetails._id
+        //     givenName = customerDetails.givenName
+        //     familyName = customerDetails.familyName
+        // } catch (err){
+        //     console.log("Database query collection 'customers' failed!")
+        //     return res.send("Database query collection 'customers' failed!")
+        // }
+
         try{
-            let customerDetails = await Customer.findOne({ emailAddress: emailAddress }, { givenName: true, familyName: true })
-            customerId = customerDetails._id
-            givenName = customerDetails.givenName
-            familyName = customerDetails.familyName
+            let customerDetail = await Customer.findOne({ emailAddress: emailAddress }, {_id: true})
+            customerId = customerDetail._id
         } catch (err){
             console.log("Database query collection 'customers' failed!")
             return res.send("Database query collection 'customers' failed!")
@@ -50,22 +58,30 @@ const placeOrder = async(req, res) =>{
             totalPrice += cart[i]["price"] * cart[i]["quantity"]
         }
 
-        // create new order
+        // // create new order
+        // const newOrder = new Order({
+        //     van: {
+        //         vanId: vanId,
+        //         vanName: vanName
+        //     },
+        //     customer: {
+        //         customerId: customerId,
+        //         givenName: givenName,
+        //         familyName: familyName,
+        //         emailAddress: emailAddress
+        //     },
+        //     details: cart,
+        //     total: totalPrice,
+        //     status: "preparing"
+        // })
+
         const newOrder = new Order({
-            van: {
                 vanId: vanId,
-                vanName: vanName
-            },
-            customer: {
                 customerId: customerId,
-                givenName: givenName,
-                familyName: familyName,
-                emailAddress: emailAddress
-            },
-            details: cart,
-            total: totalPrice,
-            status: "preparing"
-        })
+                details: cart,
+                total: totalPrice,
+                status: "preparing"
+            })
 
         // push order to database
         newOrder.save((err, result) => {
