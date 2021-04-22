@@ -40,9 +40,6 @@ Project is created with:
 - Username: snacksquid
 - Password: 7PjugUwztiqEZXxh
 
-### Commit ID
-0419da252166a8e06828539a5866ef7bccb82995
-
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
    ![img-01](img/img-01.png)
