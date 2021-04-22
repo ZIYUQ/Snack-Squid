@@ -7,11 +7,13 @@ const { Van } = require("../../model/van")
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) =>{
         let emailAddress = "cathy@gmail.com"
+        let vanName = "SnackSquid"
+        let cart = req.body
+
+        // get customer details
         let customerId
         let givenName
         let familyName
-
-        // get customer details
         try{
             let customerDetails = await Customer.findOne({ emailAddress: emailAddress }, { givenName: true, familyName: true })
             customerId = customerDetails._id
@@ -22,9 +24,8 @@ const placeOrder = async(req, res) =>{
             return res.send("Database query collection 'customers' failed!")
         }
 
-        let vanName = "SnackSquid"
-        let vanId
         // get van details
+        let vanId
         try{
             let vanDetails = await Van.findOne({vanName: vanName}, {_id: true})
             vanId = vanDetails._id
@@ -35,7 +36,6 @@ const placeOrder = async(req, res) =>{
 
         // get food price and calculate the total price
         let totalPrice = 0
-        let cart = req.body
         for (let i=0; i < cart.length; i++){
             // get the food price
             let foodTag = cart[i]["foodTag"]
