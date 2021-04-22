@@ -8,6 +8,6 @@ const customerSchema = new mongoose.Schema({
     // orders: { type: mongoose.Schema.Types.ObjectId, ref: 'orders' }
 })
 
-const Customer = mongoose.model("Customer", customerSchema)
+const Customer = mongoose.model("customer", customerSchema)
 
 module.exports = { Customer }
