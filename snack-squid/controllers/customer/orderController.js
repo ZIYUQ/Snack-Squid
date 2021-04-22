@@ -70,8 +70,8 @@ const placeOrder = async(req, res) =>{
         // push order to database
         newOrder.save((err, result) => {
             if (err){
-                console.log("failed to send order!")
-                return res.send("failed to send order!")
+                console.log("failed to save order to the database!")
+                return res.send("failed to save order to the database!")
             }
             console.log("order sent successfully!")
             return res.send(newOrder)
