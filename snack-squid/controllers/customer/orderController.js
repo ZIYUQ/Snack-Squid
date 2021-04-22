@@ -1,12 +1,41 @@
 const ObjectId = require('mongoose').Types.ObjectId;
+const { Customer } = require("../../model/customer")
 const { Order } = require("../../model/order")
 const { Menu } = require("../../model/menu")
+const { Van } = require("../../model/van")
 
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) =>{
+        let emailAddress = "cathy@gmail.com"
+        let customerId
+        let givenName
+        let familyName
+
+        // get customer details
+        try{
+            let customerDetails = await Customer.findOne({ emailAddress: emailAddress }, { givenName: true, familyName: true })
+            customerId = customerDetails._id
+            givenName = customerDetails.givenName
+            familyName = customerDetails.familyName
+        } catch (err){
+            console.log("Database query collection 'customers' failed!")
+            return res.send("Database query collection 'customers' failed!")
+        }
+
+        let vanName = "SnackSquid"
+        let vanId
+        // get van details
+        try{
+            let vanDetails = await Van.findOne({vanName: vanName}, {_id: true})
+            vanId = vanDetails._id
+        } catch (err){
+            console.log("Database query collection 'vans' failed!")
+            return res.send("Database query collection 'vans' failed!")
+        }
+
+        // get food price and calculate the total price
         let totalPrice = 0
         let cart = req.body
-        // get food price and calculate the total price
         for (let i=0; i < cart.length; i++){
             // get the food price
             let foodTag = cart[i]["foodTag"]
@@ -15,22 +44,28 @@ const placeOrder = async(req, res) =>{
                 cart[i]["foodName"] = foodDetails.foodName
                 cart[i]["price"] = foodDetails.price
             } catch (err) {
-                return res.send("Database query failed!")
+                console.log("Database query collection 'menu' failed!")
+                return res.send("Database query collection 'menu' failed!")
             }
             totalPrice += cart[i]["price"] * cart[i]["quantity"]
         }
 
         // create new order
         const newOrder = new Order({
-            vanName: "SnackSquid",
-            givenName: "Cathy",
-            familyName: "Yu",
-            emailAddress: "cathyu@gmail.com",
+            van: {
+                vanId: vanId,
+                vanName: vanName
+            },
+            customer: {
+                customerId: customerId,
+                givenName: givenName,
+                familyName: familyName,
+                emailAddress: emailAddress
+            },
             details: cart,
             total: totalPrice,
             status: "preparing"
         })
-
 
         // push order to database
         newOrder.save((err, result) => {
