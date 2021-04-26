@@ -2,41 +2,45 @@
     <title>Menu</title>
 
     <link rel="stylesheet" href="../css/menu.css">
-{{!-- 
+
     <h3 class="cart">
         <ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span>
     </h3>
 
-
-    <div class="products-container">
-        <div class="product-header">
-            <h5 class="product-title">PRODUCT</h5>
-            <h5 class="price">PRICE</h5>
-            <h5 class="quantity">QUANTITY</h5>
-            <h5 class="total">TOTAL</h5>
+    <div class="overlay">
+        <div class="products-container">
+            {{!-- <div class="product-header">
+                <h5 class="product-title">PRODUCT</h5>
+                <h5 class="price">PRICE</h5>
+                <h5 class="quantity">QUANTITY</h5>
+                <h5 class="total">TOTAL</h5>
+            </div>
+            <div class="products">
+            </div> --}}
         </div>
-        <div class="products">
-        </div>
-    </div> --}}
+    </div>
 
     <div class = "container">
         <h1 id="title">MENU</h1>
+
         {{!-- 大括号 --}}
-            <div class="snacks">
+        <div class="snacks">
+
             {{!-- snack圆形小图标 --}}
             <div id="subtitle1">
                 <div id="snackicon-img"></div>
                 <h2>Snacks</h2>
             </div>
+            
             {{!-- snack item --}}
             {{#each snacks}}
                 <div class="foodListing" id="{{this.food_id}}">
                     <a href="/menu/food_id={{this._id}}">
-                    <img src="../images/{{this.photo}}" alt="{{this.food_name}}"></a>
+                    <img src="../images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
                         <div id="food-detail">
-                        <span class="foodname">{{this.food_name}}</span>
-                        <span class="food_price" id="{{this.food_name}}">${{this.price}}</span>
+                        <span class="foodname">{{this.foodName}}</span>
+                        <span class="food_price" id="{{this.foodName}}">${{this.price}}</span>
                         <button type="button" class="addCart">+</button>
                         <span class="quantity">Q</span>
                         <button type="button" class="removeCart">-</button>
@@ -45,37 +49,45 @@
                 </div>
             {{/each}}
 
-            </div>
+        </div>
 
 
 
-            <div class="drinks">
-                
-            <div id="subtitle2">
-                <div id="drinkicon-img"></div>
-                <h2>Drinks</h2>
-            </div>
+    <div class="drinks">
+        
+        <div id="subtitle2">
+            <div id="drinkicon-img"></div>
+            <h2>Drinks</h2>
+        </div>
 
-            {{#each drinks}}
-                <div class="foodListing" id="{{this.food_id}}">
-                    <a href="/menu/food_id={{this._id}}">
-                    <img src="../images/{{this.photo}}" alt="{{this.food_name}}"></a>
+        {{#each drinks}}
+            <div class="foodListing" id="{{this.food_id}}">
+                <a href="/menu/food_id={{this._id}}">
+                <img src="../images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
-                    <div id="food-detail">
-                    <span class="foodname">{{this.food_name}}</span>
-                    <span class="food_price" id="{{this.food_name}}">${{this.price}}</span>
-                    <button type="button" class="addCart">+</button>
-                    <span class="quantity">Q</span>                    
-                    <button type="button" class="removeCart">-</button>
-                    </div>
-
+                <div id="food-detail">
+                <span class="foodname">{{this.foodName}}</span>
+                <span class="food_price" id="{{this.foodName}}">${{this.price}}</span>
+                <button type="button" class="addCart">+</button>
+                <span class="quantity">Q</span>                    
+                <button type="button" class="removeCart">-</button>
                 </div>
-            {{/each}}
+
             </div>
+        {{/each}}
+    
+    </div>
+
+
+    <div class="Ordering">
+        <button id="ordering-text" onclick="on()">View Cart</button>
+        <img id="Cart-img" src="/images/Shopping cartS.png">
+    </div>
 
     </div>
 
-        <button onclick="placeOrder()">Place Order</button>
+
+
 
         <script src="../js/cart.js"></script>
 

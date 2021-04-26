@@ -125,11 +125,12 @@ function displayCart(){
             foodContainer.innerHTML += `
                 <div class="food">
                     <ion-icon name="close-circle"></ion-icon>
-                    <img src="../images/${item.food_name}.jpg">
                     <span>${item.food_name}</span>
                 </div>
                 <div class="price">${item.price},00</div>
+                <button type="button" class="addCart">+</button>
                 <div class="quantity">
+                <button type="button" class="removeCart">-</button>
                 <ion-icon class="decrease"
                 name="arrow-dropright-circle"></ion-icon>
                 </div>
@@ -139,6 +140,8 @@ function displayCart(){
                 `;
             
         });
+        // <img src="../images/${item.food_name}.jpg">
+
 
         foodContainer.innerHTML += `
             <div class="bassketTotalContainer">
@@ -168,3 +171,6 @@ function placeOrder(){
     localStorage.removeItem('cartNumbers');
 }
 
+function on() {
+    document.getElementsByClassName("overlay").style.display = "block";
+}
