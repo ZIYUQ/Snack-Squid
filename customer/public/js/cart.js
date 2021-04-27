@@ -4,7 +4,7 @@ let foodSelectors = document.querySelectorAll('.food_price');
 let foods = []
 for (let i=0; i < foodSelectors.length; i++){
     let food_name = foodSelectors[i].id;
-    let food_price = parseInt(foodSelectors[i].innerHTML);
+    let food_price = parseInt(foodSelectors[i].innerHTML.charAt(1));
     food = {
         food_name: food_name,
         price: food_price,
