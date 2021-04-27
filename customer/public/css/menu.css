@@ -66,7 +66,7 @@ body {
 }
 
 .drinks{
-    height: 500px;
+    height: 53vh;
     grid-area: drinks;
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -313,6 +313,10 @@ h2, .overlay{
 
     #ordering-text{
         display: none;
+    }
+
+    #title{
+        font-size: 15vw;
     }
     
 }

@@ -1,17 +1,143 @@
-body {
-    background-image: url("../images/realvan.jpeg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: bottom right;
-    background-size: contain;
-    }
+body, html{
+    margin: 0;
+    height: 100%;
+}
+
+.container{
+    border: solid;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100vh;
+    grid-template-areas: 
+    'Info BG BG';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Info{
+    grid-area: Info;
+    margin-left: 5vw;
+    margin-top: 5vw;
+}
+
+h1{
+    margin: 0;
+    font-size: 4vw;
+    font-weight: 400;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px #707070;
+    border-top: 13px solid #707070;;
+    width: 25vw;
+    letter-spacing: -3px;
+    margin-bottom: 15vh;
+
+}
+
+button{
+    padding-left: 15px;
+    font-size: 1.8vw; 
+    font-weight: 500;
+    color:#707070;
+    background-color: lightgray;
+    height: 2vh;
+    border: none;
+    text-align: left;
+}
+
+
+.login{
+    width: 35%;
+}
+
+.signup{
+    width: 45%;
+}
+
+.findvan{
+    padding-left: 0;
+    margin-top: 10vh;
+    font-weight: 400;
+    height: auto;
+    background: #EBE5E5;
+    width: 20vw;
+    height: 7vh;
+    border-radius: 37px;
+    text-align: center;
+    font-size: 1.5vw;
+}
 
 .icon{
     height: 200px;
     width: 200px;
-    left: 10%;
-    top: 10%;
-    position: absolute;
     background: url("../images/snacksquid_icon1.png");
-    background-size: 200px 200px;
+    background-size: cover;
+}
+
+
+.BG {
+    grid-area: BG;
+    background-image: url("../images/realvan.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+
+@media only screen and (max-width:1000px) {
+
+    .container{
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+        'Info BG';
+    }
+
+    h1{
+        font-size: 7vw;
+        border-top: 2vh solid #707070;;
+        width: 40vw;
+        letter-spacing: -0.5vw;
+    }
+
+    button{
+        font-size: 3vw; 
+    }
+
+    .findvan{
+        margin-top: 7vh;
+        font-weight: 400;
+        width: 30vw;
+        font-size: 2vw;
+    }
+}
+
+@media only screen and (max-width:650px) {
+
+    .container{
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+        'Info BG';
+    }
+
+    h1{
+        font-size: 7vw;
+        border-top: 2vh solid #707070;;
+        width: 40vw;
+        letter-spacing: -0.5vw;
+    }
+
+    button{
+        font-size: 4vw; 
+    }
+
+    .findvan{
+        margin-top: 7vh;
+        font-weight: 400;
+        width: 40vw;
+        font-size: 3vw;
+    }
+
+    .Info{
+        margin-left: 3vw;
+        margin-top: 3vw;
+    }
+
 }
