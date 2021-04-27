@@ -231,6 +231,11 @@ h2, .overlay{
     border: hidden;
 }
 
+#cartbutton{
+    background-color: transparent;
+    border: none;
+}
+
 #Cart-img{
     clip-path: none;
     width: 65px;
@@ -239,10 +244,75 @@ h2, .overlay{
 
 
 .overlay{
+    display: none;
     border: solid black;
     position: fixed; /* Sit on top of the page content */
     width: 50%; /* Full width (cover the whole page) */
     height: 100%; /* Full height (cover the whole page) */
     right: 0;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+}
+
+/* For Ipads */
+@media only screen and (max-width:1300px) {
+    .container{
+        grid-template-areas:
+        '. title'
+        'snacks snacks'
+        'drinks drinks'
+        '. Ordering';    
+    }
+
+    .drinks{
+        border-left: 0;
+        border-top: 5px solid #9B6F5B; /* This creates the border. Replace black with whatever color you want. */
+        margin-top: 150px;
+        padding-top: 50px;
+    }
+}
+
+/* For mobile phones */
+@media only screen and (max-width:650px) {
+
+    .container{
+        grid-template-columns: repeat(1,1fr);
+        grid-template-areas:
+        'title'
+        'snacks'
+        'drinks'
+        'Ordering';    
+    }
+
+    .snacks{
+        grid-template-columns: repeat(1,1fr);
+        grid-template-areas: 
+        'subtitle1';
+    }
+
+    .drinks{
+        border-left: 0;
+        border-top: 5px solid #9B6F5B; /* This creates the border. Replace black with whatever color you want. */
+        margin-top: 350px;
+        padding-top: 50px;
+        grid-template-columns: repeat(1,1fr);
+        grid-template-areas: 
+        'subtitle2';
+    }
+
+    .Ordering{
+        position: sticky;
+        bottom: 0;
+        grid-area: Ordering;
+        justify-self: right;
+        width: 80px;
+        margin-top: 400px;
+        display: flex;
+        border: none;
+        margin-right: 0;
+    }
+
+    #ordering-text{
+        display: none;
+    }
+    
 }
