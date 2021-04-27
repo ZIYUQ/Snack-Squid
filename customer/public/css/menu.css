@@ -66,7 +66,6 @@ body {
 }
 
 .drinks{
-    height: 53vh;
     grid-area: drinks;
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -217,7 +216,7 @@ h2, .overlay{
     grid-area: Ordering;
     justify-self: right;
     width: 320px;
-    margin-top: 40px;
+    margin-top: 15vh;
     display: flex;
     border: 3px solid #F1E8DF;
     margin-right: 7%;
