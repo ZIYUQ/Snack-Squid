@@ -12,7 +12,6 @@ const getAllVan = async(req, res) => {
     }
 }
 
-
 // add new Van
 const addVan = (req, res) => {
     if (!req.body.vanName) {
@@ -43,23 +42,23 @@ const addVan = (req, res) => {
 const login = async(req, res) => {
     try {
         Van.findOne({
-            van_name: req.body.van_name,
+            vanName: req.body.vanName,
             password: req.body.password
         }).then((userInfo) => {
             if (!userInfo) {
                 console.log('van is not exist')
-                return
             }
             let data = {}
-            data['username'] = userInfo.van_name
+            data['username'] = userInfo.vanName
             data['password'] = userInfo.password
             req.session.userInfo = data
-            res.redirect('/open-for-business')
+            console.log(req.session.userInfo)
         })
     } catch (err) {
         console.log(err)
     }
 }
+
 module.exports = {
     getAllVan,
     addVan,

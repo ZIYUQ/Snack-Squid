@@ -1,17 +1,26 @@
 const express = require('express')
-const app = express()
 const path = require('path')
+const db = require('./db')
+const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const port = process.env.PORT || 8080
+
+const app = express()
+app.use(express.json())
+app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true })) // replaces body-parser
+app.use(express.static('public'))
+
+app.engine('hbs', exphbs({
+    defaultlayout: 'main',
+    extname: 'hbs'
+}))
+
+app.set('view engine', 'hbs')
+
 const cookie = require('cookie-parser')
 const session = require('express-session')
-
-app.use(express.json())
-app.use('/', express.static('html'))
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-//set up vanRouter
+    //set up vanRouter
 const vanRouter = require('./routes/vanRoutes')
     //Use directory public to serve images, css files, javascript
 const openRouter = require('./routes/openRoutes')
@@ -43,7 +52,7 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/registration.html'))
 })
 
-app.get('/open-for-business/', (req, res) => {
+app.get('/open-for-business', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/open.html'))
 })
 
