@@ -1,35 +1,36 @@
-const { Van } = require('../models/van')
-const db = require('../db')
-
-// print all vans that are open
-const findAllOpen = async(req, res) => {
-    result = await Van.find({ open: true }, {})
-    res.send(result)
+const findVanByName = async(req, res) => {
+    try {
+        result = await Van.findOne({ vanName: req.params.vanName }, { password: false })
+        if (result) {
+            return res.send(result)
+        } else {
+            return res.status(404).send("Van not found")
+        }
+    } catch (err) {
+        return res.status(400).send("Database query failed")
+    }
 }
-
-const findOpenByVan = async(req, res) => {
-    res.send(req.session.userInfo.username)
-        // result = await Van.find({ van_name: req.session.username, open: true }, {})
-        // res.send(result)
-}
-
 
 // find the van by name and change the value open as true
 const openForBusiness = async(req, res) => {
-    let name = req.session.userInfo.van_name
+    let name = req.params.vanName
     let location = req.body.location
     try {
-        let thisVan = await Van.findOne({ van_name: name }, { open: true })
+        let thisVan = await Van.findOne({ vanName: name }, { open: true })
+
+        // If req.body has nothing
         if (req.body === null) {
             return res.send("you have to enter location")
         } else {
+            // If no location is entered
             if (location === "" || location === undefined) {
                 return res.send("you have to enter location")
             } else {
+                // If the van is not open yet, update the location and mark it as open
                 if (thisVan['open'] === false) {
                     if (updateLocation(name, location, res)) {
-                        await Van.updateOne({ van_name: name }, { $set: { open: true } })
-                        return res.redirect('/order/name=:van_name')
+                        await Van.updateOne({ vanName: name }, { $set: { open: true } })
+                        res.send("open")
                     } else {
                         return res.send('no location')
                     }
@@ -40,14 +41,15 @@ const openForBusiness = async(req, res) => {
         }
 
     } catch (err) {
-        res.send(err)
+        res.status(400).send('Database query failed')
     }
 }
 
-
-const updateLocation = async(van_name, van_location, res) => {
+// Update the location
+const updateLocation = async(vanName, van_location, res) => {
     try {
-        await Van.updateOne({ van_name: van_name }, { $set: { location: van_location } })
+        // Find the van and set the location value
+        await Van.updateOne({ vanName: vanName }, { $set: { location: van_location } })
         return 1
     } catch (err) {
         res.status(400).send('Database query failed')
@@ -55,18 +57,9 @@ const updateLocation = async(van_name, van_location, res) => {
     }
 }
 
-const closeForBusiness = async(req, res) => {
-    try {
-        await Van.updateOne({ van_name: req.params.van_name }, { $set: { open: false, location: "" } })
-    } catch (err) {
-        res.status(400).send('Database query failed')
-    }
-}
 
 module.exports = {
-    findAllOpen,
+    findVanByName,
     openForBusiness,
-    closeForBusiness,
-    updateLocation,
-    findOpenByVan
+    updateLocation
 }
