@@ -3,7 +3,7 @@
 const mongoose = require("mongoose")
 
 // Connect to MongoDB --- Replace this with your Connection String
-CONNECTION_STRING = 'mongodb+srv://snacksquid:7PjugUwztiqEZXxh@ss-cluster.rthtf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+CONNECTION_STRING = 'mongodb+srv://<username>:<password>@ss-cluster.rthtf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 MONGO_URL =
     CONNECTION_STRING.replace("<username>", process.env.MONGO_USERNAME).replace("<password>", process.env.MONGO_PASSWORD)
 

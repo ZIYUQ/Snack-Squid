@@ -52,7 +52,7 @@ const login = async(req, res) => {
             data['username'] = userInfo.vanName
             data['password'] = userInfo.password
             req.session.userInfo = data
-            console.log(req.session.userInfo)
+            console.log(req.session.userInfo.username)
         })
     } catch (err) {
         console.log(err)
