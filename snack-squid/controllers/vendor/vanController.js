@@ -87,17 +87,32 @@ const getVanByName = async(req, res) => {
     }
 }
 
+async function checkUser(username, password) {
+    result = await Van.findOne({
+        vanName: username
+    }, { password: true })
+    if (result) {
+        const match = await bcrypt.compare(password, result.password);
+        if (match) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        res.send('no such van')
+    }
+}
+
 // Check vanName and password when login
 // If van is valid, allow the van to set up location and open
 const login = async(req, res) => {
-    result = await Van.findOne({
-        vanName: req.body.vanName,
-        password: req.body.password
-    }, { vanName: true })
+    username = req.body.vanName
+    password = req.body.password
+    result = await checkUser(username, password)
     if (result) {
-        res.redirect('/open-for-business/:' + result['vanName'])
+        res.send('login')
     } else {
-        res.send('<h1>no such van</h1>')
+        res.send('wrong password')
     }
 }
 module.exports = {
