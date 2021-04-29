@@ -94,12 +94,12 @@ async function checkUser(username, password) {
     if (result) {
         const match = await bcrypt.compare(password, result.password);
         if (match) {
-            return true
+            return 1
         } else {
-            return false
+            return -1
         }
     } else {
-        res.send('no such van')
+        return 0
     }
 }
 
@@ -109,10 +109,12 @@ const login = async(req, res) => {
     username = req.body.vanName
     password = req.body.password
     result = await checkUser(username, password)
-    if (result) {
+    if (result === 1) {
         res.send('login')
-    } else {
+    } else if (result === -1) {
         res.send('wrong password')
+    } else if (result === 0) {
+        res.send('no such van')
     }
 }
 module.exports = {
