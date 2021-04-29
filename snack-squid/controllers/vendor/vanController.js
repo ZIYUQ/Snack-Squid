@@ -1,6 +1,7 @@
 const { Van } = require('../../model/van')
-
-// find the van by vanName
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+    // find the van by vanName
 
 // return all teh van
 const getAllVan = async(req, res) => {
@@ -13,8 +14,19 @@ const getAllVan = async(req, res) => {
     }
 }
 
+
+const hashPassword = async(plainPassword) => {
+    const hashedPassword = await bcrypt.hash(plainPassword, saltRounds).then(function(err, hash) {
+        if (err) return err
+        return hash
+    })
+    return hashedPassword
+}
+
+
+
 // add new Van
-const addVan = (req, res) => {
+const addVan = async(req, res) => {
     if (!req.body.vanName) {
         return res.status(404).send('you have to enter a valid vanName')
     }
@@ -25,19 +37,20 @@ const addVan = (req, res) => {
     //     return res.status(404).send('you have to enter the same password')
     // }
     // Set name, password, email address and mobile number
+    const hashedPassword = await hashPassword(req.body.password)
+    console.log(hashedPassword)
     const newVan = new Van({
         vanName: req.body.vanName,
-        password: req.body.password,
+        password: hashedPassword,
         emailAddress: req.body.emailAddress,
         mobileNumber: req.body.mobileNumber,
         location: "",
         open: false
     })
     newVan.save((err, result) => {
-        if (err) res.send(err)
+        if (err) console.log(err)
         res.send(result)
     })
-
 }
 
 // find van by id
