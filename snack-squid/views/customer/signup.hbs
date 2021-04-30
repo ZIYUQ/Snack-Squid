@@ -1,20 +1,24 @@
-<section id="login">
+<section id="sinup">
     <title>Login</title>
 
     <link rel="stylesheet" href="/customer/css/...">
 
-    <form action="/customer/login" method="post">
+    <form action="/customer/signup" method="post">
         <div class="container">
+
+            <label for="givenName"><b>Given Name</b></label>
+            <input type="text" placeholder="Enter Given Name" name="givenName" required>
+
+            <label for="familyName"><b>Family Name</b></label>
+            <input type="text" placeholder="Enter Family name" name="Family Name" required>
+
             <label for="emailAddress"><b>Email Address</b></label>
             <input type="text" placeholder="Enter Username" name="emailAddress" required>
 
             <label for="password"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="password" required>
 
-            <button type="submit">Login</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
+            <button type="submit">Signup</button>
         </div>
     </form>
 
