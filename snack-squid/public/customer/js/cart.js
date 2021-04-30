@@ -143,13 +143,17 @@ function displayCart(){
 
 
         foodContainer.innerHTML += `
-            <div class="bassketTotalContainer">
-                <h4 class="basketTotalTitle">
+            <div class="basketTotalContainer">
+                <span class="basketTotalTitle">
                     Basket Total
-                </h4>
-                <h4 class="basketTotal">
+                </span>
+                <span class="basketTotal">
                     $${localStorage.getItem('cartCost')},00
-                </h4>
+                </span>
+                <br>
+                <button id="checkout">CheckOut</button>
+            </div>
+
         `;
     }
 }
@@ -171,9 +175,16 @@ function placeOrder(){
 }
 
 function on() {
-    document.getElementById("overlay").style.display = "block";
+    let width  = window.innerWidth;
+    if(width>650){
+        document.getElementById("overlay").style.width = "50%";
+    }else{
+        document.getElementById("overlay").style.width = "100%";
+    }
 }
 
 function off() {
-    document.getElementById("overlay").style.display = "none";
+    
+    document.getElementById("overlay").style.width = "0%";
+
 }

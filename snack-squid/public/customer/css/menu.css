@@ -253,11 +253,13 @@ h2, .overlay{
 .overlay{
     background: #F1E8DF;
     position: fixed; /* Sit on top of the page content */
-    width: 50%; /* Full width (cover the whole page) */
+    width: 0;
     height: 100%; /* Full height (cover the whole page) */
     right: 0;
     z-index: 2;
     overflow-y: scroll;
+    transition: 0.5s;
+
 
 }
 
@@ -290,32 +292,42 @@ h2, .overlay{
 }
 
 .overlayfood{
-    margin: 3vh 0 2vh 3vw;
+    margin: 3vh 0 2vh 8vw;
     column-span: all;
 }
 
 .overlayquantity{
-    margin-left: 6vw;
+    margin-left: 11vw;
     /* margin-right: 20vw; */
 
 }
 
 .overlaytotal{
-    margin-right: 3vw;
+    margin-left: 8vw;
 }
 
-.bassketTotalContainer{
-    display: flex;
+.basketTotalContainer{
     column-span: all;
-    position: fixed;
-    right: 4vw;
-    margin-top: 10px;
+    margin-top: 30px;
+    text-align: right;
+
 }
 
 .basketTotal{
     margin-left: 5vw;
 }
 
+#checkout{
+    column-span: all;
+    width: 232px;
+    height: 75px;
+    font-size: 33px;
+    color: #774C37;
+    background: #DAD1C0;
+    border-radius: 32px;
+    font-family: 'Josefin Slab', serif;
+    font-weight: 600;
+}
 
 /* For Ipads */
 @media only screen and (max-width:1300px) {
@@ -334,6 +346,18 @@ h2, .overlay{
         margin-top: 150px;
         padding-top: 50px;
     }
+
+    .products-container{
+        column-count: 1;
+    }
+
+    .overlayfood, .overlayquantity, .overlaytotal{
+        margin-left: 0;
+        text-align: center;
+    }
+    
+
+    
 }
 
 /* For mobile phones */
@@ -384,5 +408,8 @@ h2, .overlay{
     #title{
         font-size: 15vw;
     }
-    
+
+    .products-container{
+        column-count: 2;
+    }
 }

@@ -2,7 +2,7 @@
 <section id="menu">
     <title>Menu</title>
 
-    <link rel="stylesheet" href="../../public/customer/css/menu.css">
+    <link rel="stylesheet" href="/customer/css/menu.css">
 
 
 
@@ -10,18 +10,18 @@
         <button onclick="off()"><i class="fas fa-arrow-alt-circle-left"></i></button>
 
         <div class="products-container">
-            <div class="product-header">
+            {{!-- <div class="product-header">
                 <h5 class="product-title">PRODUCT</h5>
                 <h5 class="price">PRICE</h5>
                 <h5 class="quantity">QUANTITY</h5>
                 <h5 class="total">TOTAL</h5>
-            </div>
+            </div> --}}
             <div class="products">
             </div>
         </div>
     </div>
 
-    <a href="/"><div class="icon"></div></a>
+    <a href="/customer"><div class="icon"></div></a>
 
     <div class = "container">
         <h3 class="cart"><ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span></h3>
@@ -40,7 +40,7 @@
             {{!-- snack item --}}
             {{#each snacks}}
                 <div class="foodListing" id="{{this.food_id}}">
-                    <a href="/menu/food_id={{this._id}}">
+                    <a href="/customer/menu/{{this.tag}}">
                     <img src="../images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
                         <div id="food-detail">
@@ -67,7 +67,7 @@
 
         {{#each drinks}}
             <div class="foodListing" id="{{this.food_id}}">
-                <a href="/menu/food_id={{this._id}}">
+                <a href="/customer/menu/{{this.tag}}">
                 <img src="../images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
                 <div id="food-detail">
@@ -86,7 +86,7 @@
 
     <div class="Ordering">
         <button id="ordering-text" onclick="on()">View Cart</button>
-        <button id="cartbutton" onclick="on()"><img id="Cart-img" src="/images/Shopping cartS.png"></button>
+        <button id="cartbutton" onclick="on()"><img id="Cart-img" src="/customer/images/Shopping cartS.png"></button>
     </div>
 
     </div>
