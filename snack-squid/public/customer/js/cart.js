@@ -175,6 +175,7 @@ function placeOrder(){
 }
 
 function on() {
+    displayCart();
     let width  = window.innerWidth;
     if(width>650){
         document.getElementById("overlay").style.width = "50%";
@@ -184,7 +185,5 @@ function on() {
 }
 
 function off() {
-    
     document.getElementById("overlay").style.width = "0%";
-
 }
