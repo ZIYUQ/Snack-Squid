@@ -1,6 +1,8 @@
 let addCarts = document.querySelectorAll('.addCart');
 let removeCarts = document.querySelectorAll('.removeCart');
 let foodSelectors = document.querySelectorAll('.food_price');
+let cartSelector = document.querySelector('.cartbutton')
+
 let foods = []
 for (let i=0; i < foodSelectors.length; i++){
     let food_name = foodSelectors[i].id;
@@ -128,9 +130,7 @@ function displayCart(){
                     <span>${item.food_name}</span>
                 </div>
                 <div class="price">${item.price},00</div>
-                <button type="button" class="addCart">+</button>
                 <div class="quantity">
-                <button type="button" class="removeCart">-</button>
                 <ion-icon class="decrease"
                 name="arrow-dropright-circle"></ion-icon>
                 </div>
@@ -172,5 +172,5 @@ function placeOrder(){
 }
 
 function on() {
-    document.getElementsByClassName("overlay").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
 }
