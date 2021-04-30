@@ -14,5 +14,10 @@
   },
   "scripts": {
     "start": "node app.js"
-  }
+  },
+  "main": "app.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
