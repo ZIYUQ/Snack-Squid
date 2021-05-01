@@ -11,6 +11,6 @@ router.get('/van=:van_name', menuController.getMenu)
 router.get('/:tag', menuController.getFoodDetails)
 
 // place order
-router.post('/van=:van_name/place-order', orderController.placeOrder)
+router.post('/place-order', orderController.placeOrder)
 
 module.exports = router
