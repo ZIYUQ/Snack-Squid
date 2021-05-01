@@ -1,5 +1,7 @@
 const { Customer } = require('../../model/customer')
 const bcrypt = require('bcryptjs');
+const SALTROUNDS = 10
+
 
 // express-validator, to validate user data in forms
 const expressValidator = require('express-validator')
@@ -9,7 +11,7 @@ const renderSignupPage = async(req, res) => {
 }
 
 const hashPassword = async(plainPassword) => {
-    const hashedPassword = await bcrypt.hash(plainPassword, saltRounds).then(function(err, hash) {
+    const hashedPassword = await bcrypt.hash(plainPassword, SALTROUNDS).then(function(err, hash) {
         if (err) return err
         return hash
     })
@@ -54,7 +56,7 @@ async function checkUser(emailAddress, password) {
     if (result) {
         const match = await bcrypt.compare(password, result.password);
         if (match) {
-            return 1
+            return result._id
         } else {
             return -1
         }
@@ -68,15 +70,16 @@ const login = async(req, res) => {
     let emailAddress = req.body.emailAddress
     let password = req.body.password
     let result = await checkUser(emailAddress, password)
-    if (result === 1) { // username & password match
-        console.log('login successfully')
-        res.send('login')
+    if (result === 0) { // user not found
+        console.log('user not found')
+        res.send('user not found')
     } else if (result === -1) { // username & password not match
         console.log('wrong password')
         res.send('wrong password')
-    } else if (result === 0) { // user not found
-        console.log('user not found')
-        res.send('user not found')
+    } else { // user found
+        res.cookie('userId', result.toHexString())
+        console.log('login successfully')
+        res.send('login')
     }
 }
 
