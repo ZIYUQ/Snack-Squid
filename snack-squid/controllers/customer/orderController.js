@@ -7,8 +7,9 @@ const { Van } = require("../../model/van")
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) => {
     let customerId = new ObjectId(req.cookies['userId'])
-    let vanName = req.cookies['vanName']
+    let vanName = req.params.van_name
     let cart = req.body
+    console.log(req.params.van_name)
 
     // get customer details
     try {
