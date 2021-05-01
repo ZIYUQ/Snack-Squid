@@ -12,6 +12,10 @@ const OPTIONS = {
 const expressValidator = require('express-validator')
 
 const renderSignupPage = async(req, res) => {
+    if (req.cookies['userId'] != undefined){
+        console.log('customer already logged in')
+        return res.redirect('/customer/menu/van=SnackSquid')
+    }
     res.render('customer/signup')
 }
 
@@ -55,7 +59,6 @@ const signup = async(req, res) => {
 }
 
 const renderLoginPage = async(req, res) => {
-    console.log(req.cookies['hello'])
     if (req.cookies['userId'] != undefined){
         console.log('customer already logged in')
         return res.redirect('/customer/menu/van=SnackSquid')
