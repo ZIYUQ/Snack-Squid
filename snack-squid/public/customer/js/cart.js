@@ -151,7 +151,7 @@ function displayCart(){
                     $${localStorage.getItem('cartCost')},00
                 </span>
                 <br>
-                <button id="checkout">CheckOut</button>
+                <button id="checkout" onclick="placeOrder()">CheckOut</button>
             </div>
 
         `;
@@ -165,13 +165,22 @@ function placeOrder(){
         headers: {
             "Content-Type": "application/json"
         },
-        body: cartItems
+        body: cartItems,
+        redirect: 'follow'
     };
-    // fetch('/menu', options);
-    fetch('/menu/van=van_name', options);
-    localStorage.removeItem('inCart');
-    localStorage.removeItem('totalCost');
-    localStorage.removeItem('cartNumbers');
+    try{
+        fetch('/customer/menu/place-order', options)
+            .then(res => {
+                if (res.redirected) {
+                    window.location.href = res.url;
+                }
+        });
+        localStorage.removeItem('inCart');
+        localStorage.removeItem('totalCost');
+        localStorage.removeItem('cartNumbers');
+    } catch (err) {
+        //pass
+    }
 }
 
 function on() {
