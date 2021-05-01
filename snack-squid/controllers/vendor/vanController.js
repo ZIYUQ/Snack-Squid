@@ -1,6 +1,7 @@
 const { Van } = require('../../model/van')
-
-// find the van by vanName
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+    // find the van by vanName
 
 // return all teh van
 const getAllVan = async(req, res) => {
@@ -13,8 +14,19 @@ const getAllVan = async(req, res) => {
     }
 }
 
+
+const hashPassword = async(plainPassword) => {
+    const hashedPassword = await bcrypt.hash(plainPassword, saltRounds).then(function(err, hash) {
+        if (err) return err
+        return hash
+    })
+    return hashedPassword
+}
+
+
+
 // add new Van
-const addVan = (req, res) => {
+const addVan = async(req, res) => {
     if (!req.body.vanName) {
         return res.status(404).send('you have to enter a valid vanName')
     }
@@ -25,19 +37,20 @@ const addVan = (req, res) => {
     //     return res.status(404).send('you have to enter the same password')
     // }
     // Set name, password, email address and mobile number
+    const hashedPassword = await hashPassword(req.body.password)
+    console.log(hashedPassword)
     const newVan = new Van({
         vanName: req.body.vanName,
-        password: req.body.password,
+        password: hashedPassword,
         emailAddress: req.body.emailAddress,
         mobileNumber: req.body.mobileNumber,
         location: "",
         open: false
     })
     newVan.save((err, result) => {
-        if (err) res.send(err)
+        if (err) console.log(err)
         res.send(result)
     })
-
 }
 
 // find van by id
@@ -74,17 +87,34 @@ const getVanByName = async(req, res) => {
     }
 }
 
+async function checkUser(username, password) {
+    result = await Van.findOne({
+        vanName: username
+    }, { password: true })
+    if (result) {
+        const match = await bcrypt.compare(password, result.password);
+        if (match) {
+            return 1
+        } else {
+            return -1
+        }
+    } else {
+        return 0
+    }
+}
+
 // Check vanName and password when login
 // If van is valid, allow the van to set up location and open
 const login = async(req, res) => {
-    result = await Van.findOne({
-        vanName: req.body.vanName,
-        password: req.body.password
-    }, { vanName: true })
-    if (result) {
-        res.redirect('/open-for-business/:' + result['vanName'])
-    } else {
-        res.send('<h1>no such van</h1>')
+    username = req.body.vanName
+    password = req.body.password
+    result = await checkUser(username, password)
+    if (result === 1) {
+        res.send('login')
+    } else if (result === -1) {
+        res.send('wrong password')
+    } else if (result === 0) {
+        res.send('no such van')
     }
 }
 module.exports = {

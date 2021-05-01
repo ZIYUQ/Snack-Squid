@@ -1,24 +1,19 @@
 const { Menu } = require('../../model/menu')
 
 // get menu
-const getMenu = async(req, res) => {
+const getMenu = async(req, res) =>{
     try {
-        const foods = await Menu.find({}, {
-            foodName: true,
-            price: true,
-            photo: true,
-            _id: false
-        }).lean()
-        //const snacks = await Menu.find({ type: 'snack' }, { food_name: true, price: true, photo: true }).lean()
-        //const drinks = await Menu.find({ type: 'drink' }, { food_name: true, price: true, photo: true }).lean()
+        const snacks = await Menu.find({ type: 'snack' }, {}).lean()
+        const drinks = await Menu.find({ type: 'drink' }, {}).lean()
         // empty menu
-        if (foods.length == 0) {
+        if (snacks.length == 0 || drinks.length ==0 ){
+            console.log("no food to show in menu!")
             return res.send("no food to show in menu!")
         }
-        return res.send(foods)
-        //res.render('customer/menu', {"snacks": snacks, "drinks": drinks})
-    } catch (err){
-        return res.send("Database query failed!")
+        res.render('customer/menu', {"snacks": snacks, "drinks": drinks})
+    } catch (err) {
+        console.log("Database query 'menu' failed!")
+        return res.send("Database query 'menu' failed!")
     }
 }
 
@@ -26,21 +21,16 @@ const getMenu = async(req, res) => {
 
 const getFoodDetails = async(req, res) => {
     try {
-        const food = await Menu.find({tag: req.params.tag}, {
-            foodName: true,
-            price: true,
-            photo: true,
-            description: true,
-            _id: false
-        }).lean()
+        const food = await Menu.find({ tag: req.params.tag }, { foodName: true, price: true, photo: true , description: true}).lean()
         // if food does not exist
         if (food.length == 0) {
+            console.log("food does not exist!")
             return res.send("food does not exist!")
         }
-        res.send(food)
-        //res.render('customer/foodDetails', {"food": food})
+        res.render('customer/foodDetails', {"food": food})
     } catch (err){
-        return res.send("Database query failed!")
+        console.log("Database query 'menu' failed!")
+        return res.send("Database query 'menu' failed!")
     }
 }
 

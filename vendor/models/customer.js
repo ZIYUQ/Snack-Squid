@@ -5,9 +5,9 @@ const customerSchema = new mongoose.Schema({
     familyName: { type: String, required: true },
     emailAddress: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    //orders: { type: mongoose.Schema.Types.ObjectId, ref: 'order' }
+    // orders: { type: mongoose.Schema.Types.ObjectId, ref: 'orders' }
 })
 
-const Customer = mongoose.model("customer", customerSchema)
+const Customer = mongoose.model("Customer", customerSchema)
 
 module.exports = { Customer }

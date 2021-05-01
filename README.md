@@ -40,9 +40,6 @@ Project is created with:
 - Username: snacksquid
 - Password: 7PjugUwztiqEZXxh
 
-### Commit ID
-0419da252166a8e06828539a5866ef7bccb82995
-
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
    ![img-01](img/img-01.png)
@@ -65,23 +62,13 @@ Project is created with:
 
 ### Vendor
 1. To set the van status, using the route [http://snack-squid.herokuapp.com/vendor/open-for-business/:[samplevan]] using POST method. If you have "location" in you req.body, it will update the location and change open status as true. If you have no location, it will send a message "You have to enter location"
-[
-    {
-        "location": "Melbourne"
-    }
-]
+
     ![img-04](img/img-04.png)
 2. To show the list of all outstanding orders,go to [http://snack-squid.herokuapp.com/vendor/order] and it will show the orders of all vans. If want to get orders for specific van, using [http://snack-squid.herokuapp.com/vendor/order/:vanName]
 
     ![img-05](img/img-05.png)
 3. To mark an order as "fulfilled", go to [http://snack-squid.herokuapp.com/vendor/order/:vanName] and use "_id" in req.body to look up specific order of the van and mark it as fulfilled. The status of order in mongodb will be "fulfilled"
-    ``` 
-    [
-        {
-            "_id_": "607eef20e3dfec21027b9b93"
-        }
-    ]
-    ``` 
+
     ![img-06](img/img-06.png)
 
 **Now Get ready to complete all the tasks:**

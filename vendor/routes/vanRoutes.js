@@ -3,11 +3,7 @@ const express = require('express')
 const vanRouter = express.Router()
 const vanController = require('../controllers/vanController')
     // find the van by name
-vanRouter.get('/name=:van_name', vanController.getVanByName)
-
-// get all vans
-vanRouter.get('/', vanController.getAllVan)
+    // get all vans
 
 // add a new van
-vanRouter.post('/addvan', vanController.addVan)
 module.exports = vanRouter

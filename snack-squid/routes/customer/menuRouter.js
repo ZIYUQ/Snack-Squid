@@ -5,12 +5,12 @@ const orderController = require('../../controllers/customer/orderController')
 const router = express.Router()
 
 // show menu page
-router.get('/', (req, res) => menuController.getMenu(req, res))
+router.get('/van=:van_name', menuController.getMenu)
 
 // get details of food
 router.get('/:tag', menuController.getFoodDetails)
 
 // place order
-router.post('/place-order', orderController.placeOrder)
+router.post('/van=:van_name/place-order', orderController.placeOrder)
 
 module.exports = router

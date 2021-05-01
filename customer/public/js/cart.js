@@ -1,10 +1,12 @@
 let addCarts = document.querySelectorAll('.addCart');
 let removeCarts = document.querySelectorAll('.removeCart');
 let foodSelectors = document.querySelectorAll('.food_price');
+let cartSelector = document.querySelector('.cartbutton')
+
 let foods = []
 for (let i=0; i < foodSelectors.length; i++){
     let food_name = foodSelectors[i].id;
-    let food_price = parseInt(foodSelectors[i].innerHTML);
+    let food_price = parseInt(foodSelectors[i].innerHTML.charAt(1));
     food = {
         food_name: food_name,
         price: food_price,
@@ -123,22 +125,22 @@ function displayCart(){
         foodContainer.innerHTML = '';
         Object.values(cartItems).map(item => {
             foodContainer.innerHTML += `
-                <div class="food">
+                <div class="overlayfood">
                     <ion-icon name="close-circle"></ion-icon>
-                    <img src="../images/${item.food_name}.jpg">
                     <span>${item.food_name}</span>
                 </div>
-                <div class="price">${item.price},00</div>
-                <div class="quantity">
-                <ion-icon class="decrease"
-                name="arrow-dropright-circle"></ion-icon>
+                <div class="overlayquantity">${item.quantity}
+                    <ion-icon class="decrease" name="arrow-dropright-circle"></ion-icon>
                 </div>
-                <div class="total">
+                <div class="overlaytotal">
                     $${item.price * item.quantity},00
                 </div>
+                <div class="line"></div>
                 `;
             
         });
+        // <img src="../images/${item.food_name}.jpg">
+
 
         foodContainer.innerHTML += `
             <div class="bassketTotalContainer">
@@ -168,3 +170,10 @@ function placeOrder(){
     localStorage.removeItem('cartNumbers');
 }
 
+function on() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+    document.getElementById("overlay").style.display = "none";
+}

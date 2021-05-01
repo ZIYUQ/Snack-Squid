@@ -43,6 +43,7 @@ const placeOrder = async(req, res) => {
         if (vanDetails) {
             vanId = vanDetails._id
         } else {
+            console.log("no such van")
             return res.send("no such van")
         }
     } catch (err) {
