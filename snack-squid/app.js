@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const menuRouterCT = require('./routes/customer/menuRouter')
 const loginRouterCT = require('./routes/customer/loginRouter')
 const signupRouterCT = require('./routes/customer/signupRouter')
+const orderRouterCT = require('./routes/customer/orderRouter')
 
 // router for Vendor app
 const vanRouterVD = require('./routes/vendor/vanRouter')
@@ -35,6 +36,8 @@ app.set('view engine', 'hbs')
 app.get('/customer', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/customer/homepage.html'))
 })
+
+app.use('/customer/order', orderRouterCT)
 
 app.use('/customer/signup', signupRouterCT)
 
