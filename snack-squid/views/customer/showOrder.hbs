@@ -1,0 +1,43 @@
+<section id="showOrder">
+    
+
+    <header>
+        <h1> Order</a> </h1>        
+    </header>
+    <div class='fulfilled order'></div>
+        <p>fulfilled orders:</p>
+
+
+        {{#each fulfilledOrders}}
+        <ul>
+            <table>
+                <tr><td>Order ID:</td><td>{{this._id}}</td></tr>
+                <tr>
+				<td><button id="button_detail" name="button_detail" onclick="showDetails({{this.details}})">Details</button></td><td id = "details">{{this.details}}</td>
+                </tr>
+                <tr><td>total amount:</td><td>{{this.total}}</td></tr> 
+                <tr><td>Van Name:</td><td>{{this.vanId.vanName}}</td></tr>
+                <tr><td>Order Time:</td><td>{{this.orderTime}}</td></tr>
+            </table>
+        </ul>
+        {{/each}}
+    </div>
+
+    <div class='completed order'>
+        completed orders:
+        {{#each completedOrders}} 
+        <ul>
+            orderId:{{this._id}}
+            order detail: {{this.details}}
+            total amount: {{this.total}}
+            van: {{this.vanId}}
+            order time:{{this.orderTime}}
+        </ul>
+        {{/each}}
+    </div>
+    <script src="../js/order.js"></script>
+</section>
+
+
+    
+    

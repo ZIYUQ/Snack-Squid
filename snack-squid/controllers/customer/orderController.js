@@ -102,4 +102,20 @@ const placeOrder = async(req, res) => {
     })
 }
 
-module.exports = { placeOrder }
+const getOrder = async (req,res)=>{
+        try{
+            const customer = await Customer.findOne({_id: req.params.id})
+            const fulfilled = await Order.find({customerId: customer._id, status: "preparing"}, {}).populate("vanId", "vanName-_id").lean()
+            const completed = await Order.find({customerId: customer._id, status: "completed"}, {}).populate("vanId", "vanName-_id").lean()
+
+        
+            console.log(fulfilled[0].details)   
+            res.render('customer/showOrder', {"fulfilledOrders": fulfilled, "completedOrders": completed})
+        }catch(err){
+            return res.send(err)
+        }
+}
+
+
+
+module.exports = { placeOrder, getOrder }

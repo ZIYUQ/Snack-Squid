@@ -6,6 +6,12 @@ const bodyParser = require('body-parser')
 
 // router for Customer app
 const menuRouterCT = require('./routes/customer/menuRouter')
+<<<<<<< Updated upstream
+=======
+const loginRouterCT = require('./routes/customer/loginRouter')
+const signupRouterCT = require('./routes/customer/signupRouter')
+const orderRouterCT = require('./routes/customer/orderRouter')
+>>>>>>> Stashed changes
 
 // router for Vendor app
 const vanRouterVD = require('./routes/vendor/vanRouter')
@@ -36,6 +42,7 @@ app.get('/customer', (req, res) => {
 
 app.use('/customer/menu', menuRouterCT)
 
+app.use('/customer/order', orderRouterCT)
 
 // Vendor app
 app.get('/vendor', (req, res) => {
