@@ -94,6 +94,7 @@ const login = async(req, res) => {
         res.cookie('userId', result._id.toHexString(), OPTIONS)
         res.cookie('givenName', result.givenName, OPTIONS)
         res.cookie('familyName', result.familyName, OPTIONS)
+        res.cookie('vanName', 'SnackSquid', OPTIONS)
         console.log('customer login successfully')
         res.redirect('/customer/menu/van=SnackSquid')
     }
