@@ -36,7 +36,7 @@ app.set('view engine', 'hbs')
 
 // Customer app
 app.get('/customer', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/customer/homepage.html'))
+    res.render('customer/homepage')
 })
 
 app.use('/customer/order', orderRouterCT)
