@@ -9,6 +9,6 @@ function showDetails(foods){
         details += JSON.stringify(foods[i])
     };
     
-    document.getElementById("details").innerHTML = JSON.stringify(foods);
+    document.getElementById("details").innerHTML = details;
 }
 
