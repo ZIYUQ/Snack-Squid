@@ -169,7 +169,9 @@ function placeOrder(){
         redirect: 'follow'
     };
     try{
-        fetch('/customer/menu/place-order', options)
+        url = window.location.href + '/place-order'
+        console.log(url)
+        fetch(url, options)
             .then(res => {
                 if (res.redirected) {
                     window.location.href = res.url;
