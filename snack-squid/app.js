@@ -3,6 +3,7 @@ const path = require('path')
 const db = require('./db')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser');
 
 // router for Customer app
 const menuRouterCT = require('./routes/customer/menuRouter')
@@ -21,6 +22,7 @@ const loginRouterVD = require('./routes/vendor/loginRouter')
 const app = express()
 app.use(express.json())
 app.use(bodyParser.json())
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true })) // replaces body-parser
 app.use(express.static('public'))
 
@@ -36,6 +38,8 @@ app.set('view engine', 'hbs')
 app.get('/customer', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/customer/homepage.html'))
 })
+
+app.use('/customer/order', orderRouterCT)
 
 app.use('/customer/signup', signupRouterCT)
 
