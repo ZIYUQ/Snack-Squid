@@ -2,11 +2,20 @@ const { Customer } = require('../../model/customer')
 const bcrypt = require('bcryptjs');
 const SALTROUNDS = 10
 
+const OPTIONS = {
+    maxAge: 1000 * 60 * 60 * 24 , // would expire after 24 hours
+    httpOnly: true, // The cookie only accessible by the web server
+    signed: false // Indicates if the cookie should be signed
+}
 
 // express-validator, to validate user data in forms
 const expressValidator = require('express-validator')
 
 const renderSignupPage = async(req, res) => {
+    if (req.cookies['userId'] != undefined){
+        console.log('customer already logged in')
+        return res.redirect('/customer/menu/van=SnackSquid')
+    }
     res.render('customer/signup')
 }
 
@@ -41,22 +50,29 @@ const signup = async(req, res) => {
     await newCustomer.save((err, result) => {
         if (err) console.log(err)
         console.log("signup successfully")
+        res.cookie('userId', newCustomer._id.toHexString(), OPTIONS)
+        res.cookie('givenName', newCustomer.givenName, OPTIONS)
+        res.cookie('familyName', newCustomer.familyName, OPTIONS)
         res.send("signup successfully")
     })
 
 }
 
 const renderLoginPage = async(req, res) => {
+    if (req.cookies['userId'] != undefined){
+        console.log('customer already logged in')
+        return res.redirect('/customer/menu/van=SnackSquid')
+    }
     res.render('customer/login')
 }
 
 // check user and password
 async function checkUser(emailAddress, password) {
-    let result = await Customer.findOne({ emailAddress: emailAddress }, { password: true } )
+    let result = await Customer.findOne({ emailAddress: emailAddress }, { password: true, givenName: true, familyName: true } )
     if (result) {
         const match = await bcrypt.compare(password, result.password);
         if (match) {
-            return result._id
+            return result
         } else {
             return -1
         }
@@ -71,15 +87,18 @@ const login = async(req, res) => {
     let password = req.body.password
     let result = await checkUser(emailAddress, password)
     if (result === 0) { // user not found
-        console.log('user not found')
-        res.send('user not found')
+        console.log('customer user not found')
+        res.send('customer user not found')
     } else if (result === -1) { // username & password not match
-        console.log('wrong password')
-        res.send('wrong password')
+        console.log('customer user wrong password')
+        res.send('customer user wrong password')
     } else { // user found
-        res.cookie('userId', result.toHexString())
-        console.log('login successfully')
-        res.send('login')
+        console.log(result)
+        res.cookie('userId', result._id.toHexString(), OPTIONS)
+        res.cookie('givenName', result.givenName, OPTIONS)
+        res.cookie('familyName', result.familyName, OPTIONS)
+        console.log('customer login successfully')
+        res.redirect('/customer/menu/van=SnackSquid')
     }
 }
 

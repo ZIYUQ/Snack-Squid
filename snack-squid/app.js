@@ -36,7 +36,7 @@ app.set('view engine', 'hbs')
 
 // Customer app
 app.get('/customer', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/customer/homepage.html'))
+    res.render('customer/homepage')
 })
 
 app.use('/customer/order', orderRouterCT)
@@ -75,8 +75,14 @@ app.use('/vendor/order', orderRouterVD)
     // routers in register
 app.use('/vendor/register', registerRouterVD)
 
-app.all('*', (req, res) => { // 'default' route to catch user errors
-    res.status(404).send('<p>invalid request</p>')
+app.get('/404-NOT-FOUND',(req, res) => {
+    res.render('404NotFound')
+})
+
+app.all('*', (req, res) => {
+    // 'default' route to catch user errors
+    res.status(404)
+    res.redirect('/404-NOT-FOUND')
 })
 
 const port = process.env.PORT || 3000

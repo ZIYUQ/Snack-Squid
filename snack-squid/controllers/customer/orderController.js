@@ -6,30 +6,19 @@ const { Van } = require("../../model/van")
 
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) => {
-    let emailAddress = req.body.emailAddress
-    let vanName = req.body.vanName
-    let cart = req.body.cart
+    let customerId = new ObjectId(req.cookies['userId'])
+    let vanName = req.params.van_name
+    let cart = req.body
+    console.log(req.params.van_name)
 
     // get customer details
-    let customerId
-    let givenName
-    let familyName
-        // try{
-        //     let customerDetails = await Customer.findOne({ emailAddress: emailAddress }, { givenName: true, familyName: true })
-        //     customerId = customerDetails._id
-        //     givenName = customerDetails.givenName
-        //     familyName = customerDetails.familyName
-        // } catch (err){
-        //     console.log("Database query collection 'customers' failed!")
-        //     return res.send("Database query collection 'customers' failed!")
-        // }
-
     try {
-        let customerDetail = await Customer.findOne({ emailAddress: emailAddress }, { _id: true })
+        let customerDetail = await Customer.findOne({ _id: customerId }, { _id: true })
         if (customerDetail) {
-            customerId = customerDetail._id
+            //pass
         } else {
-            return res.send("no such customer")
+            console.log("no such customer")
+            return res.redirect('/404-NOT-FOUND')
         }
     } catch (err) {
         console.log("Database query collection 'customers' failed!")
@@ -44,7 +33,7 @@ const placeOrder = async(req, res) => {
             vanId = vanDetails._id
         } else {
             console.log("no such van")
-            return res.send("no such van")
+            return res.redirect('/404-NOT-FOUND')
         }
     } catch (err) {
         console.log("Database query collection 'vans' failed!")
@@ -55,34 +44,17 @@ const placeOrder = async(req, res) => {
     let totalPrice = 0
     for (let i = 0; i < cart.length; i++) {
         // get the food price
-        let foodTag = cart[i]["foodTag"]
+        let foodName = cart[i]["food_name"]
         try {
-            let foodDetails = await Menu.findOne({ tag: foodTag }, { foodName: true, price: true })
+            let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
             cart[i]["foodName"] = foodDetails.foodName
             cart[i]["price"] = foodDetails.price
         } catch (err) {
             console.log("Database query collection 'menu' failed!")
-            return res.send("Database query collection 'menu' failed!")
+            return res.redirect('/404-NOT-FOUND')
         }
         totalPrice += cart[i]["price"] * cart[i]["quantity"]
     }
-
-    // // create new order
-    // const newOrder = new Order({
-    //     van: {
-    //         vanId: vanId,
-    //         vanName: vanName
-    //     },
-    //     customer: {
-    //         customerId: customerId,
-    //         givenName: givenName,
-    //         familyName: familyName,
-    //         emailAddress: emailAddress
-    //     },
-    //     details: cart,
-    //     total: totalPrice,
-    //     status: "preparing"
-    // })
 
     const newOrder = new Order({
         vanId: vanId,
@@ -93,18 +65,21 @@ const placeOrder = async(req, res) => {
     })
 
     // push order to database
-    newOrder.save((err, result) => {
+    await newOrder.save((err, result) => {
         if (err) {
             console.log("failed to save order to the database!")
-            return res.send(err)
+            return res.redirect('/404-NOT-FOUND')
         }
         console.log("order sent successfully!")
-        return res.send(newOrder)
+        return res.redirect('/customer/order')
     })
 }
 
 const getOrder = async (req,res)=>{
     let userId = req.cookies['userId']
+    if (userId == undefined){
+        return res.redirect('/customer/login')
+    }
     userId = new ObjectId(userId)
     try{
         const customer = await Customer.findOne({_id: userId})
@@ -115,7 +90,7 @@ const getOrder = async (req,res)=>{
         }
         res.render('customer/showOrder', {"fulfilledOrders": fulfilled, "completedOrders": completed})
     }catch(err){
-        return res.send(err)
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
