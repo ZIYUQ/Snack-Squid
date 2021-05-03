@@ -3,9 +3,15 @@ const ObjectId = require('mongoose').Types.ObjectId
 const bcrypt = require('bcryptjs');
 const SALTROUNDS = 10
 
-const OPTIONS = {
+const OPTIONS_SERVER = {
     maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours
     httpOnly: true, // The cookie only accessible by the web server
+    signed: false // Indicates if the cookie should be signed
+}
+
+const OPTIONS_LOCAL = {
+    maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours
+    httpOnly: false, // The cookie only accessible by the web server
     signed: false // Indicates if the cookie should be signed
 }
 
@@ -51,9 +57,9 @@ const signup = async(req, res) => {
     await newCustomer.save((err, result) => {
         if (err) console.log(err)
         console.log("signup successfully")
-        res.cookie('userId', newCustomer._id.toHexString(), OPTIONS)
-        res.cookie('givenName', givenName, OPTIONS)
-        res.cookie('familyName', familyName, OPTIONS)
+        res.cookie('userId', newCustomer._id.toHexString(), OPTIONS_SERVER)
+        res.cookie('givenName', givenName, OPTIONS_LOCAL)
+        res.cookie('familyName', familyName, OPTIONS_LOCAL)
         res.redirect("/customer")
     })
 
@@ -99,9 +105,9 @@ const login = async(req, res) => {
         console.log('customer user wrong password')
         res.send('customer user wrong password')
     } else { // user found
-        res.cookie('userId', result._id.toHexString(), OPTIONS)
-        res.cookie('givenName', result.givenName, OPTIONS)
-        res.cookie('familyName', result.familyName, OPTIONS)
+        res.cookie('userId', result._id.toHexString(), OPTIONS_SERVER)
+        res.cookie('givenName', result.givenName, OPTIONS_LOCAL)
+        res.cookie('familyName', result.familyName, OPTIONS_LOCAL)
         console.log('customer login successfully')
         res.redirect('/customer/menu/van=SnackSquid')
     }
