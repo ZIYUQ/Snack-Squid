@@ -35,7 +35,7 @@ h1{
 }
 
 
-a{
+.login, .signup, .findvan{
     display: block;
     padding-left: 15px;
     font-size: 1.5vw; 
@@ -81,7 +81,7 @@ a{
 
 /* For Login + Signup */
 
-.icon2{
+#icon2{
     margin: 0 7vw 0 7vw;
     height: 250px;
     width: 250px;
