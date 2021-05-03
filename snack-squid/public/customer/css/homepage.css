@@ -19,6 +19,8 @@ body, html{
     margin-top: 5vw;
 }
 
+/* For homepage */
+
 h1{
     margin: 0;
     font-size: 4vw;
@@ -32,7 +34,8 @@ h1{
 
 }
 
-a, button{
+
+a{
     display: block;
     padding-left: 15px;
     font-size: 1.5vw; 
@@ -76,6 +79,21 @@ a, button{
     background-size: cover;
 }
 
+/* For Login + Signup */
+
+.icon2{
+    margin: 0 7vw 0 7vw;
+    height: 250px;
+    width: 250px;
+    background: url("../images/snacksquid_icon2.png");
+    background-size: cover;
+}
+
+.line{
+    border-bottom: 13px solid #707070;
+    width: 90%;
+    margin: 20px 0 50px 0;
+}
 
 .BG {
     grid-area: BG;
@@ -83,6 +101,49 @@ a, button{
     background-repeat: no-repeat;
     background-size: cover;
     }
+
+label, b{
+    font-size: 23px;
+    font-weight: 500;
+
+}
+
+.user-input{
+    font-weight: 400;
+    color: lightslategray;
+    font-size: 20px;
+    border: none;
+    border-bottom: 2px solid;
+    margin-top: 5px;
+    margin-bottom: 5vh;
+    height: 30px;
+    width: 40%;
+}
+
+::placeholder{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    color: 	#C0C0C0;
+    
+}
+
+.user-input:focus {
+    outline: none;
+    width: 80%;
+    transition: 0.5s;
+
+}
+
+.user-input:valid{
+    width: 80%;
+}
+
+input[name="remember"]{
+    margin-left: 10px;
+    width: 15px;
+    height: 15px;
+}
+
 
 
 @media only screen and (max-width:1000px) {

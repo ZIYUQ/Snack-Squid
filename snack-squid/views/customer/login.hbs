@@ -1,20 +1,32 @@
 <section id="login">
     <title>Login</title>
 
-    <link rel="stylesheet" href="/customer/css/...">
+    <link rel="stylesheet" href="/customer/css/homepage.css">
 
     <form action="/customer/login" method="post">
         <div class="container">
-            <label for="emailAddress"><b>Email Address</b></label>
-            <input type="text" placeholder="Enter Username" name="emailAddress" required>
+            <section class='BG'></section>
 
-            <label for="password"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
+            <section class='Info'>
+                <div class="icon2"></div>
+                <div class= "line"></div>
 
-            <button type="submit">Login</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
+                    <label for="emailAddress"><b>Email Address</b></label>
+                    <br>
+                    <input class="user-input" type="text" placeholder="Enter Username" name="emailAddress" required>
+                    <br>
+                    
+                    <label for="password"><b>Password</b></label>
+                    <br>
+                    <input class="user-input" type="password" placeholder="Enter Password" name="password" required>
+                    <br>
+
+                <label class="user-checkbox">Remember me<input type="checkbox" checked="checked" name="remember"></label>
+                <br>
+                
+                <button type="submit">Login</button>
+
+            </section>
         </div>
     </form>
 
