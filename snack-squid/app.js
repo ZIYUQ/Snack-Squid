@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 
 // router for Customer app
+const profileRouterCT = require('./routes/customer/profileRouter')
 const menuRouterCT = require('./routes/customer/menuRouter')
 const loginRouterCT = require('./routes/customer/loginRouter')
 const signupRouterCT = require('./routes/customer/signupRouter')
@@ -38,6 +39,8 @@ app.set('view engine', 'hbs')
 app.get('/customer', (req, res) => {
     res.render('customer/homepage')
 })
+
+app.use('/customer/profile', profileRouterCT)
 
 app.use('/customer/order', orderRouterCT)
 

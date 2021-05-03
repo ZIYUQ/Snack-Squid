@@ -1,4 +1,5 @@
 const { Customer } = require('../../model/customer')
+const ObjectId = require('mongoose').Types.ObjectId
 const bcrypt = require('bcryptjs');
 const SALTROUNDS = 10
 
@@ -67,17 +68,22 @@ const renderLoginPage = async(req, res) => {
 }
 
 // check user and password
-async function checkUser(emailAddress, password) {
-    let result = await Customer.findOne({ emailAddress: emailAddress }, { password: true, givenName: true, familyName: true } )
-    if (result) {
-        const match = await bcrypt.compare(password, result.password);
-        if (match) {
-            return result
+async function checkUser(emailAddress, password, res) {
+    try {
+        let result = await Customer.findOne({ emailAddress: emailAddress }, { password: true, givenName: true, familyName: true })
+        if (result) {
+            const match = await bcrypt.compare(password, result.password);
+            if (match) {
+                return result
+            } else {
+                return -1
+            }
         } else {
-            return -1
+            return 0
         }
-    } else {
-        return 0
+    } catch (err){
+        console.log("Database query collection 'customers' failed")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
@@ -85,7 +91,7 @@ async function checkUser(emailAddress, password) {
 const login = async(req, res) => {
     let emailAddress = req.body.emailAddress
     let password = req.body.password
-    let result = await checkUser(emailAddress, password)
+    let result = await checkUser(emailAddress, password, res)
     if (result === 0) { // user not found
         console.log('customer user not found')
         res.send('customer user not found')
@@ -93,7 +99,6 @@ const login = async(req, res) => {
         console.log('customer user wrong password')
         res.send('customer user wrong password')
     } else { // user found
-        console.log(result)
         res.cookie('userId', result._id.toHexString(), OPTIONS)
         res.cookie('givenName', result.givenName, OPTIONS)
         res.cookie('familyName', result.familyName, OPTIONS)
@@ -102,4 +107,34 @@ const login = async(req, res) => {
     }
 }
 
-module.exports = { login, signup, renderLoginPage, renderSignupPage }
+// Render profile page
+const renderProfilePage = async(req, res) => {
+    if (req.cookies['userId'] == undefined){
+        console.log('customer has not logged in')
+        return res.redirect('/customer/login')
+    }
+    let userId = new ObjectId(req.cookies['userId'])
+    try {
+        let result = await Customer.findOne({_id: userId}, {givenName: true, familyName: true, emailAddress: true})
+        if (result){
+            res.render('customer/profile', {"customer": result})
+        } else{
+            console.log('customer not found')
+            res.clearCookie('userId')
+            return res.redirect('/customer/login')
+
+        }
+    } catch (err){
+        console.log("Database query collection 'customers' failed!")
+        return req.redirect('/404-NOT-FOUND')
+    }
+}
+
+const logout = async(req, res) => {
+    res.clearCookie('userId')
+    console.log('logout successfully')
+    return res.redirect('/customer/login')
+}
+
+
+module.exports = { login, signup, logout, renderLoginPage, renderSignupPage, renderProfilePage }

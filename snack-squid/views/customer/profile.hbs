@@ -1,0 +1,9 @@
+<section id="homepage">
+    <title>Profile</title>
+    {{#each customer}}
+       <p> {{this.givenName}} </p>
+       <p> {{this.familyName}} </p>
+       <p> {{this.emailAddress}} </p>
+    {{/each}}
+       <a href='/customer/profile/logout'> logout </a>
+</section>
