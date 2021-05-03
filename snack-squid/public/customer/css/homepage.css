@@ -58,9 +58,9 @@ a, button{
 
 .findvan{
     padding-left: 0;
+    padding-top: 2vh;
     margin-top: 10vh;
     font-weight: 400;
-    height: auto;
     background: #EBE5E5;
     width: 20vw;
     height: 7vh;
@@ -108,7 +108,8 @@ a, button{
         margin-top: 7vh;
         font-weight: 400;
         width: 30vw;
-        font-size: 2vw;
+        font-size: 2.5vw; 
+
     }
 }
 
@@ -135,7 +136,8 @@ a, button{
         margin-top: 7vh;
         font-weight: 400;
         width: 40vw;
-        font-size: 3vw;
+        height: 5vh;
+        font-size: 3.5vw;
     }
 
     .Info{
