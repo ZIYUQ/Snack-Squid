@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const SALTROUNDS = 10
 
 const OPTIONS = {
-    maxAge: 1000 * 60 * 60 * 24 , // would expire after 24 hours
+    maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours
     httpOnly: true, // The cookie only accessible by the web server
     signed: false // Indicates if the cookie should be signed
 }
@@ -13,10 +13,10 @@ const OPTIONS = {
 const expressValidator = require('express-validator')
 
 const renderSignupPage = async(req, res) => {
-    if (req.cookies['userId'] != undefined){
-        console.log('customer already logged in')
-        return res.redirect('/customer/menu/van=SnackSquid')
-    }
+    // if (req.cookies['userId'] != undefined){
+    //     console.log('customer already logged in')
+    //     return res.redirect('/customer/menu/van=SnackSquid')
+    // }
     res.render('customer/signup')
 }
 
@@ -37,7 +37,7 @@ const signup = async(req, res) => {
 
     // check if user is already exists
     const customer = await Customer.find({ emailAddress: emailAddress }, {})
-    if (customer.length != 0){
+    if (customer.length != 0) {
         console.log("user already exists")
         return res.send("user already exists")
     }
@@ -54,13 +54,13 @@ const signup = async(req, res) => {
         res.cookie('userId', newCustomer._id.toHexString(), OPTIONS)
         res.cookie('givenName', newCustomer.givenName, OPTIONS)
         res.cookie('familyName', newCustomer.familyName, OPTIONS)
-        res.send("signup successfully")
+        res.redirect("/customer/")
     })
 
 }
 
 const renderLoginPage = async(req, res) => {
-    if (req.cookies['userId'] != undefined){
+    if (req.cookies['userId'] != undefined) {
         console.log('customer already logged in')
         return res.redirect('/customer/menu/van=SnackSquid')
     }
