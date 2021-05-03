@@ -66,7 +66,7 @@ a{
     font-weight: 400;
     background: #EBE5E5;
     width: 20vw;
-    height: 7vh;
+    height: 6.5vh;
     border-radius: 37px;
     text-align: center;
     font-size: 1.5vw;
@@ -122,7 +122,7 @@ label, b{
 
 ::placeholder{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     color: 	#C0C0C0;
     
 }
@@ -170,7 +170,15 @@ input[name="remember"]{
         font-weight: 400;
         width: 30vw;
         font-size: 2.5vw; 
-
+    }
+    
+    .user-input{
+        font-size: 20px;
+        width: 50%;
+    }
+    
+    ::placeholder{
+        font-size: 15px;
     }
 }
 
@@ -205,5 +213,4 @@ input[name="remember"]{
         margin-left: 3vw;
         margin-top: 3vw;
     }
-
 }
