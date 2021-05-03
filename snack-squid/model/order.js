@@ -15,21 +15,16 @@ const feedbackSchema = new mongoose.Schema({
 
 const orderSchema = new mongoose.Schema({
     customerId: { type: mongoose.Types.ObjectId, required: true, ref: "Customer" },
-    // givenName: { type: String },
-    // familyName: { type: String },
-    // emailAddress: { type: String }
-
     vanId: { type: mongoose.Types.ObjectId, required: true, ref: "Van" },
-    // vanName: { type: String }
-
-    orderTime: { type: Date, default: Date.now, required: false },
+    // orderTime: { type: Date, default: Date.now, required: false },
     status: { type: String, enum: ["preparing", "fulfilled", "completed", "cancelled"] },
     details: { type: [cartSchema], required: true },
     total: { type: Number },
-    timestamp: { type: Number, default: 10, required: false },
+    // timestamp: { type: Number, default: 10, required: false },
     discount: { type: Boolean, default: false, required: false },
-    feedback: { type: feedbackSchema },
-})
+    feedback: { type: feedbackSchema }}, 
+    {timestamps: {createdAt: 'orderTime', updatedAt: 'updateTime'}}
+)
 
 const Order = mongoose.model('Order', orderSchema)
 const Cart = mongoose.model('Cart', cartSchema)

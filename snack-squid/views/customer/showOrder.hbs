@@ -4,16 +4,38 @@
     <header>
         <h1> Order</a> </h1>        
     </header>
-    <div class='fulfilled order'></div>
+    <div class='fulfilled order' ></div>
         <p>fulfilled orders:</p>
 
 
         {{#each fulfilledOrders}}
+       
+        <li>
+            <table>
+                <tr><td>Order ID:</td><td>{{this._id}}</td></tr>
+				<tr><td>Details</td><td class = "details">{{this.details}}</td></tr>
+                <tr><td>total amount:</td><td>{{this.total}}</td></tr> 
+                <tr><td>Van Name:</td><td>{{this.vanId.vanName}}</td></tr>
+                <tr><td>Order Time:</td><td>{{this.orderTime}}</td></tr>
+                <tr>
+				<div class = "remainTime"  time = "{{this.updateTime}}"><td>time remaining</td><td id = "remaining">{{this.updateTime}}</td></div>
+                </tr>
+                <tr>
+				<td><button id="button_detail" name="button_detail" onclick="remainingTime({{this.updateTime}})">Time</button></td><td id = "time"></td>
+                </tr>
+            </table>
+        </li>
+        {{/each}}
+    </div>
+
+    <div class='completed order'>
+        completed orders:
+        {{#each completedOrders}} 
         <ul>
             <table>
                 <tr><td>Order ID:</td><td>{{this._id}}</td></tr>
                 <tr>
-				<td><button id="button_detail" name="button_detail" onclick="showDetails({{this.details}})">Details</button></td><td id = "details">{{this.details}}</td>
+				<td><button id="button_detail" name="button_detail" onclick="showDetails({{this.details}})">Details</button></td><td id = "details"></td>
                 </tr>
                 <tr><td>total amount:</td><td>{{this.total}}</td></tr> 
                 <tr><td>Van Name:</td><td>{{this.vanId.vanName}}</td></tr>
@@ -22,20 +44,8 @@
         </ul>
         {{/each}}
     </div>
-
-    <div class='completed order'>
-        completed orders:
-        {{#each completedOrders}} 
-        <ul>
-            orderId:{{this._id}}
-            order detail: {{this.details}}
-            total amount: {{this.total}}
-            van: {{this.vanId}}
-            order time:{{this.orderTime}}
-        </ul>
-        {{/each}}
-    </div>
-    <script src="../js/order.js"></script>
+    <script src="/customer/js/order.js"></script>
+    
 </section>
 
 

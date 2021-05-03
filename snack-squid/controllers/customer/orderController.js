@@ -87,7 +87,13 @@ const getOrder = async (req,res)=>{
         const completed = await Order.find({customerId: customer._id, status: "completed"}, {}).populate("vanId", "vanName-_id").lean()
         for (let i=0; i < fulfilled.length; i++){
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
+            fulfilled[i].updateTime = JSON.stringify(fulfilled[i].orderTime);
         }
+
+        for (let i=0; i < completed.length; i++){
+            completed[i].details = JSON.stringify(completed[i].details);
+        }
+
         res.render('customer/showOrder', {"fulfilledOrders": fulfilled, "completedOrders": completed})
     }catch(err){
         return res.redirect('/404-NOT-FOUND')
