@@ -52,9 +52,9 @@ const signup = async(req, res) => {
         if (err) console.log(err)
         console.log("signup successfully")
         res.cookie('userId', newCustomer._id.toHexString(), OPTIONS)
-        res.cookie('givenName', newCustomer.givenName, OPTIONS)
-        res.cookie('familyName', newCustomer.familyName, OPTIONS)
-        res.redirect("/customer/")
+        res.cookie('givenName', givenName, OPTIONS)
+        res.cookie('familyName', familyName, OPTIONS)
+        res.redirect("/customer")
     })
 
 }
