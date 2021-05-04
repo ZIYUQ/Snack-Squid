@@ -1,11 +1,19 @@
 const express = require("express")
 
-const router = express.Router()
+const passport = require('passport');
+require('../../config/passport')(passport);
+
+const loginRouter = express.Router()
 const customerController = require("../../controllers/customer/customerController")
 
-router.get('', customerController.renderLoginPage)
+loginRouter.get('/', customerController.renderLoginPage)
 
+loginRouter.post('/', passport.authenticate('local-login', {
+    successRedirect: '/customer/menu/van=SnackSquid',
+    failureRedirect: '/customer/login', // redirect back to the login page if there is an error
+    failureFlash: true // allow flash messages
+}));
 // customer login
-router.post('', customerController.login)
+// loginRouter.post('', customerController.login)
 
-module.exports = router
+module.exports = loginRouter

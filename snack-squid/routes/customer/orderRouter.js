@@ -1,8 +1,8 @@
 const express = require("express")
 
-const router = express.Router()
+const orderRouter = express.Router()
 const orderController = require("../../controllers/customer/orderController")
 
-router.get('', orderController.getOrder)
+orderRouter.get('', orderController.getOrder)
 
-module.exports = router
+module.exports = orderRouter

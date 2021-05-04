@@ -34,6 +34,30 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs')
 
+const cors = require('cors')
+const passport = require('passport')
+const session = require('express-session')
+const flash = require('connect-flash-plus')
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv').config()
+
+
+app.use(cors({
+    credentals: true,
+    origin: "http://localhost:3000"
+}))
+
+app.use(session({
+    secret: "a secret",
+    resave: true,
+    saveUninitialized: true
+}))
+
+app.use(passport.initialize())
+
+app.use(passport.session())
+
+app.use(flash())
 
 // Customer app
 app.get('/customer', (req, res) => {
@@ -77,15 +101,15 @@ app.use('/vendor/order', orderRouterVD)
     // routers in register
 app.use('/vendor/register', registerRouterVD)
 
-app.get('/404-NOT-FOUND',(req, res) => {
-    res.render('404NotFound')
-})
+// app.get('/404-NOT-FOUND', (req, res) => {
+//     res.render('404NotFound')
+// })
 
-app.all('*', (req, res) => {
-    // 'default' route to catch user errors
-    res.status(404)
-    res.redirect('/404-NOT-FOUND')
-})
+// app.all('*', (req, res) => {
+//     // 'default' route to catch user errors
+//     res.status(404)
+//     res.redirect('/404-NOT-FOUND')
+// })
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {

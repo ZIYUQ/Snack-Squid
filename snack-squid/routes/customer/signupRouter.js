@@ -1,11 +1,19 @@
 const express = require("express")
 
-const router = express.Router()
+const passport = require('passport');
+require('../../config/passport')(passport);
+
+const signupRouter = express.Router()
 const customerController = require("../../controllers/customer/customerController")
 
-router.get('', customerController.renderSignupPage)
+signupRouter.get('/', customerController.renderSignupPage)
 
+signupRouter.post('/', passport.authenticate('local-signup', {
+    successRedirect: '/customer/', // redirect to the homepage
+    failureRedirect: '/customer/signup/', // redirect to signup page
+    failureFlash: true // allow flash messages
+}));
 // customer login
-router.post('', customerController.signup)
+//signupRouter.post('', customerController.signup)
 
-module.exports = router
+module.exports = signupRouter
