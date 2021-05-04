@@ -11,17 +11,33 @@
         {{#each fulfilledOrders}}
        
         <li>
-            <table>
-                <tr><td>Order ID:</td><td>{{this._id}}</td></tr>
-				<tr><td>Details</td><td class = "details">{{this.details}}</td></tr>
-                <tr><td>total amount:</td><td>{{this.total}}</td></tr> 
-                <tr><td>Van Name:</td><td>{{this.vanId.vanName}}</td></tr>
-                <tr><td>Order Time:</td><td>{{this.orderTime}}</td></tr>
+            <table class="orderTable">
                 <tr>
-				<div class = "remainTime"  time = "{{this.updateTime}}"><td>time remaining</td><td id = "remaining">{{this.updateTime}}</td></div>
+                    <td>Order ID:</td><td>{{this._id}}</td>
+                </tr>
+				<tr>
+                    <td>Details</td>
+                    <td class="details">{{this.details}}</td>
                 </tr>
                 <tr>
-				<td><button id="button_detail" name="button_detail" onclick="remainingTime({{this.updateTime}})">Time</button></td><td id = "time"></td>
+                    <td>total amount:</td>
+                    <td>{{this.total}}</td>
+                </tr>
+                <tr>
+                    <td>Van Name:</td>
+                    <td>{{this.vanId.vanName}}</td>
+                </tr>
+                <tr>
+                    <td>Order Time:</td>
+                    <td class="orderTime">{{this.orderTime}}</td>
+                </tr>
+                <tr>
+                    <td>Timestamp:</td>
+                    <td class="timeStamp">{{this.timestamp}}</td>
+                </tr>
+                <tr>
+                    <td>time remaining</td>
+                    <td class="timeRemaining"></td>
                 </tr>
             </table>
         </li>
