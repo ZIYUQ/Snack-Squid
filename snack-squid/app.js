@@ -34,12 +34,14 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs')
 
+// passport session
 const cors = require('cors')
 const passport = require('passport')
 const session = require('express-session')
 const flash = require('connect-flash-plus')
-    // const jwt = require('jsonwebtoken')
-    // const dotenv = require('dotenv').config()
+
+// const jwt = require('jsonwebtoken')
+// const dotenv = require('dotenv').config()
 
 
 app.use(cors({
@@ -92,6 +94,7 @@ app.get('/vendor/register', (req, res) => {
 // app.get("/vendor/order/:vanName", (req, res) => {
 //     res.send('You can mark an order by its id to be fulfilled')
 // })
+
 app.use('/vendor/van-management', vanRouterVD)
 
 app.use('/vendor/open-for-business', openRouterVD)
@@ -102,15 +105,15 @@ app.use('/vendor/order', orderRouterVD)
     // routers in register
 app.use('/vendor/register', registerRouterVD)
 
-// app.get('/404-NOT-FOUND', (req, res) => {
-//     res.render('404NotFound')
-// })
+app.get('/404-NOT-FOUND', (req, res) => {
+    res.render('404NotFound')
+})
 
-// app.all('*', (req, res) => {
-//     // 'default' route to catch user errors
-//     res.status(404)
-//     res.redirect('/404-NOT-FOUND')
-// })
+app.all('*', (req, res) => {
+    // 'default' route to catch user errors
+    res.status(404)
+    res.redirect('/404-NOT-FOUND')
+})
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {

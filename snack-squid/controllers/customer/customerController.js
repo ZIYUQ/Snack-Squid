@@ -46,6 +46,7 @@ const renderProfilePage = async(req, res) => {
     }
 }
 
+// logout
 const logout = async(req, res) => {
     req.logout()
     console.log('logout successfully')
