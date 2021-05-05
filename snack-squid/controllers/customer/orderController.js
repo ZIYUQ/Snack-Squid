@@ -5,7 +5,7 @@ const { Menu } = require("../../model/menu")
 const { Van } = require("../../model/van")
 
 // params: [{food_id}, {quantity}]
-const placeOrder = async(req, res) => {
+const placeOrder = async (req, res) => {
     let customerId = new ObjectId(req.cookies['userId'])
     let vanName = req.params.van_name
     let cart = req.body
@@ -75,30 +75,95 @@ const placeOrder = async(req, res) => {
     })
 }
 
-const getOrder = async (req,res)=>{
+const getOrder = async (req, res) => {
     let userId = req.cookies['userId']
-    if (userId == undefined){
+    if (userId == undefined) {
         return res.redirect('/customer/login')
     }
     userId = new ObjectId(userId)
-    try{
-        const customer = await Customer.findOne({_id: userId})
-        const fulfilled = await Order.find({customerId: customer._id, status: "preparing"}, {}).populate("vanId", "vanName-_id").lean()
-        const completed = await Order.find({customerId: customer._id, status: "completed"}, {}).populate("vanId", "vanName-_id").lean()
-        for (let i=0; i < fulfilled.length; i++){
+    try {
+        const customer = await Customer.findOne({ _id: userId })
+        const outstanding = await Order.find({ customerId: customer._id, status: "preparing" }, {}).populate("vanId", "vanName-_id").lean()
+        const fulfilled = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
+        for (let i = 0; i < outstanding.length; i++) {
+            outstanding[i].details = JSON.stringify(outstanding[i].details);
+        }
+
+        for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
-            fulfilled[i].updateTime = JSON.stringify(fulfilled[i].orderTime);
         }
 
-        for (let i=0; i < completed.length; i++){
-            completed[i].details = JSON.stringify(completed[i].details);
-        }
 
-        res.render('customer/showOrder', {"fulfilledOrders": fulfilled, "completedOrders": completed})
-    }catch(err){
+        res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled });
+    } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
 }
 
+const cancelOrder = async (req, res) => {
+    let id = req.body._id
+    if (id === undefined || id === null) {
+        return res.send("no order found")
+    }
+    try {
+        result = await Order.findOne({ _id: id }, {})
+        if (result) {
+            let now = new Date();
+            let ordertime = new Date(result.updateTime)
+            let timeStamp = result.timeStamp.alterOrderLimit;
 
-module.exports = { placeOrder, getOrder }
+            let dist = now - ordertime
+            if ((dist / 1000) / 60 > timeStamp) {
+                return res.send("sorry, you cannot cancel your order after " + timeStamp.toString())
+            }
+
+            // Set status as fulfilled
+            await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
+            return res.send('cancelled')
+        } else {
+            return res.send('no order found,please enter order id')
+        }
+    } catch (err) {
+        return res.status(400).send('Database query failed')
+    }
+}
+
+const alterOrder = async(req, res) => {
+    let id = req.params.orderid
+    let alter = req.params.alter
+    if (id === undefined || id === null) {
+        return res.send("no order found")
+    }
+    try {
+        result = await Order.findOne({ _id: id }, {})
+        console.log(result)
+        if (result) {
+            let now = new Date();
+            let ordertime = new Date(result.updateTime);
+            let timeStamp = parseInt(result.timestamp.alterOrderLimit);
+
+            let dist = now - ordertime;
+            console.log(dist)
+            if ((dist / 1000) / 60 > timeStamp) {
+                return res.send("sorry, you cannot cancel your order after " + timeStamp.toString()+ "mins")
+            }
+
+            if (alter == 1) {
+                res.redirect();
+            }
+            if (alter == 0) {
+                await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } });
+                res.redirect('./')
+            }
+        } else {
+            return res.send('no order found,please enter order id');
+        }
+
+    } catch (err) {
+        return res.status(400).send('Database query failed')
+    }
+}
+
+
+
+module.exports = { placeOrder, getOrder, alterOrder }

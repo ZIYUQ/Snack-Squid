@@ -4,11 +4,11 @@
     <header>
         <h1> Order</a> </h1>        
     </header>
-    <div class='fulfilled order' ></div>
-        <p>fulfilled orders:</p>
+    <div class='preparingOrders' ></div>
+        <p>preparing orders:</p>
 
 
-        {{#each fulfilledOrders}}
+        {{#each preparingOrders}}
        
         <li>
             <table class="orderTable">
@@ -29,14 +29,18 @@
                 </tr>
                 <tr>
                     <td>Order Time:</td>
-                    <td class="orderTime">{{this.orderTime}}</td>
+                    <td class="orderTime">{{this.updateTime}}</td>
                 </tr>
                 <tr>
-                    <td>Timestamp:</td>
-                    <td class="timeStamp">{{this.timestamp}}</td>
+                    <td>You can change the order in:</td>
+                    <td class="timeStamp">{{this.timestamp.alterOrderLimit}}mins</td>
                 </tr>
                 <tr>
-                    <td>time remaining</td>
+                    <td>Order will be completed in:</td>
+                    <td class = "dicountTime">{{this.timestamp.discountAwardLimit}}mins</td>
+                </tr>
+                <tr>
+                    <td>get 20% off after:</td>
                     <td class="timeRemaining"></td>
                 </tr>
             </table>
@@ -47,17 +51,34 @@
     <div class='completed order'>
         completed orders:
         {{#each completedOrders}} 
-        <ul>
-            <table>
-                <tr><td>Order ID:</td><td>{{this._id}}</td></tr>
+         <li>
+            <table class="completedOrderTable">
                 <tr>
-				<td><button id="button_detail" name="button_detail" onclick="showDetails({{this.details}})">Details</button></td><td id = "details"></td>
+                    <td>Order ID:</td><td>{{this._id}}</td>
                 </tr>
-                <tr><td>total amount:</td><td>{{this.total}}</td></tr> 
-                <tr><td>Van Name:</td><td>{{this.vanId.vanName}}</td></tr>
-                <tr><td>Order Time:</td><td>{{this.orderTime}}</td></tr>
+				<tr>
+                    <td>Details</td>
+                    <td class="details">{{this.details}}</td>
+                </tr>
+                <tr>
+                    <td>total amount:</td>
+                    <td>{{this.total}}</td>
+                </tr>
+                <tr>
+                    <td>Van Name:</td>
+                    <td>{{this.vanId.vanName}}</td>
+                </tr>
+                <tr>
+                    <td>Order Time:</td>
+                    <td class="orderTime">{{this.updateTime}}</td>
+                </tr>
+                
+                <tr>
+                    <td>get 20% off:</td>
+                    <td>{{this.discount}}</td>
+                </tr>
             </table>
-        </ul>
+        </li>
         {{/each}}
     </div>
     <script src="/customer/js/order.js"></script>
