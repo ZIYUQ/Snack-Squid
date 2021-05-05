@@ -76,11 +76,15 @@ const placeOrder = async(req, res) => {
     })
 }
 
+
+// get all outstanding and fulfilled order
 const getOrder = async(req, res) => {
     let userId = req.session.userId
     userId = new ObjectId(userId)
     try {
+        // find customer detail
         const customer = await Customer.findOne({ _id: userId })
+        // find order under that customer
         const outstanding = await Order.find({ customerId: customer._id, status: "preparing" }, {}).populate("vanId", "vanName-_id").lean()
         const fulfilled = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
         for (let i = 0; i < outstanding.length; i++) {
@@ -124,42 +128,42 @@ const getOrder = async(req, res) => {
 //     }
 // }
 
-const alterOrder = async(req, res) => {
-    let id = req.params.orderid
-    let alter = req.params.alter
-    if (id === undefined || id === null) {
-        return res.send("no order found")
-    }
-    try {
-        result = await Order.findOne({ _id: id }, {})
-        console.log(result)
-        if (result) {
-            let timeStamp = parseInt(result.timestamp.alterOrderLimit);
-            let now = new Date();
-            let ordertime = new Date(result.orderTime);
+// const alterOrder = async(req, res) => {
+//     let id = req.params.orderid
+//     let alter = req.params.alter
+//     if (id === undefined || id === null) {
+//         return res.send("no order found")
+//     }
+//     try {
+//         result = await Order.findOne({ _id: id }, {})
+//         console.log(result)
+//         if (result) {
+//             let timeStamp = parseInt(result.timestamp.alterOrderLimit);
+//             let now = new Date();
+//             let ordertime = new Date(result.orderTime);
 
-            let dist = (now.getTime() - ordertime.getTime()) / 1000 / 60;
-            console.log(dist)
-            if (dist > timeStamp) {
-                return res.send("sorry, you cannot cancel your order after " + timeStamp.toString() + "mins")
-            }
+//             let dist = (now.getTime() - ordertime.getTime())/1000/60;
+//             console.log(dist)
+//             if (dist> timeStamp) {
+//                 return res.send("sorry, you cannot cancel your order after " + timeStamp.toString() + "mins")
+//             }
 
-            if (alter == 1) {
-                res.redirect();
-            }
-            if (alter == 0) {
-                await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } });
-                res.redirect("/customer/order")
-            }
-        } else {
-            return res.send('no order found,please enter order id');
-        }
+//             if (alter == 1) {
+//                 res.redirect();
+//             }
+//             if (alter == 0) {
+//                 await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } });
+//                 res.redirect("/customer/order")
+//             }
+//         } else {
+//             return res.send('no order found,please enter order id');
+//         }
 
-    } catch (err) {
-        return res.status(400).send('Database query failed')
-    }
-}
+//     } catch (err) {
+//         return res.status(400).send('Database query failed')
+//     }
+// }
 
 
 
-module.exports = { placeOrder, getOrder, alterOrder }
+module.exports = { placeOrder, getOrder }

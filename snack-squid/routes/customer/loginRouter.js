@@ -6,6 +6,7 @@ require('../../config/passport')(passport);
 const loginRouter = express.Router()
 const customerController = require("../../controllers/customer/customerController")
 
+// render to login page
 loginRouter.get('/', customerController.renderLoginPage)
 
 loginRouter.post('/', passport.authenticate('local-login', {
