@@ -6,6 +6,7 @@ require('../../config/passport')(passport);
 const signupRouter = express.Router()
 const customerController = require("../../controllers/customer/customerController")
 
+// render to signup page
 signupRouter.get('/', customerController.renderSignupPage)
 
 signupRouter.post('/', passport.authenticate('local-signup', {
