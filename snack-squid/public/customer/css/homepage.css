@@ -19,6 +19,13 @@ body, html{
     margin-top: 5vw;
 }
 
+.profile{
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    color: #707070;
+    font-size: 55px;
+}
 /* For homepage */
 
 h1{
@@ -180,6 +187,10 @@ input[name="remember"]{
     ::placeholder{
         font-size: 15px;
     }
+
+    .profile{
+        font-size: 40px;
+    }
 }
 
 @media only screen and (max-width:650px) {
@@ -212,5 +223,11 @@ input[name="remember"]{
     .Info{
         margin-left: 3vw;
         margin-top: 3vw;
+    }
+
+    .profile{
+        top: 5px;
+        left: 5px;
+        font-size: 30px;
     }
 }

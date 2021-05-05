@@ -54,6 +54,14 @@ body {
     '. Ordering';
 }
 
+.profile{
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    color: #774C37;
+    font-size: 55px;
+}
+
 /* menu page */
 .snacks{
     grid-area: snacks;
@@ -244,9 +252,13 @@ h2, .overlay{
 .cart{
     grid-area: cart;
     position: sticky;
-    top: 10px;
-    right: 0;
+    top: 30px;
+    right: 80px;
     justify-self: right;
+}
+
+#cartdetail{
+    margin-right: 50px;
 }
 
 /* Overlay cart */
@@ -424,6 +436,8 @@ h2, .overlay{
     height: 0;
     margin: 0;
 }
+
+
     
 
 /* For Ipads */
@@ -477,7 +491,10 @@ h2, .overlay{
     #detailOrdering button{
         background-color: #E1D8D1;
     }
-    
+
+    #cartdetail{
+        margin-right: 70px;
+    }
 }
 
 /* For mobile phones */
