@@ -83,18 +83,24 @@ We only have one van open, which is SnackSquid.
 
 
 ### URL details
-http://localhost:3000/customer/  The homepage of customer app, you can login and signup, press "Find a nearby van" can redirect to menu page
+http://snack-squid.herokuapp.com/customer/ The homepage of customer app, you can login and signup, press "Find a nearby van" can redirect to menu page
 
-http://localhost:3000/customer/menu/van=SnackSquid We assume customers have choosen van "SnackSquid", press “+” and "-" button will add the product into cart.
-If press the image, you will be redirected to detail page and you can also modify cart on this page
+http://snack-squid.herokuapp.com/customer/menu/van=SnackSquid We assume customers have choosen van "SnackSquid", press “+” and "-" button will add the product into cart.
 
+If press the image, you will be redirected to detail page and you can also modify cart on this page.
+
+View cart will show the details of current order, and checkout will place the order in the main menu page.
+
+If the user has not logged in, you cannot checkout and will be rendered to login
+
+After placing order, the page will redirect to order page.
 
 **Now Get ready to complete all the tasks:**
 
 - [x] Read the Project handouts carefully
 - [x] User Interface (UI)mockup
 - [x] App server mockup
-- [ ] Front-end + back-end (one feature)
+- [x] Front-end + back-end (one feature)
 - [ ] Complete system + source code
 - [ ] Report on your work(+ test1 feature)
 

@@ -18,7 +18,6 @@ const OPTIONS_LOCAL = {
 // express-validator, to validate user data in forms
 const expressValidator = require('express-validator')
 
-
 const renderSignupPage = async(req, res) => {
     res.render('customer/signup')
 }
