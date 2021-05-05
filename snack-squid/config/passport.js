@@ -114,9 +114,9 @@ module.exports = function(passport) {
                             return done(null, newCustomer);
                         });
 
-                        // put the user's emailAddress in the session so that it can now be used for all
+                        // put the user's ema  ilAddress in the session so that it can now be used for all
                         // communications between the client (browser) and the FoodBuddy app
-                        req.session.emailAddress = emailAddress;
+                        req.session.userId = newCustomer._id;
                     }
                 });
             });
