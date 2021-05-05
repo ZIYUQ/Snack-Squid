@@ -1,6 +1,5 @@
 const express = require('express')
 const path = require('path')
-const db = require('./db')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
@@ -38,8 +37,8 @@ const cors = require('cors')
 const passport = require('passport')
 const session = require('express-session')
 const flash = require('connect-flash-plus')
-const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv').config()
+    // const jwt = require('jsonwebtoken')
+    // const dotenv = require('dotenv').config()
 
 
 app.use(cors({
