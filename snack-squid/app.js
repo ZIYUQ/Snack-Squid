@@ -74,6 +74,7 @@ app.use('/customer/login', loginRouterCT)
 
 app.use('/customer/menu', menuRouterCT)
 
+app.use('/customer/order', orderRouterCT)
 
 // Vendor app
 app.get('/vendor', (req, res) => {
