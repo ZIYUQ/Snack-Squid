@@ -134,13 +134,13 @@ const alterOrder = async(req, res) => {
         result = await Order.findOne({ _id: id }, {})
         console.log(result)
         if (result) {
+            let timeStamp = parseInt(result.timestamp.alterOrderLimit);
             let now = new Date();
             let ordertime = new Date(result.orderTime);
-            let timeStamp = parseInt(result.timestamp.alterOrderLimit);
 
-            let dist = now - ordertime;
+            let dist = (now.getTime() - ordertime.getTime())/1000/60;
             console.log(dist)
-            if ((dist / 1000) / 60 > timeStamp) {
+            if (dist> timeStamp) {
                 return res.send("sorry, you cannot cancel your order after " + timeStamp.toString() + "mins")
             }
 
@@ -149,7 +149,7 @@ const alterOrder = async(req, res) => {
             }
             if (alter == 0) {
                 await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } });
-                res.send("cancel successfully")
+                res.redirect("/customer/order")
             }
         } else {
             return res.send('no order found,please enter order id');

@@ -1,21 +1,3 @@
-// function showDetails(foods) {
-//     // var template = Handlebars.compile(
-//     //     "<ul> \
-//     //         <li><b>Item</b>:{{this.name}}</li> \
-//     //     </ul> ");
-//     alert(foods)
-
-
-//     var detail = '';
-//     for (i = 0; i < foods.length; i++) {
-//         detail += JSON.stringify(foods[i])
-//     };
-
-//     document.getElementById("details").innerHTML = detail;
-// }
-
-// Set the date we're counting down to
-// let countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
 
 // Update the count down every 1 second
 let x = setInterval(function() {
