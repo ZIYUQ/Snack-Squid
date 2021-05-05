@@ -89,19 +89,18 @@ http://snack-squid.herokuapp.com/customer/menu/van=SnackSquid We assume customer
 
 If press the image, you will be redirected to detail page and you can also modify cart on this page.
 
-View cart will show the details of current order, and checkout will place the order
+View cart will show the details of current order, and checkout will place the order in the main menu page.
 
-If the user has not logged in, it cannot checkout
+If the user has not logged in, you cannot checkout and will be rendered to login
 
 After placing order, the page will redirect to order page.
-
 
 **Now Get ready to complete all the tasks:**
 
 - [x] Read the Project handouts carefully
 - [x] User Interface (UI)mockup
 - [x] App server mockup
-- [ ] Front-end + back-end (one feature)
+- [x] Front-end + back-end (one feature)
 - [ ] Complete system + source code
 - [ ] Report on your work(+ test1 feature)
 
