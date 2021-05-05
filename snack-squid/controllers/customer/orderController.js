@@ -138,9 +138,9 @@ const alterOrder = async(req, res) => {
             let now = new Date();
             let ordertime = new Date(result.orderTime);
 
-            let dist = (now.getTime() - ordertime.getTime())/1000/60;
+            let dist = (now.getTime() - ordertime.getTime()) / 1000 / 60;
             console.log(dist)
-            if (dist> timeStamp) {
+            if (dist > timeStamp) {
                 return res.send("sorry, you cannot cancel your order after " + timeStamp.toString() + "mins")
             }
 

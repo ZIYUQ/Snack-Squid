@@ -85,7 +85,8 @@ We only have one van open, which is SnackSquid.
 ### URL details
 http://localhost:3000/customer/  The homepage of customer app, you can login and signup, press "Find a nearby van" can redirect to menu page
 
-http://localhost:3000/customer/menu/van=SnackSquid We assume customers have choosen van "SnackSquid", press Snac
+http://localhost:3000/customer/menu/van=SnackSquid We assume customers have choosen van "SnackSquid", press “+” and "-" button will add the product into cart.
+If press the image, you will be redirected to detail page and you can also modify cart on this page
 
 
 **Now Get ready to complete all the tasks:**

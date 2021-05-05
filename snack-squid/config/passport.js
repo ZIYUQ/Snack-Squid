@@ -38,10 +38,7 @@ module.exports = function(passport) {
         }, // pass the req as the first arg to the callback for verification 
         function(req, emailAddress, password, done) {
 
-            // you can read more about the nextTick() function here: 
-            // https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/
-            // we are using it because without it the Customer.findOne does not work,
-            // so it's part of the 'syntax'
+
             process.nextTick(function() {
                 // see if the user with the emailAddress exists
                 Customer.findOne({ 'emailAddress': emailAddress }, function(err, user) {
@@ -57,18 +54,11 @@ module.exports = function(passport) {
                         // failed
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                     }
-                    // otherwise, we put the user's emailAddress in the session
+                    // otherwise, we put the user's id in the session
                     else {
-                        // in app.js, we have indicated that we will be using sessions
-                        // the server uses the included modules to create and manage
-                        // sessions. each client gets assigned a unique identifier and the
-                        // server uses that identifier to identify different clients
-                        // all this is handled by the session middleware that we are using 
-                        // for demonstration of using express-session
                         req.session.userId = user._id
                         console.log(req.session.userId)
-                            // done() is used by the strategy to set the authentication status with
-                            // details of the user who was authenticated
+
                         return done(null, user, req.flash('loginMessage', 'Login successful'));
                     }
                 });
