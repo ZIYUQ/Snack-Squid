@@ -9,4 +9,4 @@ orderRouter.get('', orderController.getOrder)
 
 orderRouter.get('/:orderid/:alter', orderController.alterOrder)
 
-module.exports = router
+module.exports = orderRouter
