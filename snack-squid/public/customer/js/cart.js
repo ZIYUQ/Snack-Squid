@@ -1,22 +1,34 @@
-let addCarts = document.querySelectorAll('.addCart');
-let removeCarts = document.querySelectorAll('.removeCart');
-let foodSelectors = document.querySelectorAll('.food_price');
-let cartSelector = document.querySelector('.cartbutton')
-
+let foodListings = document.querySelectorAll('.foodListing')
 let foods = []
-for (let i=0; i < foodSelectors.length; i++){
-    let food_name = foodSelectors[i].id;
-    let food_price = parseInt(foodSelectors[i].innerHTML.charAt(1));
-    food = {
+let addCarts = []
+let removeCarts = []
+let quantitySelectors = []
+for (let i=0; i < foodListings.length; i++){
+    let food_name = foodListings[i].querySelector('.foodname').innerHTML
+    let food_price = parseInt(foodListings[i].querySelector('.food_price').innerHTML.charAt(1))
+    let food = {
         food_name: food_name,
         price: food_price,
         quantity: 0
     }
     foods.push(food)
-
+    let quantitySelector = foodListings[i].querySelector('.quantity')
+    quantitySelectors.push(quantitySelector)
+    // initialise quantity for each food
+    let cartItems = localStorage.getItem('inCart');
+    cartItems = JSON.parse(cartItems);
+    for (let j=0; j < cartItems.length; j++){
+        if (cartItems[j]["food_name"] == food.food_name){
+            quantitySelector.innerHTML = cartItems[j]['quantity']
+        }
+    }
+    let addCart = foodListings[i].querySelector('.addCart')
+    addCarts.push(addCart)
+    let removeCart = foodListings[i].querySelector('.removeCart')
+    removeCarts.push(removeCart)
 }
 
-cartNumbers = localStorage.getItem('cartNumbers');
+let cartNumbers = localStorage.getItem('cartNumbers');
 if (cartNumbers == undefined){
     document.getElementById("basket_span").innerHTML = 0;
 }
@@ -27,7 +39,7 @@ else {
 
 
 // food quantity + 1 in localStorage
-function setAddItems(food){
+function setAddItems(food, quantitySelector){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     if (cartItems != null){
@@ -35,15 +47,18 @@ function setAddItems(food){
         for (let i=0; i < cartItems.length; i++){
             if (cartItems[i]["food_name"] == food.food_name){
                 cartItems[i]["quantity"] += 1;
+                quantitySelector.innerHTML = cartItems[i]['quantity']
                 flag = 1;
             }
         }
         if (flag == 0){
             food.quantity = 1;
+            quantitySelector.innerHTML = food.quantity
             cartItems.push(food)
         }
     } else{
         food.quantity = 1;
+        quantitySelector.innerHTML = food.quantity
         cartItems = [
             food
         ]
@@ -52,7 +67,7 @@ function setAddItems(food){
 }
 
 // food quantity - 1 in localStorage
-function setRemoveItems(food){
+function setRemoveItems(food, quantitySelector){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     for (let i=0; i < cartItems.length; i++){
@@ -61,14 +76,15 @@ function setRemoveItems(food){
                 if (cartItems[i]["quantity"] > 0) {
                     cartItems[i]["quantity"] -= 1;
                 }
+                quantitySelector.innerHTML = cartItems[i]["quantity"]
             }
             if (cartItems[i]["quantity"] == 0){
                 cartItems.splice(i, 1);
                 //delete cartItems[i];
+                quantitySelector.innerHTML = 0
             }
         }
     }
-
     localStorage.setItem("inCart", JSON.stringify(cartItems));
 }
 
@@ -97,7 +113,7 @@ function updateTotalCost(){
 // when "+" is clicked, do everything required
 for (let i=0; i < addCarts.length; i++){
     addCarts[i].addEventListener('click', () => {
-        setAddItems(foods[i])
+        setAddItems(foods[i], quantitySelectors[i])
         updateCartNumbers();
         updateTotalCost();
         displayCart();
@@ -107,7 +123,7 @@ for (let i=0; i < addCarts.length; i++){
 // when "-" is clicked, do everything required
 for (let i=0; i < removeCarts.length; i++){
     removeCarts[i].addEventListener('click', () => {
-        setRemoveItems(foods[i]);
+        setRemoveItems(foods[i], quantitySelectors[i]);
         updateCartNumbers();
         updateTotalCost();
         displayCart();
@@ -170,7 +186,6 @@ function placeOrder(){
     };
     try{
         url = window.location.href + '/place-order'
-        console.log(url)
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {
