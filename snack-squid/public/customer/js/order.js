@@ -55,7 +55,7 @@ let x = setInterval(function() {
 
         // If the count down is over, write some text
         if (distance < 0) {
-            timeRemaining.innerHTML = "EXPIRED";
+            timeRemaining.innerHTML = "20% off award";
         }
     }
 

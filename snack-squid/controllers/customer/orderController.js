@@ -96,33 +96,33 @@ const getOrder = async(req, res) => {
     }
 }
 
-const cancelOrder = async(req, res) => {
-    let id = req.body._id
-    if (id === undefined || id === null) {
-        return res.send("no order found")
-    }
-    try {
-        result = await Order.findOne({ _id: id }, {})
-        if (result) {
-            let now = new Date();
-            let ordertime = new Date(result.updateTime)
-            let timeStamp = result.timeStamp.alterOrderLimit;
+// const cancelOrder = async (req, res) => {
+//     let id = req.body._id
+//     if (id === undefined || id === null) {
+//         return res.send("no order found")
+//     }
+//     try {
+//         result = await Order.findOne({ _id: id }, {})
+//         if (result) {
+//             let now = new Date();
+//             let ordertime = new Date(result.updateTime)
+//             let timeStamp = result.timeStamp.alterOrderLimit;
 
-            let dist = now - ordertime
-            if ((dist / 1000) / 60 > timeStamp) {
-                return res.send("sorry, you cannot cancel your order after " + timeStamp.toString())
-            }
+//             let dist = now - ordertime
+//             if ((dist / 1000) / 60 > timeStamp) {
+//                 return res.send("sorry, you cannot cancel your order after " + timeStamp.toString())
+//             }
 
-            // Set status as fulfilled
-            await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
-            return res.send('cancelled')
-        } else {
-            return res.send('no order found,please enter order id')
-        }
-    } catch (err) {
-        return res.status(400).send('Database query failed')
-    }
-}
+//             // Set status as fulfilled
+//             await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
+//             return res.send('cancelled')
+//         } else {
+//             return res.send('no order found,please enter order id')
+//         }
+//     } catch (err) {
+//         return res.status(400).send('Database query failed')
+//     }
+// }
 
 const alterOrder = async(req, res) => {
     let id = req.params.orderid
@@ -135,7 +135,7 @@ const alterOrder = async(req, res) => {
         console.log(result)
         if (result) {
             let now = new Date();
-            let ordertime = new Date(result.updateTime);
+            let ordertime = new Date(result.orderTime);
             let timeStamp = parseInt(result.timestamp.alterOrderLimit);
 
             let dist = now - ordertime;
@@ -149,7 +149,7 @@ const alterOrder = async(req, res) => {
             }
             if (alter == 0) {
                 await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } });
-                res.redirect('./')
+                res.send("cancel successfully")
             }
         } else {
             return res.send('no order found,please enter order id');
