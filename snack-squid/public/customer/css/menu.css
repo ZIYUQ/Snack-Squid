@@ -169,21 +169,21 @@ h2, .overlay{
     grid-template-rows: repeat(3,46px);
     justify-items: center;
     grid-template-areas: 
-    'foodname foodname foodname'
-    'food_price food_price food_price'
+    'foodName foodName foodName'
+    'foodPrice foodPrice foodPrice'
     'addCart quantity removeCart';
     margin: 0;
 
 }
 
-.foodname{
+.foodName{
     margin-top: 10px;
     margin-right: 15px;
-    grid-area:foodname;
+    grid-area:foodName;
 }
 
-.food_price{
-    grid-area: food_price;
+.foodPrice{
+    grid-area: foodPrice;
     font-size: 20px;
     margin-top: 20px;
 }

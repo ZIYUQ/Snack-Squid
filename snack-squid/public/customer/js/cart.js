@@ -3,25 +3,39 @@ let foods = []
 let addCarts = []
 let removeCarts = []
 let quantitySelectors = []
+
+// initialise cartItems in localStorage
+let cartItems = localStorage.getItem('inCart');
+if (cartItems == null){
+    localStorage.setItem('inCart', '[]');
+}
+
 for (let i=0; i < foodListings.length; i++){
-    let food_name = foodListings[i].querySelector('.foodname').innerHTML
-    let food_price = parseInt(foodListings[i].querySelector('.food_price').innerHTML.charAt(1))
+    let food_name = foodListings[i].querySelector('.foodName').innerHTML
+    let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
     let food = {
         food_name: food_name,
-        price: food_price,
+        price: foodPrice,
         quantity: 0
     }
     foods.push(food)
     let quantitySelector = foodListings[i].querySelector('.quantity')
     quantitySelectors.push(quantitySelector)
+
     // initialise quantity for each food
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
+    let flag = 0
     for (let j=0; j < cartItems.length; j++){
         if (cartItems[j]["food_name"] == food.food_name){
             quantitySelector.innerHTML = cartItems[j]['quantity']
+            flag = 1
         }
     }
+    if (flag == 0){
+        quantitySelector.innerHTML = 0
+    }
+
     let addCart = foodListings[i].querySelector('.addCart')
     addCarts.push(addCart)
     let removeCart = foodListings[i].querySelector('.removeCart')
