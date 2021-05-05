@@ -32,18 +32,13 @@ const renderLoginPage = async(req, res) => {
 
 // Render profile page
 const renderProfilePage = async(req, res) => {
-    if (req.cookies['userId'] == undefined) {
-        console.log('customer has not logged in')
-        return res.redirect('/customer/login')
-    }
-    let userId = new ObjectId(req.cookies['userId'])
+    let userId = req.session.userId
     try {
         let result = await Customer.findOne({ _id: userId }, { givenName: true, familyName: true, emailAddress: true })
         if (result) {
             res.render('customer/profile', { "customer": result })
         } else {
             console.log('customer not found')
-            res.clearCookie('userId')
             return res.redirect('/customer/login')
 
         }
@@ -54,9 +49,9 @@ const renderProfilePage = async(req, res) => {
 }
 
 const logout = async(req, res) => {
-    res.clearCookie('userId')
+    req.logout()
     console.log('logout successfully')
-    return res.redirect('/customer/login')
+    return res.redirect('/customer/')
 }
 
 
