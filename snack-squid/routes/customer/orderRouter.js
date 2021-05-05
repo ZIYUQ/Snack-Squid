@@ -7,6 +7,6 @@ const menuController = require('../../controllers/customer/menuController')
 
 orderRouter.get('', orderController.getOrder)
 
-router.get('/:orderid/:alter', orderController.alterOrder)
+orderRouter.get('/:orderid/:alter', orderController.alterOrder)
 
 module.exports = router
