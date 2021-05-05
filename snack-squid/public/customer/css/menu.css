@@ -5,11 +5,11 @@ body {
     background-size: cover;
     font-family: 'Josefin Slab', serif;
     color: #774C37;
-    margin:0 2% 0 2%;
+    margin: 0 2% 0 2%;
     padding: 0;
 }
 
-.icon{
+.icon {
     background: url("../images/snacksquid_icon1.png");
     position: absolute;
     height: 120px;
@@ -20,7 +20,7 @@ body {
     border-radius: 100px;
 }
 
-.menu_headline{
+.menu_headline {
     background: url("../images/menu_headline.png");
     background-repeat: no-repeat;
     position: relative;
@@ -31,7 +31,7 @@ body {
     top: 10%;
 }
 
-.profile_icon{
+.profile_icon {
     background: url("../images/profile_icon.png");
     background-repeat: no-repeat;
     position: absolute;
@@ -42,19 +42,14 @@ body {
     top: 10%;
 }
 
-.container{
+.container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: minmax(30px,auto);
-    grid-template-areas: 
-    '. cart'
-    '. title'
-    'snacks drinks'
-    'snacks drinks'
-    '. Ordering';
+    grid-template-rows: minmax(30px, auto);
+    grid-template-areas: '. cart' '. title' 'snacks drinks' 'snacks drinks' '. Ordering';
 }
 
-.profile{
+.profile {
     position: fixed;
     right: 10px;
     top: 10px;
@@ -62,30 +57,33 @@ body {
     font-size: 55px;
 }
 
+
 /* menu page */
-.snacks{
+
+.snacks {
     grid-area: snacks;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    grid-template-rows: minmax(100px,auto);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: minmax(100px, auto);
     justify-items: center;
     row-gap: 10%;
-    grid-template-areas:
-    'subtitle1 subtitle1';
+    grid-template-areas: 'subtitle1 subtitle1';
 }
 
-.drinks{
+.drinks {
     grid-area: drinks;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    grid-template-rows: minmax(100px,auto);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: minmax(100px, auto);
     justify-items: center;
-    border-left: 5px solid #9B6F5B; /* This creates the border. Replace black with whatever color you want. */
+    border-left: 5px solid #9B6F5B;
+    /* This creates the border. Replace black with whatever color you want. */
     row-gap: 10%;
-    grid-template-areas:
-    'subtitle2 subtitle2';
+    grid-template-areas: 'subtitle2 subtitle2';
 }
-                /* grid-template-areas: 
+
+
+/* grid-template-areas: 
                 'd001 d002'
                 'd003 d004'
             }
@@ -97,32 +95,35 @@ body {
             #d002{
                 grid-area: d002;
             } */
-#title{
+
+#title {
     grid-area: title;
     font-size: 6rem;
     padding-left: 80px;
     letter-spacing: 40px;
-
-    content: ""; /* This is necessary for the pseudo element to work. */ 
-    display: block; /* This will put the pseudo element on its own line. */
-    width: 30%; /* Change this to whatever width you want. */
-    border-bottom: 5px solid #9B6F5B; /* This creates the border. Replace black with whatever color you want. */
+    content: "";
+    /* This is necessary for the pseudo element to work. */
+    display: block;
+    /* This will put the pseudo element on its own line. */
+    width: 30%;
+    /* Change this to whatever width you want. */
+    border-bottom: 5px solid #9B6F5B;
+    /* This creates the border. Replace black with whatever color you want. */
 }
 
-#subtitle1{
+#subtitle1 {
     grid-area: subtitle1;
     justify-self: center;
     margin-bottom: -30px;
-
-
 }
 
-h2, .overlay{
+h2,
+.overlay {
     font-size: 30px;
     margin-top: 5px;
 }
 
-#snackicon-img{
+#snackicon-img {
     width: 85px;
     height: 85px;
     background-image: url(https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80);
@@ -131,14 +132,13 @@ h2, .overlay{
     border-radius: 50%;
 }
 
-#subtitle2{
+#subtitle2 {
     grid-area: subtitle2;
     justify-self: center;
     margin-bottom: -30px;
-
 }
 
-#drinkicon-img{
+#drinkicon-img {
     width: 85px;
     height: 85px;
     background-image: url(https://images.unsplash.com/photo-1541167760496-1628856ab772?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1494&q=80);
@@ -147,19 +147,16 @@ h2, .overlay{
     border-radius: 50%;
 }
 
-
-
-.foodListing img {     
-    width:  180px;
+.foodListing img {
+    width: 180px;
     height: 140px;
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
     clip-path: polygon(0 0, 66% 0, 100% 100%, 0 100%);
     object-fit: cover;
-
 }
 
-.foodListing{
+.foodListing {
     width: 320px;
     height: 140px;
     border: 2px solid #DAD1C0;
@@ -170,57 +167,52 @@ h2, .overlay{
 }
 
 #food-detail {
-
-    width:200px;
+    width: 200px;
     font-size: 25px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(3,46px);
+    grid-template-rows: repeat(3, 46px);
     justify-items: center;
-    grid-template-areas: 
-    'foodName foodName foodName'
-    'foodPrice foodPrice foodPrice'
-    'addCart quantity removeCart';
+    grid-template-areas: 'foodName foodName foodName' 'foodPrice foodPrice foodPrice' 'addCart quantity removeCart';
     margin: 0;
 }
 
-.foodName{
+.foodName {
     margin-top: 10px;
     margin-right: 15px;
-    grid-area:foodName;
+    grid-area: foodName;
 }
 
-.foodPrice{
+.foodPrice {
     grid-area: foodPrice;
     font-size: 20px;
     margin-top: 20px;
 }
 
-.addCart{
+.addCart {
     grid-area: addCart;
     cursor: pointer;
 }
 
-.quantity{
+.quantity {
     grid-area: quantity;
     align-self: center;
-
 }
 
-.removeCart{
+.removeCart {
     grid-area: removeCart;
     cursor: pointer;
 }
 
-.removeCart, .addCart{
+.removeCart,
+.addCart {
     border: hidden;
     background-color: transparent;
     font-size: 30px;
     color: #774C37;
 }
 
-
-.Ordering{
+.Ordering {
     grid-area: Ordering;
     justify-self: right;
     width: 320px;
@@ -230,7 +222,7 @@ h2, .overlay{
     margin-right: 7%;
 }
 
-#ordering-text{
+#ordering-text {
     font-size: 40px;
     width: 250px;
     font-family: 'Josefin Slab';
@@ -238,18 +230,23 @@ h2, .overlay{
     border: hidden;
 }
 
-#cartbutton{
+#cartbutton {
     background-color: transparent;
     border: none;
 }
 
-#Cart-img{
+#Cart-img {
     clip-path: none;
     width: 65px;
     height: 65px;
 }
 
-.cart{
+#Cart-img,
+#ordering-text:hover {
+    cursor: pointer;
+}
+
+.cart {
     grid-area: cart;
     position: sticky;
     top: 30px;
@@ -257,40 +254,41 @@ h2, .overlay{
     justify-self: right;
 }
 
-#cartdetail{
+#cartdetail {
     margin-right: 50px;
 }
 
+
 /* Overlay cart */
 
-.overlay{
+.overlay {
     background: #F1E8DF;
-    position: fixed; /* Sit on top of the page content */
+    position: fixed;
+    /* Sit on top of the page content */
     width: 0;
-    height: 100%; /* Full height (cover the whole page) */
+    height: 100%;
+    /* Full height (cover the whole page) */
     right: 0;
     z-index: 1;
     overflow-y: scroll;
     transition: 0.5s;
-
-
 }
 
-.overlay button{
-    margin:5vh 0 0 75px;
+.overlay button {
+    margin: 5vh 0 0 75px;
     background-color: transparent;
     border: none;
     width: 58px;
     height: 58px;
-
 }
 
-.overlay i{
+.overlay i {
     font-size: 58px;
-    color: #774C37;;
+    color: #774C37;
+    ;
 }
 
-.products-container{
+.products-container {
     column-count: 2;
     column-gap: 40px;
     margin: 0 50px 0 50px;
@@ -298,39 +296,38 @@ h2, .overlay{
     font-weight: 500;
 }
 
-.line{
+.line {
     margin-top: 20px;
     column-span: all;
-    border-top: 10px solid #DBCAC2;;
+    border-top: 10px solid #DBCAC2;
+    ;
 }
 
-.overlayfood{
+.overlayfood {
     margin: 3vh 0 2vh 8vw;
     column-span: all;
 }
 
-.overlayquantity{
+.overlayquantity {
     margin-left: 11vw;
     /* margin-right: 20vw; */
-
 }
 
-.overlaytotal{
+.overlaytotal {
     margin-left: 8vw;
 }
 
-.basketTotalContainer{
+.basketTotalContainer {
     column-span: all;
     margin-top: 30px;
     text-align: right;
-
 }
 
-.basketTotal{
+.basketTotal {
     margin-left: 5vw;
 }
 
-#checkout{
+#checkout {
     column-span: all;
     width: 232px;
     height: 75px;
@@ -345,17 +342,16 @@ h2, .overlay{
 
 /* Food Detail */
 
-#detailPage{
+#detailPage {
     display: flex;
     margin: 25vh 20% 0 15%;
-
 }
 
-.detail-img{
+.detail-img {
     margin-right: 2vw;
 }
 
-.detail-img img{
+.detail-img img {
     width: 32.5vw;
     height: 50vh;
     border-radius: 115px;
@@ -363,8 +359,7 @@ h2, .overlay{
     box-shadow: 20px 15px 13px rgba(0, 0, 0, 0.16);
 }
 
-
-#detailListing{
+#detailListing {
     padding: 10px;
     width: auto;
     height: 350px;
@@ -377,52 +372,49 @@ h2, .overlay{
     flex-direction: column;
 }
 
-.quantitybox{
+.quantitybox {
     align-self: center;
     width: 60%;
     letter-spacing: 20px;
     line-height: 31px;
     background-color: #B4917F;
-    border-radius: 115px;  
+    border-radius: 115px;
 }
 
-.quantitybox button{
+.quantitybox button {
     font-size: 40px;
 }
 
-.quantitybox span{
+.quantitybox span {
     font-size: 30px;
     padding-left: 0.5vw;
 }
 
-#detailListing p{
+#detailListing p {
     margin-top: 30px;
     font-size: 30px;
     font-weight: 700;
 }
 
-#detailListing h1{
+#detailListing h1 {
     padding-top: 30px;
     font-size: 44px;
     letter-spacing: 5px;
 }
 
-#detailOrdering{
+#detailOrdering {
     border: none;
     width: 400px;
     align-self: center;
     margin: 100px 0 0 4vw;
-
 }
 
-#detailOrdering button{
+#detailOrdering button {
     background-color: #F1E8DF;
     color: #B4917F;
-
-
 }
 
-.pageBack{
+.pageBack {
     position: absolute;
     left: 30px;
     bottom: 40px;
@@ -431,103 +423,81 @@ h2, .overlay{
     color: #774C37;
 }
 
-.cart{
+.cart {
     text-align: right;
     height: 0;
     margin: 0;
 }
 
 
-    
-
 /* For Ipads */
-@media only screen and (max-width:1300px) {
-    .container{
-        grid-template-areas:
-        '. cart'
-        '. title'
-        'snacks snacks'
-        'drinks drinks'
-        '. Ordering';    
-    }
 
-    .drinks{
+@media only screen and (max-width:1300px) {
+    .container {
+        grid-template-areas: '. cart' '. title' 'snacks snacks' 'drinks drinks' '. Ordering';
+    }
+    .drinks {
         border-left: 0;
-        border-top: 5px solid #9B6F5B; /* This creates the border. Replace black with whatever color you want. */
+        border-top: 5px solid #9B6F5B;
+        /* This creates the border. Replace black with whatever color you want. */
         margin-top: 150px;
         padding-top: 50px;
     }
-
-    .products-container{
+    .products-container {
         column-count: 1;
     }
-
-    .overlayfood, .overlayquantity, .overlaytotal{
+    .overlayfood,
+    .overlayquantity,
+    .overlaytotal {
         margin-left: 0;
         text-align: center;
     }
-
-
-    #detailPage{
+    #detailPage {
         flex-direction: column;
         margin: 15vh 20% 0 20%;
-    
     }
-    
-    #detailListing{
+    #detailListing {
         margin-left: 0;
     }
-
-    .detail-img{
+    .detail-img {
         margin-right: 0;
     }
-    
-    .detail-img img{
+    .detail-img img {
         width: 57vw;
         height: 50vh;
         border-radius: 0;
         box-shadow: 20px 15px 13px rgba(0, 0, 0, 0.16);
     }
-    #detailOrdering button{
+    #detailOrdering button {
         background-color: #E1D8D1;
     }
-
-    #cartdetail{
+    #cartdetail {
         margin-right: 70px;
     }
 }
 
+
 /* For mobile phones */
 
 @media only screen and (max-width:650px) {
-
-    .container{
-        grid-template-columns: repeat(1,1fr);
-        grid-template-areas:
-        'cart'
-        'title'
-        'snacks'
-        'drinks'
-        'Ordering';    
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-areas: 'cart' 'title' 'snacks' 'drinks' 'Ordering';
     }
-
-    .snacks{
-        grid-template-columns: repeat(1,1fr);
-        grid-template-areas: 
-        'subtitle1';
+    .snacks {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-areas: 'subtitle1';
     }
-
-    .drinks{
+    .drinks {
         border-left: 0;
-        border-top: 5px solid #9B6F5B; /* This creates the border. Replace black with whatever color you want. */
+        border-top: 5px solid #9B6F5B;
+        /* This creates the border. Replace black with whatever color you want. */
         margin-top: 350px;
         padding-top: 50px;
-        grid-template-columns: repeat(1,1fr);
-        grid-template-areas: 
-        'subtitle2';
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-areas: 'subtitle2';
     }
-
-    .Ordering{
+    .Ordering {
         position: sticky;
         bottom: 0;
         grid-area: Ordering;
@@ -538,35 +508,28 @@ h2, .overlay{
         border: none;
         margin-right: 0;
     }
-
-    #ordering-text{
+    #ordering-text {
         display: none;
     }
-
-    #title{
+    #title {
         font-size: 15vw;
     }
-
-    .products-container{
+    .products-container {
         column-count: 2;
     }
-
-    #detailPage{
+    #detailPage {
         margin: 20vh 10% 0 10%;
-    
     }
-    
-    .detail-img img{
+    .detail-img img {
         width: 75vw;
         height: 25vh;
         border-radius: 0;
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.16);
     }
-    #detailOrdering button{
+    #detailOrdering button {
         background-color: #E1D8D1;
     }
-    
-    #detailListing{
+    #detailListing {
         padding: 5px;
         width: 73vw;
         height: 250px;
@@ -574,42 +537,34 @@ h2, .overlay{
         font-size: 18px;
         line-height: 20px;
     }
-
-.quantitybox button{
-    font-size: 20px;
-}
-
-.quantitybox span{
-    font-size: 20px;
-    padding-left: 2vw;
-}
-
-#detailListing p{
-    margin-top: 20px;
-    font-size: 25px;
-}
-
-#detailListing h1{
-    padding-top: 15px;
-    font-size: 30px;
-}
-
-#detailOrdering{
-    position: sticky;
-    display: block;
-    width: 80px;
-    margin-right: 0;
-    bottom: 0;
-    right: 0;
-    align-self: flex-end;
-}
-
-#detailOrdering button{
-    background-color: transparent;
-}
-
-.pageBack{
-    font-size: 40px;
-}
-
+    .quantitybox button {
+        font-size: 20px;
+    }
+    .quantitybox span {
+        font-size: 20px;
+        padding-left: 2vw;
+    }
+    #detailListing p {
+        margin-top: 20px;
+        font-size: 25px;
+    }
+    #detailListing h1 {
+        padding-top: 15px;
+        font-size: 30px;
+    }
+    #detailOrdering {
+        position: sticky;
+        display: block;
+        width: 80px;
+        margin-right: 0;
+        bottom: 0;
+        right: 0;
+        align-self: flex-end;
+    }
+    #detailOrdering button {
+        background-color: transparent;
+    }
+    .pageBack {
+        font-size: 40px;
+    }
 }

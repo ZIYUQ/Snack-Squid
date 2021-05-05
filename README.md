@@ -37,8 +37,8 @@ Project is created with:
 2. If the route is working, a json formatted output will be sent to you.
 
 ### Accessing MongoDB Atlas
-- Username: snacksquid
-- Password: 7PjugUwztiqEZXxh
+- Username: ziyuq@student.unimelb.edu.au
+- Password: Shsss06@20
 
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
@@ -71,6 +71,19 @@ Project is created with:
 
     ![img-06](img/img-06.png)
 
+
+## Deliverable 3 
+### Login Section
+dummy customer: 
+Email Address: kcathy@gmail.com
+Password: 123123
+
+### Van detail
+We only have one van open, which is SnackSquid.
+
+
+### URL details
+http://localhost:3000/customer/
 **Now Get ready to complete all the tasks:**
 
 - [x] Read the Project handouts carefully
