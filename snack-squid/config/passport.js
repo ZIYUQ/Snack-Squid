@@ -3,7 +3,7 @@ require('dotenv').config() // for JWT password key
 // used to create our local strategy for authenticating
 // using username and password
 const LocalStrategy = require('passport-local').Strategy;
-
+const cookieParser = require('cookie-parser');
 // our user model
 const { Customer } = require('../model/customer');
 
@@ -64,10 +64,11 @@ module.exports = function(passport) {
                         // sessions. each client gets assigned a unique identifier and the
                         // server uses that identifier to identify different clients
                         // all this is handled by the session middleware that we are using 
-                        req.session.emailAddress = emailAddress; // for demonstration of using express-session
-
-                        // done() is used by the strategy to set the authentication status with
-                        // details of the user who was authenticated
+                        // for demonstration of using express-session
+                        req.session.userId = user._id
+                        console.log(req.session.userId)
+                            // done() is used by the strategy to set the authentication status with
+                            // details of the user who was authenticated
                         return done(null, user, req.flash('loginMessage', 'Login successful'));
                     }
                 });

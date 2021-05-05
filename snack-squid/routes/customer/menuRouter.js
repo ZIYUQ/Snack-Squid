@@ -1,4 +1,5 @@
 const express = require("express")
+const utilities = require("./utility");
 const menuController = require('../../controllers/customer/menuController')
 const orderController = require('../../controllers/customer/orderController')
 
@@ -11,6 +12,7 @@ menuRouter.get('/van=:van_name', menuController.getMenu)
 menuRouter.get('/:tag', menuController.getFoodDetails)
 
 // place order
-menuRouter.post('/van=:van_name/place-order', orderController.placeOrder)
+menuRouter.post('/van=:van_name/place-order',
+    utilities.isLoggedIn, (req, res) => orderController.placeOrder(req, res))
 
 module.exports = menuRouter

@@ -5,8 +5,9 @@ const { Menu } = require("../../model/menu")
 const { Van } = require("../../model/van")
 
 // params: [{food_id}, {quantity}]
-const placeOrder = async (req, res) => {
-    let customerId = new ObjectId(req.cookies['userId'])
+const placeOrder = async(req, res) => {
+    let customerId = req.session.userId
+    console.log(customerId)
     let vanName = req.params.van_name
     let cart = req.body
     console.log(req.params.van_name)
@@ -75,11 +76,8 @@ const placeOrder = async (req, res) => {
     })
 }
 
-const getOrder = async (req, res) => {
-    let userId = req.cookies['userId']
-    if (userId == undefined) {
-        return res.redirect('/customer/login')
-    }
+const getOrder = async(req, res) => {
+    let userId = req.session.userId
     userId = new ObjectId(userId)
     try {
         const customer = await Customer.findOne({ _id: userId })
@@ -92,15 +90,13 @@ const getOrder = async (req, res) => {
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
         }
-
-
         res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
 }
 
-const cancelOrder = async (req, res) => {
+const cancelOrder = async(req, res) => {
     let id = req.body._id
     if (id === undefined || id === null) {
         return res.send("no order found")
@@ -145,7 +141,7 @@ const alterOrder = async(req, res) => {
             let dist = now - ordertime;
             console.log(dist)
             if ((dist / 1000) / 60 > timeStamp) {
-                return res.send("sorry, you cannot cancel your order after " + timeStamp.toString()+ "mins")
+                return res.send("sorry, you cannot cancel your order after " + timeStamp.toString() + "mins")
             }
 
             if (alter == 1) {
