@@ -161,8 +161,8 @@ input[name="remember"]{
         letter-spacing: -0.5vw;
     }
 
-    a{
-        font-size: 3vw; 
+    .login, .signup, .findvan{
+        font-size: 4vw; 
     }
 
     .findvan{
@@ -197,8 +197,8 @@ input[name="remember"]{
         letter-spacing: -0.5vw;
     }
 
-    a{
-        font-size: 4vw; 
+    .login, .signup, .findvan{
+        font-size: 5vw; 
     }
 
     .findvan{

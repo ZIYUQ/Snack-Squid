@@ -54,6 +54,7 @@ body {
     '. Ordering';
 }
 
+/* menu page */
 .snacks{
     grid-area: snacks;
     display: grid;
@@ -140,7 +141,7 @@ h2, .overlay{
 
 
 
-.container img {     
+.foodListing img {     
     width:  180px;
     height: 140px;
     border-top-left-radius: 40px;
@@ -173,7 +174,6 @@ h2, .overlay{
     'foodPrice foodPrice foodPrice'
     'addCart quantity removeCart';
     margin: 0;
-
 }
 
 .foodName{
@@ -190,6 +190,7 @@ h2, .overlay{
 
 .addCart{
     grid-area: addCart;
+    cursor: pointer;
 }
 
 .quantity{
@@ -200,15 +201,14 @@ h2, .overlay{
 
 .removeCart{
     grid-area: removeCart;
+    cursor: pointer;
 }
 
-#food-detail button{
-    height: 40px;
+.removeCart, .addCart{
     border: hidden;
     background-color: transparent;
     font-size: 30px;
     color: #774C37;
-    align-self: center;
 }
 
 
@@ -249,6 +249,7 @@ h2, .overlay{
     justify-self: right;
 }
 
+/* Overlay cart */
 
 .overlay{
     background: #F1E8DF;
@@ -256,7 +257,7 @@ h2, .overlay{
     width: 0;
     height: 100%; /* Full height (cover the whole page) */
     right: 0;
-    z-index: 2;
+    z-index: 1;
     overflow-y: scroll;
     transition: 0.5s;
 
@@ -329,6 +330,102 @@ h2, .overlay{
     font-weight: 600;
 }
 
+
+/* Food Detail */
+
+#detailPage{
+    display: flex;
+    margin: 25vh 20% 0 15%;
+
+}
+
+.detail-img{
+    margin-right: 2vw;
+}
+
+.detail-img img{
+    width: 32.5vw;
+    height: 50vh;
+    border-radius: 115px;
+    object-fit: cover;
+    box-shadow: 20px 15px 13px rgba(0, 0, 0, 0.16);
+}
+
+
+#detailListing{
+    padding: 10px;
+    width: auto;
+    height: 350px;
+    border-radius: 0;
+    background: #E1D8D1;
+    margin: 3vh 0 0 2vw;
+    font-size: 25px;
+    line-height: 27px;
+    text-align: center;
+    flex-direction: column;
+}
+
+.quantitybox{
+    align-self: center;
+    width: 60%;
+    letter-spacing: 20px;
+    line-height: 31px;
+    background-color: #B4917F;
+    border-radius: 115px;  
+}
+
+.quantitybox button{
+    font-size: 40px;
+}
+
+.quantitybox span{
+    font-size: 30px;
+    padding-left: 0.5vw;
+}
+
+#detailListing p{
+    margin-top: 30px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+#detailListing h1{
+    padding-top: 30px;
+    font-size: 44px;
+    letter-spacing: 5px;
+}
+
+#detailOrdering{
+    border: none;
+    width: 400px;
+    align-self: center;
+    margin: 100px 0 0 4vw;
+
+}
+
+#detailOrdering button{
+    background-color: #F1E8DF;
+    color: #B4917F;
+
+
+}
+
+.pageBack{
+    position: absolute;
+    left: 30px;
+    bottom: 40px;
+    display: block;
+    font-size: 65px;
+    color: #774C37;
+}
+
+.cart{
+    text-align: right;
+    height: 0;
+    margin: 0;
+}
+    
+
 /* For Ipads */
 @media only screen and (max-width:1300px) {
     .container{
@@ -355,12 +452,36 @@ h2, .overlay{
         margin-left: 0;
         text-align: center;
     }
-    
 
+
+    #detailPage{
+        flex-direction: column;
+        margin: 15vh 20% 0 20%;
+    
+    }
+    
+    #detailListing{
+        margin-left: 0;
+    }
+
+    .detail-img{
+        margin-right: 0;
+    }
+    
+    .detail-img img{
+        width: 57vw;
+        height: 50vh;
+        border-radius: 0;
+        box-shadow: 20px 15px 13px rgba(0, 0, 0, 0.16);
+    }
+    #detailOrdering button{
+        background-color: #E1D8D1;
+    }
     
 }
 
 /* For mobile phones */
+
 @media only screen and (max-width:650px) {
 
     .container{
@@ -412,4 +533,66 @@ h2, .overlay{
     .products-container{
         column-count: 2;
     }
+
+    #detailPage{
+        margin: 20vh 10% 0 10%;
+    
+    }
+    
+    .detail-img img{
+        width: 75vw;
+        height: 25vh;
+        border-radius: 0;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.16);
+    }
+    #detailOrdering button{
+        background-color: #E1D8D1;
+    }
+    
+    #detailListing{
+        padding: 5px;
+        width: 73vw;
+        height: 250px;
+        margin-top: 3vh;
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+.quantitybox button{
+    font-size: 20px;
+}
+
+.quantitybox span{
+    font-size: 20px;
+    padding-left: 2vw;
+}
+
+#detailListing p{
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+#detailListing h1{
+    padding-top: 15px;
+    font-size: 30px;
+}
+
+#detailOrdering{
+    position: sticky;
+    display: block;
+    width: 80px;
+    margin-right: 0;
+    bottom: 0;
+    right: 0;
+    align-self: flex-end;
+}
+
+#detailOrdering button{
+    background-color: transparent;
+}
+
+.pageBack{
+    font-size: 40px;
+}
+
 }
