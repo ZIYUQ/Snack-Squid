@@ -442,18 +442,30 @@ h2,
 
 .state{
     grid-area: state;
+    margin-left: 30%;
 }
 
-.preparingOrders{
+.preparingOrders, .completedorder{
     grid-area: preparingOrders;
     display: flex;
     flex-direction: column;
     font-size: 20px;
     line-height: 33px;
     border: 2px solid;
+    margin: 0 15% 0 15%;
+    padding: 8px;
+
 }
 
+.orderID{
+    font-size: 23px;
+    font-weight: 600;
 
+}
+
+.detail{
+    padding-left: 30px;
+}
 
 /* For Ipads */
 
