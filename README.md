@@ -81,7 +81,6 @@ Password: 123123
 ### Van detail
 We only have one van open, which is SnackSquid.
 
-
 ### URL details
 http://snack-squid.herokuapp.com/customer/ The homepage of customer app, you can login and signup, press "Find a nearby van" can redirect to menu page
 
@@ -95,6 +94,7 @@ If the user has not logged in, you cannot checkout and will be rendered to login
 
 After placing order, the page will redirect to order page.
 
+To logout, use http://snack-squid.herokuapp.com/customer/profile and click logout button
 **Now Get ready to complete all the tasks:**
 
 - [x] Read the Project handouts carefully
