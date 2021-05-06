@@ -1,63 +1,48 @@
 <section id="showOrder">
     <link rel="stylesheet" href="/customer/css/menu.css">
 
-<div class = "container">
+<div class = "container" id="orderContainer">
     <a class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
+    <a href="/customer"><div class="icon"></div></a>
+
     <h1 id="title">ORDER</h1>
 
         <div class="state">
-            <span>preparing orders</span>
-            <span>fulfilled orders</span>
+            <button>preparing orders</button>
+            <button>fulfilled orders</button>
         </div>   
 
-    
-    {{#each preparingOrders}}
-    <div class="allOrder"></div>
-    <li>
-        <table class="orderTable">
-            <tr>
-                <td>Order ID:</td>
-                <td>{{this._id}}</td>
-            </tr>
-            <tr>
-                <td>Details</td>
-                <td class="detail">{{this.details}}</td>
-                
-            </tr>
-            <tr>
-                <td>total amount:</td>
-                <td>{{this.total}}</td>
-            </tr>
-            <tr>
-                <td>Van Name:</td>
-                <td>{{this.vanId.vanName}}</td>
-            </tr>
-            <tr>
-                <td>Order Time:</td>
-                <td class="orderTime">{{this.updateTime}}</td>
-            </tr>
-            <tr>
-                <td>You can change the order in:</td>
-                <td class="timeStamp">{{this.timestamp.alterOrderLimit}}mins</td>
-            </tr>
-            <tr>
-                <td>Order will be completed in:</td>
-                <td class="dicountTime">{{this.timestamp.discountAwardLimit}}mins</td>
-            </tr>
-            <tr>
-                <td>get 20% off after:</td>
-                <td class="timeRemaining"></td>
-            </tr>
-        </table>
-    </li>
+    <div class='preparingOrders'>
+        {{#each preparingOrders}}
+                <table class="orderTable">
+                    <tr>
+                        <td>Order ID: {{this._id}} ({{this.vanId.vanName}})</td>
+                        <td class="timeRemaining"></td>
+                    </tr>
+                    <tr>
+                        <td class="detail">{{this.details}}</td>
+                        <td class="orderTime">Order Time: {{this.updateTime}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>total: ${{this.total}}</td>
+                        <td class="timeStamp">You can change the order in {{this.timestamp.alterOrderLimit}}mins</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Address Detail</td>
+                        <td class="dicountTime">{{this.timestamp.discountAwardLimit}} mins until order completes</td>
+                    </tr>
+
+                </table>
+
+                <div class="line"></div>
+        {{/each}}
     </div>
-    {{/each}}
     
 
-    <div class='completed order'>
-        fulfilled orders:
+    <div class='completedorder'>
         {{#each completedOrders}}
-        <li>
             <table class="completedTable">
                 <tr>
                     <td>Order ID:</td><td>{{this._id}}</td>
@@ -84,12 +69,11 @@
                     <td>{{this.discount}}</td>
                 </tr>
             </table>
-        </li>
         {{/each}}
     </div>
     
     <script src="/customer/js/order.js"></script>
-    
+</div>
 </section>
 {{!-- 
     <div class = "container">

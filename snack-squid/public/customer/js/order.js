@@ -35,7 +35,7 @@ let x = setInterval(function() {
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Output the result in an element with id="timeRemaining"
-        timeRemaining.innerHTML = minutes + "m " + seconds + "s ";
+        timeRemaining.innerHTML = "Time Remaining: " + minutes + "m " + seconds + "s ";
 
         // If the count down is over, write some text
         if (distance < 0) {
@@ -65,10 +65,9 @@ for (let i=0; i < orderDetail.length; i++){
     for (let j=0; j<foods.length; j++){
         details.innerHTML += `
         <tr>
-        <td>foodname: </td>
-        <td>${foods[j].foodName}</td>
-        <td>quantity: </td>
         <td>${foods[j].quantity}</td>
+        <td>${foods[j].foodName}</td>
+        <br>
         </tr>
         `
 
