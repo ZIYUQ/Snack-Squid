@@ -34,7 +34,7 @@ let x = setInterval(function() {
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Output the result in an element with id="demo"
+        // Output the result in an element with id="timeRemaining"
         timeRemaining.innerHTML = minutes + "m " + seconds + "s ";
 
         // If the count down is over, write some text
@@ -44,3 +44,64 @@ let x = setInterval(function() {
     }
 
 }, 1000);
+
+// list order food details of outstanding orders
+let orderDetail = document.getElementsByClassName("orderTable")
+
+for (let i=0; i < orderDetail.length; i++){
+    console.log(orderDetail.length)
+    let tds = orderDetail[i].getElementsByTagName("td");
+    let foods;
+    let details;
+    
+    for (let j=0; j < tds.length; j++){
+        if (tds[j].className == "detail"){
+            foods = JSON.parse(tds[j].innerHTML);
+            console.log(foods);
+            details = tds[j];
+        } 
+    }
+    details.innerHTML = ``;
+    for (let j=0; j<foods.length; j++){
+        details.innerHTML += `
+        <tr>
+        <td>foodname: </td>
+        <td>${foods[j].foodName}</td>
+        <td>quantity: </td>
+        <td>${foods[j].quantity}</td>
+        </tr>
+        `
+
+    }
+}
+
+// list order food details of fulfilled orders
+let completedOrderDetail = document.getElementsByClassName("completedTable")
+
+for (let i=0; i < completedOrderDetail.length; i++){
+    console.log(completedOrderDetail.length)
+    let tds = completedOrderDetail[i].getElementsByTagName("td");
+    let foods;
+    let details;
+    
+    for (let j=0; j < tds.length; j++){
+        if (tds[j].className == "detail"){
+            foods = JSON.parse(tds[j].innerHTML);
+            console.log(foods);
+            details = tds[j];
+        } 
+    }
+    details.innerHTML = ``;
+    for (let j=0; j<foods.length; j++){
+        details.innerHTML += `
+        <tr>
+        <td>foodname: </td>
+        <td>${foods[j].foodName}</td>
+        <td>quantity: </td>
+        <td>${foods[j].quantity}</td>
+        </tr>
+        `
+
+    }
+    
+}

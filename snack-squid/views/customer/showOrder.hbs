@@ -7,9 +7,9 @@
     <div class='preparingOrders'></div>
     <p>preparing orders:</p>
 
-
+    
     {{#each preparingOrders}}
-
+    <div class="allOrder"></div>
     <li>
         <table class="orderTable">
             <tr>
@@ -18,7 +18,8 @@
             </tr>
             <tr>
                 <td>Details</td>
-                <td class="details">{{this.details}}</td>
+                <td class="detail">{{this.details}}</td>
+                
             </tr>
             <tr>
                 <td>total amount:</td>
@@ -46,21 +47,22 @@
             </tr>
         </table>
     </li>
-    {{/each}}
     </div>
+    {{/each}}
+    
 
     <div class='completed order'>
         fulfilled orders:
         {{#each completedOrders}}
         <li>
-            <table class="completedOrderTable">
+            <table class="completedTable">
                 <tr>
                     <td>Order ID:</td>
                     <td>{{this._id}}</td>
                 </tr>
                 <tr>
                     <td>Details</td>
-                    <td class="details">{{this.details}}</td>
+                    <td class="detail">{{this.details}}</td>
                 </tr>
                 <tr>
                     <td>total amount:</td>
@@ -83,6 +85,7 @@
         </li>
         {{/each}}
     </div>
+    
     <script src="/customer/js/order.js"></script>
 
 </section>
