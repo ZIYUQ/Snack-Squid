@@ -21,22 +21,22 @@
                     </tr>
                     <tr>
                         <td class="detail">{{this.details}}</td>
-                        <td class="orderTime">Order Time: {{this.updateTime}}</td>
+                        <td class="orderTime"><span class="thinfont">Order Time: </span>{{this.updateTime}}</td>
                     </tr>
 
                     <tr>
-                        <td>total: ${{this.total}}</td>
-                        <td class="timeStamp">You can change the order in {{this.timestamp.alterOrderLimit}}mins</td>
+                        <td>Total: ${{this.total}}</td>
+                        <td class="timeStamp"><span class="thinfont">Change Available for: </span>{{this.timestamp.alterOrderLimit}}mins</td>
                     </tr>
                     
                     <tr>
                         <td>Address Detail</td>
-                        <td class="dicountTime">{{this.timestamp.discountAwardLimit}} mins until order completes</td>
+                        <td class="dicountTime">{{this.timestamp.discountAwardLimit}}mins <span class="thinfont">until order complete</span></td>
                     </tr>
 
                 </table>
 
-                <div class="line"></div>
+                <div class="line" id="lineOrder"></div>
         {{/each}}
     </div>
     
