@@ -1,4 +1,5 @@
 let foodListings = document.querySelectorAll('.foodListing')
+console.log(foodListings)
 let foods = []
 let addCarts = []
 let removeCarts = []
@@ -6,11 +7,11 @@ let quantitySelectors = []
 
 // initialise cartItems in localStorage
 let cartItems = localStorage.getItem('inCart');
-if (cartItems == null){
+if (cartItems == null) {
     localStorage.setItem('inCart', '[]');
 }
 
-for (let i=0; i < foodListings.length; i++){
+for (let i = 0; i < foodListings.length; i++) {
     let food_name = foodListings[i].querySelector('.foodName').innerHTML
     let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
     let food = {
@@ -26,13 +27,13 @@ for (let i=0; i < foodListings.length; i++){
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     let flag = 0
-    for (let j=0; j < cartItems.length; j++){
-        if (cartItems[j]["food_name"] == food.food_name){
+    for (let j = 0; j < cartItems.length; j++) {
+        if (cartItems[j]["food_name"] == food.food_name) {
             quantitySelector.innerHTML = cartItems[j]['quantity']
             flag = 1
         }
     }
-    if (flag == 0){
+    if (flag == 0) {
         quantitySelector.innerHTML = 0
     }
 
@@ -43,34 +44,33 @@ for (let i=0; i < foodListings.length; i++){
 }
 
 let cartNumbers = localStorage.getItem('cartNumbers');
-if (cartNumbers == undefined){
+if (cartNumbers == undefined) {
     document.getElementById("basket_span").innerHTML = 0;
-}
-else {
+} else {
     cartNumbers = parseInt(cartNumbers)
     document.getElementById("basket_span").innerHTML = cartNumbers;
 }
 
 
 // food quantity + 1 in localStorage
-function setAddItems(food, quantitySelector){
+function setAddItems(food, quantitySelector) {
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
-    if (cartItems != null){
+    if (cartItems != null) {
         let flag = 0;
-        for (let i=0; i < cartItems.length; i++){
-            if (cartItems[i]["food_name"] == food.food_name){
+        for (let i = 0; i < cartItems.length; i++) {
+            if (cartItems[i]["food_name"] == food.food_name) {
                 cartItems[i]["quantity"] += 1;
                 quantitySelector.innerHTML = cartItems[i]['quantity']
                 flag = 1;
             }
         }
-        if (flag == 0){
+        if (flag == 0) {
             food.quantity = 1;
             quantitySelector.innerHTML = food.quantity
             cartItems.push(food)
         }
-    } else{
+    } else {
         food.quantity = 1;
         quantitySelector.innerHTML = food.quantity
         cartItems = [
@@ -81,18 +81,18 @@ function setAddItems(food, quantitySelector){
 }
 
 // food quantity - 1 in localStorage
-function setRemoveItems(food, quantitySelector){
+function setRemoveItems(food, quantitySelector) {
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
-    for (let i=0; i < cartItems.length; i++){
-        if (cartItems[i]["food_name"] == food.food_name){
+    for (let i = 0; i < cartItems.length; i++) {
+        if (cartItems[i]["food_name"] == food.food_name) {
             if (cartItems != null) {
                 if (cartItems[i]["quantity"] > 0) {
                     cartItems[i]["quantity"] -= 1;
                 }
                 quantitySelector.innerHTML = cartItems[i]["quantity"]
             }
-            if (cartItems[i]["quantity"] == 0){
+            if (cartItems[i]["quantity"] == 0) {
                 cartItems.splice(i, 1);
                 //delete cartItems[i];
                 quantitySelector.innerHTML = 0
@@ -102,22 +102,22 @@ function setRemoveItems(food, quantitySelector){
     localStorage.setItem("inCart", JSON.stringify(cartItems));
 }
 
-function updateCartNumbers(){
+function updateCartNumbers() {
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     let cartNumbers = 0
-    for (let i=0; i < cartItems.length; i++){
+    for (let i = 0; i < cartItems.length; i++) {
         cartNumbers += cartItems[i].quantity;
     }
     localStorage.setItem('cartNumbers', cartNumbers);
     document.getElementById("basket_span").innerHTML = cartNumbers;
 }
 
-function updateTotalCost(){
+function updateTotalCost() {
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     let cartCost = 0;
-    for (let i=0; i < cartItems.length; i++){
+    for (let i = 0; i < cartItems.length; i++) {
         let cost = cartItems[i].price * cartItems[i].quantity;
         cartCost += cost;
     }
@@ -125,7 +125,7 @@ function updateTotalCost(){
 }
 
 // when "+" is clicked, do everything required
-for (let i=0; i < addCarts.length; i++){
+for (let i = 0; i < addCarts.length; i++) {
     addCarts[i].addEventListener('click', () => {
         setAddItems(foods[i], quantitySelectors[i])
         updateCartNumbers();
@@ -135,7 +135,7 @@ for (let i=0; i < addCarts.length; i++){
 }
 
 // when "-" is clicked, do everything required
-for (let i=0; i < removeCarts.length; i++){
+for (let i = 0; i < removeCarts.length; i++) {
     removeCarts[i].addEventListener('click', () => {
         setRemoveItems(foods[i], quantitySelectors[i]);
         updateCartNumbers();
@@ -145,13 +145,13 @@ for (let i=0; i < removeCarts.length; i++){
 }
 
 // display cart
-function displayCart(){
+function displayCart() {
     let cartItems = localStorage.getItem("inCart");
     cartItems = JSON.parse(cartItems);
     let foodContainer = document.querySelector(".products-container");
     let cartCost = localStorage.getItem('totalCost');
 
-    if (cartItems && foodContainer){
+    if (cartItems && foodContainer) {
         foodContainer.innerHTML = '';
         Object.values(cartItems).map(item => {
             foodContainer.innerHTML += `
@@ -167,7 +167,7 @@ function displayCart(){
                 </div>
                 <div class="line"></div>
                 `;
-            
+
         });
         // <img src="../images/${item.food_name}.jpg">
 
@@ -188,7 +188,7 @@ function displayCart(){
     }
 }
 
-function placeOrder(){
+function placeOrder() {
     let cartItems = localStorage.getItem('inCart');
     const options = {
         method: 'POST',
@@ -198,14 +198,14 @@ function placeOrder(){
         body: cartItems,
         redirect: 'follow'
     };
-    try{
+    try {
         url = window.location.href + '/place-order'
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {
                     window.location.href = res.url;
                 }
-        });
+            });
         localStorage.removeItem('inCart');
         localStorage.removeItem('totalCost');
         localStorage.removeItem('cartNumbers');
@@ -216,10 +216,10 @@ function placeOrder(){
 
 function on() {
     displayCart();
-    let width  = window.innerWidth;
-    if(width>650){
+    let width = window.innerWidth;
+    if (width > 650) {
         document.getElementById("overlay").style.width = "50%";
-    }else{
+    } else {
         document.getElementById("overlay").style.width = "100%";
     }
 }

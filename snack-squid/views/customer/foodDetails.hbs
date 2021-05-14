@@ -1,7 +1,9 @@
 <section id="menu">
     <link rel="stylesheet" href="/customer/css/menu.css">
 
-    <h3 id="cartdetail" class="cart"><ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span></h3>
+    <h3 id="cartdetail" class="cart">
+        <ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span>
+    </h3>
 
     <div class="overlay" id="overlay">
         <button onclick="off()"><i class="fas fa-arrow-alt-circle-left"></i></button>
@@ -12,42 +14,45 @@
     </div>
 
     <a class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
-    <a href="/customer"><div class="icon"></div></a>
+    <a href="/customer">
+        <div class="icon"></div>
+    </a>
 
     <a class="pageBack" href="javascript:history.back()"><i class="fas fa-arrow-alt-circle-left"></i></a>
 
-    <div class = "container" id="detailPage">
+    <div class="container" id="detailPage">
 
         {{#each food}}
 
-            <title>Menu: {{this.foodName}}</title>
+        <title>Menu: {{this.foodName}}</title>
 
-            <div class="detail-img">
-                <img src="/customer/images/{{this.photo}}">
+        <div class="detail-img">
+            <img src="/customer/images/{{this.photo}}">
+        </div>
+
+        <div class="foodListing" id="detailListing">
+            <h1 class="foodName">{{this.foodName}}</h1>
+            <span class="description">description: {{this.description}}</span>
+            <p class="foodPrice">${{this.price}}</p>
+
+            <div class="quantitybox">
+                <button type="button" class="addCart">+</button>
+                <span class="quantity">0</span>
+                <button type="button" class="removeCart">-</button>
             </div>
 
-            <div class="foodListing" id="detailListing">
-                <h1 class="foodName">{{this.foodName}}</h1>
-                <span class="description">description: {{this.description}}</span>
-                <p class="foodPrice">${{this.price}}</p>
-
-                <div class="quantitybox">
-                    <button type="button" class="addCart">+</button>
-                    <span class="quantity">0</span>
-                    <button type="button" class="removeCart">-</button>
-                </div>
-
-                <div class="Ordering" id="detailOrdering">
-                    <button id="ordering-text" onclick="on()">View Cart</button>
-                    <button id="cartbutton" onclick="on()"><img id="Cart-img" src="/customer/images/Shopping cartS.png"></button>
-                </div>
-
+            <div class="Ordering" id="detailOrdering">
+                <button id="ordering-text" onclick="on()">View Cart</button>
+                <button id="cartbutton" onclick="on()"><img id="Cart-img"
+                        src="/customer/images/Shopping cartS.png"></button>
             </div>
+
+        </div>
         {{/each}}
 
     </div>
 
-                    
+
     <script src="/customer/js/cart.js"></script>
 
 </section>

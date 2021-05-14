@@ -17,10 +17,10 @@ const findVanByName = async(req, res) => {
 
 // find the van by name and change the value open as true
 const openForBusiness = async(req, res) => {
-    let name = req.session.vanName;
+    let ID = req.session.vanId;
     let location = req.body.location
     try {
-        let thisVan = await Van.findOne({ vanName: name }, { open: true })
+        let thisVan = await Van.findOne({ _id: ID }, { open: true })
 
         // If req.body has nothing
         if (req.body === null) {
@@ -32,8 +32,8 @@ const openForBusiness = async(req, res) => {
             } else {
                 // If the van is not open yet, update the location and mark it as open
                 if (thisVan['open'] === false) {
-                    if (updateLocation(name, location, res)) {
-                        await Van.updateOne({ vanName: name }, { $set: { open: true } })
+                    if (updateLocation(ID, location, res)) {
+                        await Van.updateOne({ _id: ID }, { $set: { open: true } })
                         res.redirect('/vendor/order')
                     } else {
                         return res.send('no location')
@@ -50,10 +50,10 @@ const openForBusiness = async(req, res) => {
 }
 
 // Update the location
-const updateLocation = async(vanName, van_location, res) => {
+const updateLocation = async(ID, vanLocation, res) => {
     try {
         // Find the van and set the location value
-        await Van.updateOne({ vanName: vanName }, { $set: { location: van_location } })
+        await Van.updateOne({ _id: ID }, { $set: { location: vanLocation } })
         return 1
     } catch (err) {
         res.status(400).send('Database query failed')

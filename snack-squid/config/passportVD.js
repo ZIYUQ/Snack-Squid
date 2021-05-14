@@ -56,8 +56,8 @@ module.exports = function(passport) {
                     }
                     // otherwise, we put the user's id in the session
                     else {
-                        req.session.vanName = user.vanName;
-                        console.log(req.session.vanName)
+                        req.session.vanId = user._id;
+                        console.log(req.session.vanId)
 
                         return done(null, user, req.flash('loginMessage', 'Login successful'));
                     }

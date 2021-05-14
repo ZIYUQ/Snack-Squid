@@ -6,9 +6,7 @@ const { Van } = require('../../model/van')
 const getVanOrder = async(req, res) => {
 
     try {
-        const van = await Van.findOne({ vanName: req.session.vanName })
-
-        const result = await Order.find({ vanId: van._id, status: "preparing" }, { _id: true, details: true }).populate("customerId", "givenName-_id")
+        const result = await Order.find({ vanId: req.session.vanId, status: "preparing" }, { _id: true, details: true }).populate("customerId", "givenName-_id")
             // Return if the order status is preparing
 
         if (result) {

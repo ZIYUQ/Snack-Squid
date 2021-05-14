@@ -10,12 +10,14 @@
         </div>
     </div>
 
-    <a href="/customer"><div class="icon"></div></a>
+    <a href="/customer">
+        <div class="icon"></div>
+    </a>
 
-    <div class = "container">
+    <div class="container">
         <a class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
-        <h3 class="cart"><i class="fas fa-shopping-basket"></i>  Cart: <span id="basket_span">0</span></h3>
-        
+        <h3 class="cart"><i class="fas fa-shopping-basket"></i> Cart: <span id="basket_span">0</span></h3>
+
         <h1 id="title">MENU</h1>
 
         <div class="snacks">
@@ -24,22 +26,22 @@
                 <div id="snackicon-img"></div>
                 <h2>Snacks</h2>
             </div>
-            
+
             {{!-- snack item --}}
             {{#each snacks}}
-                <div class="foodListing">
-                    <a href="/customer/menu/{{this.tag}}">
+            <div class="foodListing">
+                <a href="/customer/menu/{{this.tag}}">
                     <img src="../images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
-                        <div id="food-detail">
-                            <span class="foodName">{{this.foodName}}</span>
-                            <span class="foodPrice">${{this.price}}</span>
-                            <button type="button" class="addCart">+</button>
-                            <span class="quantity"></span>
-                            <button type="button" class="removeCart">-</button>
-                        </div>
-
+                <div id="food-detail">
+                    <span class="foodName">{{this.foodName}}</span>
+                    <span class="foodPrice">${{this.price}}</span>
+                    <button type="button" class="addCart">+</button>
+                    <span class="quantity"></span>
+                    <button type="button" class="removeCart">-</button>
                 </div>
+
+            </div>
             {{/each}}
 
         </div>
@@ -52,26 +54,27 @@
             </div>
 
             {{#each drinks}}
-                <div class="foodListing">
-                    <a href="/customer/menu/{{this.tag}}">
+            <div class="foodListing">
+                <a href="/customer/menu/{{this.tag}}">
                     <img src="../images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
-                    <div id="food-detail">
+                <div id="food-detail">
                     <span class="foodName">{{this.foodName}}</span>
                     <span class="foodPrice">${{this.price}}</span>
                     <button type="button" class="addCart">+</button>
                     <span class="quantity">0</span>
                     <button type="button" class="removeCart">-</button>
-                    </div>
-
                 </div>
+
+            </div>
             {{/each}}
 
         </div>
 
         <div class="Ordering">
             <button id="ordering-text" onclick="on()">View Cart</button>
-            <button id="cartbutton" onclick="on()"><img id="Cart-img" src="/customer/images/Shopping cartS.png"></button>
+            <button id="cartbutton" onclick="on()"><img id="Cart-img"
+                    src="/customer/images/Shopping cartS.png"></button>
         </div>
 
     </div>

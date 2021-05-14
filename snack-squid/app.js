@@ -61,12 +61,8 @@ app.use(passport.session())
 
 app.use(flash())
 
-//google map API
-const googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyDgiJFRfTbjVO1tmCspwRuo3k9kVMFeRRw'
-});
-
-
+//mapquest API
+const mq = require('mapquest')
 
 
 // Customer app

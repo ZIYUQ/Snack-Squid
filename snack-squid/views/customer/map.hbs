@@ -1,0 +1,44 @@
+<section id="findVan">
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
+
+    <script type="text/javascript">
+        window.onload = async function () {
+            L.mapquest.key = 'A1HigpvtAiVmfrECeAqUXlsnN6wDUshM';
+            let vans = document.querySelectorAll('.vanListing')
+
+            var map = L.mapquest.map('map', {
+                center: [-37.816166, 144.966639],
+                layers: L.mapquest.tileLayer('map'),
+                zoom: 13
+            });
+            let geocoder = L.mapquest.geocoding();
+            for (i = 0; i < vans.length; i++) {
+                let vanName = vans[i].querySelector('.vanName').innerHTML
+                let vanLocation = vans[i].querySelector('.vanLocation').innerHTML
+
+                await geocoder.geocode(vanLocation, geocodingCallback);
+
+                function geocodingCallback(error, result) {
+                    let coordinate = [result.results[0].locations[0].latLng.lat, result.results[0].locations[0].latLng.lng]
+                    L.marker(coordinate, {
+                        icon: L.mapquest.icons.marker(),
+                        draggable: false
+                    }).bindPopup(vanName).addTo(map);
+                }
+            }
+
+            L.marker.on('click', function (e) { console.log(e.latlng.lat + "," + e.latlng.lng) }
+
+        }
+    </script>
+    <div id="map" style="width: 100%; height: 530px;"></div>
+    {{#each Vans}}
+    <div class="vanListing">
+        <div class="vanName">{{this.vanName}}</div>
+        <div class="vanLocation">{{this.location}}</div>
+        <div class="vanId">{{this._id}}</div>
+    </div>
+    {{/each}}
+
+</section>
