@@ -11,8 +11,8 @@ const menuRouterCT = require('./routes/customer/menuRouter')
 const loginRouterCT = require('./routes/customer/loginRouter')
 const signupRouterCT = require('./routes/customer/signupRouter')
 const orderRouterCT = require('./routes/customer/orderRouter')
-
-// router for Vendor app
+const mapRouterCT = require('./routes/customer/mapRouter')
+    // router for Vendor app
 const vanRouterVD = require('./routes/vendor/vanRouter')
 const openRouterVD = require('./routes/vendor/openRouter')
 const orderRouterVD = require('./routes/vendor/orderRouter')
@@ -61,6 +61,14 @@ app.use(passport.session())
 
 app.use(flash())
 
+//google map API
+const googleMapsClient = require('@google/maps').createClient({
+    key: 'AIzaSyDgiJFRfTbjVO1tmCspwRuo3k9kVMFeRRw'
+});
+
+
+
+
 // Customer app
 app.get('/customer', (req, res) => {
     res.render('customer/homepage')
@@ -78,6 +86,7 @@ app.use('/customer/menu', menuRouterCT)
 
 app.use('/customer/order', orderRouterCT)
 
+app.use('/customer/choose-van', mapRouterCT);
 // Vendor app
 app.get('/vendor', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/vendor/index.html'))
@@ -87,9 +96,9 @@ app.get('/vendor/register', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/vendor/registration.html'))
 })
 
-// app.get('/vendor/open-for-business/:vanName', (req, res) => {
-//     res.send('Please post location')
-// })
+app.get('/vendor/open-for-business/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/vendor/open.html'))
+})
 
 // app.get("/vendor/order/:vanName", (req, res) => {
 //     res.send('You can mark an order by its id to be fulfilled')
@@ -105,15 +114,15 @@ app.use('/vendor/order', orderRouterVD)
     // routers in register
 app.use('/vendor/register', registerRouterVD)
 
-app.get('/404-NOT-FOUND', (req, res) => {
-    res.render('404NotFound')
-})
+// app.get('/404-NOT-FOUND', (req, res) => {
+//     res.render('404NotFound')
+// })
 
-app.all('*', (req, res) => {
-    // 'default' route to catch user errors
-    res.status(404)
-    res.redirect('/404-NOT-FOUND')
-})
+// app.all('*', (req, res) => {
+//     // 'default' route to catch user errors
+//     res.status(404)
+//     res.redirect('/404-NOT-FOUND')
+// })
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {

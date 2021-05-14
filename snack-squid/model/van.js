@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt-nodejs')
 
 // Van model
 const vanSchema = new mongoose.Schema({
@@ -10,6 +11,13 @@ const vanSchema = new mongoose.Schema({
     open: Boolean
 })
 
+vanSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+};
 
+// checks if password is valid
+vanSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 const Van = mongoose.model('Van', vanSchema)
 module.exports = { Van }

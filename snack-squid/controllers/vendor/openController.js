@@ -1,6 +1,5 @@
 const { Van } = require('../../model/van')
 
-// print all vans that are open
 
 // find the van by its vanName 
 const findVanByName = async(req, res) => {
@@ -18,7 +17,7 @@ const findVanByName = async(req, res) => {
 
 // find the van by name and change the value open as true
 const openForBusiness = async(req, res) => {
-    let name = req.params.vanName
+    let name = req.session.vanName;
     let location = req.body.location
     try {
         let thisVan = await Van.findOne({ vanName: name }, { open: true })
@@ -35,12 +34,12 @@ const openForBusiness = async(req, res) => {
                 if (thisVan['open'] === false) {
                     if (updateLocation(name, location, res)) {
                         await Van.updateOne({ vanName: name }, { $set: { open: true } })
-                        res.send("open")
+                        res.redirect('/vendor/order')
                     } else {
                         return res.send('no location')
                     }
                 } else {
-                    res.send('Has open')
+                    res.redirect('/vendor/order')
                 }
             }
         }

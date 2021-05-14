@@ -1,7 +1,6 @@
 const { Customer } = require('../../model/customer')
 const ObjectId = require('mongoose').Types.ObjectId
-const bcrypt = require('bcryptjs');
-const SALTROUNDS = 10
+
 
 const OPTIONS_SERVER = {
     maxAge: 1000 * 60 * 60 * 24, // would expire after 24 hours

@@ -1,25 +1,12 @@
 const { Order } = require('../../model/order')
 const { Van } = require('../../model/van')
 
-// Find all outstanding order
-// const getVanOrder = async(req, res) => {
-//     try {
-//         // Return if the order status is preparing
-//         result = await Order.find({ vanName: req.params.vanName, status: "preparing" }, {})
-//         if (result) {
-//             return res.send(result)
-//         } else {
-//             return res.send('No order available')
-//         }
-//     } catch (err) {
-//         return res.status(400).send('Database query failed')
-//     }
-// }
 
 
 const getVanOrder = async(req, res) => {
+
     try {
-        const van = await Van.findOne({ vanName: req.params.vanName })
+        const van = await Van.findOne({ vanName: req.session.vanName })
 
         const result = await Order.find({ vanId: van._id, status: "preparing" }, { _id: true, details: true }).populate("customerId", "givenName-_id")
             // Return if the order status is preparing

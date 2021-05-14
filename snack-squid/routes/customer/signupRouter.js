@@ -1,7 +1,7 @@
 const express = require("express")
 
 const passport = require('passport');
-require('../../config/passport')(passport);
+require('../../config/passportCT')(passport);
 
 const signupRouter = express.Router()
 const customerController = require("../../controllers/customer/customerController")
