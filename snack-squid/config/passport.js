@@ -6,12 +6,12 @@ const LocalStrategy = require('passport-local').Strategy;
 //const cookieParser = require('cookie-parser');
 // our user model
 const { Customer } = require('../model/customer');
-
-// the following is required IF you wanted to use passport-jwt
-// JSON Web Tokens
-// const passportJWT = require("passport-jwt");
-// const JwtStrategy = passportJWT.Strategy;
-// const ExtractJwt = passportJWT.ExtractJwt;
+const { Van } = require('../model/van')
+    // the following is required IF you wanted to use passport-jwt
+    // JSON Web Tokens
+    // const passportJWT = require("passport-jwt");
+    // const JwtStrategy = passportJWT.Strategy;
+    // const ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function(passport) {
 
