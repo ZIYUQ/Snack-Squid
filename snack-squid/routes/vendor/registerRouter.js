@@ -4,10 +4,10 @@ const vanController = require('../../controllers/vendor/vanController')
 
 
 const passport = require('passport');
-require('../../config/passportVD')(passport);
+require('../../config/passport')(passport);
 
 
-registerRouter.post('/', passport.authenticate('local-signup', {
+registerRouter.post('/', passport.authenticate('van-signup', {
     successRedirect: '/vendor/', // redirect to the homepage
     failureRedirect: '/customer/signup/', // redirect to signup page
     failureFlash: true // allow flash messages

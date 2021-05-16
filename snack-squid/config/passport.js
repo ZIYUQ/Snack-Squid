@@ -31,7 +31,7 @@ module.exports = function(passport) {
     // strategy to login
     // this method only takes in username and password, and the field names
     // should match of those in the login form
-    passport.use('local-login', new LocalStrategy({
+    passport.use('customer-login', new LocalStrategy({
             usernameField: 'emailAddress',
             passwordField: 'password',
             passReqToCallback: true
@@ -69,7 +69,7 @@ module.exports = function(passport) {
 
 
     // for signup
-    passport.use('local-signup', new LocalStrategy({
+    passport.use('customer-signup', new LocalStrategy({
             usernameField: 'emailAddress',
             passwordField: 'password',
             passReqToCallback: true
@@ -107,6 +107,83 @@ module.exports = function(passport) {
                         // put the user's ema  ilAddress in the session so that it can now be used for all
                         // communications between the client (browser) and the FoodBuddy app
                         req.session.userId = newCustomer._id;
+                    }
+                });
+            });
+        }));
+    passport.use('van-login', new LocalStrategy({
+            usernameField: 'vanName',
+            passwordField: 'password',
+            passReqToCallback: true
+        }, // pass the req as the first arg to the callback for verification 
+        function(req, vanName, password, done) {
+
+
+            process.nextTick(function() {
+                // see if the user with the emailAddress exists
+                Van.findOne({ 'vanName': vanName }, function(err, user) {
+                    // if there are errors, user is not found or password
+                    // does match, send back errors
+                    if (err)
+                        return done(err);
+                    if (!user)
+                        return done(null, false, req.flash('loginMessage', 'No user found.'));
+
+                    if (!user.validPassword(password)) {
+                        // false in done() indicates to the strategy that authentication has
+                        // failed
+                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                    }
+                    // otherwise, we put the user's id in the session
+                    else {
+                        req.session.vanId = user._id;
+                        console.log(req.session.vanId)
+
+                        return done(null, user, req.flash('loginMessage', 'Login successful'));
+                    }
+                });
+            });
+
+        }));
+    passport.use('van-signup', new LocalStrategy({
+            usernameField: 'vanName',
+            passwordField: 'password',
+            passReqToCallback: true
+        }, // pass the req as the first arg to the callback for verification 
+
+        function(req, vanName, password, done) {
+            process.nextTick(function() {
+                Van.findOne({ 'vanName': vanName }, function(err, existingUser) {
+                    // search a user by the username (emailAddress in our case)
+                    // if user is not found or exists, exit with false indicating
+                    // authentication failure
+                    if (err) {
+                        console.log(err);
+                        return done(err);
+                    }
+                    if (existingUser) {
+                        console.log("existing");
+                        return done(null, false, req.flash('signupMessage', 'That van name is already taken.'));
+                    } else {
+                        // otherwise
+                        // create a new user
+                        const newVan = new Van();
+                        newVan.vanName = vanName;
+                        newVan.password = newVan.generateHash(password);
+                        newVan.emailAddress = req.body.emailAddress;
+                        newVan.mobileNumber = req.body.mobileNumber;
+                        newVan.location = "";
+                        newVan.open = false;
+                        // and save the user
+                        newVan.save(function(err) {
+                            if (err)
+                                throw err;
+
+                            return done(null, newVan);
+                        });
+                        // put the user's ema  ilAddress in the session so that it can now be used for all
+                        // communications between the client (browser) and the FoodBuddy app
+                        req.session.vanId = newVan._id;
                     }
                 });
             });

@@ -1,5 +1,4 @@
 let foodListings = document.querySelectorAll('.foodListing')
-console.log(foodListings)
 let foods = []
 let addCarts = []
 let removeCarts = []
