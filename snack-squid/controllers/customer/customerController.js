@@ -46,7 +46,7 @@ const renderProfilePage = async(req, res) => {
 }
 
 // logout
-const logout = async(req, res) => {
+const logout = (req, res) => {
     req.logout()
     console.log('logout successfully')
     return res.redirect('/customer/')

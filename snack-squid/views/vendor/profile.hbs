@@ -1,0 +1,15 @@
+<section id="vanProfile">
+    <title>Van Profile</title>
+
+    <p>Current Location: </p>
+    {{#each Van}}
+    <span>{{this.location}}</span>
+
+    <form action="/vendor/profile" method="POST" id="newLocation">
+        <p>Please enter the new location of the van</p>
+        <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name="newLocation" class='newLocation'>
+        <input type="submit" value="Change the Location">
+    </form>
+    <a href="/vendor/profile/close" name="close">Close Business for Today</a>
+    <a href="/vendor/profile/logout" name="logout">Log Out</a>
+</section>
