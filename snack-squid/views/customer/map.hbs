@@ -6,36 +6,66 @@
         window.onload = async function () {
             L.mapquest.key = 'A1HigpvtAiVmfrECeAqUXlsnN6wDUshM';
             let vans = document.querySelectorAll('.vanListing')
-
             var map = L.mapquest.map('map', {
                 center: [-37.816166, 144.966639],
                 layers: L.mapquest.tileLayer('map'),
-                zoom: 13
+                zoom: 15
             });
             let geocoder = L.mapquest.geocoding();
             for (i = 0; i < vans.length; i++) {
                 let vanName = vans[i].querySelector('.vanName').innerHTML
                 let vanLocation = vans[i].querySelector('.vanLocation').innerHTML
+                let vanId = vans[i].querySelector(".vanId").innerHTML
+                let btn = vans[i].querySelector("#chooseVan")
 
+                btn.addEventListener('click', () => {
+
+                    chooseVan(vanId);
+                })
+                function chooseVan(vanId) {
+                    console.log(vanId)
+                    const options = {
+                        method: 'POST',
+                        body: { "vanId": vanId }
+                    }
+                    try {
+                        url = '/customer/choose-van'
+                        fetch(url, options)
+                            .then(res => {
+                                if (res.redirected) {
+                                    window.location.href = res.url;
+                                }
+                            });
+                    } catch (err) {
+                        //pass
+                    }
+                }
                 await geocoder.geocode(vanLocation, geocodingCallback);
 
                 function geocodingCallback(error, result) {
                     let coordinate = [result.results[0].locations[0].latLng.lat, result.results[0].locations[0].latLng.lng]
-                    L.marker(coordinate, {
-                        icon: L.mapquest.icons.marker(),
-                        draggable: false
-                    }).bindPopup(vanName).addTo(map);
+                    L.mapquest.textMarker(coordinate, {
+                        text: vanName,
+                        position: 'right',
+                        type: 'marker',
+                        title: vanId,
+                        icon: {
+                            primaryColor: '#333333',
+                            secondaryColor: '#333333',
+                            size: 'sm'
+                        }
+                    }).addTo(map);
                 }
             }
-
         }
     </script>
-    <div id="map" style="width: 100%; height: 530px;"></div>
+    <div id="map" style="width: 50%; height: 530px;"></div>
     {{#each Vans}}
     <div class="vanListing">
-        <div class="vanName">{{this.vanName}}</div>
-        <div class="vanLocation">{{this.location}}</div>
-        <div class="vanId">{{this._id}}</div>
+        <span class="vanName">{{this.vanName}}</span>
+        <span class="vanLocation">{{this.location}}</span>
+        <span class="vanId">{{this._id}}</span>
+        <button id="chooseVan"> This Van! </button>
     </div>
     {{/each}}
 
