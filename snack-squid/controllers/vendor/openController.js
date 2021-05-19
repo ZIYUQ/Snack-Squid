@@ -9,7 +9,7 @@ const checkLocation = async(req, res) => {
         if (thisVan['open'] === true) {
             return res.redirect('/vendor/order')
         } else {
-            return res.render('/vendor/open')
+            return res.render('vendor/open')
         }
     } catch (err) {
         res.status(400).send('Database query failed')

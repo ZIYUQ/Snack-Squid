@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
 body, html{
     margin: 0;
     height: 100%;
@@ -55,17 +56,32 @@ h1{
     text-decoration: none;
 }
 
+.findvan:hover{
+    background: #af9797;
+    color: rgb(243, 243, 243);
+    transition: .3s all ease-in-out;
+}
 
 .login{
     display: block;
-    width: 35%;
+    width: 30%;
 }
 
 .signup{
     display: block;
-    width: 45%;
+    width: 40%;
 }
 
+.login:hover{
+    width: 55%;
+    transition: .4s all ease-in-out;
+}
+
+.signup:hover{
+    width: 65%;
+    transition: .4s all ease-in-out;
+
+}
 .findvan{
     padding-left: 0;
     padding-top: 2vh;
@@ -109,7 +125,7 @@ h1{
     background-size: cover;
     }
 
-label, b{
+label, b, h2{
     font-size: 23px;
     font-weight: 500;
 
@@ -151,7 +167,54 @@ input[name="remember"]{
     height: 15px;
 }
 
+/* For customer Profile */
 
+.profileDetail{
+    font-size: 23px;
+    line-height: 30px;
+    line-height: 40px;
+    color: #535353;
+    background-color: rgb(240, 240, 240);
+    width: 90%;
+    padding: 20px 0 20px 0;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#line-Profile{
+    margin-bottom: 10px;
+}
+
+h2{
+    font-size: 40px;
+    font-weight: 400;
+    text-align: right;
+    margin-top:0;
+    margin-right: 10%;
+    color: #707070;
+}
+
+.edit-info{
+    display: block;
+    width: 90%;
+    height: 60px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 37px;
+    font-size: 25px;
+    text-align: center;
+    font-weight: 400;
+    line-height: 52px;
+    color: #535353;
+    cursor: pointer; 
+
+}
+
+.edit-info:hover{
+    background: #af9797;
+    color: rgb(243, 243, 243);
+    transition: .3s all ease-in-out;
+
+}
 
 @media only screen and (max-width:1000px) {
 
@@ -213,11 +276,12 @@ input[name="remember"]{
     }
 
     .findvan{
-        margin-top: 7vh;
+        margin-top: 4vh;
         font-weight: 400;
-        width: 40vw;
-        height: 5vh;
-        font-size: 3.5vw;
+        width: 50vw;
+        height: 4vh;
+        font-size: 4.5vw;
+        padding-top: 5px;
     }
 
     .Info{
@@ -229,5 +293,16 @@ input[name="remember"]{
         top: 5px;
         left: 5px;
         font-size: 30px;
+    }
+
+    h2{
+        font-size: 25px;
+    }
+
+    .profileDetail{
+        margin-top: 40px;
+    }
+    .profileDetail, .edit-info{
+        font-size: 20px;
     }
 }
