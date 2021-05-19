@@ -54,32 +54,33 @@ h1{
     border: none;
     text-align: left;
     text-decoration: none;
+    transition: ease-in-out, .3s ease-in-out;
+
 }
 
 .findvan:hover{
     background: #af9797;
     color: rgb(243, 243, 243);
-    transition: .3s all ease-in-out;
 }
 
 .login{
     display: block;
     width: 30%;
+
 }
 
 .signup{
     display: block;
     width: 40%;
+
 }
 
 .login:hover{
     width: 55%;
-    transition: .4s all ease-in-out;
 }
 
 .signup:hover{
     width: 65%;
-    transition: .4s all ease-in-out;
 
 }
 .findvan{
@@ -141,6 +142,8 @@ label, b, h2{
     margin-bottom: 5vh;
     height: 30px;
     width: 40%;
+    transition: ease-in-out, .5s ease-in-out;
+
 }
 
 ::placeholder{
@@ -153,8 +156,6 @@ label, b, h2{
 .user-input:focus {
     outline: none;
     width: 80%;
-    transition: 0.5s;
-
 }
 
 .user-input:valid{
