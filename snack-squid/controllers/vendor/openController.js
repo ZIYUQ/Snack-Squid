@@ -2,16 +2,17 @@ const { Van } = require('../../model/van')
 
 
 // find the van by its vanName 
-const findVanByName = async(req, res) => {
+const checkLocation = async(req, res) => {
+    let ID = req.session.vanId;
     try {
-        result = await Van.findOne({ vanName: req.params.vanName }, { password: false })
-        if (result) {
-            return res.send(result)
+        let thisVan = await Van.findOne({ _id: ID }, { open: true })
+        if (thisVan['open'] === true) {
+            return res.redirect('/vendor/order')
         } else {
-            return res.status(404).send("Van not found")
+            return res.render('/vendor/open')
         }
     } catch (err) {
-        return res.status(400).send("Database query failed")
+        res.status(400).send('Database query failed')
     }
 }
 
@@ -21,8 +22,7 @@ const openForBusiness = async(req, res) => {
     let location = req.body.location
     try {
         let thisVan = await Van.findOne({ _id: ID }, { open: true })
-
-        // If req.body has nothing
+            // If req.body has nothing
         if (req.body === null) {
             return res.send("you have to enter location")
         } else {
@@ -63,7 +63,7 @@ const updateLocation = async(ID, vanLocation, res) => {
 
 
 module.exports = {
-    findVanByName,
+    checkLocation,
     openForBusiness,
     updateLocation
 }
