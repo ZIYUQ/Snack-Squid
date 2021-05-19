@@ -14,6 +14,8 @@
 
     <div class='preparingOrders'>
         {{#each preparingOrders}}
+       
+
                 <table class="orderTable">
                     <tr>
                         <td class="orderID">Order ID: {{this._id}} ({{this.vanId.vanName}})</td>
@@ -34,9 +36,22 @@
                         <td class="dicountTime">{{this.timestamp.discountAwardLimit}}mins <span class="thinfont">until order complete</span></td>
                     </tr>
 
+                    <tr>
+                        <a href="javascript:void(0);" onclick="changeOrder({{this.updateTime}}, {{this.timestamp.alterOrderLimit}}, {{this._id}})">change order</a>
+                        <a href="javascript:void(0);" onclick="cancelOrder();">cancel order</a>
+                    </tr>
+
+                    
                 </table>
 
                 <div class="line" id="lineOrder"></div>
+
+                <form method="get" action="customer/order/changeorder" id="changeOrder{{this._id}}">
+                    <input type="hidden" name="orderid" id="change{{this._id}}"/>
+                 </form>
+
+                
+            
         {{/each}}
     </div>
     
@@ -147,5 +162,49 @@
         </div>
 
     </div> --}}
+
+    {{!-- <div id="{{this._id}}popup" class="modal-background">
+        <div class="modal-foreground">
+            <p id="popupMessage">Sorry, you cannot change order after {{this.timestamp.alterOrderLimit}}mins</p>
+            <p><span style="font-size: 40px" onclick="closeModal()">&times;</span></p>
+        </div>
+    </div> --}}
+                
+
+    <script>
+        function changeOrder(updateTime, timeLimit, orderId) {
+            console.log('hey');
+            console.log(updateTime);
+            console.log(timeLimit);
+            console.log(orderId);
+        
+            var model = document.getElementById(String(orderId) + "popup");
+            if (checkExpired(updateTime, timeLimit)) {
+                alert("you cannot change order");
+            } else {
+                document.getElementById('change' + String(orderId)).value = orderId;
+                document.getElementById('changeOrder'+ String(orderId)).submit();
+            }
+
+        }
+        
+        function checkExpired(updateTime, timeLimit) {
+            // check whether customer can alter order
+            let now = new Date();
+            let updatetime = new Date(updateTime);
+            let timeStamp = timeLimit;
+
+            let dist = now - updatetime;
+            if ((dist / 1000) / 60 > timeStamp) {
+                console.log(dist);
+                return true;
+            }
+            return false;
+
+        }
+
+        
+
+    </script>
     
     

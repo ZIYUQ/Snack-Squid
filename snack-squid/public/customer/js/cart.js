@@ -8,6 +8,7 @@ let quantitySelectors = []
 let cartItems = localStorage.getItem('inCart');
 if (cartItems == null) {
     localStorage.setItem('inCart', '[]');
+    
 }
 
 for (let i = 0; i < foodListings.length; i++) {
@@ -208,6 +209,7 @@ function placeOrder() {
         localStorage.removeItem('inCart');
         localStorage.removeItem('totalCost');
         localStorage.removeItem('cartNumbers');
+        localStorage.setItem('cartCost', 0);
     } catch (err) {
         //pass
     }

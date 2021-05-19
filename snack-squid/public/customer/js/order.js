@@ -1,27 +1,28 @@
+// const { model } = require("mongoose");
 
 // Update the count down every 1 second
-let x = setInterval(function() {
+let x = setInterval(function () {
 
     // get required section
     let orderTables = document.getElementsByClassName("orderTable")
-    for (let i=0; i < orderTables.length; i++){
+    for (let i = 0; i < orderTables.length; i++) {
         let tds = orderTables[i].getElementsByTagName("td")
         let timeStamp;
         let orderTime;
         let timeRemaining;
-        
-        for (let j=0; j < tds.length; j++){
-            if (tds[j].className == "dicountTime"){
+
+        for (let j = 0; j < tds.length; j++) {
+            if (tds[j].className == "dicountTime") {
                 timeStamp = parseInt(tds[j].innerHTML)
             }
-            if (tds[j].className == "orderTime"){
+            if (tds[j].className == "orderTime") {
                 orderTime = new Date(tds[j].innerHTML)
             }
-            if (tds[j].className == "timeRemaining"){
+            if (tds[j].className == "timeRemaining") {
                 timeRemaining = tds[j]
             }
         }
-        let countDownDate =  new Date(orderTime.getTime() + timeStamp * 60 * 1000)
+        let countDownDate = new Date(orderTime.getTime() + timeStamp * 60 * 1000)
 
         // Get today's date and time
         let now = new Date().getTime();
@@ -48,21 +49,21 @@ let x = setInterval(function() {
 // list order food details of outstanding orders
 let orderDetail = document.getElementsByClassName("orderTable")
 
-for (let i=0; i < orderDetail.length; i++){
+for (let i = 0; i < orderDetail.length; i++) {
     console.log(orderDetail.length)
     let tds = orderDetail[i].getElementsByTagName("td");
     let foods;
     let details;
-    
-    for (let j=0; j < tds.length; j++){
-        if (tds[j].className == "detail"){
+
+    for (let j = 0; j < tds.length; j++) {
+        if (tds[j].className == "detail") {
             foods = JSON.parse(tds[j].innerHTML);
             console.log(foods);
             details = tds[j];
-        } 
+        }
     }
     details.innerHTML = ``;
-    for (let j=0; j<foods.length; j++){
+    for (let j = 0; j < foods.length; j++) {
         details.innerHTML += `
         <tr>
         <td>${foods[j].quantity}</td>
@@ -77,21 +78,21 @@ for (let i=0; i < orderDetail.length; i++){
 // list order food details of fulfilled orders
 let completedOrderDetail = document.getElementsByClassName("completedTable")
 
-for (let i=0; i < completedOrderDetail.length; i++){
+for (let i = 0; i < completedOrderDetail.length; i++) {
     console.log(completedOrderDetail.length)
     let tds = completedOrderDetail[i].getElementsByTagName("td");
     let foods;
     let details;
-    
-    for (let j=0; j < tds.length; j++){
-        if (tds[j].className == "detail"){
+
+    for (let j = 0; j < tds.length; j++) {
+        if (tds[j].className == "detail") {
             foods = JSON.parse(tds[j].innerHTML);
             console.log(foods);
             details = tds[j];
-        } 
+        }
     }
     details.innerHTML = ``;
-    for (let j=0; j<foods.length; j++){
+    for (let j = 0; j < foods.length; j++) {
         details.innerHTML += `
         <tr>
         <td>foodname: </td>
@@ -102,5 +103,9 @@ for (let i=0; i < completedOrderDetail.length; i++){
         `
 
     }
-    
+
 }
+
+
+
+

@@ -6,11 +6,44 @@ const { Van } = require("../../model/van")
 
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) => {
-    let customerId = req.session.userId
-    console.log(customerId)
-    let vanName = req.params.van_name
+
     let cart = req.body
-    console.log(req.params.van_name)
+    // get food price and calculate the total price
+    let totalPrice = 0
+    for (let i = 0; i < cart.length; i++) {
+        // get the food price
+        let foodName = cart[i]["food_name"]
+        try {
+            let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
+            cart[i]["foodName"] = foodDetails.foodName
+            cart[i]["price"] = foodDetails.price
+        } catch (err) {
+            console.log("Database query collection 'menu' failed!")
+            return res.redirect('/404-NOT-FOUND')
+        }
+        totalPrice += cart[i]["price"] * cart[i]["quantity"]
+    }
+
+    // case that change order
+    let orderid =req.params.orderid
+    console.log(orderid)
+    if (orderid){
+        result = await Order.findOne({ _id: orderid }, {})
+        console.log(result)
+
+        if (result === null || result === undefined){
+            return res.send("no order found")
+        }
+        const orderchange = {details: cart, total: totalPrice}
+
+        await Order.findOneAndUpdate({_id: orderid}, orderchange, {new:true});
+        console.log("order update successfully!")
+        return res.redirect('/customer/order')
+    
+    }
+
+    let customerId = req.session.userId
+    let vanName = req.params.van_name
 
     // get customer details
     try {
@@ -41,22 +74,8 @@ const placeOrder = async(req, res) => {
         return res.send("Database query collection 'vans' failed!")
     }
 
-    // get food price and calculate the total price
-    let totalPrice = 0
-    for (let i = 0; i < cart.length; i++) {
-        // get the food price
-        let foodName = cart[i]["food_name"]
-        try {
-            let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
-            cart[i]["foodName"] = foodDetails.foodName
-            cart[i]["price"] = foodDetails.price
-        } catch (err) {
-            console.log("Database query collection 'menu' failed!")
-            return res.redirect('/404-NOT-FOUND')
-        }
-        totalPrice += cart[i]["price"] * cart[i]["quantity"]
-    }
-
+    
+    // new order created
     const newOrder = new Order({
         vanId: vanId,
         customerId: customerId,
@@ -89,6 +108,7 @@ const getOrder = async(req, res) => {
         const fulfilled = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
         for (let i = 0; i < outstanding.length; i++) {
             outstanding[i].details = JSON.stringify(outstanding[i].details);
+            
         }
 
         for (let i = 0; i < fulfilled.length; i++) {
@@ -100,70 +120,23 @@ const getOrder = async(req, res) => {
     }
 }
 
-// const cancelOrder = async (req, res) => {
-//     let id = req.body._id
-//     if (id === undefined || id === null) {
-//         return res.send("no order found")
-//     }
-//     try {
-//         result = await Order.findOne({ _id: id }, {})
-//         if (result) {
-//             let now = new Date();
-//             let ordertime = new Date(result.updateTime)
-//             let timeStamp = result.timeStamp.alterOrderLimit;
-
-//             let dist = now - ordertime
-//             if ((dist / 1000) / 60 > timeStamp) {
-//                 return res.send("sorry, you cannot cancel your order after " + timeStamp.toString())
-//             }
-
-//             // Set status as fulfilled
-//             await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
-//             return res.send('cancelled')
-//         } else {
-//             return res.send('no order found,please enter order id')
-//         }
-//     } catch (err) {
-//         return res.status(400).send('Database query failed')
-//     }
-// }
-
-// const alterOrder = async(req, res) => {
-//     let id = req.params.orderid
-//     let alter = req.params.alter
-//     if (id === undefined || id === null) {
-//         return res.send("no order found")
-//     }
-//     try {
-//         result = await Order.findOne({ _id: id }, {})
-//         console.log(result)
-//         if (result) {
-//             let timeStamp = parseInt(result.timestamp.alterOrderLimit);
-//             let now = new Date();
-//             let ordertime = new Date(result.orderTime);
-
-//             let dist = (now.getTime() - ordertime.getTime())/1000/60;
-//             console.log(dist)
-//             if (dist> timeStamp) {
-//                 return res.send("sorry, you cannot cancel your order after " + timeStamp.toString() + "mins")
-//             }
-
-//             if (alter == 1) {
-//                 res.redirect();
-//             }
-//             if (alter == 0) {
-//                 await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } });
-//                 res.redirect("/customer/order")
-//             }
-//         } else {
-//             return res.send('no order found,please enter order id');
-//         }
-
-//     } catch (err) {
-//         return res.status(400).send('Database query failed')
-//     }
-// }
+const cancelOrder = async (req, res) => {
+    let id = req.params.orderid
+    if (id === undefined || id === null) {
+        return res.send("no order found")
+    }
+    try {
+        result = await Order.findOne({ _id: id }, {})
+    
+         // Set status as fulfilled
+        await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
+        console.log("cancel order successfully!")
+        return res.redirect('/customer/order')
+       
+    } catch (err) {
+        return res.status(400).send('Database query failed')
+    }
+}
 
 
-
-module.exports = { placeOrder, getOrder }
+module.exports = { placeOrder, getOrder, cancelOrder}
