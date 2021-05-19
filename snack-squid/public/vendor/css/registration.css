@@ -1,10 +1,15 @@
 body {
-    width: 1024px;
-    height: 768px;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
     background:  url(../images/RegistrationBG.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
@@ -21,19 +26,19 @@ body {
 }
 
 .board {
-    margin: 15vh 0 0 30vw;
+    margin-left: -18vw;
     height: 550px;
-    width: 40%;
+    width: 450px;
     background-color: #FCEED8;
     border-radius: 48px;
     font-family: 'Antic Slab', serif;
-    padding: 40px 10px 0 40px;
+    padding: 0px 10px 20px 50px;
 }
 
 .registration {
     font-size: 40px;
     color: #707070;
-    margin: 0 0 40px 0;
+    margin-bottom:40px;
 }
 
 .textbox_style {
@@ -43,14 +48,15 @@ body {
     padding-left: 4px;
     font-size: 18px;
     color: #999;
-    transition: ease-in-out, .1s ease-in-out;
+    transition: ease-in-out, .2s ease-in-out;
 
 }
 
 .textbox_style:focus{
     outline-color: rgb(224, 197, 163);
-    
+    background-color: blanchedalmond;
 }
+
 
 .signup {
     display: block;
