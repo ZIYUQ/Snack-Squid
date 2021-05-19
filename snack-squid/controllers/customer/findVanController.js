@@ -11,8 +11,7 @@ const getAllVan = async(req, res) => {
 }
 
 const chooseVan = async(req, res) => {
-
-    res.redirect('/menu/van=' + req.body.van_name)
+    console.log(req.body.vanId)
 }
 
 module.exports = { getAllVan, chooseVan }

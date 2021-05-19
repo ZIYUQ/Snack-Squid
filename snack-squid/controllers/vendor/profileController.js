@@ -4,7 +4,7 @@ const logout = async(req, res) => {
     req.logout()
     close(req, res)
     console.log('logout successfully')
-    return res.redirect('/customer/')
+    return res.redirect('/vendor/')
 }
 
 const close = async(req, res) => {
@@ -30,4 +30,8 @@ const changeLocation = async(req, res) => {
         res.status(400).send('Database query failed')
     }
 }
-modeule.export = { logout, close, changeLocation }
+
+const renderProfile = (req, res) => {
+    res.render('vendor/profile')
+}
+module.exports = { logout, close, changeLocation, renderProfile }

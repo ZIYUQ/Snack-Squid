@@ -11,15 +11,15 @@ const menuRouterCT = require('./routes/customer/menuRouter')
 const loginRouterCT = require('./routes/customer/loginRouter')
 const signupRouterCT = require('./routes/customer/signupRouter')
 const orderRouterCT = require('./routes/customer/orderRouter')
-const mapRouterCT = require('./routes/customer/mapRouter')
+const findVanRouterCT = require('./routes/customer/findVanRouter')
     // router for Vendor app
 const vanRouterVD = require('./routes/vendor/vanRouter')
 const openRouterVD = require('./routes/vendor/openRouter')
 const orderRouterVD = require('./routes/vendor/orderRouter')
 const registerRouterVD = require('./routes/vendor/registerRouter')
 const loginRouterVD = require('./routes/vendor/loginRouter')
-
-// express configuration
+const profileRouterVD = require('./routes/vendor/profileRouter')
+    // express configuration
 const app = express()
 app.use(express.json())
 app.use(bodyParser.json())
@@ -63,6 +63,7 @@ app.use(flash())
 
 //mapquest API
 const mq = require('mapquest')
+const { profileRouter } = require('./routes/vendor/profileRouter')
 
 
 // Customer app
@@ -82,7 +83,7 @@ app.use('/customer/menu', menuRouterCT)
 
 app.use('/customer/order', orderRouterCT)
 
-app.use('/customer/choose-van', mapRouterCT);
+app.use('/customer/choose-van', findVanRouterCT);
 // Vendor app
 app.get('/vendor', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/vendor/index.html'))
@@ -107,9 +108,10 @@ app.use('/vendor/order', orderRouterVD)
     // routers in register
 app.use('/vendor/register', registerRouterVD)
 
-// app.get('/404-NOT-FOUND', (req, res) => {
-//     res.render('404NotFound')
-// })
+app.use('/vendor/profile', profileRouterVD)
+    // app.get('/404-NOT-FOUND', (req, res) => {
+    //     res.render('404NotFound')
+    // })
 
 // app.all('*', (req, res) => {
 //     // 'default' route to catch user errors
