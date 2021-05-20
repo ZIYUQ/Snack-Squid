@@ -47,7 +47,7 @@
 
                 <div class="line" id="lineOrder"></div>
 
-                <form method="get" action="customer/order/changeorder" id="changeOrder{{this._id}}">
+                <form method="post" action="/customer/order/change/orderId={{this._id}}" id="changeOrder{{this._id}}">
                     <input type="hidden" name="orderid" id="change{{this._id}}"/>
                  </form>
 

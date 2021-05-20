@@ -8,10 +8,10 @@ const menuController = require('../../controllers/customer/menuController')
 orderRouter.get('', utilities.isLoggedIn, (req, res) => orderController.getOrder(req, res))
 
 // render to menu page if change order
-orderRouter.get('/changeorder?orderid=:orderid', menuController.getMenu)
+orderRouter.post('/change/orderId=:orderId', orderController.renderChangeOrderPage)
 
 // replace the change order
-orderRouter.post('/changeorder?orderid=:orderid/place-order', orderController.placeOrder)
+orderRouter.post('/change/orderId=:orderId/place-order', orderController.placeOrder)
 
 // update cancel order 
 orderRouter.get('/cancelorder?orderid=:orderid', orderController.cancelOrder)
