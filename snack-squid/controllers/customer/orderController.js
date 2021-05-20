@@ -109,7 +109,6 @@ const getOrder = async(req, res) => {
         for (let i = 0; i < outstanding.length; i++) {
             outstanding[i].details = JSON.stringify(outstanding[i].details);
         }
-        console.log(outstanding);
 
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
@@ -126,7 +125,7 @@ const cancelOrder = async (req, res) => {
         return res.send("no order found")
     }
     try {
-        result = await Order.findOne({ _id: id }, {})
+        let result = await Order.findOne({ _id: id }, {})
     
          // Set status as fulfilled
         await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
@@ -138,5 +137,27 @@ const cancelOrder = async (req, res) => {
     }
 }
 
+const renderChangeOrderPage = async (req, res) => {
+    let orderId = req.params.orderId
+    orderId = new ObjectId(orderId)
+    if (orderId === undefined || orderId === null) {
+        return res.send("no order found")
+    }
+    try {
+        const order = await Order.findOne({ _id: orderId }, {details: true})
+        const snacks = await Menu.find({ type: 'snack' }, {}).lean()
+        const drinks = await Menu.find({ type: 'drink' }, {}).lean()
+        let orderDetails = order.details
+        console.log(orderDetails)
+        return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks , "orderDetails": orderDetails})
 
-module.exports = { placeOrder, getOrder, cancelOrder}
+    } catch (err) {
+        return res.status(400).send("Database query 'Order' failed")
+    }
+}
+
+const changeOrder = async (req, res) => {
+}
+
+
+module.exports = { placeOrder, getOrder, cancelOrder, renderChangeOrderPage}
