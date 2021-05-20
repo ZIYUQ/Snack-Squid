@@ -14,6 +14,7 @@
 
     <div class='preparingOrders'>
         {{#each preparingOrders}}
+        <p id = '{{this._id}}time' hidden>{{this.updateTime}}</p>
        
 
                 <table class="orderTable">
@@ -37,7 +38,7 @@
                     </tr>
 
                     <tr>
-                        <a href="javascript:void(0);" onclick="changeOrder({{this.updateTime}}, {{this.timestamp.alterOrderLimit}}, {{this._id}})">change order</a>
+                        <a href="javascript:void(0);" onclick="changeOrder('{{this._id}}','{{this.timestamp.alterOrderLimit}}');">change order</a>
                         <a href="javascript:void(0);" onclick="cancelOrder();">cancel order</a>
                     </tr>
 
@@ -170,41 +171,42 @@
         </div>
     </div> --}}
                 
+<script>
+    function changeOrder(orderId, timeLimit) {
+    let updateTime = document.getElementById(String(orderId)+'time').innerHTML;
 
-    <script>
-        function changeOrder(updateTime, timeLimit, orderId) {
-            console.log('hey');
-            console.log(updateTime);
-            console.log(timeLimit);
-            console.log(orderId);
-        
-            var model = document.getElementById(String(orderId) + "popup");
-            if (checkExpired(updateTime, timeLimit)) {
-                alert("you cannot change order");
-            } else {
-                document.getElementById('change' + String(orderId)).value = orderId;
-                document.getElementById('changeOrder'+ String(orderId)).submit();
-            }
+    console.log('hey');
+    console.log(updateTime);
+    console.log(timeLimit);
 
+    var model = document.getElementById(String(orderId) + "popup");
+    let exit = checkExpired(updateTime, timeLimit);
+    if (exit==1) {
+        alert("you cannot change order");
+    } else {
+        document.getElementById('change' + String(orderId)).value = orderId;
+        document.getElementById('changeOrder'+ String(orderId)).submit();
+    }
+    }
+
+
+
+    function checkExpired(updateTime, timeLimit) {
+        // check whether customer can alter order
+        let now = new Date();
+        let updatetime = new Date(updateTime);
+        let timeStamp = timeLimit;
+
+        let dist = now - updatetime;
+        console.log(updatetime);
+        console.log(timeLimit);
+        alert(dist);
+        if ((dist / 1000) / 60 > timeStamp) {
+            console.log(dist);
+            return 1;
         }
-        
-        function checkExpired(updateTime, timeLimit) {
-            // check whether customer can alter order
-            let now = new Date();
-            let updatetime = new Date(updateTime);
-            let timeStamp = timeLimit;
+        return 0;
 
-            let dist = now - updatetime;
-            if ((dist / 1000) / 60 > timeStamp) {
-                console.log(dist);
-                return true;
-            }
-            return false;
+    }
 
-        }
-
-        
-
-    </script>
-    
-    
+</script>

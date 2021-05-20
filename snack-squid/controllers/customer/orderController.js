@@ -109,10 +109,11 @@ const getOrder = async(req, res) => {
         for (let i = 0; i < outstanding.length; i++) {
             outstanding[i].details = JSON.stringify(outstanding[i].details);
         }
-        console.log(outstanding);
+        
 
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
+            
         }
         res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled});
     } catch (err) {
