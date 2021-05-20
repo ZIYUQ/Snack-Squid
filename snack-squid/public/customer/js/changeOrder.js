@@ -8,6 +8,9 @@ let quantitySelectors = []
 let cartItems = localStorage.getItem('inCart');
 if (cartItems == null) {
     localStorage.setItem('inCart', '[]');
+    let foods = document.getElementById('changeorder').innerHTML;
+    localStorage.setItem('inCart', JSON.stringify(foods));
+    
 }
 
 for (let i = 0; i < foodListings.length; i++) {

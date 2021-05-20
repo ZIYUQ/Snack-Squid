@@ -13,6 +13,6 @@ orderRouter.post('/change/orderId=:orderId', orderController.renderChangeOrderPa
 orderRouter.post('/change/orderId=:orderId/place-order', orderController.placeOrder)
 
 // update cancel order 
-orderRouter.get('/cancelorder?orderid=:orderid', orderController.cancelOrder)
+orderRouter.post('/cancel/orderId=:orderId', orderController.cancelOrder)
 
 module.exports = orderRouter

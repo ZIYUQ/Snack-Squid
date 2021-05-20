@@ -38,8 +38,8 @@
                     </tr>
 
                     <tr>
-                        <a href="javascript:void(0);" onclick="changeOrder('{{this._id}}','{{this.timestamp.alterOrderLimit}}');">change order</a>
-                        <a href="javascript:void(0);" onclick="cancelOrder();">cancel order</a>
+                        <a href="javascript:void(0);" onclick="changeOrder('{{this._id}}','{{this.timestamp.alterOrderLimit}}', '1');">change order</a>
+                        <a href="javascript:void(0);" onclick="changeOrder('{{this._id}}','{{this.timestamp.alterOrderLimit}}', '0');">cancel order</a>
                     </tr>
 
                     
@@ -49,7 +49,11 @@
 
                 <form method="post" action="/customer/order/change/orderId={{this._id}}" id="changeOrder{{this._id}}">
                     <input type="hidden" name="orderid" id="change{{this._id}}"/>
-                 </form>
+                </form>
+
+                <form method="post" action="/customer/order/cancel/orderId={{this._id}}" id="cancelOrder{{this._id}}">
+                    <input type="hidden" name="orderid" id="cancel{{this._id}}"/>
+                </form>
 
                 
             
@@ -172,21 +176,21 @@
     </div> --}}
                 
 <script>
-    function changeOrder(orderId, timeLimit) {
-    let updateTime = document.getElementById(String(orderId)+'time').innerHTML;
+    function changeOrder(orderId, timeLimit, status) {
+        let updateTime = document.getElementById(String(orderId)+'time').innerHTML;
 
-    console.log('hey');
-    console.log(updateTime);
-    console.log(timeLimit);
-
-    var model = document.getElementById(String(orderId) + "popup");
-    let exit = checkExpired(updateTime, timeLimit);
-    if (exit==1) {
-        alert("you cannot change order");
-    } else {
-        document.getElementById('change' + String(orderId)).value = orderId;
-        document.getElementById('changeOrder'+ String(orderId)).submit();
-    }
+    
+        alert(status)
+        var model = document.getElementById(String(orderId) + "popup");
+        let exit = checkExpired(updateTime, timeLimit);
+        if (exit==1) {
+            alert("you cannot change order");
+        } else if (status === '1'){
+            document.getElementById('change' + String(orderId)).value = orderId;
+            document.getElementById('changeOrder'+ String(orderId)).submit();
+        }else{
+            document.getElementById('cancelOrder'+ String(orderId)).submit();
+        }
     }
 
 
@@ -200,7 +204,6 @@
         let dist = now - updatetime;
         console.log(updatetime);
         console.log(timeLimit);
-        alert(dist);
         if ((dist / 1000) / 60 > timeStamp) {
             console.log(dist);
             return 1;
