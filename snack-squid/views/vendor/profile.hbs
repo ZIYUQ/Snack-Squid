@@ -4,7 +4,7 @@
     <p>Current Location: </p>
     {{#each Van}}
     <span>{{this.location}}</span>
-
+    {{/each}}
     <form action="/vendor/profile" method="POST" id="newLocation">
         <p>Please enter the new location of the van</p>
         <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name="newLocation" class='newLocation'>

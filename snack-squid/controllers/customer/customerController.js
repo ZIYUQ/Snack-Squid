@@ -31,7 +31,7 @@ const renderLoginPage = async(req, res) => {
 const renderProfilePage = async(req, res) => {
     let userId = req.session.userId
     try {
-        let result = await Customer.findOne({ _id: userId }, { givenName: true, familyName: true, emailAddress: true })
+        let result = await Customer.findOne({ _id: userId }, { givenName: true, familyName: true, emailAddress: true }).lean()
         if (result) {
             res.render('customer/profile', { "customer": result })
         } else {

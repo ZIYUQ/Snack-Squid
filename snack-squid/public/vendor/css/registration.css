@@ -1,53 +1,62 @@
 body {
-    width: 1024px;
-    height: 768px;
-    background-color: blue;
-    margin: auto;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background:  url(../images/RegistrationBG.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
-    height: 90px;
-    width: 90px;
-    border-radius: 45px;
-    background-color: pink;
-    margin: 23px;
+    position: absolute;
+    left: 30px;
+    top: 20px;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: url("../images/snacksquid_icon1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .board {
-    position: relative;
-    height: 522px;
-    width: 420px;
-    margin-left: 156px;
+    margin-left: -18vw;
+    height: 550px;
+    width: 450px;
     background-color: #FCEED8;
     border-radius: 48px;
+    font-family: 'Antic Slab', serif;
+    padding: 0px 10px 20px 50px;
 }
 
 .registration {
-    position: absolute;
-    top: 10px;
-    left: 30px;
     font-size: 40px;
-    font-weight: 300;
     color: #707070;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-.information {
-    position: absolute;
-    top: 104px;
-    left: 30px;
+    margin-bottom:40px;
 }
 
 .textbox_style {
-    display: block;
-    height: 26px;
-    width: 360px;
+    height: 33px;
+    width: 363px;
     margin-top: 5px;
     padding-left: 4px;
     font-size: 18px;
     color: #999;
-    font-family: 'Times New Roman', Times, serif;
+    transition: ease-in-out, .2s ease-in-out;
+
 }
+
+.textbox_style:focus{
+    outline-color: rgb(224, 197, 163);
+    background-color: blanchedalmond;
+}
+
 
 .signup {
     display: block;
@@ -60,10 +69,16 @@ body {
     background-color: #FCE0B3;
     box-shadow: #707070;
     font-size: 20px;
-    font-family: 'Times New Roman', Times, serif;
     color: #B58169;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.16);
 }
+
+.signup:hover {
+    cursor: pointer;
+}
+
+input{
+    font-family: 'Raleway', sans-serif;}
 
 span {
     display: block;
