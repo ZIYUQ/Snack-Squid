@@ -12,7 +12,7 @@ const placeOrder = async(req, res) => {
     let totalPrice = 0
     for (let i = 0; i < cart.length; i++) {
         // get the food price
-        let foodName = cart[i]["food_name"]
+        let foodName = cart[i]["foodName"]
         try {
             let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
             cart[i]["foodName"] = foodDetails.foodName
@@ -24,6 +24,7 @@ const placeOrder = async(req, res) => {
         totalPrice += cart[i]["price"] * cart[i]["quantity"]
     }
 
+<<<<<<< Updated upstream
     // case that change order
     let orderid = req.params.orderId
     if (orderid) {
@@ -41,6 +42,8 @@ const placeOrder = async(req, res) => {
 
     }
 
+=======
+>>>>>>> Stashed changes
     let customerId = req.session.userId
     let vanName = req.params.van_name
 
@@ -89,7 +92,7 @@ const placeOrder = async(req, res) => {
             console.log("failed to save order to the database!")
             return res.redirect('/404-NOT-FOUND')
         }
-        console.log("order sent successfully!")
+        console.log("order", newOrder._id, "sent successfully!")
         return res.redirect('/customer/order')
     })
 }
@@ -137,19 +140,71 @@ const cancelOrder = async(req, res) => {
     }
 }
 
+<<<<<<< Updated upstream
 const renderChangeOrderPage = async(req, res) => {
+=======
+const changeOrder = async (req, res) => {
+    let cart = req.body;
+    // get food price and calculate the total price
+    let totalPrice = 0;
+    for (let i = 0; i < cart.length; i++) {
+        // get the food price
+        let foodName = cart[i]["food_name"]
+        try {
+            let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
+            cart[i]["foodName"] = foodDetails.foodName
+            cart[i]["price"] = foodDetails.price
+        } catch (err) {
+            console.log("Database query collection 'menu' failed!")
+            return res.redirect('/404-NOT-FOUND')
+        }
+        totalPrice += cart[i]["price"] * cart[i]["quantity"]
+    }
+
+    let orderId =req.params.orderId
+    console.log(orderId)
+    if (orderId){
+        let result = await Order.findOne({ _id: orderId }, {})
+        console.log(result)
+
+        if (result === null || result === undefined){
+            return res.send("no order found")
+        }
+
+        const orderChanged = {details: cart, total: totalPrice}
+
+        console.log(orderChanged)
+
+        await Order.findOneAndUpdate({_id: orderId}, orderChanged, {new:true});
+        console.log("order", orderId, "updated successfully!")
+        return res.redirect('/customer/order')
+
+    }
+}
+
+const renderChangeOrderPage = async (req, res) => {
+>>>>>>> Stashed changes
     let orderId = req.params.orderId
         // orderId = new ObjectId(orderId)
     if (orderId === undefined || orderId === null) {
         return res.send("no order found")
     }
     try {
+<<<<<<< Updated upstream
         const order = await Order.findOne({ _id: orderId }, { details: true })
         const snacks = await Menu.find({ type: 'snack' }, {}).lean()
         const drinks = await Menu.find({ type: 'drink' }, {}).lean()
         order.details = JSON.stringify(order.details);
         console.log(order.details)
         return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks, "order": order })
+=======
+        const order = await Order.findOne({ _id: orderId }, {details: true}).lean()
+        const snacks = await Menu.find({ type: 'snack' }, {}).lean()
+        const drinks = await Menu.find({ type: 'drink' }, {}).lean()
+        order.details = JSON.stringify(order.details);
+        console.log("changing order:", orderId)
+        return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks , "order": order})
+>>>>>>> Stashed changes
 
     } catch (err) {
         return res.status(400).send("Database query 'Order' failed")
@@ -157,4 +212,8 @@ const renderChangeOrderPage = async(req, res) => {
 }
 
 
+<<<<<<< Updated upstream
 module.exports = { placeOrder, getOrder, cancelOrder, renderChangeOrderPage }
+=======
+module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage}
+>>>>>>> Stashed changes
