@@ -8,7 +8,7 @@ const { Van } = require("../../model/van")
 const placeOrder = async(req, res) => {
 
     let cart = req.body
-    // get food price and calculate the total price
+        // get food price and calculate the total price
     let totalPrice = 0
     for (let i = 0; i < cart.length; i++) {
         // get the food price
@@ -25,21 +25,20 @@ const placeOrder = async(req, res) => {
     }
 
     // case that change order
-    let orderid =req.params.orderId
-    console.log(orderid)
-    if (orderid){
+    let orderid = req.params.orderId
+    if (orderid) {
         result = await Order.findOne({ _id: orderid }, {})
         console.log(result)
 
-        if (result === null || result === undefined){
+        if (result === null || result === undefined) {
             return res.send("no order found")
         }
-        const orderchange = {details: cart, total: totalPrice}
+        const orderchange = { details: cart, total: totalPrice }
 
-        await Order.findOneAndUpdate({_id: orderid}, orderchange, {new:true});
+        await Order.findOneAndUpdate({ _id: orderid }, orderchange, { new: true });
         console.log("order update successfully!")
         return res.redirect('/customer/order')
-    
+
     }
 
     let customerId = req.session.userId
@@ -74,7 +73,7 @@ const placeOrder = async(req, res) => {
         return res.send("Database query collection 'vans' failed!")
     }
 
-    
+
     // new order created
     const newOrder = new Order({
         vanId: vanId,
@@ -103,7 +102,7 @@ const getOrder = async(req, res) => {
     try {
         // find customer detail
         const customer = await Customer.findOne({ _id: userId })
-        // find order under that customer
+            // find order under that customer
         const outstanding = await Order.find({ customerId: customer._id, status: "preparing" }, {}).populate("vanId", "vanName-_id").lean()
         const fulfilled = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
         for (let i = 0; i < outstanding.length; i++) {
@@ -112,45 +111,45 @@ const getOrder = async(req, res) => {
 
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
-            
+
         }
-        res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled});
+        res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
 }
 
-const cancelOrder = async (req, res) => {
+const cancelOrder = async(req, res) => {
     let id = req.params.orderId
     if (id === undefined || id === null) {
         return res.send("no order found")
     }
     try {
         let result = await Order.findOne({ _id: id }, {})
-    
-         // Set status as fulfilled
+
+        // Set status as fulfilled
         await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
         console.log("cancel order successfully!")
         return res.redirect('/customer/order')
-       
+
     } catch (err) {
         return res.status(400).send('Database query failed')
     }
 }
 
-const renderChangeOrderPage = async (req, res) => {
+const renderChangeOrderPage = async(req, res) => {
     let orderId = req.params.orderId
-    // orderId = new ObjectId(orderId)
+        // orderId = new ObjectId(orderId)
     if (orderId === undefined || orderId === null) {
         return res.send("no order found")
     }
     try {
-        const order = await Order.findOne({ _id: orderId }, {details: true})
+        const order = await Order.findOne({ _id: orderId }, { details: true })
         const snacks = await Menu.find({ type: 'snack' }, {}).lean()
         const drinks = await Menu.find({ type: 'drink' }, {}).lean()
         order.details = JSON.stringify(order.details);
         console.log(order.details)
-        return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks , "order": order})
+        return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks, "order": order })
 
     } catch (err) {
         return res.status(400).send("Database query 'Order' failed")
@@ -158,4 +157,4 @@ const renderChangeOrderPage = async (req, res) => {
 }
 
 
-module.exports = { placeOrder, getOrder, cancelOrder, renderChangeOrderPage}
+module.exports = { placeOrder, getOrder, cancelOrder, renderChangeOrderPage }
