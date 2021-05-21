@@ -11,7 +11,12 @@ const close = async(req, res) => {
     try {
         let thisVan = await Van.findOne({ _id: ID })
         if (thisVan['open'] === true) {
-            await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false } })
+            geolocation = {
+                'latitude': 0.0,
+                'longitude': 0.0
+            }
+            await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false, location: geolocation } })
+
             req.logout()
             return res.redirect('/vendor/')
         } else {
@@ -22,13 +27,15 @@ const close = async(req, res) => {
     }
 }
 
-const changeLocation = async(req, res) => {
+const changetextLocation = async(req, res) => {
     let ID = req.session.vanId;
     let newLocation = req.body.newLocation
+    console.log(newLocation)
     try {
         let thisVan = await Van.findOne({ _id: ID })
         if (thisVan['open'] === true) {
-            await Van.updateOne({ _id: ID }, { $set: { location: newLocation } })
+            await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation } })
+            console.log('change location')
         }
         res.redirect('/vendor/order')
     } catch (err) {
@@ -41,4 +48,13 @@ const renderProfile = (req, res) => {
     let thisVan = Van.findOne({ _Id: ID });
     res.render('vendor/profile', { 'Van': thisVan })
 }
-module.exports = { logout, close, changeLocation, renderProfile }
+
+const changeLocation = async(req, res) => {
+    ID = req.session.vanId
+    let thisVan = await Van.findOne({ _id: ID }, { open: true })
+    geoLocation = req.body;
+    await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
+
+    res.send(thisVan)
+}
+module.exports = { logout, close, changetextLocation, renderProfile, changeLocation }
