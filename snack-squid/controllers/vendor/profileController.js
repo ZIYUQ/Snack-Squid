@@ -11,7 +11,7 @@ const close = async(req, res) => {
     try {
         let thisVan = await Van.findOne({ _id: ID })
         if (thisVan['open'] === true) {
-            await Van.updateOne({ _id: ID }, { $set: { location: "", open: false } })
+            await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false } })
             req.logout()
             return res.redirect('/vendor/')
         } else {

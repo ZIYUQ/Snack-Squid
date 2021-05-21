@@ -59,12 +59,9 @@
             for (i = 0; i < vans.length; i++) {
                 let vanName = vans[i].querySelector('.vanName').innerHTML
                 let vanLocation = vans[i].querySelector('.vanLocation').innerHTML
-                let vanId = vans[i].querySelector(".vanId").innerHTML
-
-                await geocoder.geocode(vanLocation, geocodingCallback);
 
                 function geocodingCallback(error, result) {
-                    let coordinate = [result.results[0].locations[0].latLng.lat, result.results[0].locations[0].latLng.lng]
+                    let coordinate = []
                     L.mapquest.textMarker(coordinate, {
                         text: vanName,
                         position: 'right',

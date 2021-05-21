@@ -7,7 +7,11 @@ const vanSchema = new mongoose.Schema({
     password: { type: String, required: true },
     emailAddress: { type: String, required: true },
     mobileNumber: { type: String, required: true },
-    location: String,
+    location: {
+        latitude: { type: Number },
+        longitude: { type: Number }
+    },
+    textLocation: { type: String },
     open: Boolean
 })
 

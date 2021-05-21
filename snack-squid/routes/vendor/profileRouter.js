@@ -8,6 +8,6 @@ profileRouter.post('/', profileController.changeLocation)
 
 profileRouter.get('/close', profileController.close)
 
-profileRouter.get('/', utilities.isLoggedIn, (req, res) => profileController.renderProfile(req, res))
+profileRouter.get('/', profileController.renderProfile)
 
 module.exports = profileRouter

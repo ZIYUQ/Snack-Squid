@@ -339,14 +339,19 @@ h2,
     font-weight: 600;
 }
 
-.foodListing{
+#checkout:hover {
+    cursor: pointer;
+}
+
+.foodListing {
     transition: ease-in-out, .1s ease-in-out;
 }
 
-.foodListing:hover{
+.foodListing:hover {
     transform: scale(1.05);
     box-shadow: 10px 18px 12px rgba(0, 0, 0, 0.16);
 }
+
 
 /* Food Detail */
 
@@ -437,7 +442,7 @@ h2,
     margin: 0;
 }
 
-.orderInfo{
+.orderInfo {
     margin: 0 13vw 0 13vw;
     display: flex;
     flex-direction: column;
@@ -446,23 +451,25 @@ h2,
     align-items: center;
 }
 
+
 /* For OrderPage */
 
-.state{
+.state {
     grid-area: state;
     margin-left: 30%;
 }
 
-table{
+table {
     padding: 8px;
     background-color: #F1E9E1;
 }
 
-#lineOrder{
+#lineOrder {
     margin: 0;
 }
 
-.preparingOrders, .completedorder{
+.preparingOrders,
+.completedorder {
     grid-area: preparingOrders;
     display: flex;
     flex-direction: column;
@@ -471,42 +478,41 @@ table{
     margin: 0 15% 0 15%;
     color: #361811;
     font-weight: 600;
-
-
 }
 
-.orderID{
+.orderID {
     font-size: 23px;
     color: #774C37;
-
 }
 
-.detail{
-    padding: 10px 0 10px 30px ;
+.detail {
+    padding: 10px 0 10px 30px;
     font-weight: 500;
 }
 
-
-.timeRemaining, .orderTime, .timeStamp, .dicountTime{
+.timeRemaining,
+.orderTime,
+.timeStamp,
+.dicountTime {
     text-align: left;
     width: 40%;
 }
 
-.thinfont{
+.thinfont {
     font-weight: 500;
 }
+
+
 /* For Ipads */
 
 @media only screen and (max-width:1300px) {
     .container {
         grid-template-areas: '. cart' '. title' 'snacks snacks' 'drinks drinks' '. Ordering' 'state .' 'preparingOrders preparingOrders';
     }
-
-    #title{
+    #title {
         margin-top: 100px;
     }
-
-    .drinks{
+    .drinks {
         border-left: 0;
         border-top: 5px solid #9B6F5B;
         /* This creates the border. Replace black with whatever color you want. */

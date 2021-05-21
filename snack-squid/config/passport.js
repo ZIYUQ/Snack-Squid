@@ -5,13 +5,13 @@ require('dotenv').config() // for JWT password key
 const LocalStrategy = require('passport-local').Strategy;
 //const cookieParser = require('cookie-parser');
 // our user model
-const Customer  = require('../model/customer');
-const  Van  = require('../model/van');
-    // the following is required IF you wanted to use passport-jwt
-    // JSON Web Tokens
-    // const passportJWT = require("passport-jwt");
-    // const JwtStrategy = passportJWT.Strategy;
-    // const ExtractJwt = passportJWT.ExtractJwt;
+const Customer = require('../model/customer');
+const Van = require('../model/van');
+// the following is required IF you wanted to use passport-jwt
+// JSON Web Tokens
+// const passportJWT = require("passport-jwt");
+// const JwtStrategy = passportJWT.Strategy;
+// const ExtractJwt = passportJWT.ExtractJwt;
 
 module.exports = function(passport) {
 
@@ -172,7 +172,9 @@ module.exports = function(passport) {
                         newVan.password = newVan.generateHash(password);
                         newVan.emailAddress = req.body.emailAddress;
                         newVan.mobileNumber = req.body.mobileNumber;
-                        newVan.location = "";
+                        newVan.location['longitude'] = 0.0;
+                        newVan.location['latitude'] = 0.0;
+                        newVan.textLocation = '';
                         newVan.open = false;
                         // and save the user
                         newVan.save(function(err) {

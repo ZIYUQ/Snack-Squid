@@ -22,25 +22,12 @@ const openForBusiness = async(req, res) => {
     try {
         let thisVan = await Van.findOne({ _id: ID }, { open: true })
             // If req.body has nothing
-        if (req.body === null) {
-            return res.send("you have to enter location")
+            // If the van is not open yet, update the location and mark it as open
+        if (updateLocation(ID, location, res)) {
+            await Van.updateOne({ _id: ID }, { $set: { open: true } })
+            res.redirect('/vendor/order')
         } else {
-            // If no location is entered
-            if (location === "" || location === undefined) {
-                return res.send("you have to enter location")
-            } else {
-                // If the van is not open yet, update the location and mark it as open
-                if (thisVan['open'] === false) {
-                    if (updateLocation(ID, location, res)) {
-                        await Van.updateOne({ _id: ID }, { $set: { open: true } })
-                        res.redirect('/vendor/order')
-                    } else {
-                        return res.send('no location')
-                    }
-                } else {
-                    res.redirect('/vendor/order')
-                }
-            }
+            return res.send('no location')
         }
 
     } catch (err) {
@@ -52,7 +39,7 @@ const openForBusiness = async(req, res) => {
 const updateLocation = async(ID, vanLocation, res) => {
     try {
         // Find the van and set the location value
-        await Van.updateOne({ _id: ID }, { $set: { location: vanLocation } })
+        await Van.updateOne({ _id: ID }, { $set: { textLocation: vanLocation } })
         return 1
     } catch (err) {
         res.status(400).send('Database query failed')
@@ -60,9 +47,18 @@ const updateLocation = async(ID, vanLocation, res) => {
     }
 }
 
+const updategeoLocation = async(req, res) => {
+    ID = req.session.vanId
+    let thisVan = await Van.findOne({ _id: ID }, { open: true })
+    geoLocation = req.body;
+    await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
+
+    res.send(thisVan)
+}
 
 module.exports = {
     checkLocation,
     openForBusiness,
-    updateLocation
+    updateLocation,
+    updategeoLocation
 }
