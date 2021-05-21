@@ -139,10 +139,8 @@ const changeOrder = async (req, res) => {
     }
 
     let orderId =req.params.orderId
-    console.log(orderId)
     if (orderId){
         let result = await Order.findOne({ _id: orderId }, {})
-        console.log(result)
 
         if (result === null || result === undefined){
             return res.send("no order found")

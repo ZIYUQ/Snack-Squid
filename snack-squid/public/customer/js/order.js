@@ -50,7 +50,6 @@ let x = setInterval(function () {
 let orderDetail = document.getElementsByClassName("orderTable")
 
 for (let i = 0; i < orderDetail.length; i++) {
-    console.log(orderDetail.length)
     let tds = orderDetail[i].getElementsByTagName("td");
     let foods;
     let details;
@@ -58,7 +57,6 @@ for (let i = 0; i < orderDetail.length; i++) {
     for (let j = 0; j < tds.length; j++) {
         if (tds[j].className == "detail") {
             foods = JSON.parse(tds[j].innerHTML);
-            console.log(foods);
             details = tds[j];
         }
     }
@@ -87,7 +85,6 @@ for (let i = 0; i < completedOrderDetail.length; i++) {
     for (let j = 0; j < tds.length; j++) {
         if (tds[j].className == "detail") {
             foods = JSON.parse(tds[j].innerHTML);
-            console.log(foods);
             details = tds[j];
         }
     }

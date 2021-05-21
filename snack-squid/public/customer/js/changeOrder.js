@@ -6,18 +6,13 @@ let quantitySelectors = []
 
 // load data from old order everytime users refresh the page
 let oldFoods = document.getElementById('changeorder').innerHTML;
-console.log(oldFoods)
 localStorage.setItem('inCart', oldFoods);
 oldFoods = JSON.parse(oldFoods)
-console.log(oldFoods)
 let cartNumbers = 0;
 let cartCost = 0
 for (let i=0; i < oldFoods.length; i++) {
     cartNumbers += oldFoods[i].quantity;
-    cartCost += oldFoods[i].quantity + oldFoods[i].price
-    console.log(oldFoods[i].quantity)
-    console.log(oldFoods[i].price)
-    console.log(cartCost)
+    cartCost += oldFoods[i].quantity * oldFoods[i].price
     let foodName = foodListings[i].querySelector('.foodName').innerHTML;
     if (oldFoods[i].foodName == foodName){
         foodListings[i].querySelector('.quantity').innerHTML = oldFoods[i].quantity;

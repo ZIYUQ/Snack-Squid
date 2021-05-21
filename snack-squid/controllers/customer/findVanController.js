@@ -12,7 +12,7 @@ const getAllVan = async(req, res) => {
 
 const chooseVan = (req, res) => {
     let vanName = req.body.vanName
-    console.log(vanName)
+    console.log('choosing van:', vanName)
     return res.redirect('/customer/menu/van=' + vanName)
 }
 
