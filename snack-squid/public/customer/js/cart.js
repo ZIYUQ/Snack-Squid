@@ -12,10 +12,10 @@ if (cartItems == null) {
 }
 
 for (let i = 0; i < foodListings.length; i++) {
-    let food_name = foodListings[i].querySelector('.foodName').innerHTML
+    let foodName = foodListings[i].querySelector('.foodName').innerHTML
     let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
     let food = {
-        food_name: food_name,
+        foodName: foodName,
         price: foodPrice,
         quantity: 0
     }
@@ -28,7 +28,7 @@ for (let i = 0; i < foodListings.length; i++) {
     cartItems = JSON.parse(cartItems);
     let flag = 0
     for (let j = 0; j < cartItems.length; j++) {
-        if (cartItems[j]["food_name"] == food.food_name) {
+        if (cartItems[j]["foodName"] == food.foodName) {
             quantitySelector.innerHTML = cartItems[j]['quantity']
             flag = 1
         }
@@ -59,7 +59,7 @@ function setAddItems(food, quantitySelector) {
     if (cartItems != null) {
         let flag = 0;
         for (let i = 0; i < cartItems.length; i++) {
-            if (cartItems[i]["food_name"] == food.food_name) {
+            if (cartItems[i]["foodName"] == food.foodName) {
                 cartItems[i]["quantity"] += 1;
                 quantitySelector.innerHTML = cartItems[i]['quantity']
                 flag = 1;
@@ -85,7 +85,7 @@ function setRemoveItems(food, quantitySelector) {
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     for (let i = 0; i < cartItems.length; i++) {
-        if (cartItems[i]["food_name"] == food.food_name) {
+        if (cartItems[i]["foodName"] == food.foodName) {
             if (cartItems != null) {
                 if (cartItems[i]["quantity"] > 0) {
                     cartItems[i]["quantity"] -= 1;
@@ -157,7 +157,7 @@ function displayCart() {
             foodContainer.innerHTML += `
                 <div class="overlayfood">
                     <ion-icon name="close-circle"></ion-icon>
-                    <span>${item.food_name}</span>
+                    <span>${item.foodName}</span>
                 </div>
                 <div class="overlayquantity">${item.quantity}
                     <ion-icon class="decrease" name="arrow-dropright-circle"></ion-icon>
@@ -169,7 +169,7 @@ function displayCart() {
                 `;
 
         });
-        // <img src="../images/${item.food_name}.jpg">
+        // <img src="../images/${item.foodName}.jpg">
 
 
         foodContainer.innerHTML += `

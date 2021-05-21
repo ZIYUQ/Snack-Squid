@@ -4,34 +4,44 @@ let addCarts = []
 let removeCarts = []
 let quantitySelectors = []
 
-// initialise cartItems in localStorage
-let cartItems = localStorage.getItem('inCart');
-if (cartItems == null) {
-    localStorage.setItem('inCart', '[]');
-    let foods = document.getElementById('changeorder').innerHTML;
-    localStorage.setItem('inCart', JSON.stringify(foods));
-    
+// load data from old order everytime users refresh the page
+let oldFoods = document.getElementById('changeorder').innerHTML;
+console.log(oldFoods)
+localStorage.setItem('inCart', oldFoods);
+oldFoods = JSON.parse(oldFoods)
+console.log(oldFoods)
+let cartNumbers = 0;
+let cartCost = 0
+for (let i=0; i < oldFoods.length; i++) {
+    cartNumbers += oldFoods[i].quantity;
+    cartCost += oldFoods[i].quantity + oldFoods[i].price
+    let foodName = foodListings[i].querySelector('.foodName').innerHTML;
+    if (oldFoods[i].foodName == foodName){
+        foodListings[i].querySelector('.quantity').innerHTML = oldFoods[i].quantity;
+    }
 }
+cartNumbers = cartNumbers.toString();
+localStorage.setItem('cartNumbers', cartNumbers);
+document.getElementById("basket_span").innerHTML = cartNumbers;
+cartCost = cartCost.toString();
+localStorage.setItem('cartCost', cartCost);
 
 for (let i = 0; i < foodListings.length; i++) {
-    let food_name = foodListings[i].querySelector('.foodName').innerHTML
+    let foodName = foodListings[i].querySelector('.foodName').innerHTML
     let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
-    let quantitySelector = foodListings[i].querySelector('.quantity')
     let food = {
-        food_name: food_name,
+        foodName: foodName,
         price: foodPrice,
-        quantity: quantitySelector.innerHTML
+        quantity: 0
     }
-
-    // replace localStorage inCart
-    let cartItems = localStorage.getItem('inCart');
-    cartItems = JSON.parse(cartItems);
-    cartItems.push(food)
-    localStorage.setItem("inCart", JSON.stringify(cartItems));
-
+    for (let j=0; j < oldFoods; j++){
+        if (oldFoods[j] == food.foodName){
+            food.quantity = oldFoods[i].quantity;
+        }
+    }
     foods.push(food)
 
-
+    let quantitySelector = foodListings[i].querySelector('.quantity')
     quantitySelectors.push(quantitySelector)
 
     let addCart = foodListings[i].querySelector('.addCart')
@@ -40,13 +50,6 @@ for (let i = 0; i < foodListings.length; i++) {
     removeCarts.push(removeCart)
 }
 
-let cartNumbers = localStorage.getItem('cartNumbers');
-if (cartNumbers == undefined) {
-    document.getElementById("basket_span").innerHTML = 0;
-} else {
-    cartNumbers = parseInt(cartNumbers)
-    document.getElementById("basket_span").innerHTML = cartNumbers;
-}
 
 
 // food quantity + 1 in localStorage
@@ -56,7 +59,7 @@ function setAddItems(food, quantitySelector) {
     if (cartItems != null) {
         let flag = 0;
         for (let i = 0; i < cartItems.length; i++) {
-            if (cartItems[i]["food_name"] == food.food_name) {
+            if (cartItems[i]["foodName"] == food.foodName) {
                 cartItems[i]["quantity"] += 1;
                 quantitySelector.innerHTML = cartItems[i]['quantity']
                 flag = 1;
@@ -82,7 +85,7 @@ function setRemoveItems(food, quantitySelector) {
     let cartItems = localStorage.getItem('inCart');
     cartItems = JSON.parse(cartItems);
     for (let i = 0; i < cartItems.length; i++) {
-        if (cartItems[i]["food_name"] == food.food_name) {
+        if (cartItems[i]["foodName"] == food.foodName) {
             if (cartItems != null) {
                 if (cartItems[i]["quantity"] > 0) {
                     cartItems[i]["quantity"] -= 1;
@@ -154,7 +157,7 @@ function displayCart() {
             foodContainer.innerHTML += `
                 <div class="overlayfood">
                     <ion-icon name="close-circle"></ion-icon>
-                    <span>${item.food_name}</span>
+                    <span>${item.foodName}</span>
                 </div>
                 <div class="overlayquantity">${item.quantity}
                     <ion-icon class="decrease" name="arrow-dropright-circle"></ion-icon>
@@ -166,7 +169,7 @@ function displayCart() {
                 `;
 
         });
-        // <img src="../images/${item.food_name}.jpg">
+        // <img src="../images/${item.foodName}.jpg">
 
 
         foodContainer.innerHTML += `
@@ -178,25 +181,25 @@ function displayCart() {
                     $${localStorage.getItem('cartCost')},00
                 </span>
                 <br>
-                <button id="checkout" onclick="placeOrder()">CheckOut</button>
+                <button id="checkout" onclick="changeOrder()">Change Order</button>
             </div>
-
         `;
     }
 }
 
-function placeOrder() {
+function changeOrder() {
     let cartItems = localStorage.getItem('inCart');
     const options = {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
-        body: cartItems,
-        redirect: 'follow'
+        body: cartItems
     };
+    console.log('checkpoint')
+    console.log(window.location.href)
     try {
-        url = window.location.href + '/place-order'
+        let url = window.location.href
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {
@@ -206,7 +209,7 @@ function placeOrder() {
         localStorage.removeItem('inCart');
         localStorage.removeItem('totalCost');
         localStorage.removeItem('cartNumbers');
-        localStorage.setItem('cartCost', 0);
+        localStorage.setItem('cartCost', '0');
     } catch (err) {
         //pass
     }
