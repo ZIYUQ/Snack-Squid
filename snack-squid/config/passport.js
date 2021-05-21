@@ -5,8 +5,8 @@ require('dotenv').config() // for JWT password key
 const LocalStrategy = require('passport-local').Strategy;
 //const cookieParser = require('cookie-parser');
 // our user model
-const { Customer } = require('../model/customer');
-const { Van } = require('../model/van')
+const Customer  = require('../model/customer');
+const  Van  = require('../model/van');
     // the following is required IF you wanted to use passport-jwt
     // JSON Web Tokens
     // const passportJWT = require("passport-jwt");
