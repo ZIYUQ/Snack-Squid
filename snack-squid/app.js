@@ -40,6 +40,8 @@ const passport = require('passport')
 const session = require('express-session')
 const flash = require('connect-flash-plus')
 
+var helpers = require('handlebars-helpers')();
+
 // const jwt = require('jsonwebtoken')
 // const dotenv = require('dotenv').config()
 
