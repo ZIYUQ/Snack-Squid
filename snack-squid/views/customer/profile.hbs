@@ -18,8 +18,20 @@
             
             <a class="edit-info">Edit Information</a>
             <br>
-            <a href='/customer/profile/logout'> logout </a>
+            <a href="javascript:void(0);" onclick = "clearCart();"> logout </a>
          </section>
 
+         <form method="post" action="/customer/profile/logout" id="logoutform"></form>
+      
        </div>
 </section>
+<script>
+   function clearCart(){
+      localStorage.removeItem('inCart');
+      localStorage.removeItem('totalCost');
+      localStorage.removeItem('cartNumbers');
+      localStorage.setItem('cartCost', 0);
+
+      document.getElementById("logoutform").submit();
+   }
+</script>

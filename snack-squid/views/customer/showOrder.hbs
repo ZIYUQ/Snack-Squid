@@ -176,11 +176,12 @@
     </div> --}}
                 
 <script>
-    function changeOrder(orderId, timeLimit, status) {
-        let updateTime = document.getElementById(String(orderId)+'time').innerHTML;
 
-    
-        alert(status)
+    // function used to alter order
+    function changeOrder(orderId, timeLimit, status) {
+        
+        // get order time
+        let updateTime = document.getElementById(String(orderId)+'time').innerHTML;
         var model = document.getElementById(String(orderId) + "popup");
         let exit = checkExpired(updateTime, timeLimit);
         if (exit==1) {

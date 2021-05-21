@@ -7,6 +7,6 @@ const customerController = require("../../controllers/customer/customerControlle
 profileRouter.get('', utilities.isLoggedIn, (req, res) => customerController.renderProfilePage(req, res))
 
 // user logout 
-profileRouter.get('/logout', customerController.logout)
+profileRouter.post('/logout', customerController.logout)
 
 module.exports = profileRouter
