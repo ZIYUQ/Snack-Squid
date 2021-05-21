@@ -24,26 +24,6 @@ const placeOrder = async(req, res) => {
         totalPrice += cart[i]["price"] * cart[i]["quantity"]
     }
 
-<<<<<<< Updated upstream
-    // case that change order
-    let orderid = req.params.orderId
-    if (orderid) {
-        result = await Order.findOne({ _id: orderid }, {})
-        console.log(result)
-
-        if (result === null || result === undefined) {
-            return res.send("no order found")
-        }
-        const orderchange = { details: cart, total: totalPrice }
-
-        await Order.findOneAndUpdate({ _id: orderid }, orderchange, { new: true });
-        console.log("order update successfully!")
-        return res.redirect('/customer/order')
-
-    }
-
-=======
->>>>>>> Stashed changes
     let customerId = req.session.userId
     let vanName = req.params.van_name
 
@@ -140,9 +120,6 @@ const cancelOrder = async(req, res) => {
     }
 }
 
-<<<<<<< Updated upstream
-const renderChangeOrderPage = async(req, res) => {
-=======
 const changeOrder = async (req, res) => {
     let cart = req.body;
     // get food price and calculate the total price
@@ -183,28 +160,18 @@ const changeOrder = async (req, res) => {
 }
 
 const renderChangeOrderPage = async (req, res) => {
->>>>>>> Stashed changes
     let orderId = req.params.orderId
         // orderId = new ObjectId(orderId)
     if (orderId === undefined || orderId === null) {
         return res.send("no order found")
     }
     try {
-<<<<<<< Updated upstream
-        const order = await Order.findOne({ _id: orderId }, { details: true })
-        const snacks = await Menu.find({ type: 'snack' }, {}).lean()
-        const drinks = await Menu.find({ type: 'drink' }, {}).lean()
-        order.details = JSON.stringify(order.details);
-        console.log(order.details)
-        return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks, "order": order })
-=======
         const order = await Order.findOne({ _id: orderId }, {details: true}).lean()
         const snacks = await Menu.find({ type: 'snack' }, {}).lean()
         const drinks = await Menu.find({ type: 'drink' }, {}).lean()
         order.details = JSON.stringify(order.details);
         console.log("changing order:", orderId)
         return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks , "order": order})
->>>>>>> Stashed changes
 
     } catch (err) {
         return res.status(400).send("Database query 'Order' failed")
@@ -212,8 +179,4 @@ const renderChangeOrderPage = async (req, res) => {
 }
 
 
-<<<<<<< Updated upstream
-module.exports = { placeOrder, getOrder, cancelOrder, renderChangeOrderPage }
-=======
 module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage}
->>>>>>> Stashed changes

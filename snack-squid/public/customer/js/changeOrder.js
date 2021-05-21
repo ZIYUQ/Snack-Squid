@@ -15,6 +15,9 @@ let cartCost = 0
 for (let i=0; i < oldFoods.length; i++) {
     cartNumbers += oldFoods[i].quantity;
     cartCost += oldFoods[i].quantity + oldFoods[i].price
+    console.log(oldFoods[i].quantity)
+    console.log(oldFoods[i].price)
+    console.log(cartCost)
     let foodName = foodListings[i].querySelector('.foodName').innerHTML;
     if (oldFoods[i].foodName == foodName){
         foodListings[i].querySelector('.quantity').innerHTML = oldFoods[i].quantity;
