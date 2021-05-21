@@ -1,8 +1,8 @@
 const ObjectId = require('mongoose').Types.ObjectId;
-const { Customer } = require("../../model/customer")
-const { Order } = require("../../model/order")
-const { Menu } = require("../../model/menu")
-const { Van } = require("../../model/van")
+const Customer = require("../../model/customer")
+const Order = require("../../model/order")
+const Menu = require("../../model/menu")
+const Van = require("../../model/van")
 
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) => {
@@ -120,7 +120,7 @@ const cancelOrder = async(req, res) => {
     }
 }
 
-const changeOrder = async (req, res) => {
+const changeOrder = async(req, res) => {
     let cart = req.body;
     // get food price and calculate the total price
     let totalPrice = 0;
@@ -138,38 +138,38 @@ const changeOrder = async (req, res) => {
         totalPrice += cart[i]["price"] * cart[i]["quantity"]
     }
 
-    let orderId =req.params.orderId
-    if (orderId){
+    let orderId = req.params.orderId
+    if (orderId) {
         let result = await Order.findOne({ _id: orderId }, {})
 
-        if (result === null || result === undefined){
+        if (result === null || result === undefined) {
             return res.send("no order found")
         }
 
-        const orderChanged = {details: cart, total: totalPrice}
+        const orderChanged = { details: cart, total: totalPrice }
 
         console.log(orderChanged)
 
-        await Order.findOneAndUpdate({_id: orderId}, orderChanged, {new:true});
+        await Order.findOneAndUpdate({ _id: orderId }, orderChanged, { new: true });
         console.log("order", orderId, "updated successfully!")
         return res.redirect('/customer/order')
 
     }
 }
 
-const renderChangeOrderPage = async (req, res) => {
+const renderChangeOrderPage = async(req, res) => {
     let orderId = req.params.orderId
         // orderId = new ObjectId(orderId)
     if (orderId === undefined || orderId === null) {
         return res.send("no order found")
     }
     try {
-        const order = await Order.findOne({ _id: orderId }, {details: true}).lean()
+        const order = await Order.findOne({ _id: orderId }, { details: true }).lean()
         const snacks = await Menu.find({ type: 'snack' }, {}).lean()
         const drinks = await Menu.find({ type: 'drink' }, {}).lean()
         order.details = JSON.stringify(order.details);
         console.log("changing order:", orderId)
-        return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks , "order": order})
+        return res.render('customer/changeOrder.hbs', { "snacks": snacks, "drinks": drinks, "order": order })
 
     } catch (err) {
         return res.status(400).send("Database query 'Order' failed")
@@ -177,4 +177,4 @@ const renderChangeOrderPage = async (req, res) => {
 }
 
 
-module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage}
+module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage }

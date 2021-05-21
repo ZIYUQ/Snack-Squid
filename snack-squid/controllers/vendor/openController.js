@@ -1,4 +1,4 @@
-const { Van } = require('../../model/van')
+const Van = require('../../model/van')
 
 // find the van by its vanName 
 const checkLocation = async(req, res) => {

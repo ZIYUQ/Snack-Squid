@@ -1,4 +1,4 @@
-const { Customer } = require('../../model/customer')
+const Customer = require('../../model/customer')
 const ObjectId = require('mongoose').Types.ObjectId
 
 

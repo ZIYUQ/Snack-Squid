@@ -1,4 +1,4 @@
-const { Van } = require('../../model/van')
+const Van = require('../../model/van')
 
 const logout = async(req, res) => {
     req.logout()

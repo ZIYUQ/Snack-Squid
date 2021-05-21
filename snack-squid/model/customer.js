@@ -18,4 +18,4 @@ customerSchema.methods.validPassword = function(password) {
 };
 const Customer = mongoose.model("Customer", customerSchema)
 
-module.exports = { Customer }
+module.exports = Customer

@@ -1,5 +1,5 @@
-const { Order } = require('../../model/order')
-const { Van } = require('../../model/van')
+const Order = require('../../model/order')
+const Van = require('../../model/van')
 
 
 

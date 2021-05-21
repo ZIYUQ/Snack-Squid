@@ -20,17 +20,16 @@ const orderSchema = new mongoose.Schema({
     details: { type: [cartSchema], required: true },
     total: { type: Number },
     timestamp: {
-        alterOrderLimit: {type:Number, default: 10},
-        discountAwardLimit: {type:Number, default:15}
+        alterOrderLimit: { type: Number, default: 10 },
+        discountAwardLimit: { type: Number, default: 15 }
     },
     // timestamp: { type: Number, default: 10, required: false },
     discount: { type: Boolean, default: false, required: false },
     feedback: { type: feedbackSchema },
-    discount: {type: Boolean, default: false}},
-    {timestamps: {createdAt: 'orderTime', updatedAt: 'updateTime'}}
-)
+    discount: { type: Boolean, default: false }
+}, { timestamps: { createdAt: 'orderTime', updatedAt: 'updateTime' } })
 
 const Order = mongoose.model('Order', orderSchema)
 const Cart = mongoose.model('Cart', cartSchema)
 
-module.exports = { Order, Cart }
+module.exports = Order, Cart

@@ -20,4 +20,4 @@ vanSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 const Van = mongoose.model('Van', vanSchema)
-module.exports = { Van }
+module.exports = Van
