@@ -10,8 +10,10 @@ const getAllVan = async(req, res) => {
     }
 }
 
-const chooseVan = async(req, res) => {
-    console.log(req.body.vanId)
+const chooseVan = (req, res) => {
+    let vanName = req.body.vanName
+    console.log(vanName)
+    return res.redirect('/customer/menu/van=' + vanName)
 }
 
 module.exports = { getAllVan, chooseVan }

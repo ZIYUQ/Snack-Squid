@@ -23,7 +23,7 @@ const renderSignupPage = async(req, res) => {
 
 const renderLoginPage = async(req, res) => {
     if (req.isAuthenticated())
-        return res.redirect('/customer/menu/van=SnackSquid')
+        return res.redirect('/customer/choose-van')
     else return res.render('customer/login')
 }
 

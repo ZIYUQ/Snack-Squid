@@ -10,7 +10,7 @@ const customerController = require("../../controllers/customer/customerControlle
 loginRouter.get('/', customerController.renderLoginPage)
 
 loginRouter.post('/', passport.authenticate('customer-login', {
-    successRedirect: '/customer/menu/van=SnackSquid',
+    successRedirect: '/customer/choose-van',
     failureRedirect: '/customer/login', // redirect back to the login page if there is an error
     failureFlash: true // allow flash messages
 }));

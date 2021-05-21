@@ -8,7 +8,7 @@ require('../../config/passport')(passport);
 
 loginRouter.post('/', passport.authenticate('van-login', {
     successRedirect: '/vendor/open-for-business/',
-    failureRedirect: '/vendor/login', // redirect back to the login page if there is an error
+    failureRedirect: '/vendor/', // redirect back to the login page if there is an error
     failureFlash: true // allow flash messages
 }));
 
