@@ -201,6 +201,7 @@ function changeOrder() {
         console.log(url)
         fetch(url, options)
             .then(res => {
+                window.alert("Order changed successfully!")
                 if (res.redirected) {
                     window.location.href = res.url;
                 }
