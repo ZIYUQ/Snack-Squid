@@ -4,17 +4,19 @@
 let x = setInterval(function () {
 
     // get required section
-    let orderTables = document.getElementsByClassName("orderTable")
+    let orderTables = document.getElementsByClassName("orderTable");
+    let timeStamp = parseInt(document.getElementById("discountTime").innerHTML);
+    console.log(timeStamp);
     for (let i = 0; i < orderTables.length; i++) {
         let tds = orderTables[i].getElementsByTagName("td")
-        let timeStamp;
+        // let timeStamp;
         let orderTime;
         let timeRemaining;
 
         for (let j = 0; j < tds.length; j++) {
-            if (tds[j].className == "dicountTime") {
-                timeStamp = parseInt(tds[j].innerHTML)
-            }
+            // if (tds[j].className == "dicountTime") {
+            //     timeStamp = parseInt(tds[j].innerHTML)
+            // }
             if (tds[j].className == "orderTime") {
                 orderTime = new Date(tds[j].innerHTML)
             }
@@ -102,8 +104,3 @@ for (let i = 0; i < completedOrderDetail.length; i++) {
     }
 
 }
-
-
-
-
-
