@@ -202,15 +202,17 @@ function placeOrder() {
         url = window.location.href + '/place-order'
         fetch(url, options)
             .then(res => {
-                window.alert("Order placed successfully!")
+                if (res.body == true) {
+                    localStorage.removeItem('inCart');
+                    localStorage.removeItem('totalCost');
+                    localStorage.removeItem('cartNumbers');
+                    localStorage.setItem('cartCost', 0);
+                    window.alert("Order placed successfully!")
+                }
                 if (res.redirected) {
                     window.location.href = res.url;
                 }
             });
-        localStorage.removeItem('inCart');
-        localStorage.removeItem('totalCost');
-        localStorage.removeItem('cartNumbers');
-        localStorage.setItem('cartCost', 0);
     } catch (err) {
         //pass
     }

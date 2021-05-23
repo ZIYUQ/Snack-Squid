@@ -74,6 +74,7 @@ const placeOrder = async(req, res) => {
             return res.redirect('/404-NOT-FOUND')
         }
         console.log("order", newOrder._id, "sent successfully!")
+        res.body = true
         return res.redirect('/customer/order')
     })
 }
@@ -155,6 +156,7 @@ const changeOrder = async(req, res) => {
 
         await Order.findOneAndUpdate({ _id: orderId }, orderChanged, { new: true });
         console.log("order", orderId, "updated successfully!")
+        res.body = true;
         return res.redirect('/customer/order')
 
     }
