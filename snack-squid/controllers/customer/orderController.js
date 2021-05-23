@@ -8,10 +8,9 @@ const Timestamp = mongoose.model('Timestamp')
 
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) => {
-
-    let cart = req.body
-        // get food price and calculate the total price
-    let totalPrice = 0
+    let cart = req.body;
+    // get food price and calculate the total price
+    let totalPrice = 0;
     for (let i = 0; i < cart.length; i++) {
         // get the food price
         let foodName = cart[i]["foodName"]
@@ -109,16 +108,16 @@ const getOrder = async(req, res) => {
 }
 
 const cancelOrder = async(req, res) => {
-    let id = req.params.orderId
-    if (id === undefined || id === null) {
+    let orderId = req.params.orderId
+    if (orderId === undefined || orderId === null) {
         return res.send("no order found")
     }
     try {
-        let result = await Order.findOne({ _id: id }, {})
+        let result = await Order.findOne({ _id: orderId }, {})
 
         // Set status as fulfilled
-        await Order.updateOne({ _id: id }, { $set: { status: 'cancelled' } })
-        console.log("cancel order successfully!")
+        await Order.updateOne({ _id: orderId }, { $set: { status: 'cancelled' } })
+        console.log("cancel order", orderId, "successfully!")
         return res.redirect('/customer/order')
 
     } catch (err) {
@@ -153,8 +152,6 @@ const changeOrder = async(req, res) => {
         }
 
         const orderChanged = { details: cart, total: totalPrice }
-
-        console.log(orderChanged)
 
         await Order.findOneAndUpdate({ _id: orderId }, orderChanged, { new: true });
         console.log("order", orderId, "updated successfully!")

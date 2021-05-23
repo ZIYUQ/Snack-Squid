@@ -28,7 +28,7 @@ module.exports = function(passport) {
     });
 
 
-    // strategy to login
+    // strategy to login customer
     // this method only takes in username and password, and the field names
     // should match of those in the login form
     passport.use('customer-login', new LocalStrategy({
@@ -37,28 +37,26 @@ module.exports = function(passport) {
             passReqToCallback: true
         }, // pass the req as the first arg to the callback for verification 
         function(req, emailAddress, password, done) {
-
-
             process.nextTick(function() {
                 // see if the user with the emailAddress exists
                 Customer.findOne({ 'emailAddress': emailAddress }, function(err, user) {
                     // if there are errors, user is not found or password
                     // does match, send back errors
-                    if (err)
+                    if (err) {
                         return done(err);
-                    if (!user)
+                    } else if (!user) {
+                        console.log("Customer login failed:", emailAddress, "NOT FOUND")
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
-
-                    if (!user.validPassword(password)) {
+                    } else if (!user.validPassword(password)) {
                         // false in done() indicates to the strategy that authentication has
                         // failed
+                        console.log("Customer login failed:", emailAddress, "WRONG PASSWORD");
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                     }
                     // otherwise, we put the user's id in the session
                     else {
                         req.session.userId = user._id
-                        console.log('User logged in: ', req.session.userId)
-
+                        console.log('Customer logged in successfully: ', req.session.userId)
                         return done(null, user, req.flash('loginMessage', 'Login successful'));
                     }
                 });
@@ -68,7 +66,7 @@ module.exports = function(passport) {
 
 
 
-    // for signup
+    // for customer signup
     passport.use('customer-signup', new LocalStrategy({
             usernameField: 'emailAddress',
             passwordField: 'password',
@@ -86,31 +84,34 @@ module.exports = function(passport) {
                         return done(err);
                     }
                     if (existingUser) {
-                        console.log("existing");
-                        return done(null, false, req.flash('signupMessage', 'That emailAddress is already taken.'));
+                        console.log("Customer signup failed:", emailAddress, "ALREADY REGISTERED!");
+                        return done(null, false, req.flash('signupMessage', (emailAddress, 'is already taken.')));
                     } else {
                         // otherwise
                         // create a new user
-                        var newCustomer = new Customer();
+                        let newCustomer = new Customer();
                         newCustomer.givenName = req.body.givenName;
                         newCustomer.familyName = req.body.familyName;
                         newCustomer.emailAddress = emailAddress;
                         newCustomer.password = newCustomer.generateHash(password);
                         // and save the user
                         newCustomer.save(function(err) {
-                            if (err)
+                            if (err) {
                                 throw err;
-
+                            }
                             return done(null, newCustomer);
                         });
 
                         // put the user's ema  ilAddress in the session so that it can now be used for all
                         // communications between the client (browser) and the FoodBuddy app
                         req.session.userId = newCustomer._id;
+                        console.log("Customer signup successfully: ", emailAddress);
+                        console.log("Customer logged in successfully: ", req.session.userId);
                     }
                 });
             });
         }));
+
     passport.use('van-login', new LocalStrategy({
             usernameField: 'vanName',
             passwordField: 'password',
@@ -124,21 +125,21 @@ module.exports = function(passport) {
                 Van.findOne({ 'vanName': vanName }, function(err, user) {
                     // if there are errors, user is not found or password
                     // does match, send back errors
-                    if (err)
+                    if (err) {
                         return done(err);
-                    if (!user)
+                    } else if (!user) {
+                        console.log("Vendor login failed:", vanName, "NOT FOUND")
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
-
-                    if (!user.validPassword(password)) {
+                    } else if (!user.validPassword(password)) {
                         // false in done() indicates to the strategy that authentication has
                         // failed
+                        console.log("Vendor login failed:", vanName, "WRONG PASSWORD")
                         return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                     }
                     // otherwise, we put the user's id in the session
                     else {
                         req.session.vanId = user._id;
-                        console.log(req.session.vanId)
-
+                        console.log("Vendor logged in successfully:", req.session.vanId)
                         return done(null, user, req.flash('loginMessage', 'Login successful'));
                     }
                 });
@@ -162,7 +163,7 @@ module.exports = function(passport) {
                         return done(err);
                     }
                     if (existingUser) {
-                        console.log("existing");
+                        console.log("Vendor signup failed:", vanName, "ALREADY REGISTERED!");
                         return done(null, false, req.flash('signupMessage', 'That van name is already taken.'));
                     } else {
                         // otherwise
@@ -178,9 +179,9 @@ module.exports = function(passport) {
                         newVan.open = false;
                         // and save the user
                         newVan.save(function(err) {
-                            if (err)
+                            if (err) {
                                 throw err;
-
+                            }
                             return done(null, newVan);
                         });
                         // put the user's ema  ilAddress in the session so that it can now be used for all

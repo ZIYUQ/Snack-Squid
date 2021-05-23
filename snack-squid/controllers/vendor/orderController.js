@@ -1,66 +1,37 @@
 const Order = require('../../model/order')
 const Van = require('../../model/van')
+const ObjectId = require('mongoose').Types.ObjectId;
 
 
 
-const getPreparingOrder = async(req, res) => {
 
+
+const getOrder = async(req, res) => {
+    let vanId = req.session.vanId
+    vanId = new ObjectId(vanId)
     try {
-        const result = await Order.find({ vanId: req.session.vanId, status: "preparing" }, { _id: true, details: true }).populate("customerId", "givenName-_id")
-            // Return if the order status is preparing
+        // find van detail
+        const van = await Van.findOne({ _id: vanId })
+            // find order under that customer
+        const outstanding = await Order.find({ vanId: van._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "givenName-_id").lean()
+        const fulfilled = await Order.find({ vanId: van._id, status: "fulfilled" }, {}).populate("vanId", "givenName-_id").lean()
+        const completed = await Order.find({ vanId: van._id, status: "completed" }, {}).populate("vanId", "givenName-_id").lean()
 
-        if (result) {
-            return res.send(result)
-        } else {
-            return res.send('No order available')
+        for (let i = 0; i < outstanding.length; i++) {
+            outstanding[i].details = JSON.stringify(outstanding[i].details);
         }
-    } catch (err) {
-        res.send(err)
-    }
-}
 
-const getFulfilledOrder = async(req, res) => {
+        for (let i = 0; i < fulfilled.length; i++) {
+            fulfilled[i].details = JSON.stringify(fulfilled[i].details);
 
-    try {
-        const result = await Order.find({ vanId: req.session.vanId, status: "fulfilled" }, { _id: true, details: true }).populate("customerId", "givenName-_id")
-            // Return if the order status is preparing
-
-        if (result) {
-            return res.send(result)
-        } else {
-            return res.send('No order available')
         }
-    } catch (err) {
-        res.send(err)
-    }
-}
+        for (let i = 0; i < fulfilled.length; i++) {
+            completed[i].details = JSON.stringify(completed[i].details);
 
-const getCompleteOrder = async(req, res) => {
-    const datetime = new Date();
-    try {
-        const result = await Order.find({ vanId: req.session.vanId, status: "complete" }, { _id: true, details: true }).populate("customerId", "givenName-_id")
-            // Return if the order status is preparing
-
-        if (result) {
-            return res.send(result)
-        } else {
-            return res.send('No order available')
         }
+        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled, "completed": completed });
     } catch (err) {
-        res.send(err)
-    }
-}
-
-const getAllOrder = async(req, res) => {
-    try {
-        result = await Order.find({}, {})
-        if (result) {
-            return res.send(result)
-        } else {
-            return res.send('No order available')
-        }
-    } catch (err) {
-        return res.status(400).send('Database query failed')
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
@@ -103,4 +74,4 @@ const completeOrder = async(req, res) => {
         return res.status(400).send('Database query failed')
     }
 }
-module.exports = { getPreparingOrder, getFulfilledOrder, getCompleteOrder, fulfillOrder, completeOrder }
+module.exports = { getOrder, fulfillOrder, completeOrder }

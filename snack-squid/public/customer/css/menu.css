@@ -459,6 +459,19 @@ h2,
     margin-left: 30%;
 }
 
+.state button{
+    font-size: 20px;
+    color: #AD7863;
+    border: 2px solid #DBCAC2;
+    width: 180px;
+    height: 38px;
+    font-family: 'Josefin Slab', serif;
+}
+
+#preparingButton{
+    background-color: #DBCAC2;
+}
+
 table {
     padding: 8px;
     background-color: #F1E9E1;
@@ -502,12 +515,17 @@ table {
     font-weight: 500;
 }
 
+.change-cancel{
+    color: #774C37;
+    text-underline-offset: 2px;
+}
+
 
 /* For Ipads */
 
 @media only screen and (max-width:1300px) {
     .container {
-        grid-template-areas: '. cart' '. title' 'snacks snacks' 'drinks drinks' '. Ordering' 'state .' 'preparingOrders preparingOrders';
+        grid-template-areas: '. cart' '. title' 'snacks snacks' 'drinks drinks' '. Ordering' 'state state' 'preparingOrders preparingOrders';
     }
     #title {
         margin-top: 100px;
@@ -550,7 +568,24 @@ table {
     #cartdetail {
         margin-right: 70px;
     }
+
+
+    .state {
+        margin-left: 5%;
+    }
+
+    .preparingOrders,
+    .completedorder {
+        font-size: 17px;
+        line-height: 28px;
+        margin: 0 5% 0 5%;
+    }
+
+    .orderID {
+        font-size: 19px;
+    }
 }
+
 
 
 /* For mobile phones */
