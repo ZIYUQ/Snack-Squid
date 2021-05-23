@@ -126,7 +126,7 @@ const changeOrder = async(req, res) => {
     let totalPrice = 0;
     for (let i = 0; i < cart.length; i++) {
         // get the food price
-        let foodName = cart[i]["food_name"]
+        let foodName = cart[i]["foodName"]
         try {
             let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
             cart[i]["foodName"] = foodDetails.foodName

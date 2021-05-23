@@ -193,12 +193,12 @@ function changeOrder() {
         headers: {
             "Content-Type": "application/json"
         },
-        body: cartItems
+        body: cartItems,
+        redirect: 'follow'
     };
-    console.log('checkpoint')
-    console.log(window.location.href)
     try {
-        let url = window.location.href
+        let url = window.location.href + "/change-order"
+        console.log(url)
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {

@@ -10,7 +10,7 @@ orderRouter.get('', utilities.isLoggedIn, (req, res) => orderController.getOrder
 orderRouter.post('/change/orderId=:orderId', orderController.renderChangeOrderPage)
 
 // replace the change order
-orderRouter.post('/change/orderId=:orderId', orderController.changeOrder)
+orderRouter.post('/change/orderId=:orderId/change-order', orderController.changeOrder)
 
 // update cancel order 
 orderRouter.post('/cancel/orderId=:orderId', orderController.cancelOrder)
