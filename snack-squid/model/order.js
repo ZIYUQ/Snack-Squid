@@ -26,7 +26,6 @@ const orderSchema = new mongoose.Schema({
     // timestamp: { type: Number, default: 10, required: false },
     discount: { type: Boolean, default: false, required: false },
     feedback: { type: feedbackSchema },
-    discount: { type: Boolean, default: false }
 }, { timestamps: { createdAt: 'orderTime', updatedAt: 'updateTime' } })
 
 const Order = mongoose.model('Order', orderSchema)
