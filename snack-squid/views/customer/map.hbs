@@ -1,17 +1,40 @@
+<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+<link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
+<link rel="stylesheet" href="/customer/css/menu.css">
+
 <section id="findVan">
-    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
 
 
-    <div id="map" style="width: 50%; height: 530px;"></div>
-    {{#each Vans}}
-    <div class="vanListing">
-        <span class="vanName">{{this.vanName}}</span>
-        <span class="vanLocation">{{this.location}}</span>
-        <span class="vanId">{{this._id}}</span>
-        <button id="chooseVan"> This Van! </button>
-    </div>
-    {{/each}}
+    <main class='map-container' id=>
+
+
+        <section id='map'></section>
+
+        <section class='location'>
+        
+        <a id="map-profile" class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
+
+        <a href="/customer">
+            <div id="icon-map" class="icon"></div>
+        </a>
+
+        <div class="mapvan"></div>
+
+            {{#each Vans}}
+            <div class="vanListing">
+                <p class="vanName">{{this.vanName}}</p>
+                <p class="vanLocation">{{this.location}}</p>
+                <span class="vanId">{{this._id}}</span>
+                <br>
+                <button id="chooseVan"> This Van! </button>
+            </div>
+
+            <div class="line"></div>
+            {{/each}}
+        </section>
+    </main>
+
+
 
     <script type="text/javascript">
 

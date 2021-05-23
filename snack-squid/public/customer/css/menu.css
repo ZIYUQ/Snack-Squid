@@ -5,8 +5,8 @@ body {
     background-size: cover;
     font-family: 'Josefin Slab', serif;
     color: #774C37;
-    margin: 0 2% 0 2%;
     padding: 0;
+    margin: 0;
 }
 
 .icon {
@@ -47,6 +47,8 @@ body {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: minmax(30px, auto);
     grid-template-areas: '. cart' '. title' 'snacks drinks' 'snacks drinks' '. Ordering' 'state .' 'preparingOrders preparingOrders';
+    padding: 0 2% 0 2%;
+
 }
 
 .profile {
@@ -300,7 +302,6 @@ h2,
     margin-top: 20px;
     column-span: all;
     border-top: 10px solid #DBCAC2;
-    ;
 }
 
 .overlayfood {
@@ -520,6 +521,84 @@ table {
     text-underline-offset: 2px;
 }
 
+/* For Map */
+#findVan{
+    padding: 0;
+}
+.map-container{
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    grid-template-areas: 
+    'location map map';
+}
+
+#map{
+    grid-area: map;
+}
+
+.location{
+    display: flex;
+    flex-direction: column;
+    grid-area: location;
+    background: #F1E8DF;
+}
+
+#icon-map{
+    position: absolute;
+    height: 120px;
+    width: 120px;
+    background-size: 120px 120px;
+    left: 3%;
+    top: 1%;
+    border-radius: 100px;
+}
+
+.mapvan{
+    background: url("../images/cart2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 80%;
+    height: 125px;
+    background-position-y: center;
+    align-self: flex-end;
+    margin-bottom: 20px;
+}
+
+.vanListing{
+    background: #DAD1C0;
+    border-radius: 42px;
+    width: 70%;
+    height: 103px;
+    align-self: center;
+    text-align: center;
+    padding: 5px;
+    color: #707070;
+}
+
+p{
+    margin: 0;
+    font-size: 20px;
+
+}
+
+.vanName{
+    font-weight: bold;
+    font-size: 25px;
+
+
+}
+.vanId{
+    display: none;
+}
+
+#map-profile{
+    left: 0;
+    top: 2%;
+}
+
 
 /* For Ipads */
 
@@ -583,6 +662,22 @@ table {
 
     .orderID {
         font-size: 19px;
+        
+    }
+
+    #findVan{
+        padding: 0;
+    }
+
+
+    .map-container{
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        grid-template-areas: 
+        'location map';
     }
 }
 
@@ -678,4 +773,43 @@ table {
     .pageBack {
         font-size: 40px;
     }
+
+    #findVan{
+        padding: 0;
+    }
+
+    
+    .map-container{
+        grid-template-columns: 1fr ;
+    }
+
+    .mapvan{
+        width: 100%;
+        height: 50px;
+        background-position-y: center;
+        margin-bottom: 20px;
+        align-self: center;
+    }
+
+    .vanListing{
+        width: 70%;
+        height: 70px;
+        margin-top: 60px;
+    }
+    
+
+    #map-profile{
+        left: 80%;
+        top: 5%;
+    }
+
+    p{
+        margin: 0;
+        font-size: 14px;
+    
+    }
+    
+    .vanName{
+        font-size: 20px;}
+    
 }
