@@ -76,6 +76,18 @@ p{
     font-size: 25px;
 }
 
+#find-me{
+    padding: 8px 12px 8px 12px;
+    margin-top: 10px;
+    font-size: 17px;
+    border: none;
+    background-color:  #FCEED8;
+    font-family: 'Raleway', sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+
 #changeLocation{
     width: 303px;
     height: 69px;
@@ -87,70 +99,9 @@ p{
     color: #916654;
     font-size: 25px;
     border: none;
-    margin: 90px 0 0 30%;
-
-}
-
-
-/* 
-.board {
-    margin: 15vh 0 0 30vw;
-    height: 550px;
-    width: 40%;
-    background-color: #FCEED8;
-    border-radius: 48px;
-    font-family: 'Antic Slab', serif;
-    padding: 40px 10px 0 40px;
-}
-
-.registration {
-    font-size: 40px;
-    color: #707070;
-    margin: 0 0 40px 0;
-}
-
-.textbox_style {
-    height: 33px;
-    width: 363px;
-    margin-top: 5px;
-    padding-left: 4px;
-    font-size: 18px;
-    color: #999;
-    transition: ease-in-out, .1s ease-in-out;
-
-}
-
-.textbox_style:focus{
-    outline-color: rgb(224, 197, 163);
-    
-}
-
-.signup {
-    display: block;
-    width: 155px;
-    height: 42px;
-    margin-top: 36px;
-    margin-left: 104px;
-    border-radius: 32px;
-    border: none;
-    background-color: #FCE0B3;
-    box-shadow: #707070;
-    font-size: 20px;
-    color: #B58169;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.16);
-}
-
-.signup:hover {
+    margin: 70px 0 0 30%;
     cursor: pointer;
+
 }
 
-input{
-    font-family: 'Raleway', sans-serif;}
 
-span {
-    display: block;
-    color: red;
-    font-family: 'Times New Roman', Times, serif;
-    margin-top: 5px;
-    visibility: hidden;
-} */

@@ -145,6 +145,22 @@ label, b, h2{
     transition: ease-in-out, .5s ease-in-out;
 
 }
+ 
+button{
+    width: 120px;
+    height: 40px;
+    padding: 5px 12px 10px 12px;
+    margin-top: 10px;
+    font-size: 20px;
+    border: none;
+    background-color:  rgb(219, 219, 219);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 10px;
+    cursor: pointer;
+    color: rgb(95, 95, 95);
+    text-decoration: none;
+}
+
 
 ::placeholder{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -207,10 +223,23 @@ h2{
     line-height: 52px;
     color: #535353;
     cursor: pointer; 
+}
+
+#logout{
+    width: 35%;
+    height: 40px;
+    font-size: 25px;
+    line-height: 35px;
+    text-decoration: none;
+    color: #E9D7BD;
+    margin-left: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 
 }
 
-.edit-info:hover{
+
+.edit-info:hover, #logout:hover{
     background: #af9797;
     color: rgb(243, 243, 243);
     transition: .3s all ease-in-out;
