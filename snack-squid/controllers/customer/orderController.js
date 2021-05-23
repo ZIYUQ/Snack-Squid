@@ -3,6 +3,8 @@ const Customer = require("../../model/customer")
 const Order = require("../../model/order")
 const Menu = require("../../model/menu")
 const Van = require("../../model/van")
+const mongoose = require('mongoose')
+const Timestamp = mongoose.model('Timestamp')
 
 // params: [{food_id}, {quantity}]
 const placeOrder = async(req, res) => {
@@ -93,9 +95,13 @@ const getOrder = async(req, res) => {
 
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
-
         }
-        res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled });
+
+        // get the timestamp 
+        const alterOrderLimit = await Timestamp.findOne({timeLimitType: "alterOrderLimit"}, {}).lean()
+        const discountAwardLimit = await Timestamp.findOne({timeLimitType: "discountAwardLimit"}, {}).lean()
+        alterOrderLimit.limit = JSON.stringify(alterOrderLimit.limit)
+        res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled, "alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
