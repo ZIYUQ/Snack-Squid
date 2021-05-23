@@ -37,19 +37,17 @@ module.exports = function(passport) {
             passReqToCallback: true
         }, // pass the req as the first arg to the callback for verification 
         function(req, emailAddress, password, done) {
-
             process.nextTick(function() {
                 // see if the user with the emailAddress exists
                 Customer.findOne({ 'emailAddress': emailAddress }, function(err, user) {
                     // if there are errors, user is not found or password
                     // does match, send back errors
-                    if (err)
+                    if (err) {
                         return done(err);
-                    if (!user)
+                    } else if (!user) {
                         console.log("Customer login failed:", emailAddress, "NOT FOUND")
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
-
-                    if (!user.validPassword(password)) {
+                    } else if (!user.validPassword(password)) {
                         // false in done() indicates to the strategy that authentication has
                         // failed
                         console.log("Customer login failed:", emailAddress, "WRONG PASSWORD");
@@ -98,15 +96,17 @@ module.exports = function(passport) {
                         newCustomer.password = newCustomer.generateHash(password);
                         // and save the user
                         newCustomer.save(function(err) {
-                            if (err)
+                            if (err) {
                                 throw err;
-
+                            }
                             return done(null, newCustomer);
                         });
 
                         // put the user's ema  ilAddress in the session so that it can now be used for all
                         // communications between the client (browser) and the FoodBuddy app
                         req.session.userId = newCustomer._id;
+                        console.log("Customer signup successfully: ", emailAddress);
+                        console.log("Customer logged in successfully: ", req.session.userId);
                     }
                 });
             });
@@ -125,13 +125,12 @@ module.exports = function(passport) {
                 Van.findOne({ 'vanName': vanName }, function(err, user) {
                     // if there are errors, user is not found or password
                     // does match, send back errors
-                    if (err)
+                    if (err) {
                         return done(err);
-                    if (!user)
+                    } else if (!user) {
                         console.log("Vendor login failed:", vanName, "NOT FOUND")
                         return done(null, false, req.flash('loginMessage', 'No user found.'));
-
-                    if (!user.validPassword(password)) {
+                    } else if (!user.validPassword(password)) {
                         // false in done() indicates to the strategy that authentication has
                         // failed
                         console.log("Vendor login failed:", vanName, "WRONG PASSWORD")
@@ -180,9 +179,9 @@ module.exports = function(passport) {
                         newVan.open = false;
                         // and save the user
                         newVan.save(function(err) {
-                            if (err)
+                            if (err) {
                                 throw err;
-
+                            }
                             return done(null, newVan);
                         });
                         // put the user's ema  ilAddress in the session so that it can now be used for all
