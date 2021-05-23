@@ -202,6 +202,7 @@ function placeOrder() {
         url = window.location.href + '/place-order'
         fetch(url, options)
             .then(res => {
+                window.alert("Order placed successfully!")
                 if (res.redirected) {
                     window.location.href = res.url;
                 }
