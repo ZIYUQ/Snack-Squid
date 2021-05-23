@@ -1,16 +1,17 @@
+<link rel="stylesheet" href="/vendor/css/profile.css">
+<title>Van Profile</title>
 <section id="vanProfile">
-    <title>Van Profile</title>
-
-    <p>Current Location: </p>
-    <span>{{Van.location}}</span>
+    <div class="logo"></div>
+    <p class="current_location">Current Location: </p>
+    <span class="text_location">{{Van.textLocation}}</span>
     <form action="/vendor/profile/change" method="POST" id="newLocation">
         <p>Please enter the new location of the van</p>
         <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name="newLocation" class='newLocation'>
         <input type="submit" value="Change the Location">
     </form>
     <button id="find-me">Show my location</button><br />
-    <a href="/vendor/profile/close" name="close">Close Business for Today</a>
-    <a href="/vendor/profile/logout" name="logout">Log Out</a>
+    <a href="/vendor/profile/close" class="close">Close Business for Today</a>
+    <a href="/vendor/profile/logout" class="logout">Log Out</a>
 
     <script>
         function geoFindMe() {
