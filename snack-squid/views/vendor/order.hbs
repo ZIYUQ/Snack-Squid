@@ -1,7 +1,21 @@
 <section id='order'>
     <title>order</title>
     <a href='/vendor/profile/logout' class="logout"> Logout </a>
-    <h1>adadwdwa</h1>
+    {{#each preparingOrders}}
+    <div class="">
+        <div class="order_num">
+            <span>Order No.</span>
+            <div>{{this._id}}</div>span>
+            <span>Time remaining: </span>
+            <button> Mark as Completed </button>
+            <button>Hide</button>
+        </div>
 
-
+        <div class="order_detail">
+            <span>Customer Name: </span>
+            <span>{{this.customerId.givenName}}</span>
+            <span>Orders</span>
+            <span class="details">{{this.details}}</span>
+        </div>
+        {{/each}}
 </section>
