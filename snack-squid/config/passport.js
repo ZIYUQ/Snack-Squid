@@ -86,7 +86,7 @@ module.exports = function(passport) {
                         return done(err);
                     }
                     if (existingUser) {
-                        console.log("existing");
+                        console.log("Email address already registered!");
                         return done(null, false, req.flash('signupMessage', 'That emailAddress is already taken.'));
                     } else {
                         // otherwise
