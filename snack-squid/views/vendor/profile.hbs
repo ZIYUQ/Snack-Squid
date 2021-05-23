@@ -1,17 +1,27 @@
-<link rel="stylesheet" href="/vendor/css/profile.css">
+<link rel="stylesheet" href="/vendor/css/open.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Antic+Slab&family=Raleway&display=swap" rel="stylesheet">
 <title>Van Profile</title>
+
 <section id="vanProfile">
     <div class="logo"></div>
+
     <p class="current_location">Current Location: </p>
     <span class="text_location">{{Van.textLocation}}</span>
+
     <form action="/vendor/profile/change" method="POST" id="newLocation">
         <p>Please enter the new location of the van</p>
+        <br>
         <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name="newLocation" class='newLocation'>
-        <input type="submit" value="Change the Location">
+        <br>
+        <input id="profileChangeLocation" type="submit" value="Change the Location">
     </form>
-    <button id="find-me">Show my location</button><br />
+
+    <button id="profilefind-me">Use my location</button>
     <a href="/vendor/profile/close" class="close">Close Business for Today</a>
     <a href="/vendor/profile/logout" class="logout">Log Out</a>
+</section>
+
 
     <script>
         function geoFindMe() {
@@ -58,4 +68,3 @@
 
         document.querySelector('#find-me').addEventListener('click', geoFindMe);
     </script>
-</section>

@@ -45,17 +45,16 @@ form{
     width: 40vw;
     color: #707070;
     line-height: 0;
-    margin-top: -80px;
 }
 
 .msg{
-    margin-bottom: 80px;
     font-style: oblique;
     font-style: italic;
     font-size: 35px;
+    margin-bottom: 80px;
 }
 
-input[name="location"]{
+input[name="location"], .newLocation{
     width: 100%;
     height: 37px;
     font-family: 'Raleway', sans-serif;
@@ -65,7 +64,7 @@ input[name="location"]{
     border: none;
 }
 
-input[name="location"]:focus{
+input[name="location"]:focus, .newLocation{
     outline-color: rgb(224, 197, 163);
     background-color: blanchedalmond;
     color: rgb(53, 35, 8);
@@ -89,6 +88,7 @@ p{
 }
 
 #changeLocation{
+    font-family: 'Raleway', sans-serif;
     width: 303px;
     height: 69px;
     background: #FBD89E;
@@ -104,4 +104,103 @@ p{
 
 }
 
+/* For Profile */
 
+.current_location{
+    margin-bottom: 40px;
+}
+
+#profileChangeLocation, #profilefind-me, .close{
+    font-family: 'Raleway', sans-serif;
+    width: 286px;
+    height: 60px;
+    background: #FBD89E;
+    box-shadow: 0px 10px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 32px;
+    font-weight: 400;
+    line-height: 33px;
+    color: #916654;
+    font-size: 23px;
+    border: none;
+    margin-left: 36%;
+    cursor: pointer;
+}
+
+#profileChangeLocation{
+    margin-top: 40px;
+    background: #B58169;
+    color: #FCE0B3;
+}
+
+#profilefind-me{
+    margin-left: 39%;
+    width: 220px;
+    margin-top: 30px;
+    color: #B58169;
+    background: #FCE0B3;
+}
+
+.close{
+    margin-left: 34%;
+    width: 320px;
+    display: block;
+    margin-top: 30px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 55px;
+}
+
+
+@media only screen and (max-width:1024px) {
+/* For Ipad */
+
+    form{
+        width: 70vw;
+    }
+
+    .msg{
+        font-size: 33px;
+    }
+
+    p{
+        font-size: 23px;
+    }
+
+    #find-me{
+        font-size: 15px;
+
+    }
+
+    #changeLocation{
+        width: 280px;
+        height: 64px;
+        font-size: 23px;
+        margin: 70px 0 0 23%;
+    }
+
+    /* For Ipad Profile */
+
+    #profileChangeLocation, #profilefind-me, .close{
+        width: 280px;
+        height: 55px;
+        font-size: 22px;
+        margin-left: 25%;
+    }
+
+    #profileChangeLocation{
+        margin-top: 35px;
+    }
+
+    #profilefind-me{
+        margin-left: 32%;
+        width: 210px;
+        margin-top: 25px;
+    }
+
+    .close{
+        margin-left: 23%;
+        width: 310px;
+        margin-top: 25px;
+        line-height: 52px;
+    }
+}
