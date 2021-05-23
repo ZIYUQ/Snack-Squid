@@ -5,17 +5,21 @@
     <a class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
     <a href="/customer"><div class="icon"></div></a>
 
-    <h1 id="title">ORDER</h1>
+    <h1 id="title">ORDER</h1>  
+        <div class="timestamp">
+            <p id="alterTime">{{alterTime.limit}}</p>
+            <p id="discountTime">{{discountTime.limit}}</p>
+        </div>
 
         <div class="state">
-            <button id="preparingButton" onclick="preparingButton()">preparing orders </button>
-            <button id="fulfilledButton" onclick="fulfilledButton()">fulfilled orders</button>
+            <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
+            <button id="fulfilledButton" onclick="fulfilledButton()">Fulfilled</button>
         </div>   
 
-    <div class='preparingOrders'>
+    <div class='preparingOrders' id="preparingOrders">
         {{#each preparingOrders}}
         <p id = '{{this._id}}time' hidden>{{this.updateTime}}</p>
-       
+        
 
                 <table class="orderTable">
                     <tr>
@@ -35,11 +39,13 @@
                     
                     <tr>
                         <td>Address Detail</td>
-                        <td class="dicountTime">{{this.timestamp.discountAwardLimit}}mins <span class="thinfont">until order complete</span></td>
+                        {{!-- <td class="dicountTime">{{this.timestamp.discountAwardLimit}}mins <span class="thinfont">until order complete</span></td> --}}
                     </tr>
 
+
+                    {{#if (isExpired this.updateTime ../alterTime.limit)}}
                     <tr>
-                    {{#if (isExpired this.updateTime this.timestamp.alterOrderLimit)}}
+                    
                         <td> </td>
                         <td><a class="change-cancel" href="javascript:void(0);" onclick="changeOrder('{{this._id}}', '0');">cancel order</a>
                         <br> 
@@ -66,7 +72,7 @@
     </div>
     
 
-    <div class='completedorder'>
+    <div class='completedOrders' id='completedOrders'>
         {{#each completedOrders}}
             <table class="completedTable">
                 <tr>
@@ -98,6 +104,7 @@
     </div>
     
     <script src="/customer/js/order.js"></script>
+    <script src='/customer/js/helper.js'></script>
 </div>
 </section>
 {{!-- 
@@ -182,22 +189,6 @@
                 
 <script>
 
-    // function used to alter order
-    function changedOrder(orderId, timeLimit, status) {
-
-        // get order time
-        let updateTime = document.getElementById(String(orderId)+'time').innerHTML;
-        var model = document.getElementById(String(orderId) + "popup");
-        let exit = checkExpired(updateTime, timeLimit);
-        if (exit==1) {
-            alert("you cannot change order");
-        } else if (status === '1'){
-            document.getElementById('change' + String(orderId)).value = orderId;
-            document.getElementById('changeOrder'+ String(orderId)).submit();
-        }else{
-            document.getElementById('cancelOrder'+ String(orderId)).submit();
-        }
-    }
 
     function changeOrder(orderId, status) {
         
@@ -209,32 +200,20 @@
     }
 
 
-    function checkExpired(updateTime, timeLimit) {
-        // check whether customer can alter order
-        let now = new Date();
-        let updatetime = new Date(updateTime);
-        let timeStamp = timeLimit;
-
-        let dist = now - updatetime;
-        console.log(updatetime);
-        console.log(timeLimit);
-        if ((dist / 1000) / 60 > timeStamp) {
-            console.log(dist);
-            return 1;
-        }
-        return 0;
-
-    }
 
     function preparingButton(){
         document.getElementById('fulfilledButton').style.background="none";
         document.getElementById('preparingButton').style.background="#DBCAC2";
+        document.getElementById('preparingOrders').style.display="flex";
+        document.getElementById('completedOrders').style.display="none";
 
     }
 
     function fulfilledButton(){
         document.getElementById('preparingButton').style.background="none";
         document.getElementById('fulfilledButton').style.background="#DBCAC2";
+        document.getElementById('preparingOrders').style.display="none";
+        document.getElementById('completedOrders').style.display="flex";
 
     }
 

@@ -22,9 +22,11 @@ const renderSignupPage = async(req, res) => {
 }
 
 const renderLoginPage = async(req, res) => {
-    if (req.isAuthenticated())
+    if (req.isAuthenticated()){
         return res.redirect('/customer/choose-van')
-    else return res.render('customer/login')
+    } else {
+        return res.render('customer/login')
+    }
 }
 
 // Render profile page
