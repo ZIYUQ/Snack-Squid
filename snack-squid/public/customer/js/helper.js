@@ -4,9 +4,6 @@ var register = function(Handlebars) {
             let now = new Date();
             let updatetime = new Date(updateTime);
             let timeStamp = parseInt(timeLimit);
-            console.log(updateTime);
-            console.log(timeLimit);
-
             let dist = now - updatetime;
             if ((dist / 1000) / 60 > timeStamp) {
                 return false;
