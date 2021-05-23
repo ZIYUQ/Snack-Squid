@@ -6,7 +6,8 @@ let x = setInterval(function () {
     // get required section
     let orderTables = document.getElementsByClassName("orderTable");
     let timeStamp = parseInt(document.getElementById("discountTime").innerHTML);
-    console.log(timeStamp);
+    let totalPrices = document.getElementsByClassName("totalPrice");
+    let discountedPrices = document.getElementsByClassName("discountedPrice");
     for (let i = 0; i < orderTables.length; i++) {
         let tds = orderTables[i].getElementsByTagName("td")
         // let timeStamp;
@@ -42,7 +43,10 @@ let x = setInterval(function () {
 
         // If the count down is over, write some text
         if (distance < 0) {
-            timeRemaining.innerHTML = "20% off award";
+            timeRemaining.innerHTML = "20% off awarded !";
+            let total = totalPrices[i].innerHTML.substring(8, totalPrices[i].innerHTML.length)
+            total = Math.round(parseInt(total) * 0.8);
+            discountedPrices[i].innerHTML = "Total after discount: $" + total.toString();
         }
     }
 
@@ -79,7 +83,6 @@ for (let i = 0; i < orderDetail.length; i++) {
 let completedOrderDetail = document.getElementsByClassName("completedTable")
 
 for (let i = 0; i < completedOrderDetail.length; i++) {
-    console.log(completedOrderDetail.length)
     let tds = completedOrderDetail[i].getElementsByTagName("td");
     let foods;
     let details;

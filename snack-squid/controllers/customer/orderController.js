@@ -34,7 +34,7 @@ const placeOrder = async(req, res) => {
         if (customerDetail) {
             //pass
         } else {
-            console.log("no such customer")
+            console.log("no such customer: ", customerId)
             return res.redirect('/404-NOT-FOUND')
         }
     } catch (err) {
@@ -49,7 +49,7 @@ const placeOrder = async(req, res) => {
         if (vanDetails) {
             vanId = vanDetails._id
         } else {
-            console.log("no such van")
+            console.log("no such van: ", vanName)
             return res.redirect('/404-NOT-FOUND')
         }
     } catch (err) {

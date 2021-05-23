@@ -12,7 +12,7 @@
             <p id="discountTime">{{discountTime.limit}}</p>
         </div>
 
-        <h2 class="notification">You can change order in 10 minutes</h2>
+        <h2 class="notification">You can change your order within 10 minutes</h2>
 
         <div class="state">
             <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
@@ -35,12 +35,10 @@
                     </tr>
 
                     <tr>
-                        <td>Total: ${{this.total}}</td>
+                        <td class="totalPrice">Total: ${{this.total}}</td>
                     </tr>
-                    
                     <tr>
-                        <td>Address Detail</td>
-                        {{!-- <td class="dicountTime">{{this.timestamp.discountAwardLimit}}mins <span class="thinfont">until order complete</span></td> --}}
+                        <td class="discountedPrice"></td>
                     </tr>
 
 
