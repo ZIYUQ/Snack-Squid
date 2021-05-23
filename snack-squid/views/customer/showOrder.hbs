@@ -8,11 +8,11 @@
     <h1 id="title">ORDER</h1>
 
         <div class="state">
-            <button id="preparingButton" onclick="preparingButton()">preparing orders </button>
-            <button id="fulfilledButton" onclick="fulfilledButton()">fulfilled orders</button>
+            <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
+            <button id="fulfilledButton" onclick="fulfilledButton()">Fulfilled</button>
         </div>   
 
-    <div class='preparingOrders'>
+    <div class='preparingOrders' id="preparingOrders">
         {{#each preparingOrders}}
         <p id = '{{this._id}}time' hidden>{{this.updateTime}}</p>
        
@@ -66,7 +66,7 @@
     </div>
     
 
-    <div class='completedorder'>
+    <div class='completedOrders'>
         {{#each completedOrders}}
             <table class="completedTable">
                 <tr>
@@ -229,12 +229,16 @@
     function preparingButton(){
         document.getElementById('fulfilledButton').style.background="none";
         document.getElementById('preparingButton').style.background="#DBCAC2";
+        document.getElementById('preparingOrders').style.display="flex";
+        document.getElementById('completedOrders').style.display="none";
 
     }
 
     function fulfilledButton(){
         document.getElementById('preparingButton').style.background="none";
         document.getElementById('fulfilledButton').style.background="#DBCAC2";
+        document.getElementById('preparingOrders').style.display="none";
+        document.getElementById('completedOrders').style.display="flex";
 
     }
 

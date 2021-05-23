@@ -482,7 +482,7 @@ table {
 }
 
 .preparingOrders,
-.completedorder {
+.completedOrders {
     grid-area: preparingOrders;
     display: flex;
     flex-direction: column;
