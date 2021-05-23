@@ -46,7 +46,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: minmax(30px, auto);
-    grid-template-areas: '. cart' '. title' 'snacks drinks' 'snacks drinks' '. Ordering' 'state .' 'preparingOrders preparingOrders';
+    grid-template-areas: '. cart' '. title' 'snacks drinks' 'snacks drinks' '. Ordering' 'notification notification' 'state .' 'preparingOrders preparingOrders';
     padding: 0 2% 0 2%;
 
 }
@@ -469,6 +469,14 @@ h2,
     font-family: 'Josefin Slab', serif;
 }
 
+.notification{
+    grid-area: notification;
+    text-align: center;
+    font-size: 20px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
 #preparingButton{
     background-color: #DBCAC2;
 }
@@ -521,6 +529,10 @@ table {
     text-underline-offset: 2px;
 }
 
+.timestamp{
+    display: none;
+}
+
 /* For Map */
 #findVan{
     padding: 0;
@@ -564,7 +576,7 @@ table {
     height: 125px;
     background-position-y: center;
     align-self: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .vanListing{
@@ -604,7 +616,7 @@ p{
 
 @media only screen and (max-width:1300px) {
     .container {
-        grid-template-areas: '. cart' '. title' 'snacks snacks' 'drinks drinks' '. Ordering' 'state state' 'preparingOrders preparingOrders';
+        grid-template-areas: '. cart' '. title' 'snacks snacks' 'drinks drinks' '. Ordering' 'notification notification' 'state state' 'preparingOrders preparingOrders';
     }
     #title {
         margin-top: 100px;
@@ -688,7 +700,7 @@ p{
 @media only screen and (max-width:650px) {
     .container {
         grid-template-columns: repeat(1, 1fr);
-        grid-template-areas: 'cart' 'title' 'snacks' 'drinks' 'Ordering' 'state' 'preparingOrders';
+        grid-template-areas: 'cart' 'title' 'snacks' 'drinks' 'Ordering' 'notification notification' 'state' 'preparingOrders';
     }
     .snacks {
         grid-template-columns: repeat(1, 1fr);

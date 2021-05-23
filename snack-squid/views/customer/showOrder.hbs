@@ -6,10 +6,13 @@
     <a href="/customer"><div class="icon"></div></a>
 
     <h1 id="title">ORDER</h1>  
+
         <div class="timestamp">
             <p id="alterTime">{{alterTime.limit}}</p>
             <p id="discountTime">{{discountTime.limit}}</p>
         </div>
+
+        <h2 class="notification">You can change order in 10 minutes</h2>
 
         <div class="state">
             <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
@@ -20,7 +23,6 @@
         {{#each preparingOrders}}
         <p id = '{{this._id}}time' hidden>{{this.updateTime}}</p>
         
-
                 <table class="orderTable">
                     <tr>
                         <td class="orderID">Order ID: {{this._id}} ({{this.vanId.vanName}})</td>
@@ -34,7 +36,6 @@
 
                     <tr>
                         <td>Total: ${{this.total}}</td>
-                        <td class="timeStamp"><span class="thinfont">Change Available for: </span>{{this.timestamp.alterOrderLimit}}mins</td>
                     </tr>
                     
                     <tr>

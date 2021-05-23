@@ -38,7 +38,7 @@ let x = setInterval(function () {
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Output the result in an element with id="timeRemaining"
-        timeRemaining.innerHTML = "Time Remaining: " + minutes + "m " + seconds + "s ";
+        timeRemaining.innerHTML = "Discount in: " + minutes + "m " + seconds + "s ";
 
         // If the count down is over, write some text
         if (distance < 0) {
