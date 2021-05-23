@@ -27,19 +27,20 @@ localStorage.setItem('cartCost', cartCost);
 for (let i = 0; i < foodListings.length; i++) {
     let foodName = foodListings[i].querySelector('.foodName').innerHTML
     let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
+    let quantitySelector = foodListings[i].querySelector('.quantity')
     let food = {
         foodName: foodName,
         price: foodPrice,
         quantity: 0
     }
-    for (let j=0; j < oldFoods; j++){
-        if (oldFoods[j] == food.foodName){
-            food.quantity = oldFoods[i].quantity;
+    for (let j=0; j < oldFoods.length; j++){
+        if (oldFoods[j].foodName == food.foodName){
+            food.quantity = oldFoods[j].quantity;
+            quantitySelector.innerHTML = food.quantity;
         }
     }
     foods.push(food)
 
-    let quantitySelector = foodListings[i].querySelector('.quantity')
     quantitySelectors.push(quantitySelector)
 
     let addCart = foodListings[i].querySelector('.addCart')

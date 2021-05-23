@@ -29,7 +29,8 @@ app.use(express.static('public'))
 
 app.engine('hbs', exphbs({
     defaultlayout: 'main',
-    extname: 'hbs'
+    extname: 'hbs',
+    helpers: require(__dirname + "/public/customer/js/helper.js").helpers
 }))
 
 app.set('view engine', 'hbs')
