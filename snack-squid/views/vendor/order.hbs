@@ -11,7 +11,7 @@
     <a href='/vendor/profile/logout' class="logout"> Logout </a>
 
     {{#each preparingOrders}}
-    <div class="">
+    <div class="oneOrder">
         <div class="orderNum">
             <span>Order No.</span>
             <span class="orderId" hidden>{{this._id}}</span>
@@ -25,14 +25,14 @@
             <span>Customer Name: </span>
             <span>{{this.customerId.givenName}}</span>
             <span>Orders</span>
-            <span class="details">{{this.details}}</span>
+            <span class="detail">{{this.details}}</span>
         </div>
     {{/each}}
 
 
         <script>
-            orders = document.querySelectorAll('.orderNum')
-            for (let i = 0; i < orders.length; i++) {
+            orderNums = document.querySelectorAll('.orderNum')
+            for (let i = 0; i < orderNums.length; i++) {
                 let fulfillbtn = document.querySelector('#fulfilled')
                 console.log(fulfillbtn)
                 let orderId = document.querySelector('.orderId').innerHTML
@@ -59,6 +59,29 @@
                         console.log(err)
                     }
                 })
+            }
+
+            orderDetail = document.querySelectorAll('.orderDetail')
+            for (let i = 0; i < orderDetail.length; i++) {
+                let tds = orderDetail[i].getElementsByClassName('detail');
+                let foods;
+                let details;
+
+                for (let j = 0; j < tds.length; j++) {
+                    if (tds[j].className == "detail") {
+                        foods = JSON.parse(tds[j].innerHTML);
+                        details = tds[j];
+                    }
+                }
+                details.innerHTML = ``;
+                for (let j = 0; j < foods.length; j++) {
+                    details.innerHTML += `
+                        <span>${foods[j].quantity}</span>
+                        <span>${foods[j].foodName}</span>
+                        <br>
+                         `
+
+                }
             }
         </script>
 </section>

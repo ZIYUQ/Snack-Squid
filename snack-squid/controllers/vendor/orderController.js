@@ -23,13 +23,8 @@ const getOrder = async(req, res) => {
 
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
-
         }
-        for (let i = 0; i < fulfilled.length; i++) {
-            completed[i].details = JSON.stringify(completed[i].details);
-
-        }
-        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled, "completed": completed });
+        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
