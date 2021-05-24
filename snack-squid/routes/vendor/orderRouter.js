@@ -6,5 +6,5 @@ const orderController = require('../../controllers/vendor/orderController')
 
 orderRouter.get('/', orderController.getOrder)
 
-orderRouter.post('/', orderController.fulfillOrder)
+orderRouter.post('/fulfill-order', orderController.fulfillOrder)
 module.exports = orderRouter

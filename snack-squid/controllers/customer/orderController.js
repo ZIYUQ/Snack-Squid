@@ -57,9 +57,10 @@ const placeOrder = async(req, res) => {
         return res.send("Database query collection 'vans' failed!")
     }
 
-
-    // new order created
+    let orderNumber = await Order.countDocuments({}) + 1
+        // new order created
     const newOrder = new Order({
+        orderNo: orderNumber,
         vanId: vanId,
         customerId: customerId,
         details: cart,
@@ -88,7 +89,7 @@ const getOrder = async(req, res) => {
         // find customer detail
         const customer = await Customer.findOne({ _id: userId })
             // find order under that customer
-        const outstanding = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({'_id': -1}).populate("vanId", "vanName-_id").lean()
+        const outstanding = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
         const fulfilled = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
         for (let i = 0; i < outstanding.length; i++) {
             outstanding[i].details = JSON.stringify(outstanding[i].details);
@@ -99,8 +100,8 @@ const getOrder = async(req, res) => {
         }
 
         // get the timestamp 
-        const alterOrderLimit = await Timestamp.findOne({timeLimitType: "alterOrderLimit"}, {}).lean()
-        const discountAwardLimit = await Timestamp.findOne({timeLimitType: "discountAwardLimit"}, {}).lean()
+        const alterOrderLimit = await Timestamp.findOne({ timeLimitType: "alterOrderLimit" }, {}).lean()
+        const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {}).lean()
         alterOrderLimit.limit = JSON.stringify(alterOrderLimit.limit)
         res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled, "alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
     } catch (err) {
@@ -181,8 +182,8 @@ const renderChangeOrderPage = async(req, res) => {
     }
 }
 
-const updateProfile = async(req, res) =>{
-    let 
+const updateProfile = async(req, res) => {
+    let
 }
 
 module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage }

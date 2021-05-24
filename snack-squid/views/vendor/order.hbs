@@ -3,19 +3,52 @@
     <a href='/vendor/profile/logout' class="logout"> Logout </a>
     {{#each preparingOrders}}
     <div class="">
-        <div class="order_num">
+        <div class="orderNum">
             <span>Order No.</span>
-            <div>{{this._id}}</div>span>
+            <span class="orderId" hidden>{{this._id}}</span>
+            <span>{{this.orderNo}}</span>
             <span>Time remaining: </span>
-            <button> Mark as Completed </button>
+            <button id="fulfilled"> Mark as Fulfilled</button>
             <button>Hide</button>
         </div>
 
-        <div class="order_detail">
+        <div class="orderDetail">
             <span>Customer Name: </span>
             <span>{{this.customerId.givenName}}</span>
             <span>Orders</span>
             <span class="details">{{this.details}}</span>
         </div>
         {{/each}}
+
+        <script>
+            orders = document.querySelectorAll('.orderNum')
+            for (let i = 0; i < orders.length; i++) {
+                let fulfillbtn = document.querySelector('#fulfilled')
+                console.log(fulfillbtn)
+                let orderId = document.querySelector('.orderId').innerHTML
+                console.log(orderId)
+                fulfillbtn.addEventListener('click', function () {
+
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ 'orderId': orderId }),
+                        redirect: 'follow'
+                    }
+                    try {
+                        url = window.location.href + '/fulfill-order'
+                        fetch(url, options).then(res => {
+                            if (res.redirected) {
+                                window.location.href = url
+                            }
+                        })
+                    }
+                    catch (err) {
+                        console.log(err)
+                    }
+                })
+            }
+        </script>
 </section>

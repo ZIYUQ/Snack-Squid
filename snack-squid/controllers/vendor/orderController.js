@@ -37,7 +37,8 @@ const getOrder = async(req, res) => {
 
 // Fulfill the order 
 const fulfillOrder = async(req, res) => {
-    let id = req.body._id
+    let id = req.body.orderId
+    console.log(id)
         // Find the order to be fulfilled by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")

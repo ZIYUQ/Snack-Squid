@@ -47,8 +47,6 @@
     <script type="text/javascript">
         //sendLocation()
         let vans = document.querySelectorAll('.vanListing')
-        console.log(vans.length)
-
 
         window.onload = async function () {
             L.mapquest.key = 'A1HigpvtAiVmfrECeAqUXlsnN6wDUshM';
@@ -88,6 +86,7 @@
                 }
             })
         }
+
         function geoFindMe(map) {
             function success(position) {
                 const latitude = -37.816166 //position.coords.latitude.toFixed(4);
@@ -113,16 +112,17 @@
                     let vancoord = [JSON.parse(vanLocation).latitude, JSON.parse(vanLocation).longitude]
                     dict[[vanName, textLocation, vancoord]] = getdistance(coordinate, vancoord)
                 }
+                //  get sorted vans
                 let sorted = sortObject(dict)
                 let vanContainer = document.querySelector('.vanContainer').innerHTML
-                console.log(vanContainer)
+                // change innerHTML
                 for (i = 0; i < sorted.length; i++) {
                     let vanName = sorted[i].split(',')[0]
                     let textLocation = sorted[i].split(',').slice(1, sorted[i].split(',').length - 2).join(',')
-                    console.log(textLocation)
+
                     let latitude = sorted[i].split(',')[sorted[i].split(',').length - 2]
                     let longitude = sorted[i].split(',')[sorted[i].split(',').length - 1]
-                    console.log(longitude)
+
                     vanContainer.innerHTML += `
                     <div class="vanListing">
                     < div class="oneVan" >
@@ -133,6 +133,7 @@
                     </div >
                     </div>`
                     coordinate = [latitude, longitude]
+                    // add markers to map
                     L.mapquest.textMarker(coordinate, {
                         text: vanName,
                         position: 'right',

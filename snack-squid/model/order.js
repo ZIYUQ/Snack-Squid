@@ -14,6 +14,7 @@ const feedbackSchema = new mongoose.Schema({
 })
 
 const orderSchema = new mongoose.Schema({
+    orderNo: { type: Number },
     customerId: { type: mongoose.Types.ObjectId, required: true, ref: "Customer" },
     vanId: { type: mongoose.Types.ObjectId, required: true, ref: "Van" },
     status: { type: String, enum: ["preparing", "fulfilled", "cancelled"] },
@@ -29,7 +30,7 @@ const orderSchema = new mongoose.Schema({
 }, { timestamps: { createdAt: 'orderTime', updatedAt: 'updateTime' } })
 
 const timestampSchema = new mongoose.Schema({
-    timeLimitType: {type: String, enum: ["alterOrderLimit", "discountAwardLimit"] },
+    timeLimitType: { type: String, enum: ["alterOrderLimit", "discountAwardLimit"] },
     limit: { type: Number }
 })
 
