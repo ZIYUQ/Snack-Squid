@@ -211,6 +211,7 @@
 
     function preparingButton() {
         document.getElementById('fulfilledButton').style.background = "none";
+        document.getElementById('fulfilledButton').style.transition = "ease-in-out, .1s ease-in-out";
         document.getElementById('preparingButton').style.background = "#DBCAC2";
         document.getElementById('preparingOrders').style.display = "flex";
         document.getElementById('completedOrders').style.display = "none";
@@ -219,6 +220,7 @@
 
     function fulfilledButton() {
         document.getElementById('preparingButton').style.background = "none";
+        document.getElementById('preparingButton').style.transition = "ease-in-out, .1s ease-in-out";
         document.getElementById('fulfilledButton').style.background = "#DBCAC2";
         document.getElementById('preparingOrders').style.display = "none";
         document.getElementById('completedOrders').style.display = "flex";
