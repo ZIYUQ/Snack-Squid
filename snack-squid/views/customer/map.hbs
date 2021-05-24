@@ -12,13 +12,17 @@
 
         <section class='location'>
 
-            <a id="map-profile" class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
+            <div class="top-bar">
 
-            <a href="/customer">
-                <div id="icon-map" class="icon"></div>
-            </a>
+                <a href="/customer">
+                    <div id="icon-map" class="icon"></div>
+                </a>
+                                
+                <div class="mapvan"></div>
 
-            <div class="mapvan"></div>
+                <a id="map-profile" class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
+
+            </div>
 
             <div class="vanContainer">
                 {{#each Vans}}
