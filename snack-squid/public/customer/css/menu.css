@@ -578,17 +578,25 @@ table {
     background-position-y: center;
     align-self: flex-end;
     margin-bottom: 30px;
+
 }
 
 .vanListing {
-    background: #DAD1C0;
     border-radius: 42px;
     width: 70%;
     height: 103px;
-    align-self: center;
+    margin-left: 15%;
     text-align: center;
     padding: 5px;
     color: #707070;
+    cursor: pointer;
+    transition: ease-in-out, .2s ease-in-out;
+
+}
+
+.vanListing:hover{
+    background: #DAD1C0;
+
 }
 
 p {
@@ -597,6 +605,7 @@ p {
 }
 
 .vanName {
+    margin: 15px 0 10px 0;
     font-weight: bold;
     font-size: 25px;
 }
@@ -612,6 +621,10 @@ p {
 
 #lineMap {
     margin-bottom: 20px;
+}
+
+.geoLocation{
+    display: none;
 }
 
 
@@ -788,13 +801,15 @@ p {
         width: 100%;
         height: 50px;
         background-position-y: center;
-        margin-bottom: 20px;
+        margin-bottom: 80px;
         align-self: center;
     }
     .vanListing {
         width: 70%;
         height: 70px;
-        margin-top: 60px;
+        margin-top: 0px;
+        background: #DAD1C0;
+
     }
     #map-profile {
         left: 80%;
@@ -806,5 +821,9 @@ p {
     }
     .vanName {
         font-size: 20px;
+        margin: 5px 0 10px 0;
+
     }
+
+    
 }
