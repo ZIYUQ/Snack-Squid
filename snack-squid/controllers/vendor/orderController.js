@@ -20,11 +20,14 @@ const getOrder = async(req, res) => {
         for (let i = 0; i < outstanding.length; i++) {
             outstanding[i].details = JSON.stringify(outstanding[i].details);
         }
+
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
+
         }
-        for (let i = 0; i < completed.length; i++) {
+        for (let i = 0; i < fulfilled.length; i++) {
             completed[i].details = JSON.stringify(completed[i].details);
+
         }
         res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled, "completed": completed });
     } catch (err) {
