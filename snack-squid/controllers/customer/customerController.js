@@ -54,5 +54,28 @@ const logout = (req, res) => {
     return res.redirect('/customer/')
 }
 
+const updateProfile = async(req, res) =>{
 
-module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage }
+    const customerid = req.params.customerid;
+    try{
+        let customer = await Customer.findOne({_id: customerid})
+        await Customer.updateOne({_id: customerid}, {$set:{password: customer.generateHash(req.body.password), givenName: req.body.givenName, familyName: req.body.familyName }})
+
+        customer = await Customer.findOne({ _id: customerid}, { givenName: true, familyName: true, emailAddress: true }).lean()
+        console.log(customer)
+        if (customer) {
+            // res.render('customer/profile', { "customer": customer })
+            console.log("update profile sucessfully")
+            res.send(customer)
+        } else {
+            console.log('customer not found')
+            return res.redirect('/customer/login')
+        }
+    } catch (err) {
+        console.log(err)
+    }
+    
+}
+
+
+module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage, updateProfile }

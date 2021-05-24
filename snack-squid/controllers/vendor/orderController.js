@@ -62,7 +62,8 @@ const completeOrder = async(req, res) => {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
             // Set status as fulfilled
-            await Order.updateOne({ _id: id }, { $set: { status: 'complete' } })
+            await Order.updateOne({ _id: orderid }, { $set: { status: 'complete' } }, {timestamps: false})
+      
         } else {
             return res.send('no order found,please enter order id')
         }
