@@ -13,14 +13,6 @@ body {
 
 }
 
-.profile {
-    position: fixed;
-    right: 10px;
-    top: 10px;
-    color: #774C37;
-    font-size: 55px;
-}
-
 .logo {
     position: absolute;
     left: 30px;
@@ -158,9 +150,6 @@ p{
     text-align: center;
     line-height: 55px;
 }
-
-
-/* For Order */
 
 
 @media only screen and (max-width:1024px) {
