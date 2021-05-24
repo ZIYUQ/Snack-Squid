@@ -181,5 +181,24 @@ const renderChangeOrderPage = async(req, res) => {
     }
 }
 
+// update order that get 20% discount
+const discountOrder= async(req,res)=> {
+    let orderId = req.params.orderId
+    if (orderId === undefined || orderId === null) {
+        return res.send("no order found")
+    }
+    try {
 
-module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage }
+        // Set status as fulfilled
+        await Order.updateOne({ _id: orderId }, { $set: { discount: true } }, {timestamps: false})
+        console.log("20% discount is given on ", orderId);
+        return res.send('')
+
+    } catch (err) {
+        return res.status(400).send('Database query failed')
+    }
+}
+
+
+
+module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage, discountOrder }

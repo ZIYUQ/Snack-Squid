@@ -12,7 +12,7 @@
             <p id="discountTime">{{discountTime.limit}}</p>
         </div>
 
-        <h2 class="notification">You can change your order within 10 minutes</h2>
+        <h2 class="notification">You can change your order within {{alterTime.limit}} minutes</h2>
 
         <div class="state">
             <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
@@ -21,16 +21,17 @@
 
     <div class='preparingOrders' id="preparingOrders">
         {{#each preparingOrders}}
-        <p id = '{{this._id}}time' hidden>{{this.updateTime}}</p>
         
                 <table class="orderTable">
+                    <td class = "orderid" hidden>{{this._id}}</td>
+                    <td class = "discount" hidden></td>
                     <tr>
                         <td class="orderID">Order ID: {{this._id}} ({{this.vanId.vanName}})</td>
                         <td class="timeRemaining"></td>
                     </tr>
                     <tr>
                         <td class="detail">{{this.details}}</td>
-                        <td class="orderTime" hidden>{{this.updateTime}}</td>
+                        <td class="updateTime" hidden>{{this.updateTime}}</td>
                         <td class="ordertime"><span class="thinfont">Order Time: </span>{{moment this.updateTime format="dddd DD.MM.YYYY HH:mm"}}</td>
                     </tr>
 
@@ -58,12 +59,14 @@
                 <div class="line" id="lineOrder"></div>
 
                 <form method="post" action="/customer/order/change/orderId={{this._id}}" id="changeOrder{{this._id}}">
-                    <input type="hidden" name="orderid" id="change{{this._id}}"/>
                 </form>
 
-                <form method="post" action="/customer/order/cancel/orderId={{this._id}}" id="cancelOrder{{this._id}}">
-                    <input type="hidden" name="orderid" id="cancel{{this._id}}"/>
+                <form method="post" action="/customer/order/cancel/orderId={{this._id}}" id="cancelOrder{{this._id}}"></form>
+    
+                <form method="post" action="/customer/order/discount/orderId={{this._id}}" id="discountOrder{{this._id}}">
+                   
                 </form>
+
 
                 
             

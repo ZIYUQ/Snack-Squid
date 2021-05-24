@@ -27,4 +27,11 @@ orderRouter.post('/cancel/orderId=:orderId',
     (req, res) =>
         orderController.cancelOrder(req,res))
 
+// update discount status of order
+orderRouter.post('/discount/orderId=:orderId',
+    utilities.isLoggedIn,
+    (req, res) =>
+        orderController.discountOrder(req,res))
+          
+
 module.exports = orderRouter
