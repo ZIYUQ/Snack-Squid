@@ -29,24 +29,24 @@
         <div class="oneOrder">
                 <table class="orderNum">
                     <tr>
-                        <td>Order No. <span class="orderId" hidden>{{this._id}}</span> <span>{{this.orderNo}}</span></td>
-                        <td>Time remaining:</td>
+                        <td>Order No. <span class="orderId" hidden>{{this._id}}</span> <span class="color"># {{this.orderNo}}</span></td>
+                        <td class="time">Time remaining:</td>
                     </tr>
 
                     <tr>
                         <td><button>Hide</button></td>
-                        <td><button id="fulfilled"> Mark as Fulfilled</button></td>
+                        <td class="fulfilled"><button id="fulfilled"> Mark as Fulfilled</button></td>
                     </tr>
                     
                 </table>
-
+                
                 <table class="orderDetail">
                     <tr>
-                        <td>Customer Name: {{this.customerId.givenName}}</td>
+                        <td>Customer Name: <span class="color">{{this.customerId.givenName}}</span></td>
                     </tr>
                     
                     <tr>
-                        <td><span class="detail">{{this.details}}</span></td>
+                        <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
                     </tr>
                 </table>
         </div>
@@ -108,5 +108,22 @@
 
                 }
             }
+
+
+    function preparingButton() {
+        document.getElementById('fulfilledButton').style.background = "none";
+        document.getElementById('preparingButton').style.background = "#DBCAC2";
+        document.getElementById('preparingOrders').style.display = "flex";
+        document.getElementById('completedOrders').style.display = "none";
+
+    }
+
+    function fulfilledButton() {
+        document.getElementById('preparingButton').style.background = "none";
+        document.getElementById('fulfilledButton').style.background = "#DBCAC2";
+        document.getElementById('preparingOrders').style.display = "none";
+        document.getElementById('completedOrders').style.display = "flex";
+
+    }
         </script>
 </section>
