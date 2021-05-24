@@ -10,14 +10,18 @@
 </head>
 
 <body>
-    <div class="logo"></div>
-    <form action="/login" method="GET">
-        <input type="text" placeholder="Van Name" class="textbox_style van_name" name="van_name">
-        <span><a href="/register">New Vendor? Register here</a></span>
-        <input type="text" placeholder="Password" class="textbox_style password" name="password">
-        <span><a href="#">Forgot password?</a></span>
-        <input type="submit" value='Log In' id='vanlogin'>
-    </form>
+    <div class="container">
+        <div class="logo"></div>
+        <form action="/" method="POST">
+            <input type="text" placeholder="Van Name" class="textbox_style van_name" name="vanName" required>
+            <p><a href="/register">New Vendor? Register here</a></p>
+            <input type="password" placeholder="Password" class="textbox_style password" name="password" required>
+            <p><a href="#">Forgot password?</a></p>
+            <input type="submit" value='Log In' id='vanlogin'>
+        </form>
+    </div>
+
+
     <script src="../js/index.js"></script>
 </body>
 

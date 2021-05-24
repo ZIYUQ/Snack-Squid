@@ -1,20 +1,23 @@
 const mongoose = require('mongoose')
-const db = require('../db')
+const bcrypt = require('bcrypt-nodejs')
 
 // Van model
 const vanSchema = new mongoose.Schema({
-    name: { type: String, required: true, unique: true },
-    password: { type: String, required: true, unique: true },
-    email_address: { type: String, required: true, unique: true },
-    mobile_number: { type: String, required: true, unique: true },
-    location: { type: String },
-    open: { type: Boolean }
+    vanName: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    emailAddress: { type: String, required: true },
+    mobileNumber: { type: String, required: true },
+    location: String,
+    open: Boolean
 })
 
+vanSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+};
 
-const orderSchema = new mongoose.Schema({
-    vanId: { type: mongoose.Schema.Types.ObjectId, ref: 'Van' }
-})
-
+// checks if password is valid
+vanSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
 const Van = mongoose.model('Van', vanSchema)
 module.exports = { Van }

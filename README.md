@@ -1,97 +1,106 @@
 **The University of Melbourne**
 # INFO30005 – Web Information Technologies
 
-# Group Project Repository
+# Snack Squid Repository
 
-Welcome!
+## Updates
+### 23 April 2021
+To check delivarable 2, please go to [Deliverable 2 Instruction](#deliverable-2-instruction). Note: please mark **"snack-squid"** folder. Commit Id is
 
-We have added to this repository a `README.md`, `.gitignore`, and `.gitattributes`.
-
-* **README.md**: is the document you are currently reading. It should be replaced with information about your project, and instructions on how to use your code in someone else's local computer.
-
-* **.gitignore**: lets you filter out files that should not be added to git. For example, Windows 10 and Mac OS create hidden system files (e.g., .DS_Store) that are local to your computer and should not be part of the repository. This files should be filtered by the `.gitignore` file. This initial `.gitignore` has  been created to filter local files when using MacOS and Node. Depending on your project make sure you update the `.gitignore` file.  More information about this can be found in this [link](https://www.atlassian.com/git/tutorials/saving-changes/gitignore).
-
-* **.gitattributes**: configures the line ending of files, to ensure consistency across development environments. More information can be found in this [link](https://git-scm.com/docs/gitattributes).
-
-Remember that _"this document"_ can use `different formats` to **highlight** important information. This is just an example of different formating tools available for you. For help with the format you can find a guide [here](https://docs.github.com/en/github/writing-on-github).
 
 ## Table of contents
 * [Team Members](#team-members)
-* [General Info](#general-info)
 * [Technologies](#technologies)
+* [Deliverable 2 Instruction](#deliverable-2-instruction)
 * [Code Implementation](#code-implementation)
-* [Adding Images](#adding-images)
 
 ## Team Members
 
-| Name | Task | State |
-| :---         |     :---:      |          ---: |
-| Student Name 1  | Back End     |  Done |
-| Student Name 2    | Front End      |  Testing |
-| Student Name 3    | README Format      |  Amazing! |
+| Name         |   State  |  StudentID  |
+| :---         |   -----  |       ---:  |
+| Tom Zhi Hern | Working  |   1068268   |
+| Qian Ziyu    | Working  |   1067810   |
+| Yu Kaixin    | Working  |   1118795   |
+| Yi Qiteng    | Working  |   1048534   |
+| Chen Yi      | Working  |   911748    |
 
-## General info
-This is project ...
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
 
 ## Technologies
 Project is created with:
-* NodeJs 14.16.X
-* Ipsum version: 2.33
-* Ament library version: 999
+* NodeJs : 14.16.X
+* Express : 4.17.1
+* mongoose : 5.12.3
 
-## Code Implementation
+## Deliverable 2 Instruction
+### Notes: 
+1. Use *Postman* to test our routes.
+2. If the route is working, a json formatted output will be sent to you.
 
-You can include a code snippet here.
+### Accessing MongoDB Atlas
+- Username: ziyuq@student.unimelb.edu.au
+- Password: Shsss06@20
 
-```HTML
-<!--
-Example code from: https://www.w3schools.com/jsref/met_win_alert.asp
-__>
+### Customer
+1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
+   ![img-01](img/img-01.png)
+1. To see the details of one specific food. go to [https://snack-squid.herokuapp.com/customer/menu/:tag] with GET method. 
+    ![img-02](img/img-02.png)
+    Replace **quantity** and **foodTag** with one of the following:
+    |      Food     |      :tag     |
+    | :---          |          ---: |
+    | Small Cake    | small-cake    |
+    | Big Cake      | big-cake      |
+    | Plain Biscuit | plain-biscuit |
+    | Fancy Biscuit | fancy-biscuit |
+    | Latte         | latte         |
+    | Long Black    | long-black    |
+    | Cappuccino    | cappuccino    |
+    | Flat White    | flat-white    |
+1. To place an order, go to [https://snack-squid.herokuapp.com/customer/menu] with POST method and insert yout order in this format
+    ![img-03](img/img-03.png)
+    An order detail will be sent to you in json format once the order has been sent successfully. Please note that you are only required to insert foodTag and quantity as you are assummed logged in and a van is assummed selected.
 
-<!DOCTYPE html>
-<html>
-<body>
+### Vendor
+1. To set the van status, using the route [http://snack-squid.herokuapp.com/vendor/open-for-business/:[samplevan]] using POST method. If you have "location" in you req.body, it will update the location and change open status as true. If you have no location, it will send a message "You have to enter location"
 
-<p>Click the button to display an alert box.</p>
+    ![img-04](img/img-04.png)
+2. To show the list of all outstanding orders,go to [http://snack-squid.herokuapp.com/vendor/order] and it will show the orders of all vans. If want to get orders for specific van, using [http://snack-squid.herokuapp.com/vendor/order/:vanName]
 
-<button onclick="myFunction()">Try it</button>
+    ![img-05](img/img-05.png)
+3. To mark an order as "fulfilled", go to [http://snack-squid.herokuapp.com/vendor/order/:vanName] and use "_id" in req.body to look up specific order of the van and mark it as fulfilled. The status of order in mongodb will be "fulfilled"
 
-<script>
-function myFunction() {
-  alert("Hello! I am an alert box!");
-}
-</script>
+    ![img-06](img/img-06.png)
 
-</body>
-</html>
-```
 
-## Adding Images
+## Deliverable 3 
+### Login Section
+dummy customer: 
+Email Address: kcathy@gmail.com
+Password: 123123
 
-You can use images/gif hosted online:
+### Van detail
+We only have one van open, which is SnackSquid.
 
-<p align="center">
-  <img src="https://github.com/Martin-Reinoso/sandpit-Profile/raw/main/Images_Readme/01.gif"  width="300" >
-</p>
+### URL details
+http://snack-squid.herokuapp.com/customer/ The homepage of customer app, you can login and signup, press "Find a nearby van" can redirect to menu page
 
-Or you can add your own images from a folder in your repo with the following code. The example has a folder `Gifs` with an image file `Q1-1.gif`:
-```HTML
-<p align="center">
-  <img src="Gifs/Q1-1.gif"  width="300" >
-</p>
-```
+http://snack-squid.herokuapp.com/customer/menu/van=SnackSquid We assume customers have choosen van "SnackSquid", press “+” and "-" button will add the product into cart.
 
-To create a gif from a video you can follow this [link](https://ezgif.com/video-to-gif/ezgif-6-55f4b3b086d4.mov).
+If press the image, you will be redirected to detail page and you can also modify cart on this page.
 
-You can use emojis :+1: but do not over use it, we are looking for professional work. If you would not add them in your job, do not use them here! :shipit:
+View cart will show the details of current order, and checkout will place the order in the main menu page.
 
+If the user has not logged in, you cannot checkout and will be rendered to login
+
+After placing order, the page will redirect to order page.
+
+To logout, use http://snack-squid.herokuapp.com/customer/profile and click logout button
 **Now Get ready to complete all the tasks:**
 
 - [x] Read the Project handouts carefully
 - [x] User Interface (UI)mockup
-- [ ] App server mockup
-- [ ] Front-end + back-end (one feature)
+- [x] App server mockup
+- [x] Front-end + back-end (one feature)
 - [ ] Complete system + source code
 - [ ] Report on your work(+ test1 feature)
 

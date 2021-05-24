@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/vendor/css/open.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Antic+Slab&family=Raleway&display=swap" rel="stylesheet">
+<title>Open</title>
+<section id='open'>
+
+    <div class="logo"></div>
+    <a href='/vendor/profile/logout' class="logout"> Logout </a>
+
+    <form action="/vendor/open-for-business/open" method='POST' id="open">
+        <p class="msg">Log in Successfully!</p>
+        <p>Please enter the location of the van</p>
+        <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name='location' class="location">
+        <br>
+        <button id="find-me">Show my location</button><br />
+        <br>
+        <input type="submit" value='open for business' id="changeLocation">
+    </form>
+    <script>
+        function geoFindMe() {
+
+            function success(position) {
+                const latitude = position.coords.latitude.toFixed(4);
+                const longitude = position.coords.longitude.toFixed(4);
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        'latitude': latitude,
+                        'longitude': longitude
+                    }),
+                    redirect: 'follow'
+                }
+                try {
+                    url = window.location.href
+                    fetch(url, options).then(res => {
+                        if (res.redirected) {
+                            window.location.href = "/vendor/order"
+                        }
+                    })
+                }
+                catch (err) {
+                    console.log(err)
+                }
+
+            }
+            function error() {
+                alert('Unable to retrieve your location');
+            }
+
+            if (!navigator.geolocation) {
+                console.log('Geolocation is not supported by your browser');
+            } else {
+                console.log('Locating…');
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+
+        }
+
+        document.querySelector('#find-me').addEventListener('click', geoFindMe);
+    </script>
+</section>
