@@ -162,6 +162,28 @@ p{
 
 /* For Order */
 
+.state {
+    grid-area: state;
+    margin-left: 30%;
+}
+
+.state button {
+    font-size: 20px;
+    color: #AD7863;
+    border: 2px solid #DBCAC2;
+    width: 180px;
+    height: 38px;
+    font-family: 'Josefin Slab', serif;
+}
+
+#preparingButton {
+    background-color: #DBCAC2;
+}
+
+table {
+    padding: 8px;
+    background-color: #F1E9E1;
+}
 
 @media only screen and (max-width:1024px) {
 /* For Ipad */

@@ -10,24 +10,58 @@
 
     <a href='/vendor/profile/logout' class="logout"> Logout </a>
 
-    {{#each preparingOrders}}
-    <div class="oneOrder">
-        <div class="orderNum">
-            <span>Order No.</span>
-            <span class="orderId" hidden>{{this._id}}</span>
-            <span>{{this.orderNo}}</span>
-            <span>Time remaining: </span>
-            <button id="fulfilled"> Mark as Fulfilled</button>
-            <button>Hide</button>
-        </div>
 
-        <div class="orderDetail">
-            <span>Customer Name: </span>
-            <span>{{this.customerId.givenName}}</span>
-            <span>Orders</span>
-            <span class="detail">{{this.details}}</span>
+    <div class="state">
+        <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
+        <button id="fulfilledButton" onclick="fulfilledButton()">Fulfilled</button>
+    </div>
+
+            
+    <div class='preparingOrders' id="preparingOrders">
+        {{#each preparingOrders}}
+        {{!-- <div class="oneOrder">
+            <div class="orderNum">
+                <span>Order No.</span>
+                <span class="orderId" hidden>{{this._id}}</span>
+                <span>{{this.orderNo}}</span>
+                <span>Time remaining: </span>
+                <button id="fulfilled"> Mark as Fulfilled</button>
+                <button>Hide</button>
+            </div>
+
+            <div class="orderDetail">
+                <span>Customer Name: </span>
+                <span>{{this.customerId.givenName}}</span>
+                <span>Orders</span>
+                <span class="detail">{{this.details}}</span> --}}
+
+        <div class="oneOrder">
+                <table class="orderNum">
+                    <tr>
+                        <td>Order No. <span class="orderId" hidden>{{this._id}}</span> <span>{{this.orderNo}}</span></td>
+                        <td>Time remaining:</td>
+                    </tr>
+
+                    <tr>
+                        <td><button>Hide</button></td>
+                        <td><button id="fulfilled"> Mark as Fulfilled</button></td>
+                    </tr>
+                    
+                </table>
+
+                <table class="orderDetail">
+                    <tr>
+                        <td>Customer Name: {{this.customerId.givenName}}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="detail">{{this.details}}</span></td>
+                    </tr>
+                </table>
         </div>
-    {{/each}}
+        {{/each}}
+    </div>
+
 
 
         <script>
