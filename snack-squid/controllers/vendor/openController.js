@@ -11,7 +11,8 @@ const checkLocation = async(req, res) => {
             return res.render('vendor/open')
         }
     } catch (err) {
-        res.status(400).send('Database query failed')
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
@@ -31,7 +32,8 @@ const openForBusiness = async(req, res) => {
         }
 
     } catch (err) {
-        res.status(400).send('Database query failed')
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
@@ -42,18 +44,21 @@ const updateLocation = async(ID, vanLocation, res) => {
         await Van.updateOne({ _id: ID }, { $set: { textLocation: vanLocation } })
         return 1
     } catch (err) {
-        res.status(400).send('Database query failed')
-        return 0
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
 const updategeoLocation = async(req, res) => {
     ID = req.session.vanId
-    let thisVan = await Van.findOne({ _id: ID }, { open: true })
-    geoLocation = req.body;
-    await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
-
-    res.send(thisVan)
+    try {
+        let thisVan = await Van.findOne({ _id: ID }, { open: true })
+        geoLocation = req.body;
+        await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
+    } catch (err) {
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
+    }
 }
 
 module.exports = {

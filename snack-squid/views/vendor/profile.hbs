@@ -6,13 +6,13 @@
 <section id="vanProfile">
     <div class="logo"></div>
 
-    <p class="current_location">Current Location: </p>
+    <span class="current_location">Current Location: </span>
     <span class="text_location">{{Van.textLocation}}</span>
 
     <form action="/vendor/profile/change" method="POST" id="newLocation">
         <p>Please enter the new location of the van</p>
         <br>
-        <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name="newLocation" class='newLocation'>
+        <input type="text" name="newLocation" class='newLocation'>
         <br>
         <input id="profileChangeLocation" type="submit" value="Change the Location">
     </form>

@@ -1,7 +1,6 @@
 const express = require('express')
 const loginRouter = express.Router()
 
-const vanController = require('../../controllers/vendor/vanController')
 const passport = require('passport');
 require('../../config/passport')(passport);
 

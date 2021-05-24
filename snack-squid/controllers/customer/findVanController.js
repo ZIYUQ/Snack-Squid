@@ -1,16 +1,17 @@
 const Van = require('../../model/van')
 
 const renderMap = async(req, res) => {
-    // const fiveVans = await (receiveLocation(req, res))
-    // for (let i = 0; i < openVans.length; i++) {
-    //     fiveVans[i]['location'] = JSON.stringify(fiveVans[i]['location'])
-    // }
-    const openVans = await Van.find({ open: true }, { vanName: true, location: true, textLocation: true }).lean()
-    for (let i = 0; i < openVans.length; i++) {
-        openVans[i]['location'] = JSON.stringify(openVans[i]['location'])
+    try {
+        const openVans = await Van.find({ open: true }, { vanName: true, location: true, textLocation: true }).lean()
+        for (let i = 0; i < openVans.length; i++) {
+            openVans[i]['location'] = JSON.stringify(openVans[i]['location'])
+        }
+        console.log(openVans)
+        res.render('customer/map', { 'Vans': openVans });
+    } catch (err) {
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
-    console.log(openVans)
-    res.render('customer/map', { 'Vans': openVans });
 }
 
 const chooseVan = (req, res) => {

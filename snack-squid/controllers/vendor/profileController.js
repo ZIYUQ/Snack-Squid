@@ -19,7 +19,8 @@ const close = async(req, res) => {
         req.logout()
         return res.redirect('/vendor/')
     } catch (err) {
-        res.send(err)
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
@@ -33,14 +34,21 @@ const changetextLocation = async(req, res) => {
         console.log('change location')
         res.redirect('/vendor/order')
     } catch (err) {
-        res.status(400).send('Database query failed')
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
-const renderProfile = (req, res) => {
-    let ID = req.session.vanId;
-    let thisVan = Van.findOne({ _Id: ID });
-    res.render('vendor/profile', { 'Van': thisVan })
+const renderProfile = async(req, res) => {
+    try {
+        let ID = req.session.vanId;
+        let thisVan = await Van.findOne({ _id: ID }, { textLocation: true }).lean();
+        console.log(thisVan)
+        res.render('vendor/profile', { 'Van': thisVan })
+    } catch (err) {
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
+    }
 }
 
 const changeLocation = async(req, res) => {
