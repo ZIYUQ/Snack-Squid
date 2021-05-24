@@ -23,8 +23,7 @@
         {{#each preparingOrders}}
         
                 <table class="orderTable">
-                    <td class = "orderid" hidden>{{this._id}}</td>
-                    <td class = "discount" hidden></td>
+                    
                     <tr>
                         <td class="orderID">Order ID: {{this._id}} ({{this.vanId.vanName}})</td>
                         <td class="timeRemaining"></td>
@@ -58,14 +57,11 @@
 
                 <div class="line" id="lineOrder"></div>
 
-                <form method="post" action="/customer/order/change/orderId={{this._id}}" id="changeOrder{{this._id}}">
-                </form>
+                <form method="post" action="/customer/order/change/orderId={{this._id}}" id="changeOrder{{this._id}}"></form>
+                
 
                 <form method="post" action="/customer/order/cancel/orderId={{this._id}}" id="cancelOrder{{this._id}}"></form>
     
-                <form method="post" action="/customer/order/discount/orderId={{this._id}}" id="discountOrder{{this._id}}">
-                   
-                </form>
 
 
                 
