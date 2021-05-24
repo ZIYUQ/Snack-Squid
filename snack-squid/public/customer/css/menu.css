@@ -501,6 +501,10 @@ table {
     font-weight: 600;
 }
 
+.completedOrders{
+    display: none;
+}
+
 .orderID {
     font-size: 23px;
     color: #774C37;

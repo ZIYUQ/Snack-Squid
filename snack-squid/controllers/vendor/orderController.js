@@ -23,13 +23,8 @@ const getOrder = async(req, res) => {
 
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
-
         }
-        for (let i = 0; i < fulfilled.length; i++) {
-            completed[i].details = JSON.stringify(completed[i].details);
-
-        }
-        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled, "completed": completed });
+        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
@@ -67,7 +62,8 @@ const completeOrder = async(req, res) => {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
             // Set status as fulfilled
-            await Order.updateOne({ _id: id }, { $set: { status: 'complete' } })
+            await Order.updateOne({ _id: orderid }, { $set: { status: 'complete' } }, {timestamps: false})
+      
         } else {
             return res.send('no order found,please enter order id')
         }

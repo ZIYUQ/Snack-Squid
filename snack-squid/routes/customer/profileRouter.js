@@ -9,4 +9,7 @@ profileRouter.get('', utilities.isLoggedIn, (req, res) => customerController.ren
 // user logout 
 profileRouter.post('/logout', customerController.logout)
 
+// user update profile
+profileRouter.post('/update/:customerid', customerController.updateProfile)
+
 module.exports = profileRouter
