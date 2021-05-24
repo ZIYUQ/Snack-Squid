@@ -110,7 +110,9 @@
                 }
                 //  get sorted vans
                 let sorted = sortObject(dict)
-                let vanContainer = document.querySelector('.vanContainer').innerHTML
+                console.log(sorted)
+                let vanContainer = document.querySelector('.vanContainer')
+                vanContainer.innerHTML = ``
                 // change innerHTML
                 for (i = 0; i < sorted.length; i++) {
                     let vanName = sorted[i].split(',')[0]
@@ -121,13 +123,13 @@
 
                     vanContainer.innerHTML += `
                     <div class="vanListing">
-                    < div class="oneVan" >
-                        <p class="vanName">${vanName}</p>
-                        <p class="vanLocation">${textLocation}</p>
-                        <br>
+                        <div class="oneVan">
+                            <p class="vanName">${vanName}</p>
+                            <p class="vanLocation">${textLocation}</p>
+                            <br>
                         </div>
-                    </div >
-                    </div>`
+                    </div>
+                    <div id="lineMap" class="line"></div>`
                     coordinate = [latitude, longitude]
                     // add markers to map
                     L.mapquest.textMarker(coordinate, {
@@ -162,12 +164,12 @@
             return distance
         }
         const sortObject = (dict) => {
-            var keys = Object.keys(dict);
+            let keys = Object.keys(dict);
 
-            var i, len = keys.length;
+            let i, len = keys.length;
             keys.sort();
 
-            var sortedDict = [];
+            let sortedDict = [];
             if (len > 5) {
                 len = 5
             }
