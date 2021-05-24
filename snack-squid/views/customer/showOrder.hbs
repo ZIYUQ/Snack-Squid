@@ -83,23 +83,30 @@
             {{#each completedOrders}}
             <table class="completedTable">
                 <tr>
-                    <td class="orderID" hidden>Order ID: {{this._id}} </td>
-                    <td class="orderID">Order No: {{this.orderNo}} ({{this.vanId.vanName}})</td>
-                    <td class="timeRemaining"></td>
+                    <td>Order ID:</td>
+                    <td>{{this._id}}</td>
                 </tr>
                 <tr>
+                    <td>Details</td>
                     <td class="detail">{{this.details}}</td>
-                    <td class="updateTime" hidden>{{this.updateTime}}</td>
-                    <td class="ordertime"><span class="thinfont">Order Time: </span>{{moment this.updateTime
-                        format="dddd DD.MM.YYYY HH:mm"}}</td>
+                </tr>
+                <tr>
+                    <td>total amount:</td>
+                    <td>{{this.total}}</td>
+                </tr>
+                <tr>
+                    <td>Van Name:</td>
+                    <td>{{this.vanId.vanName}}</td>
+                </tr>
+                <tr>
+                    <td>Order Time:</td>
+                    <td class="orderTime">{{moment this.orderTime format="dddd DD.MM.YYYY HH:mm"}}</td>
                 </tr>
 
                 <tr>
-                    <td class="totalPrice">Total: ${{this.total}}</td>
-                    <td> <span class="thinfont">get 20% off:</span> {{this.discount}}</td>
-
+                    <td>get 20% off:</td>
+                    <td>{{this.discount}}</td>
                 </tr>
-
             </table>
             {{/each}}
         </div>

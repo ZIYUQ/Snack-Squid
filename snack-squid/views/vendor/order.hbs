@@ -1,15 +1,6 @@
-<link rel="stylesheet" href="/vendor/css/open.css">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Antic+Slab&family=Raleway&display=swap" rel="stylesheet">
-
 <section id='order'>
     <title>order</title>
-    <a class="logo" href="/vendor"></a>
-    <a class="profile" href="/vendor/profile"><i class="fas fa-user-circle"></i></a>
-
-
     <a href='/vendor/profile/logout' class="logout"> Logout </a>
-
     {{#each preparingOrders}}
     <div class="oneOrder">
         <div class="orderNum">
@@ -27,8 +18,7 @@
             <span>Orders</span>
             <span class="detail">{{this.details}}</span>
         </div>
-    {{/each}}
-
+        {{/each}}
 
         <script>
             orderNums = document.querySelectorAll('.orderNum')
@@ -85,4 +75,3 @@
             }
         </script>
 </section>
-
