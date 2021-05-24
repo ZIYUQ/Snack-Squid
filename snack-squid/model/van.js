@@ -12,7 +12,7 @@ const vanSchema = new mongoose.Schema({
         longitude: { type: Number }
     },
     textLocation: { type: String },
-    open: Boolean
+    open: Boolean,
 })
 
 vanSchema.methods.generateHash = function(password) {

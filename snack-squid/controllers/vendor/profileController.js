@@ -10,18 +10,14 @@ const close = async(req, res) => {
     let ID = req.session.vanId;
     try {
         let thisVan = await Van.findOne({ _id: ID })
-        if (thisVan['open'] === true) {
-            geolocation = {
-                'latitude': 0.0,
-                'longitude': 0.0
-            }
-            await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false, location: geolocation } })
-
-            req.logout()
-            return res.redirect('/vendor/')
-        } else {
-            return res.redirect('/vendor/profile')
+        geolocation = {
+            'latitude': 0.0,
+            'longitude': 0.0
         }
+        await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false, location: geolocation } })
+
+        req.logout()
+        return res.redirect('/vendor/')
     } catch (err) {
         res.send(err)
     }
@@ -33,10 +29,8 @@ const changetextLocation = async(req, res) => {
     console.log(newLocation)
     try {
         let thisVan = await Van.findOne({ _id: ID })
-        if (thisVan['open'] === true) {
-            await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation } })
-            console.log('change location')
-        }
+        await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation, open: true } })
+        console.log('change location')
         res.redirect('/vendor/order')
     } catch (err) {
         res.status(400).send('Database query failed')
@@ -51,10 +45,15 @@ const renderProfile = (req, res) => {
 
 const changeLocation = async(req, res) => {
     ID = req.session.vanId
-    let thisVan = await Van.findOne({ _id: ID }, { open: true })
-    geoLocation = req.body;
-    await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
+    try {
+        let thisVan = await Van.findOne({ _id: ID }, { open: true })
+        geoLocation = req.body;
+        console.log(geoLocation)
+        await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
+    } catch (err) {
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
+    }
 
-    res.send(thisVan)
 }
 module.exports = { logout, close, changetextLocation, renderProfile, changeLocation }

@@ -173,8 +173,8 @@ module.exports = function(passport) {
                         newVan.password = newVan.generateHash(password);
                         newVan.emailAddress = req.body.emailAddress;
                         newVan.mobileNumber = req.body.mobileNumber;
-                        newVan.location['longitude'] = 0.0;
                         newVan.location['latitude'] = 0.0;
+                        newVan.location['longitude'] = 0.0;
                         newVan.textLocation = '';
                         newVan.open = false;
                         // and save the user
