@@ -33,156 +33,88 @@
                 <span>Customer Name: </span>
                 <span>{{this.customerId.givenName}}</span>
                 <span>Orders</span>
-                <span class="detail">{{this.details}}</span> --}}
+                <span class="detail">{{this.details}}</span>
+            </div>
+        </div> --}}
 
-                <div class="oneOrder">
-                    <table class="orderNum">
-                        <tr>
-                            <td>Order No. <span class="orderId" hidden>{{this._id}}</span> <span class="color">#
-                                    {{this.orderNo}}</span></td>
-                            <td class="time">Time remaining:</td>
-                            <td class="updateTime" hidden>{{this.updateTime}}</td>
-                        </tr>
+        <div class="oneOrder">
+            <table class="orderNum">
+                <tr>
+                    <td>Order No. <span class="orderId" hidden>{{this._id}}</span> <span class="color">#
+                            {{this.orderNo}}</span></td>
+                    <td class="time">Time remaining:</td>
+                    <td class="updateTime" hidden>{{this.updateTime}}</td>
+                </tr>
 
-                        <tr>
-                            <td><button>Hide</button></td>
-                            <td class="fulfilled"><button id="fulfilled"> Mark as Fulfilled</button></td>
-                        </tr>
+                <tr>
+                    <td><button>Hide</button></td>
+                    <td class="fulfilled"><button id="fulfilled"> Mark as Fulfilled</button></td>
+                </tr>
 
-                    </table>
+            </table>
 
-                    <table class="orderDetail">
-                        <tr>
-                            <td>Customer Name: <span class="color">{{this.customerId.givenName}}</span></td>
-                        </tr>
+            <table class="orderDetail">
+                <tr>
+                    <td>Customer Name: <span class="color">{{this.customerId.givenName}}</span></td>
+                </tr>
 
-                        <tr>
-                            <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
-                        </tr>
-                    </table>
-                </div>
-                {{/each}}
+                <tr>
+                    <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
+                </tr>
+            </table>
+        </div>
+        {{/each}}
+    </div>
+
+    <div class='fulfilledOrders' id="fulfilledOrders">
+        {{!-- <p id="discountTime" hidden>{{discountTime.limit}}</p> --}}
+        {{#each fulfilledOrders}}
+        {{!-- <div class="oneOrder">
+            <div class="orderNum">
+                <span>Order No.</span>
+                <span class="orderId" hidden>{{this._id}}</span>
+                <span>{{this.orderNo}}</span>
+                <span>Time remaining: </span>
+                <button id="fulfilled"> Mark as Fulfilled</button>
+                <button>Hide</button>
             </div>
 
+            <div class="orderDetail">
+                <span>Customer Name: </span>
+                <span>{{this.customerId.givenName}}</span>
+                <span>Orders</span>
+                <span class="detail">{{this.details}}</span>
+            </div>
+        </div> --}}
 
+        <div class="oneOrder">
+            <table class="orderNum">
+                <tr>
+                    <span class="orderId" hidden>{{this._id}}</span>
+                    <td class="color">Order No. #{{this.orderNo}}</td>
+                    {{!-- <td class="time">Time remaining:</td> --}}
+                    <td class="updateTime" hidden>{{this.updateTime}}</td>
+                </tr>
 
-            <script>
-                // Update the count down every 1 second
-                let x = setInterval(function () {
+                <tr>
+                    <td><button>Hide</button></td>
+                    <td class="pickedup"><button id="pickedup"> Mark as Picked Up</button></td>
+                </tr>
 
-                    // get required section
-                    let orderTables = document.getElementsByClassName("orderNum");
-                    let timeStamp = parseInt(document.getElementById("discountTime").innerHTML);
+            </table>
 
-                    for (let i = 0; i < orderTables.length; i++) {
-                        let tds = orderTables[i].getElementsByTagName("td")
-                        let orderTime;
-                        let timeRemaining;
+            <table class="orderDetail">
+                <tr>
+                    <td>Customer Name: <span class="color">{{this.customerId.givenName}}</span></td>
+                </tr>
 
-                        for (let j = 0; j < tds.length; j++) {
-                            if (tds[j].className == "updateTime") {
-                                orderTime = new Date(tds[j].innerHTML)
+                <tr>
+                    <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
+                </tr>
+            </table>
+        </div>
+        {{/each}}
+    </div>
 
-                            }
-                            if (tds[j].className == "time") {
-                                timeRemaining = tds[j]
-                            }
-                        }
-                        let countDownDate = new Date(orderTime.getTime() + timeStamp * 60 * 1000)
-
-                        // Get today's date and time
-                        let now = new Date().getTime();
-
-
-                        // Find the distance between now and the count down date
-                        let distance = countDownDate - now;
-
-                        // Time calculations for days, hours, minutes and seconds
-                        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                        // Output the result in an element with id="timeRemaining"
-                        timeRemaining.innerHTML = minutes + "m " + seconds + "s ";
-
-                        // If the count down is over, write some text
-                        if (distance < 0) {
-                            // udpate message
-                            timeRemaining.innerHTML = "20% off awarded !";
-                        }
-                    }
-
-                }, 1000);
-
-
-                orderNums = document.querySelectorAll('.orderNum')
-                for (let i = 0; i < orderNums.length; i++) {
-                    let fulfillbtn = document.querySelector('#fulfilled')
-                    console.log(fulfillbtn)
-                    let orderId = document.querySelector('.orderId').innerHTML
-                    console.log(orderId)
-                    fulfillbtn.addEventListener('click', function () {
-
-                        const options = {
-                            method: 'POST',
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({ 'orderId': orderId }),
-                            redirect: 'follow'
-                        }
-                        try {
-                            posturl = window.location.href + '/fulfill-order'
-                            url = window.location.href
-                            fetch(posturl, options).then(res => {
-                                if (res.redirected) {
-                                    window.location.href = url
-                                }
-                            })
-                        }
-                        catch (err) {
-                            console.log(err)
-                        }
-                    })
-                }
-
-                orderDetail = document.querySelectorAll('.orderDetail')
-                for (let i = 0; i < orderDetail.length; i++) {
-                    let tds = orderDetail[i].getElementsByClassName('detail');
-                    let foods;
-                    let details;
-
-                    for (let j = 0; j < tds.length; j++) {
-                        if (tds[j].className == "detail") {
-                            foods = JSON.parse(tds[j].innerHTML);
-                            details = tds[j];
-                        }
-                    }
-                    details.innerHTML = ``;
-                    for (let j = 0; j < foods.length; j++) {
-                        details.innerHTML += `
-                                <span>${foods[j].quantity}</span>
-                                <span>${foods[j].foodName}</span>
-                                <br>
-                                 `
-
-                    }
-                }
-
-
-                function preparingButton() {
-                    document.getElementById('fulfilledButton').style.background = "none";
-                    document.getElementById('preparingButton').style.background = "#DBCAC2";
-                    document.getElementById('preparingOrders').style.display = "flex";
-                    document.getElementById('completedOrders').style.display = "none";
-
-                }
-
-                function fulfilledButton() {
-                    document.getElementById('preparingButton').style.background = "none";
-                    document.getElementById('fulfilledButton').style.background = "#DBCAC2";
-                    document.getElementById('preparingOrders').style.display = "none";
-                    document.getElementById('completedOrders').style.display = "flex";
-
-                }
-            </script>
+    <script src="/vendor/js/order.js"></script>
 </section>

@@ -15,7 +15,7 @@ const close = async(req, res) => {
             'longitude': 0.0
         }
         await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false, location: geolocation } })
-        console.log("van" + ID + "logout")
+        console.log("van " + ID + " logout")
         req.logout()
         return res.redirect('/vendor/')
     } catch (err) {
@@ -31,7 +31,7 @@ const changetextLocation = async(req, res) => {
     try {
         let thisVan = await Van.findOne({ _id: ID })
         await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation, open: true } })
-        console.log('change to' + newLocation)
+        console.log('change to ' + newLocation)
         res.redirect('/vendor/order')
     } catch (err) {
         console.log("Database query collection 'menu' failed!")

@@ -26,7 +26,7 @@ const getOrder = async(req, res) => {
         const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {}).lean()
 
 
-        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled, "discountTime": discountAwardLimit });
+        res.render('vendor/order', { "preparingOrders": outstanding, "fulfilledOrders": fulfilled, "discountTime": discountAwardLimit });
     } catch (err) {
         return res.redirect('/vendor')
     }
@@ -45,7 +45,7 @@ const fulfillOrder = async(req, res) => {
         if (result) {
             // Set status as fulfilled
             await Order.updateOne({ _id: id }, { $set: { status: 'fulfilled' } })
-            console.log('order' + id + 'fulfilled')
+            console.log('order ' + id + ' fulfilled')
             return res.redirect('/vendor/order')
         } else {
             return res.send('no order found,please enter order id')
@@ -66,6 +66,8 @@ const completeOrder = async(req, res) => {
         if (result) {
             // Set status as fulfilled
             await Order.updateOne({ _id: orderid }, { $set: { status: 'complete' } }, { timestamps: false })
+            console.log('order ' + id + ' complete')
+            return res.redirect('/vendor/order')
 
         } else {
             return res.send('no order found,please enter order id')

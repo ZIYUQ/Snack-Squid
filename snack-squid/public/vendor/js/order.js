@@ -1,21 +1,21 @@
 // Update the count down every 1 second
-let x = setInterval(function () {
+let x = setInterval(function() {
 
     // get required section
     let orderTables = document.getElementsByClassName("orderNum");
     let timeStamp = parseInt(document.getElementById("discountTime").innerHTML);
-    
+
     for (let i = 0; i < orderTables.length; i++) {
         let tds = orderTables[i].getElementsByTagName("td")
         let orderTime;
         let timeRemaining;
 
-
         for (let j = 0; j < tds.length; j++) {
             if (tds[j].className == "updateTime") {
                 orderTime = new Date(tds[j].innerHTML)
+
             }
-            if (tds[j].className == "timeRemaining") {
+            if (tds[j].className == "time") {
                 timeRemaining = tds[j]
             }
         }
@@ -33,13 +33,113 @@ let x = setInterval(function () {
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Output the result in an element with id="timeRemaining"
-        timeRemaining.innerHTML =  minutes + "m " + seconds + "s ";
+        if (timeRemaining) {
+            timeRemaining.innerHTML = minutes + "m " + seconds + "s ";
 
+        }
         // If the count down is over, write some text
-        if (distance < 0) {
+        if (distance < 0 && timeRemaining) {
             // udpate message
             timeRemaining.innerHTML = "20% off awarded !";
         }
     }
 
 }, 1000);
+
+
+preparingOrders = document.querySelectorAll('.preparingOrders')
+for (let i = 0; i < preparingOrders.length; i++) {
+    let fulfillbtn = preparingOrders[i].querySelector('#fulfilled')
+    let orderId = preparingOrders[i].querySelector('.orderId').innerHTML
+    fulfillbtn.addEventListener('click', function() {
+
+        const options = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 'orderId': orderId }),
+            redirect: 'follow'
+        }
+        try {
+            posturl = window.location.href + '/fulfill-order'
+            url = window.location.href
+            fetch(posturl, options).then(res => {
+                if (res.redirected) {
+                    window.location.href = url
+                }
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    })
+}
+fulfilledOrders = document.querySelectorAll('.fulfilledOrders')
+console.log(fulfilledOrders)
+for (let i = 0; i < fulfilledOrders.length; i++) {
+    let pickedupbtn = fulfilledOrders[i].querySelector('#pickedup')
+    let orderId = fulfilledOrders[i].querySelector('.orderId').innerHTML
+    pickedupbtn.addEventListener('click', function() {
+
+        const options = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 'orderId': orderId }),
+            redirect: 'follow'
+        }
+        try {
+            posturl = window.location.href + '/complete-order'
+            url = window.location.href
+            fetch(posturl, options).then(res => {
+                if (res.redirected) {
+                    window.location.href = url
+                }
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    })
+
+}
+
+orderDetail = document.querySelectorAll('.orderDetail')
+for (let i = 0; i < orderDetail.length; i++) {
+    let tds = orderDetail[i].getElementsByClassName('detail');
+    let foods;
+    let details;
+
+    for (let j = 0; j < tds.length; j++) {
+        if (tds[j].className == "detail") {
+            foods = JSON.parse(tds[j].innerHTML);
+            details = tds[j];
+        }
+    }
+    details.innerHTML = ``;
+    for (let j = 0; j < foods.length; j++) {
+        details.innerHTML += `
+                        <span>${foods[j].quantity}</span>
+                        <span>${foods[j].foodName}</span>
+                        <br>
+                         `
+
+    }
+}
+
+
+function preparingButton() {
+    document.getElementById('fulfilledButton').style.background = "none";
+    document.getElementById('preparingButton').style.background = "#DBCAC2";
+    document.getElementById('preparingOrders').style.display = "flex";
+    document.getElementById('fulfilledOrders').style.display = "none";
+
+}
+
+function fulfilledButton() {
+    document.getElementById('preparingButton').style.background = "none";
+    document.getElementById('fulfilledButton').style.background = "#DBCAC2";
+    document.getElementById('preparingOrders').style.display = "none";
+    document.getElementById('fulfilledOrders').style.display = "flex";
+
+}
