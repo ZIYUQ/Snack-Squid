@@ -201,14 +201,12 @@ function changeOrder() {
         console.log(url)
         fetch(url, options)
             .then(res => {
-                if (res.body == true) {
+                if (res.redirected) {
                     localStorage.removeItem('inCart');
                     localStorage.removeItem('totalCost');
                     localStorage.removeItem('cartNumbers');
                     localStorage.setItem('cartCost', '0');
                     window.alert("Order changed successfully!")
-                }
-                if (res.redirected) {
                     window.location.href = res.url;
                 }
             });
