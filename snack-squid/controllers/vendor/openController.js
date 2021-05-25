@@ -12,7 +12,7 @@ const checkLocation = async(req, res) => {
         }
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
-        return res.redirect('/404-NOT-FOUND')
+        return res.redirect('/vendor')
     }
 }
 
@@ -24,16 +24,15 @@ const openForBusiness = async(req, res) => {
         let thisVan = await Van.findOne({ _id: ID }, { open: true })
             // If req.body has nothing
             // If the van is not open yet, update the location and mark it as open
-        if (updateLocation(ID, location, res)) {
-            await Van.updateOne({ _id: ID }, { $set: { open: true } })
-            res.redirect('/vendor/order')
-        } else {
-            return res.send('no location')
-        }
+        updateLocation(ID, location, res)
+        await Van.updateOne({ _id: ID }, { $set: { open: true } })
+        console.log("the van is open")
+        res.redirect('/vendor/order')
+
 
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
-        return res.redirect('/404-NOT-FOUND')
+        return res.redirect('/vendor')
     }
 }
 
@@ -45,7 +44,7 @@ const updateLocation = async(ID, vanLocation, res) => {
         return 1
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
-        return res.redirect('/404-NOT-FOUND')
+        return res.redirect('/vendor')
     }
 }
 
@@ -57,7 +56,7 @@ const updategeoLocation = async(req, res) => {
         await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
-        return res.redirect('/404-NOT-FOUND')
+        return res.redirect('/vendor')
     }
 }
 

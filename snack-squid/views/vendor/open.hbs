@@ -4,7 +4,7 @@
 <title>Open</title>
 <section id='open'>
 
-<a class="logo" href="/vendor"></a>
+    <a class="logo" href="/vendor"></a>
     <a href='/vendor/profile/logout' class="logout"> Logout </a>
 
     <form action="/vendor/open-for-business/open" method='POST' id="open">
@@ -13,7 +13,7 @@
         <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name='location' class="location"
             required>
         <br>
-        <button id="find-me">Show my location</button>
+        {{!-- <button id="find-me">Show my location</button> --}}
         <br>
         <input type="submit" value='open for business' id="changeLocation">
     </form>
@@ -60,6 +60,6 @@
 
         }
 
-        document.querySelector('#find-me').addEventListener('click', geoFindMe);
+        document.querySelector('#changeLocation').addEventListener('click', geoFindMe);
     </script>
 </section>

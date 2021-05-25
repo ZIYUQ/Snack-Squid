@@ -15,7 +15,7 @@ const close = async(req, res) => {
             'longitude': 0.0
         }
         await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false, location: geolocation } })
-
+        console.log("van" + ID + "logout")
         req.logout()
         return res.redirect('/vendor/')
     } catch (err) {
@@ -31,7 +31,7 @@ const changetextLocation = async(req, res) => {
     try {
         let thisVan = await Van.findOne({ _id: ID })
         await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation, open: true } })
-        console.log('change location')
+        console.log('change to' + newLocation)
         res.redirect('/vendor/order')
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
@@ -43,11 +43,10 @@ const renderProfile = async(req, res) => {
     try {
         let ID = req.session.vanId;
         let thisVan = await Van.findOne({ _id: ID }, { textLocation: true }).lean();
-        console.log(thisVan)
         res.render('vendor/profile', { 'Van': thisVan })
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
-        return res.redirect('/404-NOT-FOUND')
+        return res.redirect('/vendor/login')
     }
 }
 
@@ -56,7 +55,6 @@ const changeLocation = async(req, res) => {
     try {
         let thisVan = await Van.findOne({ _id: ID }, { open: true })
         geoLocation = req.body;
-        console.log(geoLocation)
         await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
