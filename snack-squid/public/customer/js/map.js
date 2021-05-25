@@ -14,13 +14,13 @@ window.onload = async function() {
     // Get the location of the customer
     await geoFindMe(map)
 
-    // If the customer's location cannot be found, it will choose 5 vans by default
+    // If the customer's location cannot be found, it will show all vans by default
     vans = document.querySelectorAll('.vanListing')
     console.log(vans)
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < vans.length; i++) {
         let vanName = vans[i].querySelector('.vanName').innerHTML
-        console.log(vanName)
         let vanbtn = vans[i].querySelector(".oneVan")
+        console.log(vanbtn)
         vanbtn.addEventListener('click', function() {
 
             const options = {
