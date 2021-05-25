@@ -30,12 +30,18 @@ const renderLoginPage = async(req, res) => {
 }
 
 // Render profile page
-const renderProfilePage = async(req, res) => {
+const renderProfilePage = async(req, res, status) => {
     let userId = req.session.userId
     try {
         let result = await Customer.findOne({ _id: userId }, { givenName: true, familyName: true, emailAddress: true }).lean()
         if (result) {
-            res.render('customer/profile', { "customer": result })
+            if (status === 1){
+                res.render('customer/profile', { "customer": result })
+            }
+            if (status === 0){
+                
+                res.render('customer/editProfile', {"customer": result})
+            }
         } else {
             console.log('customer not found')
             return res.redirect('/customer/login')
@@ -62,11 +68,11 @@ const updateProfile = async(req, res) =>{
         await Customer.updateOne({_id: customerid}, {$set:{password: customer.generateHash(req.body.password), givenName: req.body.givenName, familyName: req.body.familyName }})
 
         customer = await Customer.findOne({ _id: customerid}, { givenName: true, familyName: true, emailAddress: true }).lean()
-        console.log(customer)
+       
         if (customer) {
             // res.render('customer/profile', { "customer": customer })
             console.log("update profile sucessfully")
-            res.send(customer)
+            res.render('customer/profile', { "customer": customer })
         } else {
             console.log('customer not found')
             return res.redirect('/customer/login')

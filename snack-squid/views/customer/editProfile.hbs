@@ -1,0 +1,44 @@
+<section id="homepage">
+    <title>Profile</title>
+    <link rel = "stylesheet" href="/customer/css/homepage.css">
+      <div class="container">
+         <section class='BG'></section>
+
+         <section class='Info'>
+            <a class="profile" href="/customer/order"><i class="fas fa-clipboard-list"></i></a>
+
+            <a href="/customer">
+               <div id="icon2"></div>
+            </a>
+
+            <div class="line" id="line-Profile"></div>
+            <h2> Hi, {{customer.givenName}} {{customer.familyName}}</h2>
+
+            <form method="post">
+                <input name="givenName" placeholder="{{customer.givenName}}" />
+                <input name="familyName" placeholder="{{customer.familyName}}" />
+                <input class="user-input" type="password" id="psw" placeholder="enter password" name="password"
+                       pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
+                       title="Must contain at least one number and one alphabet character, and at least 8 or more characters"
+                       required>
+                
+                <br>
+                <br>
+                <div id="message">
+                    <h3>Password must contain the following:</h3>
+                    <p id="letter" class="invalid">At least one <b>alphabet</b> character</p>
+                    <p id="number" class="invalid">At least one <b>numerical digit</b></p>
+                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                </div>
+                <br>
+                <button type="submit">Update</button>
+            </form>
+
+         </section>
+
+         <form method="post" action="/customer/profile/logout" id="logoutform"></form>
+      
+       </div>
+</section>
+
+<script src="/customer/js/signup.js"></script>
