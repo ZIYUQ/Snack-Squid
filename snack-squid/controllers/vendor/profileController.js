@@ -1,11 +1,13 @@
 const Van = require('../../model/van')
 
+// van logout
 const logout = async(req, res) => {
     req.logout()
     console.log('logout successfully')
     return res.redirect('/vendor/')
 }
 
+// Close the van and set the text location and geolocation to be empty
 const close = async(req, res) => {
     let ID = req.session.vanId;
     try {
@@ -24,6 +26,7 @@ const close = async(req, res) => {
     }
 }
 
+// Change the description location
 const changetextLocation = async(req, res) => {
     let ID = req.session.vanId;
     let newLocation = req.body.newLocation
@@ -39,6 +42,7 @@ const changetextLocation = async(req, res) => {
     }
 }
 
+// Render the profile page and send its description locaiton to the page
 const renderProfile = async(req, res) => {
     try {
         let ID = req.session.vanId;
@@ -50,6 +54,7 @@ const renderProfile = async(req, res) => {
     }
 }
 
+// Change its geolocation
 const changeLocation = async(req, res) => {
     ID = req.session.vanId
     try {

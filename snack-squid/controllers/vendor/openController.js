@@ -1,6 +1,6 @@
 const Van = require('../../model/van')
 
-// find the van by its vanName 
+// Check whether the van is open. If open, redirect to order page. If not, get to open page
 const checkLocation = async(req, res) => {
     let ID = req.session.vanId;
     try {
@@ -16,14 +16,13 @@ const checkLocation = async(req, res) => {
     }
 }
 
-// find the van by name and change the value open as true
+// Find the van by Id and change the value open as true
 const openForBusiness = async(req, res) => {
     let ID = req.session.vanId;
     let location = req.body.location
     try {
         let thisVan = await Van.findOne({ _id: ID }, { open: true })
-            // If req.body has nothing
-            // If the van is not open yet, update the location and mark it as open
+            // Update the text location and set van as open
         updateLocation(ID, location, res)
         await Van.updateOne({ _id: ID }, { $set: { open: true } })
         console.log("the van is open")
@@ -51,7 +50,8 @@ const updateLocation = async(ID, vanLocation, res) => {
 const updategeoLocation = async(req, res) => {
     ID = req.session.vanId
     try {
-        let thisVan = await Van.findOne({ _id: ID }, { open: true })
+        // Set the location as its Geolocation
+        //let thisVan = await Van.findOne({ _id: ID }, { open: true })
         geoLocation = req.body;
         await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
     } catch (err) {

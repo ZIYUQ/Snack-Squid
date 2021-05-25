@@ -4,17 +4,20 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const mongoose = require('mongoose')
 const Timestamp = mongoose.model('Timestamp')
 
+// Get outstanding orders and fulfilled orders
 const getOrder = async(req, res) => {
     let vanId = req.session.vanId
     vanId = new ObjectId(vanId)
     try {
         // find van detail
         const van = await Van.findOne({ _id: vanId })
-            // find order under that customer
+            // Find order under that customer
         const outstanding = await Order.find({ vanId: van._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("customerId", "givenName-_id").lean()
         const fulfilled = await Order.find({ vanId: van._id, status: "fulfilled" }, {}).sort({ '_id': -1 }).populate("customerId", "givenName-_id").lean()
-        const completed = await Order.find({ vanId: van._id, status: "completed" }, {}).populate("customerId", "givenName-_id").lean()
 
+        //const completed = await Order.find({ vanId: van._id, status: "completed" }, {}).populate("customerId", "givenName-_id").lean()
+
+        //Stringify the order list
         for (let i = 0; i < outstanding.length; i++) {
             outstanding[i].details = JSON.stringify(outstanding[i].details);
         }
@@ -55,16 +58,17 @@ const fulfillOrder = async(req, res) => {
     }
 }
 
+// Complete the order
 const completeOrder = async(req, res) => {
     let id = req.body._id
-        // Find the order to be fulfilled by the order id
+        // Find the order to be completed by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")
     }
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
-            // Set status as fulfilled
+            // Set status as complete
             await Order.updateOne({ _id: orderid }, { $set: { status: 'complete' } }, { timestamps: false })
             console.log('order ' + id + ' complete')
             return res.redirect('/vendor/order')

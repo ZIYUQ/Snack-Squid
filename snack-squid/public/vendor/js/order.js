@@ -1,7 +1,7 @@
 // Update the count down every 1 second
 let x = setInterval(function() {
 
-    // get required section
+    // Get required section
     let orderTables = document.getElementsByClassName("orderNum");
     let timeStamp = parseInt(document.getElementById("discountTime").innerHTML);
 
@@ -46,7 +46,7 @@ let x = setInterval(function() {
 
 }, 1000);
 
-
+// Send fulfill order message to server
 preparingOrders = document.querySelectorAll('.preparingOrders')
 for (let i = 0; i < preparingOrders.length; i++) {
     let fulfillbtn = preparingOrders[i].querySelector('#fulfilled')
@@ -74,6 +74,8 @@ for (let i = 0; i < preparingOrders.length; i++) {
         }
     })
 }
+
+// Send complete order message to server
 fulfilledOrders = document.querySelectorAll('.fulfilledOrders')
 console.log(fulfilledOrders)
 for (let i = 0; i < fulfilledOrders.length; i++) {
@@ -104,6 +106,7 @@ for (let i = 0; i < fulfilledOrders.length; i++) {
 
 }
 
+// Change the HTML representation of order detail
 orderDetail = document.querySelectorAll('.orderDetail')
 for (let i = 0; i < orderDetail.length; i++) {
     let tds = orderDetail[i].getElementsByClassName('detail');
@@ -127,7 +130,7 @@ for (let i = 0; i < orderDetail.length; i++) {
     }
 }
 
-
+// Show the preparing order list if pressed preparing button 
 function preparingButton() {
     document.getElementById('fulfilledButton').style.background = "none";
     document.getElementById('preparingButton').style.background = "#DBCAC2";
@@ -136,6 +139,7 @@ function preparingButton() {
 
 }
 
+// Show the fulfilled order list if pressed fullfilled button
 function fulfilledButton() {
     document.getElementById('preparingButton').style.background = "none";
     document.getElementById('fulfilledButton').style.background = "#DBCAC2";
