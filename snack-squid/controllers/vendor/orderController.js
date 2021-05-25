@@ -1,10 +1,8 @@
 const Order = require('../../model/order')
 const Van = require('../../model/van')
 const ObjectId = require('mongoose').Types.ObjectId;
-
-
-
-
+const mongoose = require('mongoose')
+const Timestamp = mongoose.model('Timestamp')
 
 const getOrder = async(req, res) => {
     let vanId = req.session.vanId
@@ -24,7 +22,11 @@ const getOrder = async(req, res) => {
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
         }
-        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled });
+        // get discount order timestamp
+        const discountAwardLimit = await Timestamp.findOne({timeLimitType: "discountAwardLimit"}, {}).lean()
+        
+
+        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled, "discountTime": discountAwardLimit  });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
