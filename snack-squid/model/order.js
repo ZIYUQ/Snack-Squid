@@ -17,7 +17,7 @@ const orderSchema = new mongoose.Schema({
     orderNo: { type: Number },
     customerId: { type: mongoose.Types.ObjectId, required: true, ref: "Customer" },
     vanId: { type: mongoose.Types.ObjectId, required: true, ref: "Van" },
-    status: { type: String, enum: ["preparing", "fulfilled", "cancelled"] },
+    status: { type: String, enum: ["preparing", "fulfilled", "cancelled", "completed"] },
     details: { type: [cartSchema], required: true },
     total: { type: Number },
     // timestamp: {
