@@ -203,7 +203,6 @@ function placeOrder() {
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {
-                    console.log("Check2")
                     localStorage.removeItem('inCart');
                     localStorage.removeItem('totalCost');
                     localStorage.removeItem('cartNumbers');
