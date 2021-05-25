@@ -6,7 +6,6 @@ const renderMap = async(req, res) => {
         for (let i = 0; i < openVans.length; i++) {
             openVans[i]['location'] = JSON.stringify(openVans[i]['location'])
         }
-        console.log(openVans)
         res.render('customer/map', { 'Vans': openVans });
     } catch (err) {
         console.log("Database query collection 'menu' failed!")
