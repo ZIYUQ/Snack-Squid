@@ -22,14 +22,14 @@
             <table class="orderNum">
                 <tr>
                     <span class="orderId" hidden>{{this._id}}</span>
-                    <td class="color">Order No: {{this.orderNo}}</td>
+                    <td>Order No: {{this.orderNo}}</td>
                     <td class="time">Time remaining:</td>
                     <td class="updateTime" hidden>{{this.updateTime}}</td>
                 </tr>
 
                 <tr>
-                    <td><button id="hidebtn">Hide</button></td>
-                    <td class="fulfilled"><button id="fulfilled"> Mark as Fulfilled</button></td>
+                    <td><button id="hidebtn" onclick="hideDetail()">Hide</button></td>
+                    <td class="fulfilled"><button id="fulfilled"> <b>- Mark as Fulfilled</b></button></td>
                 </tr>
 
             </table>
@@ -53,7 +53,7 @@
             <table class="orderNum">
                 <tr>
                     <span class="orderId" hidden>{{this._id}}</span>
-                    <td class="color">Order No. {{this.orderNo}}</td>
+                    <td>Order No. {{this.orderNo}}</td>
                     <td class="time" hidden>Time remaining:</td>
                     <td class="updateTime" hidden>{{this.updateTime}}</td>
                 </tr>
