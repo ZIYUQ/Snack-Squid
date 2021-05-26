@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/vendor/css/open.css">
+<link rel="stylesheet" href="/vendor/css/order.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Antic+Slab&family=Raleway&display=swap" rel="stylesheet">
 
@@ -8,8 +8,7 @@
     <a href='/vendor/profile/logout' class="logout"> Logout </a>
     <a class="profile" href="/vendor/profile"><i class="fas fa-user-circle"></i></a>
 
-
-
+    <div class="block"></div>
     <div class="state">
         <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
         <button id="fulfilledButton" onclick="fulfilledButton()">Fulfilled</button>
@@ -19,7 +18,6 @@
     <div class='preparingOrders' id="preparingOrders">
         <p id="discountTime" hidden>{{discountTime.limit}}</p>
         {{#each preparingOrders}}
-        <div class="preparingOrder">
             <table class="orderNum">
                 <tr>
                     <span class="orderId" hidden>{{this._id}}</span>
@@ -29,13 +27,13 @@
                 </tr>
 
                 <tr>
-                    <td><button>Hide</button></td>
+                    <td><button id="hidebtn" onclick="hideDetail()">Hide</button></td>
                     <td class="fulfilled"><button id="fulfilled"> Mark as Fulfilled</button></td>
                 </tr>
 
             </table>
 
-            <table class="orderDetail">
+            <table id="orderDetail" class="orderDetail">
                 <tr>
                     <td>Customer Name: <span class="color">{{this.customerId.givenName}}</span></td>
                 </tr>
@@ -44,14 +42,11 @@
                     <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
                 </tr>
             </table>
-        </div>
         {{/each}}
     </div>
 
-
-    <div class='fulfilledOrders' id="fulfilledOrders" hidden>
+    <div class='fulfilledOrders' id="fulfilledOrders">
         {{#each fulfilledOrders}}
-        <div class="fulfillOrder">
             <table class="orderNum">
                 <tr>
                     <span class="orderId" hidden>{{this._id}}</span>
@@ -61,13 +56,13 @@
                 </tr>
 
                 <tr>
-                    <td><button>Hide</button></td>
+                    <td><button id="hidebtn" onclick="hideDetail()">Hide</button></td>
                     <td class="pickedup"><button id="pickedup"> Mark as Picked Up</button></td>
                 </tr>
 
             </table>
 
-            <table class="orderDetail">
+            <table id="orderDetail" class="orderDetail">
                 <tr>
                     <td>Customer Name: <span class="color">{{this.customerId.givenName}}</span></td>
                 </tr>
@@ -76,8 +71,21 @@
                     <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
                 </tr>
             </table>
-        </div>
         {{/each}}
     </div>
 </section>
 <script src="/vendor/js/order.js"></script>
+<script>
+
+function hideDetail() {
+  var x = document.getElementById("orderDetail");
+  var y = document.getElementById("hidebtn")
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.innerHTML="Hide";
+  } else {
+    x.style.display = "none";
+    y.innerHTML="Show";
+  }
+}
+</script>

@@ -141,5 +141,6 @@ function fulfilledButton() {
     document.getElementById('fulfilledButton').style.background = "#DBCAC2";
     document.getElementById('preparingOrders').style.display = "none";
     document.getElementById('fulfilledOrders').style.display = "flex";
-
 }
+
+//Hide orderDetail
