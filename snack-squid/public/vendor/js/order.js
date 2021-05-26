@@ -73,7 +73,7 @@ for (let i = 0; i < preparingOrders.length; i++) {
 }
 
 // Send complete order message to server
-fulfilledOrders = document.querySelectorAll('.fulfillOrder');
+fulfilledOrders = document.querySelectorAll('.fulfilledOrder');
 for (let i = 0; i < fulfilledOrders.length; i++) {
     let pickedupbtn = fulfilledOrders[i].querySelector('#pickedup')
     let orderId = fulfilledOrders[i].querySelector('.orderId').innerHTML

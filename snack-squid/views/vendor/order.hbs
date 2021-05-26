@@ -18,6 +18,7 @@
     <div class='preparingOrders' id="preparingOrders">
         <p id="discountTime" hidden>{{discountTime.limit}}</p>
         {{#each preparingOrders}}
+        <div class="oneOrder preparingOrder">
             <table class="orderNum">
                 <tr>
                     <span class="orderId" hidden>{{this._id}}</span>
@@ -27,7 +28,7 @@
                 </tr>
 
                 <tr>
-                    <td><button id="hidebtn" onclick="hideDetail()">Hide</button></td>
+                    <td><button id="hidebtn">Hide</button></td>
                     <td class="fulfilled"><button id="fulfilled"> Mark as Fulfilled</button></td>
                 </tr>
 
@@ -42,11 +43,13 @@
                     <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
                 </tr>
             </table>
+        </div>
         {{/each}}
     </div>
 
     <div class='fulfilledOrders' id="fulfilledOrders">
         {{#each fulfilledOrders}}
+        <div class='oneOrder fulfilledOrder'>
             <table class="orderNum">
                 <tr>
                     <span class="orderId" hidden>{{this._id}}</span>
@@ -56,7 +59,7 @@
                 </tr>
 
                 <tr>
-                    <td><button id="hidebtn" onclick="hideDetail()">Hide</button></td>
+                    <td><button id="hidebtn">Hide</button></td>
                     <td class="pickedup"><button id="pickedup"> Mark as Picked Up</button></td>
                 </tr>
 
@@ -71,21 +74,25 @@
                     <td class="item-Detail"><span class="detail">{{this.details}}</span></td>
                 </tr>
             </table>
+        </div>
         {{/each}}
     </div>
 </section>
 <script src="/vendor/js/order.js"></script>
 <script>
+    let orders = document.querySelectorAll('.oneOrder')
 
-function hideDetail() {
-  var x = document.getElementById("orderDetail");
-  var y = document.getElementById("hidebtn")
-  if (x.style.display === "none") {
-    x.style.display = "block";
-    y.innerHTML="Hide";
-  } else {
-    x.style.display = "none";
-    y.innerHTML="Show";
-  }
-}
+    for (let i = 0; i < orders.length; i++) {
+        let orderDetail = orders[i].querySelector("#orderDetail");
+        let hidebtn = orders[i].querySelector("#hidebtn")
+        hidebtn.addEventListener('click', function () {
+            if (orderDetail.style.display === "none") {
+                orderDetail.style.display = "block";
+                hidebtn.innerHTML = "Hide";
+            } else {
+                orderDetail.style.display = "none";
+                hidebtn.innerHTML = "Show";
+            }
+        })
+    }
 </script>
