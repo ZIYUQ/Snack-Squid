@@ -38,7 +38,6 @@ const getOrder = async(req, res) => {
 // Fulfill the order 
 const fulfillOrder = async(req, res) => {
     let id = req.body.orderId
-    console.log(id)
         // Find the order to be fulfilled by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")
@@ -61,7 +60,6 @@ const fulfillOrder = async(req, res) => {
 // Complete the order
 const completeOrder = async(req, res) => {
     let id = req.body.orderId
-    console.log(id)
         // Find the order to be completed by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")
@@ -70,7 +68,7 @@ const completeOrder = async(req, res) => {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
             // Set status as complete
-            await Order.updateOne({ _id: id }, { $set: { status: 'complete' } }, { timestamps: false })
+            await Order.updateOne({ _id: id }, { $set: { status: 'completed' } }, { timestamps: false })
             console.log('order ' + id + ' complete')
             return res.redirect('/vendor/order')
 

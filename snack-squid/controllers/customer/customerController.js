@@ -65,9 +65,20 @@ const updateProfile = async(req, res) => {
     const customerid = req.params.customerid;
     try {
         let customer = await Customer.findOne({ _id: customerid })
-            // await Customer.updateOne({_id: customerid}, {$set:{password: customer.generateHash(req.body.password), givenName: req.body.givenName, familyName: req.body.familyName }})
-        await Customer.updateOne({ _id: customerid }, { $set: { givenName: req.body.givenName, familyName: req.body.familyName } })
-            // password: customer.generateHash(req.body.password)
+        let givenname = req.body.givenName;
+        let familyname = req.body.familyName;
+        let password = req.body.password;
+
+        if (givenname){
+            await Customer.updateOne({ _id: customerid }, { $set: { givenName: givenname } })
+        }
+        if (familyname){
+            await Customer.updateOne({ _id: customerid }, { $set: { familyName: familyname } })
+        }
+        if (password){
+            await Customer.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
+        }
+           
         customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
 
         if (customer) {
@@ -84,27 +95,27 @@ const updateProfile = async(req, res) => {
 
 }
 
-const changePassword = async(req, res) => {
-    const customerid = req.params.customerid;
-    try {
-        let customer = await Customer.findOne({ _id: customerid })
-        await Customer.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
+// const changePassword = async(req, res) => {
+//     const customerid = req.params.customerid;
+//     try {
+//         let customer = await Customer.findOne({ _id: customerid })
+//         await Customer.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
 
-        customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
+//         customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
 
-        if (customer) {
-            // res.render('customer/profile', { "customer": customer })
-            console.log("update password sucessfully")
-            res.render('customer/editprofile', { "customer": customer })
-        } else {
-            console.log('customer not found')
-            return res.redirect('/customer/login')
-        }
-    } catch (err) {
-        console.log(err)
-    }
+//         if (customer) {
+//             // res.render('customer/profile', { "customer": customer })
+//             console.log("update password sucessfully")
+//             res.render('customer/editprofile', { "customer": customer })
+//         } else {
+//             console.log('customer not found')
+//             return res.redirect('/customer/login')
+//         }
+//     } catch (err) {
+//         console.log(err)
+//     }
 
-}
+// }
 
 
 
