@@ -257,7 +257,7 @@ h2,
 }
 
 #cartdetail {
-    margin-right: 50px;
+    margin-right: 80px;
 }
 
 
@@ -287,7 +287,7 @@ h2,
 .overlay i {
     font-size: 58px;
     color: #774C37;
-    ;
+    cursor: pointer;
 }
 
 .products-container {
@@ -393,6 +393,7 @@ h2,
     line-height: 31px;
     background-color: #B4917F;
     border-radius: 115px;
+    margin-top: 20px;
 }
 
 .quantitybox button {
@@ -688,13 +689,16 @@ p {
         background-color: #E1D8D1;
     }
     #cartdetail {
-        margin-right: 70px;
+        margin-right: 80px;
+    }
+    #cartdetail i{
+        margin-right: 5px;
     }
     .state {
         margin-left: 5%;
     }
     .preparingOrders,
-    .completedorder {
+    .completedOrders {
         font-size: 17px;
         line-height: 28px;
         margin: 0 5% 0 5%;
@@ -767,6 +771,7 @@ p {
     }
     #detailOrdering button {
         background-color: #E1D8D1;
+        background-color: transparent;
     }
     #detailListing {
         padding: 5px;
@@ -792,19 +797,16 @@ p {
         font-size: 30px;
     }
     #detailOrdering {
-        position: sticky;
-        display: block;
         width: 80px;
-        margin-right: 0;
-        bottom: 0;
-        right: 0;
+        margin-right: -45px;
+        margin-top: 80px;
         align-self: flex-end;
     }
-    #detailOrdering button {
-        background-color: transparent;
-    }
+
     .pageBack {
         font-size: 40px;
+        left: 20px;
+        bottom: 5px;
     }
     #findVan {
         padding: 0;

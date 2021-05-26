@@ -95,28 +95,6 @@ const updateProfile = async(req, res) => {
 
 }
 
-// const changePassword = async(req, res) => {
-//     const customerid = req.params.customerid;
-//     try {
-//         let customer = await Customer.findOne({ _id: customerid })
-//         await Customer.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
-
-//         customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
-
-//         if (customer) {
-//             // res.render('customer/profile', { "customer": customer })
-//             console.log("update password sucessfully")
-//             res.render('customer/editprofile', { "customer": customer })
-//         } else {
-//             console.log('customer not found')
-//             return res.redirect('/customer/login')
-//         }
-//     } catch (err) {
-//         console.log(err)
-//     }
-
-// }
-
 
 
 module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage, updateProfile }
