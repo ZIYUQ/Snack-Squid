@@ -308,6 +308,7 @@ h2 {
     .signup,
     .findvan {
         font-size: 5vw;
+        height: 1.6vh;
     }
     .findvan {
         margin-top: 4vh;
