@@ -10,14 +10,19 @@
 }
 
 #message h3{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+#message p {
+    font-size: 15px;
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
-#message p {
-    font-size: 18px;
-    margin-top: 3px;
-    margin-bottom: 3px;
+#message b{
+    font-size: 15px;
 }
 
 /* Add a green text color and a checkmark when the requirements are right */
@@ -47,6 +52,14 @@
 
 .password-msg{
     font-size: 20px;
+}
+
+#psw{
+    margin-top: 2px;
+}
+
+#psw:focus{
+    margin-bottom: 0;
 }
 
 @media only screen and (max-width:650px) {
