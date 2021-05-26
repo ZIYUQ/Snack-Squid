@@ -68,7 +68,7 @@ const completeOrder = async(req, res) => {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
             // Set status as complete
-            await Order.updateOne({ _id: id }, { $set: { status: 'complete' } }, { timestamps: false })
+            await Order.updateOne({ _id: id }, { $set: { status: 'completed' } }, { timestamps: false })
             console.log('order ' + id + ' complete')
             return res.redirect('/vendor/order')
 
