@@ -245,6 +245,24 @@ h2{
     transition: .3s all ease-in-out;
 }
 
+/* Profile Editing */
+#edit-lastline, #psw{
+    margin-bottom: 20px;
+}
+
+
+.button-edit{
+    width: 50%;
+    margin-top: 0;
+}
+
+#psw{
+    margin-top: 15px;
+}
+
+#psw:focus{
+    margin-bottom: 0;
+}
 
 @media only screen and (max-width:1000px) {
 

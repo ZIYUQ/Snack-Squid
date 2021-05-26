@@ -1,6 +1,8 @@
 <section id="homepage">
     <title>Profile</title>
     <link rel="stylesheet" href="/customer/css/homepage.css">
+    <link rel="stylesheet" href="/customer/css/signup.css">
+
     <div class="container">
         <section class='BG'></section>
 
@@ -15,37 +17,34 @@
             <h2> Hi, {{customer.givenName}} {{customer.familyName}}</h2>
 
             <form method="post">
-                <input name="givenName" placeholder="{{customer.givenName}}" />
-                <input name="familyName" placeholder="{{customer.familyName}}" />
-                <button type="submit">Update</button>
+                <input class="user-input" name="givenName" placeholder="{{customer.givenName}}" required>
+                <br>
+                <input id="edit-lastline" class="user-input" name="familyName" placeholder="{{customer.familyName}}" required>
+                <br>
+                <button class="button-edit" type="submit">Update Name</button>
             </form>
 
 
             <form method="post" action='/customer/profile/password/{{customer._id}}'>
-                <br>
                 <input class="user-input" type="password" id="psw" placeholder="Enter Password" name="password"
                     pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
                     title="Must contain at least one number and one alphabet character, and at least 8 or more characters"
                     required>
-                <br>
-                <br>
                 <div id="message">
                     <h3>Password must contain the following:</h3>
-                    <p id="letter" class="invalid">At least one <b>alphabet</b> character</p>
-                    <p id="number" class="invalid">At least one <b>numerical digit</b></p>
-                    <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                    <p id="letter" class="invalid">At least one <b class="password-msg">alphabet</b> character</p>
+                    <p id="number" class="invalid">At least one <b class="password-msg">numerical digit</b></p>
+                    <p id="length" class="invalid">Minimum <b class="password-msg">8 characters</b></p>
                 </div>
                 <br>
-                <button type="submit">save password</button>
+                <button id="button-editPassword" class="button-edit" type="submit">save password</button>
 
             </form>
 
-            <<<<<<< Updated upstream </section>
-                =======
+
         </section>
 
         <form method="post" action="/customer/profile/logout" id="logoutform"></form>
-        >>>>>>> Stashed changes
 
     </div>
 </section>
