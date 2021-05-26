@@ -20,11 +20,6 @@ const orderSchema = new mongoose.Schema({
     status: { type: String, enum: ["preparing", "fulfilled", "cancelled", "completed"] },
     details: { type: [cartSchema], required: true },
     total: { type: Number },
-    // timestamp: {
-    //     alterOrderLimit: { type: Number, default: 10 },
-    //     discountAwardLimit: { type: Number, default: 15 }
-    // },
-    // timestamp: { type: Number, default: 10, required: false },
     discount: { type: Boolean, default: false, required: false },
     feedback: { type: feedbackSchema },
 }, { timestamps: { createdAt: 'orderTime', updatedAt: 'updateTime' } })
