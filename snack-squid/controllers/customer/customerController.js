@@ -119,4 +119,4 @@ const updateProfile = async(req, res) => {
 
 
 
-module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage, updateProfile, changePassword }
+module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage, updateProfile }
