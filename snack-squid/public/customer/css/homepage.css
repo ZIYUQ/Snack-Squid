@@ -1,89 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
-body, html{
+body,
+html {
     margin: 0;
     height: 100%;
 }
 
-.container{
+.container {
     padding: 0;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 100vh;
-    grid-template-areas: 
-    'Info BG BG';
+    grid-template-areas: 'Info BG BG';
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.Info{
+.Info {
     grid-area: Info;
     margin-left: 5vw;
     margin-top: 5vw;
 }
 
-.profile{
+.profile {
     position: fixed;
     left: 10px;
     top: 10px;
     color: #707070;
     font-size: 55px;
 }
+
+
 /* For homepage */
 
-h1{
+h1 {
     margin: 0;
     font-size: 4vw;
     font-weight: 400;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px #707070;
-    border-top: 13px solid #707070;;
+    border-top: 13px solid #707070;
+    ;
     width: 25vw;
     letter-spacing: -3px;
     margin-bottom: 15vh;
-
 }
 
-
-.login, .signup, .findvan{
+.login,
+.signup,
+.findvan {
     display: block;
     padding-left: 15px;
-    font-size: 1.5vw; 
+    font-size: 1.5vw;
     font-weight: 500;
-    color:#707070;
+    color: #707070;
     background-color: lightgray;
     height: 2vh;
     border: none;
     text-align: left;
     text-decoration: none;
     transition: ease-in-out, .3s ease-in-out;
-
 }
 
-.findvan:hover{
+.findvan:hover {
     background: #af9797;
     color: rgb(243, 243, 243);
 }
 
-.login{
+.login {
     display: block;
     width: 30%;
-
 }
 
-.signup{
+.signup {
     display: block;
     width: 40%;
-
 }
 
-.login:hover{
+.login:hover {
     width: 55%;
 }
 
-.signup:hover{
+.signup:hover {
     width: 65%;
-
 }
-.findvan{
+
+.findvan {
     padding-left: 0;
     padding-top: 2vh;
     margin-top: 10vh;
@@ -96,16 +96,17 @@ h1{
     font-size: 1.5vw;
 }
 
-.icon{
+.icon {
     height: 200px;
     width: 200px;
     background: url("../images/snacksquid_icon1.png");
     background-size: cover;
 }
 
+
 /* For Login + Signup */
 
-#icon2{
+#icon2 {
     margin: 0 7vw 0 7vw;
     height: 250px;
     width: 250px;
@@ -113,7 +114,7 @@ h1{
     background-size: cover;
 }
 
-.line{
+.line {
     border-bottom: 13px solid #707070;
     width: 90%;
     margin: 20px 0 50px 0;
@@ -124,36 +125,36 @@ h1{
     background-image: url("../images/realvan.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
-    }
-
-label, b, h2{
-    font-size: 23px;
-    font-weight: 500;
-
 }
 
-.user-input{
+label,
+b,
+h2 {
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.user-input {
     font-weight: 400;
     color: lightslategray;
     font-size: 20px;
     border: none;
     border-bottom: 2px solid;
-    margin-top: 5px;
-    margin-bottom: 5vh;
+    margin-top: 2px;
+    margin-bottom: 20px;
     height: 30px;
     width: 40%;
     transition: ease-in-out, .5s ease-in-out;
-
 }
- 
-button{
+
+button {
     width: 120px;
     height: 40px;
     padding: 5px 12px 10px 12px;
     margin-top: 10px;
     font-size: 20px;
     border: none;
-    background-color:  rgb(219, 219, 219);
+    background-color: rgb(219, 219, 219);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 10px;
     cursor: pointer;
@@ -161,12 +162,10 @@ button{
     text-decoration: none;
 }
 
-
-::placeholder{
+::placeholder {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 18px;
-    color: 	#C0C0C0;
-    
+    color: #C0C0C0;
 }
 
 .user-input:focus {
@@ -174,19 +173,20 @@ button{
     width: 80%;
 }
 
-.user-input:valid{
+.user-input:valid {
     width: 80%;
 }
 
-input[name="remember"]{
+input[name="remember"] {
     margin-left: 10px;
     width: 15px;
     height: 15px;
 }
 
+
 /* For customer Profile */
 
-.profileDetail{
+.profileDetail {
     font-size: 23px;
     line-height: 30px;
     line-height: 40px;
@@ -198,20 +198,20 @@ input[name="remember"]{
     border-radius: 10px;
 }
 
-#line-Profile{
+#line-Profile {
     margin-bottom: 10px;
 }
 
-h2{
+h2 {
     font-size: 40px;
     font-weight: 400;
     text-align: right;
-    margin-top:0;
+    margin-top: 0;
     margin-right: 10%;
     color: #707070;
 }
 
-.edit-info{
+.edit-info {
     display: block;
     width: 90%;
     height: 60px;
@@ -222,10 +222,10 @@ h2{
     font-weight: 400;
     line-height: 52px;
     color: #535353;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
-#logout{
+#logout {
     width: 35%;
     height: 40px;
     font-size: 25px;
@@ -234,94 +234,82 @@ h2{
     color: #E9D7BD;
     margin-left: 10px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-
 }
 
-
-.edit-info:hover, #logout:hover{
+.edit-info:hover,
+#logout:hover {
     background: #af9797;
     color: rgb(243, 243, 243);
     transition: .3s all ease-in-out;
 }
 
+
 /* Profile Editing */
-#edit-lastline, #psw{
+
+#edit-lastline,
+#psw {
     margin-bottom: 20px;
+    margin-top: 2px;
 }
 
-
-.button-edit{
+.button-edit {
     width: 40%;
     margin-bottom: 20px;
 }
 
-#psw{
-    margin-top: 15px;
-}
-
-
-
 @media only screen and (max-width:1000px) {
-
-    .container{
+    .container {
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: 
-        'Info BG';
+        grid-template-areas: 'Info BG';
     }
-
-    h1{
+    h1 {
         font-size: 7vw;
-        border-top: 2vh solid #707070;;
+        border-top: 2vh solid #707070;
+        ;
         width: 40vw;
         letter-spacing: -0.5vw;
     }
-
-    .login, .signup, .findvan{
-        font-size: 4vw; 
+    .login,
+    .signup,
+    .findvan {
+        font-size: 4vw;
     }
-
-    .findvan{
+    .findvan {
         margin-top: 7vh;
         font-weight: 400;
         width: 30vw;
-        font-size: 2.5vw; 
+        font-size: 2.5vw;
     }
-    
-    .user-input{
+    .user-input {
         font-size: 20px;
         width: 50%;
     }
-    
-    ::placeholder{
+     ::placeholder {
         font-size: 15px;
     }
-
-    .profile{
+    .profile {
         font-size: 40px;
     }
 }
 
 @media only screen and (max-width:650px) {
-
-    .container{
+    .container {
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: 
-        'Info BG';
+        grid-template-areas: 'Info BG';
     }
-
-    h1{
+    h1 {
         font-size: 7vw;
-        border-top: 2vh solid #707070;;
+        border-top: 2vh solid #707070;
+        ;
         width: 40vw;
         letter-spacing: -0.5vw;
     }
-
-    .login, .signup, .findvan{
-        font-size: 5vw; 
+    .login,
+    .signup,
+    .findvan {
+        font-size: 5vw;
     }
-
-    .findvan{
+    .findvan {
         margin-top: 4vh;
         font-weight: 400;
         width: 50vw;
@@ -329,30 +317,26 @@ h2{
         font-size: 4.5vw;
         padding-top: 5px;
     }
-
-    .Info{
+    .Info {
         margin-left: 3vw;
         margin-top: 3vw;
     }
-
-    .profile{
+    .profile {
         top: 5px;
         left: 5px;
         font-size: 30px;
     }
-
-    h2{
+    h2 {
         font-size: 25px;
     }
-
-    .profileDetail{
+    .profileDetail {
         margin-top: 40px;
     }
-    .profileDetail, .edit-info{
+    .profileDetail,
+    .edit-info {
         font-size: 20px;
     }
-
-    .button-edit{
+    .button-edit {
         width: 60%;
     }
 }
