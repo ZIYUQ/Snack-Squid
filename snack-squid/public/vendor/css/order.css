@@ -70,7 +70,6 @@ p{
     height: 25vh;
     width: 100%;
     grid-area: ablock;
-    margin-top: 0;
 }
 .state {
     grid-area: state;
@@ -106,7 +105,6 @@ table {
     display: flex;
     box-shadow: inset 0em 5px 5px rgba(0, 0, 0, .15), 0px 5px 5px rgba(0, 0, 0, 0.16);
     margin-bottom: 15px;
-    
 }
 
 
@@ -140,26 +138,37 @@ table {
     text-align: right;
 }
 
-#fulfilled, #pickedup{
+#fulfilled, #pickedup, #hidebtn{
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 18px;
     font-family: 'Antic Slab', serif;
     border-bottom-width: 0px;
     transition: ease-in-out, .1s ease-in-out;
     padding: 0;
     cursor: pointer;
     color: #e4a487;
+    text-decoration: underline;
+    text-underline-offset: 1px;
 }
 
-#fulfilled:hover, #pickedup:hover{
+#fulfilled:hover, #pickedup:hover, #hidebtn:hover{
     border-bottom: 2px solid;
-    border-bottom-width: 3px;
 
 }
 
 /* For Ipad */
 @media only screen and (max-width:1024px) {
+    #order{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(30px,auto);
+        grid-template-areas: 
+        'ablock''state' 'orderListing';
+    }
 
+    table {
+        width: 90vw;
+    }
 
 }
