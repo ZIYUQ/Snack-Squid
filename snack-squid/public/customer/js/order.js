@@ -98,10 +98,9 @@ for (let i = 0; i < completedOrderDetail.length; i++) {
     for (let j = 0; j < foods.length; j++) {
         details.innerHTML += `
         <tr>
-        <td>foodname: </td>
-        <td>${foods[j].foodName}</td>
-        <td>quantity: </td>
         <td>${foods[j].quantity}</td>
+        <td>${foods[j].foodName}</td>
+        <br>
         </tr>
         `
 
