@@ -90,20 +90,20 @@ const getOrder = async(req, res) => {
         const customer = await Customer.findOne({ _id: userId })
             // find order under that customer
         const outstandingOrder = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
-        const completedOrder = await Order.find({ customerId: customer._id, status: "completed" }, {}).populate("vanId", "vanName-_id").lean()
+        const fulfilledOrder = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
         for (let i = 0; i < outstandingOrder.length; i++) {
             outstandingOrder[i].details = JSON.stringify(outstandingOrder[i].details);
         }
 
-        for (let i = 0; i < completedOrder.length; i++) {
-            completedOrder[i].details = JSON.stringify(completedOrder[i].details);
+        for (let i = 0; i < fulfilledOrder.length; i++) {
+            fulfilledOrder[i].details = JSON.stringify(fulfilledOrder[i].details);
         }
 
         // get the timestamp 
         const alterOrderLimit = await Timestamp.findOne({ timeLimitType: "alterOrderLimit" }, {}).lean()
         const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {}).lean()
         alterOrderLimit.limit = JSON.stringify(alterOrderLimit.limit)
-        res.render('customer/showOrder', { "preparingOrders": outstandingOrder, "completedOrders": completedOrder, "alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
+        res.render('customer/showOrder', { "preparingOrders": outstandingOrder, "completedOrders": fulfilledOrder, "alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
