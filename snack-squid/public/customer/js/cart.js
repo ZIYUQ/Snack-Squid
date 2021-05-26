@@ -11,6 +11,14 @@ if (cartItems == null) {
     
 }
 
+let hrefFoodDetailSelectors = document.querySelectorAll('.hrefFoodDetail');
+let url = window.location.href;
+for (let i = 0; i < hrefFoodDetailSelectors.length; i++){
+    let hrefToken = hrefFoodDetailSelectors[i].href.split("/")
+    let foodTag = hrefToken[hrefToken.length - 2];
+    hrefFoodDetailSelectors[i].href = url + foodTag
+}
+
 for (let i = 0; i < foodListings.length; i++) {
     let foodName = foodListings[i].querySelector('.foodName').innerHTML
     let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
@@ -199,7 +207,12 @@ function placeOrder() {
         redirect: 'follow'
     };
     try {
-        url = window.location.href + '/place-order'
+        let url = window.location.href
+        let urlToken = url.split("/");
+        if (urlToken[urlToken.length - 1] != "") {
+            url = url.replace(urlToken[urlToken.length - 1], "");
+        }
+        url += 'place-order';
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {

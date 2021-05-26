@@ -29,7 +29,7 @@
             {{!-- snack item --}}
             {{#each snacks}}
             <div class="foodListing">
-                <a href="/customer/menu/{{this.tag}}">
+                <a class="hrefFoodDetail" href="/{{this.tag}}/">
                     <img src="/customer/images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
                 <div id="food-detail">
@@ -54,7 +54,7 @@
 
             {{#each drinks}}
             <div class="foodListing">
-                <a href="/customer/menu/{{this.tag}}">
+                <a class="hrefFoodDetail" href="/{{this.tag}}/">
                     <img src="/customer/images/{{this.photo}}" alt="{{this.foodName}}"></a>
 
                 <div id="food-detail">
