@@ -92,7 +92,7 @@ const getOrder = async(req, res) => {
         const outstandingOrder = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
         const completedOrder = await Order.find({ customerId: customer._id, status: "completed" }, {}).populate("vanId", "vanName-_id").lean()
         for (let i = 0; i < outstandingOrder.length; i++) {
-            outstandingOrder[i].details = JSON.stringify(outstanding[i].details);
+            outstandingOrder[i].details = JSON.stringify(outstandingOrder[i].details);
         }
 
         for (let i = 0; i < completedOrder.length; i++) {
