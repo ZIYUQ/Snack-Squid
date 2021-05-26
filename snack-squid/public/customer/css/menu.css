@@ -257,7 +257,7 @@ h2,
 }
 
 #cartdetail {
-    margin-right: 50px;
+    margin-right: 70px;
 }
 
 
@@ -287,7 +287,7 @@ h2,
 .overlay i {
     font-size: 58px;
     color: #774C37;
-    ;
+    cursor: pointer;
 }
 
 .products-container {
