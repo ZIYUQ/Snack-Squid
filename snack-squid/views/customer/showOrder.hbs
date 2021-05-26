@@ -40,16 +40,7 @@
 
                 <tr>
                     <td class="totalPrice">Total: ${{this.total}}</td>
-                </tr>
-                <tr>
-                    <td class="discountedPrice"></td>
-                </tr>
-
-
-                {{#if (isExpired this.updateTime ../alterTime.limit)}}
-                <tr>
-
-                    <td> </td>
+                    {{#if (isExpired this.updateTime ../alterTime.limit)}}
                     <td><a class="change-cancel" href="javascript:void(0);"
                             onclick="changeOrder('{{this._id}}', '0');">cancel order</a>
                         <br>
@@ -57,7 +48,13 @@
                             onclick="changeOrder('{{this._id}}', '1');">change order</a>
                     </td>
                     {{/if}}
+
                 </tr>
+                <tr>
+                    <td class="discountedPrice"></td>
+                </tr>
+
+
 
 
             </table>
