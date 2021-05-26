@@ -203,11 +203,15 @@ function placeOrder() {
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {
-                    localStorage.removeItem('inCart');
-                    localStorage.removeItem('totalCost');
-                    localStorage.removeItem('cartNumbers');
-                    localStorage.setItem('cartCost', 0);
-                    window.alert("Order placed successfully!")
+                    if (res.url.includes("customer/login")) {
+                        window.alert("Please login first!")
+                    } else {
+                        localStorage.removeItem('inCart');
+                        localStorage.removeItem('totalCost');
+                        localStorage.removeItem('cartNumbers');
+                        localStorage.setItem('cartCost', '0');
+                        window.alert("Order placed successfully!")
+                    }
                     window.location.href = res.url;
                 }
             });
