@@ -17,11 +17,16 @@
             <form method="post">
                 <input name="givenName" placeholder="{{customer.givenName}}" />
                 <input name="familyName" placeholder="{{customer.familyName}}" />
-                <input class="user-input" type="password" id="psw" placeholder="enter password" name="password"
+                <button type="submit">Update</button>
+            </form>
+
+           
+            <form method="post" action='/customer/profile/password/{{customer._id}}'>
+               <br>
+                <input class="user-input" type="password" id="psw" placeholder="Enter Password" name="password"
                        pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
                        title="Must contain at least one number and one alphabet character, and at least 8 or more characters"
                        required>
-                
                 <br>
                 <br>
                 <div id="message">
@@ -31,8 +36,11 @@
                     <p id="length" class="invalid">Minimum <b>8 characters</b></p>
                 </div>
                 <br>
-                <button type="submit">Update</button>
+               <button type="submit">save password</button>
+            
             </form>
+
+            
 
          </section>
 

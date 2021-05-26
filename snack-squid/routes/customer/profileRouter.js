@@ -12,6 +12,9 @@ profileRouter.post('/logout', customerController.logout)
 // user update profile
 profileRouter.post('/update/:customerid', customerController.updateProfile)
 
+// handle post request to update customer password
+profileRouter.post('/password/:customerid', customerController.changePassword)
+
 // handle get request to render edit profile page
 profileRouter.get('/update/:customerid', (req,res)=>customerController.renderProfilePage(req, res, 0))
 
