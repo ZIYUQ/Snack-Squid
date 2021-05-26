@@ -22,7 +22,7 @@ const renderSignupPage = async(req, res) => {
 }
 
 const renderLoginPage = async(req, res) => {
-    if (req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         return res.redirect('/customer/choose-van')
     } else {
         return res.render('customer/login')
@@ -35,12 +35,12 @@ const renderProfilePage = async(req, res, status) => {
     try {
         let result = await Customer.findOne({ _id: userId }, { givenName: true, familyName: true, emailAddress: true }).lean()
         if (result) {
-            if (status === 1){
+            if (status === 1) {
                 res.render('customer/profile', { "customer": result })
             }
-            if (status === 0){
-                
-                res.render('customer/editProfile', {"customer": result})
+            if (status === 0) {
+
+                res.render('customer/editProfile', { "customer": result })
             }
         } else {
             console.log('customer not found')
@@ -60,16 +60,16 @@ const logout = (req, res) => {
     return res.redirect('/customer/')
 }
 
-const updateProfile = async(req, res) =>{
+const updateProfile = async(req, res) => {
 
     const customerid = req.params.customerid;
-    try{
-        let customer = await Customer.findOne({_id: customerid})
-        // await Customer.updateOne({_id: customerid}, {$set:{password: customer.generateHash(req.body.password), givenName: req.body.givenName, familyName: req.body.familyName }})
-        await Customer.updateOne({_id: customerid}, {$set:{givenName: req.body.givenName, familyName: req.body.familyName }})
+    try {
+        let customer = await Customer.findOne({ _id: customerid })
+            // await Customer.updateOne({_id: customerid}, {$set:{password: customer.generateHash(req.body.password), givenName: req.body.givenName, familyName: req.body.familyName }})
+        await Customer.updateOne({ _id: customerid }, { $set: { givenName: req.body.givenName, familyName: req.body.familyName } })
+            // password: customer.generateHash(req.body.password)
+        customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
 
-        customer = await Customer.findOne({ _id: customerid}, { givenName: true, familyName: true, emailAddress: true }).lean()
-       
         if (customer) {
             // res.render('customer/profile', { "customer": customer })
             console.log("update profile sucessfully")
@@ -81,17 +81,17 @@ const updateProfile = async(req, res) =>{
     } catch (err) {
         console.log(err)
     }
-    
+
 }
 
-const changePassword = async(req, res)=>{
+const changePassword = async(req, res) => {
     const customerid = req.params.customerid;
-    try{
-        let customer = await Customer.findOne({_id: customerid})
-        await Customer.updateOne({_id: customerid}, {$set:{password: customer.generateHash(req.body.password) }})
+    try {
+        let customer = await Customer.findOne({ _id: customerid })
+        await Customer.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
 
-        customer = await Customer.findOne({ _id: customerid}, { givenName: true, familyName: true, emailAddress: true }).lean()
-       
+        customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
+
         if (customer) {
             // res.render('customer/profile', { "customer": customer })
             console.log("update password sucessfully")
@@ -103,8 +103,9 @@ const changePassword = async(req, res)=>{
     } catch (err) {
         console.log(err)
     }
-    
+
 }
+
 
 
 module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage, updateProfile, changePassword }

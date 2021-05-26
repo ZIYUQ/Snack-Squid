@@ -3,7 +3,7 @@ let x = setInterval(function() {
 
     // Get required section
     let orderTables = document.getElementsByClassName("orderNum");
-    let timeStamp = parseInt(document.getElementById("discountTime").innerHTML);
+    let timeStamp = parseInt(document.getElementById("discountTime").innerHTML)
 
     for (let i = 0; i < orderTables.length; i++) {
         let tds = orderTables[i].getElementsByTagName("td")
@@ -33,21 +33,18 @@ let x = setInterval(function() {
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         // Output the result in an element with id="timeRemaining"
-        if (timeRemaining) {
-            timeRemaining.innerHTML = minutes + "m " + seconds + "s ";
-
-        }
+        timeRemaining.innerHTML = minutes + "m " + seconds + "s ";
         // If the count down is over, write some text
-        if (distance < 0 && timeRemaining) {
+        if (distance < 0) {
             // udpate message
-            timeRemaining.innerHTML = "20% off awarded !";
+            timeRemaining.innerHTML = "20% off awarded !"
         }
     }
 
 }, 1000);
 
 // Send fulfill order message to server
-preparingOrders = document.querySelectorAll('.preparingOrders')
+preparingOrders = document.querySelectorAll('.preparingOrder');
 for (let i = 0; i < preparingOrders.length; i++) {
     let fulfillbtn = preparingOrders[i].querySelector('#fulfilled')
     let orderId = preparingOrders[i].querySelector('.orderId').innerHTML
@@ -76,13 +73,12 @@ for (let i = 0; i < preparingOrders.length; i++) {
 }
 
 // Send complete order message to server
-fulfilledOrders = document.querySelectorAll('.fulfilledOrders')
-console.log(fulfilledOrders)
+fulfilledOrders = document.querySelectorAll('.fulfillOrder');
 for (let i = 0; i < fulfilledOrders.length; i++) {
     let pickedupbtn = fulfilledOrders[i].querySelector('#pickedup')
     let orderId = fulfilledOrders[i].querySelector('.orderId').innerHTML
     pickedupbtn.addEventListener('click', function() {
-
+        console.log(orderId)
         const options = {
             method: 'POST',
             headers: {
@@ -107,7 +103,7 @@ for (let i = 0; i < fulfilledOrders.length; i++) {
 }
 
 // Change the HTML representation of order detail
-orderDetail = document.querySelectorAll('.orderDetail')
+orderDetail = document.querySelectorAll('.orderDetail');
 for (let i = 0; i < orderDetail.length; i++) {
     let tds = orderDetail[i].getElementsByClassName('detail');
     let foods;

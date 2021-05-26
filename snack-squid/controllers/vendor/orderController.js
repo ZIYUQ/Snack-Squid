@@ -12,8 +12,8 @@ const getOrder = async(req, res) => {
         // find van detail
         const van = await Van.findOne({ _id: vanId })
             // Find order under that customer
-        const outstanding = await Order.find({ vanId: van._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("customerId", "givenName-_id").lean()
-        const fulfilled = await Order.find({ vanId: van._id, status: "fulfilled" }, {}).sort({ '_id': -1 }).populate("customerId", "givenName-_id").lean()
+        const outstanding = await Order.find({ vanId: van._id, status: "preparing" }, {}).sort({ 'orderNo': -1 }).populate("customerId", "givenName-_id").lean()
+        const fulfilled = await Order.find({ vanId: van._id, status: "fulfilled" }, {}).sort({ 'orderNo': -1 }).populate("customerId", "givenName-_id").lean()
 
         //const completed = await Order.find({ vanId: van._id, status: "completed" }, {}).populate("customerId", "givenName-_id").lean()
 
@@ -60,7 +60,8 @@ const fulfillOrder = async(req, res) => {
 
 // Complete the order
 const completeOrder = async(req, res) => {
-    let id = req.body._id
+    let id = req.body.orderId
+    console.log(id)
         // Find the order to be completed by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")
@@ -69,7 +70,7 @@ const completeOrder = async(req, res) => {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
             // Set status as complete
-            await Order.updateOne({ _id: orderid }, { $set: { status: 'complete' } }, { timestamps: false })
+            await Order.updateOne({ _id: id }, { $set: { status: 'complete' } }, { timestamps: false })
             console.log('order ' + id + ' complete')
             return res.redirect('/vendor/order')
 
@@ -77,7 +78,7 @@ const completeOrder = async(req, res) => {
             return res.send('no order found,please enter order id')
         }
     } catch (err) {
-        return res.status(400).send('Database query failed')
+        console.log(err)
     }
 }
 module.exports = { getOrder, fulfillOrder, completeOrder }
