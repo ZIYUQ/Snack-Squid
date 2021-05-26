@@ -16,7 +16,7 @@ let url = window.location.href;
 for (let i = 0; i < hrefFoodDetailSelectors.length; i++){
     let hrefToken = hrefFoodDetailSelectors[i].href.split("/")
     let foodTag = hrefToken[hrefToken.length - 2];
-    hrefFoodDetailSelectors[i].href = url + foodTag
+    hrefFoodDetailSelectors[i].href = url + "/" + foodTag
 }
 
 for (let i = 0; i < foodListings.length; i++) {
