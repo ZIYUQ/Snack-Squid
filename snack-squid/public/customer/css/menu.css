@@ -260,6 +260,9 @@ h2,
     margin-right: 80px;
 }
 
+#cartdetail i{
+    margin-right: 5px;
+}
 
 /* Overlay cart */
 
@@ -770,9 +773,11 @@ p {
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.16);
     }
     #detailOrdering button {
+        margin-top: 40px;
         background-color: #E1D8D1;
         background-color: transparent;
     }
+
     #detailListing {
         padding: 5px;
         width: 73vw;
@@ -838,6 +843,5 @@ p {
         margin: 5px 0 10px 0;
 
     }
-
     
 }
