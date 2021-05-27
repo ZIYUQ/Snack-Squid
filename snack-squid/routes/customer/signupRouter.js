@@ -10,10 +10,11 @@ const customerController = require("../../controllers/customer/customerControlle
 signupRouter.get('/', customerController.renderSignupPage)
 
 signupRouter.post('/', passport.authenticate('customer-signup', {
-    successRedirect: '/customer/', // redirect to the homepage
+    failureFlash: true, // allow flash messages
     failureRedirect: '/customer/signup/', // redirect to signup page
-    failureFlash: true // allow flash messages
+    successRedirect: '/customer/' // redirect to the homepage
 }));
+
 // customer login
 //signupRouter.post('', customerController.signup)
 
