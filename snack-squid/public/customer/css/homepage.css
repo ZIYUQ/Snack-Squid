@@ -341,3 +341,7 @@ h2 {
         width: 60%;
     }
 }
+
+#errorMessage {
+    color: red;
+}
