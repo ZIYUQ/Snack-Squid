@@ -11,6 +11,8 @@ if (cartItems == null) {
     
 }
 
+
+
 let hrefFoodDetailSelectors = document.querySelectorAll('.hrefFoodDetail');
 let url = window.location.href;
 for (let i = 0; i < hrefFoodDetailSelectors.length; i++){
@@ -157,7 +159,6 @@ function displayCart() {
     let cartItems = localStorage.getItem("inCart");
     cartItems = JSON.parse(cartItems);
     let foodContainer = document.querySelector(".products-container");
-    let cartCost = localStorage.getItem('totalCost');
 
     if (cartItems && foodContainer) {
         foodContainer.innerHTML = '';
@@ -175,12 +176,10 @@ function displayCart() {
                 </div>
                 <div class="line"></div>
                 `;
-
         });
-        // <img src="../images/${item.foodName}.jpg">
 
-
-        foodContainer.innerHTML += `
+        if (cartItems.length > 0) {
+            foodContainer.innerHTML += `
             <div class="basketTotalContainer">
                 <span class="basketTotalTitle">
                     Basket Total
@@ -191,8 +190,20 @@ function displayCart() {
                 <br>
                 <button id="checkout" onclick="placeOrder()">CheckOut</button>
             </div>
-
-        `;
+            `
+        } else {
+            foodContainer.innerHTML += `
+            <div class="basketTotalContainer">
+                <span class="basketTotalTitle">
+                    Basket Total
+                </span>
+                <span class="basketTotal">
+                    $${localStorage.getItem('cartCost')},00
+                </span>
+                <br>
+            </div>
+            `
+        };
     }
 }
 
