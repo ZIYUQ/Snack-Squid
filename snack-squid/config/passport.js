@@ -57,7 +57,7 @@ module.exports = function(passport) {
                     else {
                         req.session.userId = user._id
                         console.log('Customer logged in successfully: ', req.session.userId)
-                        return done(null, user, req.flash('loginMessage', 'Login successful'));
+                        return done(null, user);
                     }
                 });
             });
@@ -140,7 +140,7 @@ module.exports = function(passport) {
                     else {
                         req.session.vanId = user._id;
                         console.log("Vendor logged in successfully:", req.session.vanId)
-                        return done(null, user, req.flash('loginMessage', 'Login successful'));
+                        return done(null, user);
                     }
                 });
             });
