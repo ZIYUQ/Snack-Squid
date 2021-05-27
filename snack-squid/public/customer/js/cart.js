@@ -208,17 +208,13 @@ function placeOrder() {
     };
     try {
         let url = window.location.href
-        console.log(url)
         let urlToken = url.split("/");
-        console.log(urlToken)
         if (urlToken.length != 6) { // food detail page
             url = url.replace(urlToken[urlToken.length - 1], "");
             url += 'place-order';
         } else if (urlToken[urlToken.length - 1].includes("van=")) {    // menu page
             url += '/place-order';
         }
-        console.log(url)
-        console.log(url)
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {
