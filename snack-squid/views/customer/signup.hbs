@@ -60,7 +60,7 @@
                     <p id="length" class="invalid">Minimum <b class="password-msg">8 characters</b></p>
                 </div>
 
-                <button class="signupbtn" type="submit">Signup</button>
+                <button class="signupbtn" onclick="clearCart();" type="submit">Signup</button>
             </section>
 
         </div>
@@ -69,3 +69,12 @@
     <script src="/customer/js/signup.js"></script>
 
 </section>
+
+<script>
+    function clearCart(){
+        localStorage.removeItem('inCart');
+        localStorage.removeItem('totalCost');
+        localStorage.removeItem('cartNumbers');
+        localStorage.setItem('cartCost', '0');
+    }
+</script>

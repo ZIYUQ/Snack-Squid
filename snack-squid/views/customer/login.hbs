@@ -28,7 +28,7 @@
                         name="remember"></label>
                 <br>
 
-                <button type="submit">Login</button>
+                <button onclick="clearCart();" id="loginButton" type="submit">Login</button>
 
             </section>
         </div>
@@ -36,3 +36,12 @@
 
 
 </section>
+
+<script>
+    function clearCart(){
+        localStorage.removeItem('inCart');
+        localStorage.removeItem('totalCost');
+        localStorage.removeItem('cartNumbers');
+        localStorage.setItem('cartCost', '0');
+    }
+</script>
