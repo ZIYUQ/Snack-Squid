@@ -27,11 +27,16 @@
     "passport-local": "^1.0.0"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "jest --forceExit"
   },
   "main": "app.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "jest": "^27.0.1",
+    "supertest": "^6.1.3"
+  }
 }

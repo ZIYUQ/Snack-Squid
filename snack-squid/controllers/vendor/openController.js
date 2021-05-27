@@ -21,8 +21,7 @@ const openForBusiness = async(req, res) => {
     let ID = req.session.vanId;
     let location = req.body.location
     try {
-        let thisVan = await Van.findOne({ _id: ID }, { open: true })
-            // Update the text location and set van as open
+        // Update the text location and set van as open
         updateLocation(ID, location, res)
         await Van.updateOne({ _id: ID }, { $set: { open: true } })
         console.log("the van is open")
