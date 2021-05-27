@@ -144,3 +144,18 @@ function fulfilledButton() {
 }
 
 //Hide orderDetail
+let orders = document.querySelectorAll('.oneOrder')
+
+for (let i = 0; i < orders.length; i++) {
+    let orderDetail = orders[i].querySelector("#orderDetail");
+    let hidebtn = orders[i].querySelector("#hidebtn")
+    hidebtn.addEventListener('click', function() {
+        if (orderDetail.style.display === "none") {
+            orderDetail.style.display = "block";
+            hidebtn.innerHTML = "Hide";
+        } else {
+            orderDetail.style.display = "none";
+            hidebtn.innerHTML = "Show";
+        }
+    })
+}
