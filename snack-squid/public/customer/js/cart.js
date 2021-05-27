@@ -209,10 +209,12 @@ function placeOrder() {
     try {
         let url = window.location.href
         let urlToken = url.split("/");
-        if (urlToken[urlToken.length - 1] != "") {
+        if (urlToken.length != 6) { // food detail page
             url = url.replace(urlToken[urlToken.length - 1], "");
+            url += 'place-order';
+        } else if (urlToken[urlToken.length - 1].includes("van=")) {    // menu page
+            url += '/place-order';
         }
-        url += 'place-order';
         fetch(url, options)
             .then(res => {
                 if (res.redirected) {

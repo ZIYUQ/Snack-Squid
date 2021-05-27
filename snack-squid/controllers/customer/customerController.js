@@ -18,14 +18,16 @@ const OPTIONS_LOCAL = {
 const expressValidator = require('express-validator')
 
 const renderSignupPage = async(req, res) => {
-    res.render('customer/signup')
+    let error = req.flash("signupMessage");
+    res.render('customer/signup',{ error: error })
 }
 
 const renderLoginPage = async(req, res) => {
+    let error = req.flash("loginMessage");
     if (req.isAuthenticated()) {
         return res.redirect('/customer/choose-van')
     } else {
-        return res.render('customer/login')
+        return res.render('customer/login', { error: error})
     }
 }
 
