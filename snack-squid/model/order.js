@@ -14,7 +14,7 @@ const feedbackSchema = new mongoose.Schema({
 })
 
 const orderSchema = new mongoose.Schema({
-    orderNo: { type: Number },
+    orderNo: { type: Number, required: true },
     customerId: { type: mongoose.Types.ObjectId, required: true, ref: "Customer" },
     vanId: { type: mongoose.Types.ObjectId, required: true, ref: "Van" },
     status: { type: String, enum: ["preparing", "fulfilled", "cancelled", "completed"] },
