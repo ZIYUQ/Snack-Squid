@@ -50,17 +50,16 @@ const fulfillOrder = async(req, res) => {
 
             const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {})
             let timeStamp = parseInt(discountAwardLimit.limit);
-        
+
             let dist = now - updatetime;
             if ((dist / 1000) / 60 > timeStamp) {
                 console.log("update discount");
-                let price = parseInt(result.total)*0.8;
-                console.log(price)
-                await Order.updateOne({ _id: id }, { $set: { discount: true, total: price} }, { timestamps: false })
+                let price = parseInt(result.total) * 0.8;
+                await Order.updateOne({ _id: id }, { $set: { discount: true, total: price } }, { timestamps: false })
             }
-           
+
             // Set status as fulfilled
-            await Order.updateOne({ _id: id }, { $set: { status: 'fulfilled' } },{ timestamps: false })
+            await Order.updateOne({ _id: id }, { $set: { status: 'fulfilled' } }, { timestamps: false })
             console.log('order ' + id + ' fulfilled')
             return res.redirect('/vendor/order')
         } else {
@@ -81,7 +80,7 @@ const completeOrder = async(req, res) => {
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
-            
+
             // Set status as complete
             await Order.updateOne({ _id: id }, { $set: { status: 'completed' } }, { timestamps: false })
             console.log('order ' + id + ' complete')

@@ -47,8 +47,8 @@ window.onload = async function() {
 
 async function geoFindMe(map) {
     function success(position) {
-        const latitude = -37.816166 //position.coords.latitude.toFixed(4);
-        const longitude = 144.966639 //position.coords.longitude.toFixed(4);
+        const latitude = position.coords.latitude.toFixed(4);
+        const longitude = position.coords.longitude.toFixed(4);
         coordinate = [latitude, longitude]
         L.mapquest.textMarker(coordinate, {
             text: 'Me',

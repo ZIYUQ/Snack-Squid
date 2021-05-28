@@ -41,6 +41,19 @@ Project is created with:
 
 ### Commit id
 
+### Dummy Customer
+    1. email address: cathy@gmail.com   password: a123123a
+    2. email address:   password:
+    3. email address:   password:
+    4. email address:   password:
+    5. email address:   password:
+### Dummy Van
+    1. van name:     password:
+    2. van name:     password:
+    3. van name:     password:
+    4. van name:     password:
+    5. van name:     password:
+
 ## Deliverable 2 Instruction
 ### Notes: 
 1. Use *Postman* to test our routes.
