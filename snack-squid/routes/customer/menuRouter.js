@@ -9,7 +9,7 @@ const menuRouter = express.Router()
 menuRouter.get('/van=:van_name', menuController.getMenu)
 
 // get details of food
-menuRouter.get('/:tag', menuController.getFoodDetails)
+menuRouter.get('/van=:van_name/:tag', menuController.getFoodDetails)
 
 // place order
 menuRouter.post('/van=:van_name/place-order',

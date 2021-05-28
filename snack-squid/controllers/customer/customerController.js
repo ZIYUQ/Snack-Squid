@@ -18,24 +18,32 @@ const OPTIONS_LOCAL = {
 const expressValidator = require('express-validator')
 
 const renderSignupPage = async(req, res) => {
-    res.render('customer/signup')
+    let error = req.flash("signupMessage");
+    res.render('customer/signup',{ error: error })
 }
 
 const renderLoginPage = async(req, res) => {
-    if (req.isAuthenticated()){
+    let error = req.flash("loginMessage");
+    if (req.isAuthenticated()) {
         return res.redirect('/customer/choose-van')
     } else {
-        return res.render('customer/login')
+        return res.render('customer/login', { error: error})
     }
 }
 
 // Render profile page
-const renderProfilePage = async(req, res) => {
+const renderProfilePage = async(req, res, status) => {
     let userId = req.session.userId
     try {
         let result = await Customer.findOne({ _id: userId }, { givenName: true, familyName: true, emailAddress: true }).lean()
         if (result) {
-            res.render('customer/profile', { "customer": result })
+            if (status === 1) {
+                res.render('customer/profile', { "customer": result })
+            }
+            if (status === 0) {
+
+                res.render('customer/editProfile', { "customer": result })
+            }
         } else {
             console.log('customer not found')
             return res.redirect('/customer/login')
@@ -54,5 +62,41 @@ const logout = (req, res) => {
     return res.redirect('/customer/')
 }
 
+const updateProfile = async(req, res) => {
 
-module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage }
+    const customerid = req.params.customerid;
+    try {
+        let customer = await Customer.findOne({ _id: customerid })
+        let givenname = req.body.givenName;
+        let familyname = req.body.familyName;
+        let password = req.body.password;
+
+        if (givenname){
+            await Customer.updateOne({ _id: customerid }, { $set: { givenName: givenname } })
+        }
+        if (familyname){
+            await Customer.updateOne({ _id: customerid }, { $set: { familyName: familyname } })
+        }
+        if (password){
+            await Customer.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
+        }
+           
+        customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
+
+        if (customer) {
+            // res.render('customer/profile', { "customer": customer })
+            console.log("update profile sucessfully")
+            res.render('customer/profile', { "customer": customer })
+        } else {
+            console.log('customer not found')
+            return res.redirect('/customer/login')
+        }
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
+
+
+module.exports = { logout, renderLoginPage, renderProfilePage, renderSignupPage, updateProfile }

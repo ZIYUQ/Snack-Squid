@@ -1,60 +1,70 @@
 const Van = require('../../model/van')
 
+// van logout
 const logout = async(req, res) => {
     req.logout()
     console.log('logout successfully')
     return res.redirect('/vendor/')
 }
 
+// Close the van and set the text location and geolocation to be empty
 const close = async(req, res) => {
     let ID = req.session.vanId;
     try {
-        let thisVan = await Van.findOne({ _id: ID })
-        if (thisVan['open'] === true) {
-            geolocation = {
-                'latitude': 0.0,
-                'longitude': 0.0
-            }
-            await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false, location: geolocation } })
 
-            req.logout()
-            return res.redirect('/vendor/')
-        } else {
-            return res.redirect('/vendor/profile')
+        geolocation = {
+            'latitude': 0.0,
+            'longitude': 0.0
         }
+        await Van.updateOne({ _id: ID }, { $set: { textLocation: "", open: false, location: geolocation } })
+        console.log("van " + ID + " logout")
+        req.logout()
+        return res.redirect('/vendor/')
     } catch (err) {
-        res.send(err)
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
+// Change the description location
 const changetextLocation = async(req, res) => {
     let ID = req.session.vanId;
     let newLocation = req.body.newLocation
     console.log(newLocation)
     try {
         let thisVan = await Van.findOne({ _id: ID })
-        if (thisVan['open'] === true) {
-            await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation } })
-            console.log('change location')
-        }
+        await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation, open: true } })
+        console.log('change to ' + newLocation)
         res.redirect('/vendor/order')
     } catch (err) {
-        res.status(400).send('Database query failed')
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
-const renderProfile = (req, res) => {
-    let ID = req.session.vanId;
-    let thisVan = Van.findOne({ _Id: ID });
-    res.render('vendor/profile', { 'Van': thisVan })
+// Render the profile page and send its description locaiton to the page
+const renderProfile = async(req, res) => {
+    try {
+        let ID = req.session.vanId;
+        let thisVan = await Van.findOne({ _id: ID }, { textLocation: true }).lean();
+        res.render('vendor/profile', { 'Van': thisVan })
+    } catch (err) {
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/vendor/login')
+    }
 }
 
+// Change its geolocation
 const changeLocation = async(req, res) => {
     ID = req.session.vanId
-    let thisVan = await Van.findOne({ _id: ID }, { open: true })
-    geoLocation = req.body;
-    await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
+    try {
+        let thisVan = await Van.findOne({ _id: ID }, { open: true })
+        geoLocation = req.body;
+        await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
+    } catch (err) {
+        console.log("Database query collection 'menu' failed!")
+        return res.redirect('/404-NOT-FOUND')
+    }
 
-    res.send(thisVan)
 }
 module.exports = { logout, close, changetextLocation, renderProfile, changeLocation }

@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="/customer/css/menu.css">
 
     <h3 id="cartdetail" class="cart">
-        <ion-icon name="basket"></ion-icon>Cart: <span id="basket_span">0</span>
+        <i class="fas fa-shopping-basket" aria-hidden="true"></i></ion-icon>Cart: <span id="basket_span">0</span>
     </h3>
 
     <div class="overlay" id="overlay">
@@ -29,7 +29,7 @@
         <div class="detail-img">
             <img src="/customer/images/{{this.photo}}">
         </div>
-
+        {{!-- In food detail page, there is a section to add into cart --}}
         <div class="foodListing" id="detailListing">
             <h1 class="foodName">{{this.foodName}}</h1>
             <span class="description">description: {{this.description}}</span>
@@ -40,15 +40,14 @@
                 <span class="quantity">0</span>
                 <button type="button" class="removeCart">-</button>
             </div>
-
             <div class="Ordering" id="detailOrdering">
                 <button id="ordering-text" onclick="on()">View Cart</button>
                 <button id="cartbutton" onclick="on()"><img id="Cart-img"
                         src="/customer/images/Shopping cartS.png"></button>
             </div>
-
         </div>
         {{/each}}
+
 
     </div>
 

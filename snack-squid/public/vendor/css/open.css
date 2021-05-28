@@ -6,6 +6,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     font-family: 'Antic Slab', serif;
     display: flex;
     align-items: center;
@@ -13,6 +14,15 @@ body {
 
 }
 
+.profile {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    color: #774C37;
+    font-size: 55px;
+}
+
+ 
 .logo {
     position: absolute;
     left: 30px;
@@ -72,7 +82,7 @@ input[name="location"]:focus, .newLocation{
 
 
 p{
-    font-size: 25px;
+    font-size: 22px;
 }
 
 #find-me{
@@ -108,6 +118,7 @@ p{
 
 .current_location{
     margin-bottom: 40px;
+    
 }
 
 #profileChangeLocation, #profilefind-me, .close{
@@ -122,18 +133,18 @@ p{
     color: #916654;
     font-size: 23px;
     border: none;
-    margin-left: 36%;
     cursor: pointer;
 }
 
 #profileChangeLocation{
+    margin-left: 32%;
     margin-top: 40px;
     background: #B58169;
     color: #FCE0B3;
 }
 
 #profilefind-me{
-    margin-left: 39%;
+    margin-left: 36.5%;
     width: 220px;
     margin-top: 30px;
     color: #B58169;
@@ -141,7 +152,7 @@ p{
 }
 
 .close{
-    margin-left: 34%;
+    margin-left: 30%;
     width: 320px;
     display: block;
     margin-top: 30px;
@@ -149,7 +160,6 @@ p{
     text-align: center;
     line-height: 55px;
 }
-
 
 @media only screen and (max-width:1024px) {
 /* For Ipad */

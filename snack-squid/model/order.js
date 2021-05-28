@@ -14,22 +14,18 @@ const feedbackSchema = new mongoose.Schema({
 })
 
 const orderSchema = new mongoose.Schema({
+    orderNo: { type: Number, required: true },
     customerId: { type: mongoose.Types.ObjectId, required: true, ref: "Customer" },
     vanId: { type: mongoose.Types.ObjectId, required: true, ref: "Van" },
-    status: { type: String, enum: ["preparing", "fulfilled", "cancelled"] },
+    status: { type: String, enum: ["preparing", "fulfilled", "cancelled", "completed"] },
     details: { type: [cartSchema], required: true },
     total: { type: Number },
-    // timestamp: {
-    //     alterOrderLimit: { type: Number, default: 10 },
-    //     discountAwardLimit: { type: Number, default: 15 }
-    // },
-    // timestamp: { type: Number, default: 10, required: false },
     discount: { type: Boolean, default: false, required: false },
     feedback: { type: feedbackSchema },
 }, { timestamps: { createdAt: 'orderTime', updatedAt: 'updateTime' } })
 
 const timestampSchema = new mongoose.Schema({
-    timeLimitType: {type: String, enum: ["alterOrderLimit", "discountAwardLimit"] },
+    timeLimitType: { type: String, enum: ["alterOrderLimit", "discountAwardLimit"] },
     limit: { type: Number }
 })
 

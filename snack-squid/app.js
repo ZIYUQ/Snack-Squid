@@ -13,7 +13,6 @@ const signupRouterCT = require('./routes/customer/signupRouter')
 const orderRouterCT = require('./routes/customer/orderRouter')
 const findVanRouterCT = require('./routes/customer/findVanRouter')
     // router for Vendor app
-const vanRouterVD = require('./routes/vendor/vanRouter')
 const openRouterVD = require('./routes/vendor/openRouter')
 const orderRouterVD = require('./routes/vendor/orderRouter')
 const registerRouterVD = require('./routes/vendor/registerRouter')
@@ -101,7 +100,6 @@ app.get('/vendor/register', (req, res) => {
 //     res.send('You can mark an order by its id to be fulfilled')
 // })
 
-app.use('/vendor/van-management', vanRouterVD)
 
 app.use('/vendor/open-for-business', openRouterVD)
 
@@ -113,17 +111,19 @@ app.use('/vendor/register', registerRouterVD)
 
 app.use('/vendor/profile', profileRouterVD)
 
-app.get('/404-NOT-FOUND', (req, res) => {
-    res.render(path.join(__dirname + '/views/404NotFound'))
-})
+// app.get('/404-NOT-FOUND', (req, res) => {
+//     res.render(path.join(__dirname + '/views/404NotFound'))
+// })
 
-app.all('*', (req, res) => {
-     // 'default' route to catch user errors
-     res.status(404)
-     res.redirect('/404-NOT-FOUND')
-})
+// app.all('*', (req, res) => {
+//     // 'default' route to catch user errors
+//     res.status(404)
+//     res.redirect('/404-NOT-FOUND')
+// })
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log('Listening on port ' + port + '...')
 })
+
+module.exports = app;

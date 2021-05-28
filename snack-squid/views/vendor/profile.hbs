@@ -4,67 +4,69 @@
 <title>Van Profile</title>
 
 <section id="vanProfile">
-    <div class="logo"></div>
+    <a class="logo" href="/vendor"></a>
+    <a class="profile" href="/vendor/order"><i class="fas fa-clipboard-list"></i></a>
 
-    <p class="current_location">Current Location: </p>
-    <span class="text_location">{{Van.textLocation}}</span>
+
+    <p class="current_location">Current Location: <span class="text_location">{{Van.textLocation}}</span> </p>
+
 
     <form action="/vendor/profile/change" method="POST" id="newLocation">
         <p>Please enter the new location of the van</p>
         <br>
-        <input type="text" placeholder="(e.g. 61 Swanston St, Melbourne, VIC)" name="newLocation" class='newLocation'>
+        <input type="text" name="newLocation" class='newLocation' required>
         <br>
         <input id="profileChangeLocation" type="submit" value="Change the Location">
     </form>
 
-    <button id="profilefind-me">Use my location</button>
+    {{!-- <button id="profilefind-me">Use my location</button> --}}
     <a href="/vendor/profile/close" class="close">Close Business for Today</a>
     <a href="/vendor/profile/logout" class="logout">Log Out</a>
 </section>
 
 
-    <script>
-        function geoFindMe() {
+<script>
+    function geoFindMe() {
 
-            function success(position) {
-                const latitude = position.coords.latitude.toFixed(4);
-                const longitude = position.coords.longitude.toFixed(4);
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        'latitude': latitude,
-                        'longitude': longitude
-                    }),
-                    redirect: 'follow'
-                }
-                try {
-                    url = window.location.href
-                    fetch(url, options).then(res => {
-                        if (res.redirected) {
-                            window.location.href = "/vendor/"
-                        }
-                    })
-                }
-                catch (err) {
-                    console.log(err)
-                }
-
+        function success(position) {
+            const latitude = position.coords.latitude.toFixed(4);
+            const longitude = position.coords.longitude.toFixed(4);
+            const options = {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    'latitude': latitude,
+                    'longitude': longitude
+                }),
+                redirect: 'follow'
             }
-            function error() {
-                alert('Unable to retrieve your location');
+            try {
+                url = window.location.href
+                fetch(url, options).then(res => {
+                    if (res.redirected) {
+                        window.location.href = "/vendor/"
+                    }
+                })
             }
-
-            if (!navigator.geolocation) {
-                console.log('Geolocation is not supported by your browser');
-            } else {
-                console.log('Locating…');
-                navigator.geolocation.getCurrentPosition(success, error);
+            catch (err) {
+                console.log(err)
             }
 
         }
+        function error() {
+            alert('Unable to retrieve your location');
+        }
 
-        document.querySelector('#find-me').addEventListener('click', geoFindMe);
-    </script>
+        if (!navigator.geolocation) {
+            console.log('Geolocation is not supported by your browser');
+        } else {
+            console.log('Locating…');
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+
+    }
+
+    document.querySelector('#profileChangeLocation').addEventListener('click', geoFindMe);
+</script>

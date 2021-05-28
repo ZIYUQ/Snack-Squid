@@ -57,9 +57,11 @@ const placeOrder = async(req, res) => {
         return res.send("Database query collection 'vans' failed!")
     }
 
+    let orderNumber = await Order.countDocuments({}) + 1;
 
     // new order created
     const newOrder = new Order({
+        orderNo: orderNumber,
         vanId: vanId,
         customerId: customerId,
         details: cart,
@@ -74,13 +76,12 @@ const placeOrder = async(req, res) => {
             return res.redirect('/404-NOT-FOUND')
         }
         console.log("order", newOrder._id, "sent successfully!")
-        res.body = true
         return res.redirect('/customer/order')
     })
 }
 
 
-// get all outstanding and fulfilled order
+// get all outstanding, fulfilled and completed orders
 const getOrder = async(req, res) => {
     let userId = req.session.userId
     userId = new ObjectId(userId)
@@ -88,22 +89,27 @@ const getOrder = async(req, res) => {
         // find customer detail
         const customer = await Customer.findOne({ _id: userId })
             // find order under that customer
-        const outstanding = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({'_id': -1}).populate("vanId", "vanName-_id").lean()
-        const fulfilled = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
-        for (let i = 0; i < outstanding.length; i++) {
-            outstanding[i].details = JSON.stringify(outstanding[i].details);
+        const outstandingOrders = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
+        const fulfilledOrders = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
+        const completedOrders = await Order.find({ customerId: customer._id, status: "completed" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
+        for (let i = 0; i < outstandingOrders.length; i++) {
+            outstandingOrders[i].details = JSON.stringify(outstandingOrders[i].details);
         }
 
-        for (let i = 0; i < fulfilled.length; i++) {
-            fulfilled[i].details = JSON.stringify(fulfilled[i].details);
+        for (let i = 0; i < fulfilledOrders.length; i++) {
+            fulfilledOrders[i].details = JSON.stringify(fulfilledOrders[i].details);
+        }
+        for (let i = 0; i < completedOrders.length; i++) {
+            completedOrders[i].details = JSON.stringify(completedOrders[i].details);
         }
 
         // get the timestamp 
-        const alterOrderLimit = await Timestamp.findOne({timeLimitType: "alterOrderLimit"}, {}).lean()
-        const discountAwardLimit = await Timestamp.findOne({timeLimitType: "discountAwardLimit"}, {}).lean()
+        const alterOrderLimit = await Timestamp.findOne({ timeLimitType: "alterOrderLimit" }, {}).lean()
+        const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {}).lean()
         alterOrderLimit.limit = JSON.stringify(alterOrderLimit.limit)
-        res.render('customer/showOrder', { "preparingOrders": outstanding, "completedOrders": fulfilled, "alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
+        res.render('customer/showOrder', { "preparingOrders": outstandingOrders, "fulfilledOrders": fulfilledOrders, "completedOrders": completedOrders, "alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
     } catch (err) {
+        console.log(err)
         return res.redirect('/404-NOT-FOUND')
     }
 }
@@ -117,7 +123,7 @@ const cancelOrder = async(req, res) => {
         let result = await Order.findOne({ _id: orderId }, {})
 
         // Set status as fulfilled
-        await Order.updateOne({ _id: orderId }, { $set: { status: 'cancelled' } })
+        await Order.updateOne({ _id: orderId }, { $set: { status: 'cancelled' } }, { timestamps: false })
         console.log("cancel order", orderId, "successfully!")
         return res.redirect('/customer/order')
 
@@ -147,7 +153,6 @@ const changeOrder = async(req, res) => {
     let orderId = req.params.orderId
     if (orderId) {
         let result = await Order.findOne({ _id: orderId }, {})
-
         if (result === null || result === undefined) {
             return res.send("no order found")
         }
@@ -156,7 +161,6 @@ const changeOrder = async(req, res) => {
 
         await Order.findOneAndUpdate({ _id: orderId }, orderChanged, { new: true });
         console.log("order", orderId, "updated successfully!")
-        res.body = true;
         return res.redirect('/customer/order')
 
     }

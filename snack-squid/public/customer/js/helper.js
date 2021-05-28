@@ -1,9 +1,10 @@
-var register = function(Handlebars) {
-    var helpers = { 
+let register = function(Handlebars) {
+    let helpers = {
         isExpired: function (updateTime, timeLimit) { 
             let now = new Date();
             let updatetime = new Date(updateTime);
             let timeStamp = parseInt(timeLimit);
+        
             let dist = now - updatetime;
             if ((dist / 1000) / 60 > timeStamp) {
                 return false;

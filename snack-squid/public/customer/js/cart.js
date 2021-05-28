@@ -11,6 +11,16 @@ if (cartItems == null) {
     
 }
 
+
+
+let hrefFoodDetailSelectors = document.querySelectorAll('.hrefFoodDetail');
+let url = window.location.href;
+for (let i = 0; i < hrefFoodDetailSelectors.length; i++){
+    let hrefToken = hrefFoodDetailSelectors[i].href.split("/")
+    let foodTag = hrefToken[hrefToken.length - 2];
+    hrefFoodDetailSelectors[i].href = url + "/" + foodTag
+}
+
 for (let i = 0; i < foodListings.length; i++) {
     let foodName = foodListings[i].querySelector('.foodName').innerHTML
     let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
@@ -149,7 +159,6 @@ function displayCart() {
     let cartItems = localStorage.getItem("inCart");
     cartItems = JSON.parse(cartItems);
     let foodContainer = document.querySelector(".products-container");
-    let cartCost = localStorage.getItem('totalCost');
 
     if (cartItems && foodContainer) {
         foodContainer.innerHTML = '';
@@ -167,12 +176,10 @@ function displayCart() {
                 </div>
                 <div class="line"></div>
                 `;
-
         });
-        // <img src="../images/${item.foodName}.jpg">
 
-
-        foodContainer.innerHTML += `
+        if (cartItems.length > 0) {
+            foodContainer.innerHTML += `
             <div class="basketTotalContainer">
                 <span class="basketTotalTitle">
                     Basket Total
@@ -183,8 +190,20 @@ function displayCart() {
                 <br>
                 <button id="checkout" onclick="placeOrder()">CheckOut</button>
             </div>
-
-        `;
+            `
+        } else {
+            foodContainer.innerHTML += `
+            <div class="basketTotalContainer">
+                <span class="basketTotalTitle">
+                    Basket Total
+                </span>
+                <span class="basketTotal">
+                    $${localStorage.getItem('cartCost')},00
+                </span>
+                <br>
+            </div>
+            `
+        };
     }
 }
 
@@ -199,17 +218,26 @@ function placeOrder() {
         redirect: 'follow'
     };
     try {
-        url = window.location.href + '/place-order'
+        let url = window.location.href
+        let urlToken = url.split("/");
+        if (urlToken.length != 6) { // food detail page
+            url = url.replace(urlToken[urlToken.length - 1], "");
+            url += 'place-order';
+        } else if (urlToken[urlToken.length - 1].includes("van=")) {    // menu page
+            url += '/place-order';
+        }
         fetch(url, options)
             .then(res => {
-                if (res.body == true) {
-                    localStorage.removeItem('inCart');
-                    localStorage.removeItem('totalCost');
-                    localStorage.removeItem('cartNumbers');
-                    localStorage.setItem('cartCost', 0);
-                    window.alert("Order placed successfully!")
-                }
                 if (res.redirected) {
+                    if (res.url.includes("customer/login")) {
+                        window.alert("Please login first!")
+                    } else {
+                        localStorage.removeItem('inCart');
+                        localStorage.removeItem('totalCost');
+                        localStorage.removeItem('cartNumbers');
+                        localStorage.setItem('cartCost', '0');
+                        window.alert("Order placed successfully!")
+                    }
                     window.location.href = res.url;
                 }
             });

@@ -46,7 +46,7 @@ module.exports = function(passport) {
                         return done(err);
                     } else if (!user) {
                         console.log("Customer login failed:", emailAddress, "NOT FOUND")
-                        return done(null, false, req.flash('loginMessage', 'No user found.'));
+                        return done(null, false, req.flash('loginMessage', 'Email address has not been registered.'));
                     } else if (!user.validPassword(password)) {
                         // false in done() indicates to the strategy that authentication has
                         // failed
@@ -57,7 +57,7 @@ module.exports = function(passport) {
                     else {
                         req.session.userId = user._id
                         console.log('Customer logged in successfully: ', req.session.userId)
-                        return done(null, user, req.flash('loginMessage', 'Login successful'));
+                        return done(null, user);
                     }
                 });
             });
@@ -85,7 +85,7 @@ module.exports = function(passport) {
                     }
                     if (existingUser) {
                         console.log("Customer signup failed:", emailAddress, "ALREADY REGISTERED!");
-                        return done(null, false, req.flash('signupMessage', (emailAddress, 'is already taken.')));
+                        return done(null, false, req.flash('signupMessage', 'Email address is already registered.'));
                     } else {
                         // otherwise
                         // create a new user
@@ -140,7 +140,7 @@ module.exports = function(passport) {
                     else {
                         req.session.vanId = user._id;
                         console.log("Vendor logged in successfully:", req.session.vanId)
-                        return done(null, user, req.flash('loginMessage', 'Login successful'));
+                        return done(null, user);
                     }
                 });
             });
@@ -173,8 +173,8 @@ module.exports = function(passport) {
                         newVan.password = newVan.generateHash(password);
                         newVan.emailAddress = req.body.emailAddress;
                         newVan.mobileNumber = req.body.mobileNumber;
-                        newVan.location['longitude'] = 0.0;
                         newVan.location['latitude'] = 0.0;
+                        newVan.location['longitude'] = 0.0;
                         newVan.textLocation = '';
                         newVan.open = false;
                         // and save the user
@@ -192,59 +192,3 @@ module.exports = function(passport) {
             });
         }));
 }
-
-// used to demonstrate JWT
-//     let opts = {};
-//     // extract token information
-//     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-//     // key that was used to hash the token
-//     opts.secretOrKey = process.env.PASSPORT_KEY;
-
-//     // depending on what data you store in your token, setup a strategy
-//     // to verify that the token is valid....
-//     passport.use('jwt', new JwtStrategy(opts, (jwt_payload, done) => {
-
-//         // here I'm simply searching for a user with the emailAddress addr
-//         // that was added to the token
-//         Customer.findOne({ 'emailAddress': jwt_payload.body._id }, (err, user) => {
-
-//             if (err) {
-//                 return done(err, false);
-//             }
-
-//             if (user) {
-//                 return done(null, user);
-//             } else {
-//                 return done(null, false);
-//             }
-//         });
-//     }));
-
-//     //Create a passport middleware to handle Customer login
-//     passport.use('login', new LocalStrategy({
-//         usernameField: 'emailAddress',
-//         passwordField: 'password'
-//     }, async(emailAddress, password, done) => {
-//         try {
-//             //Find the user associated with the emailAddress provided by the user
-//             Customer.findOne({ 'emailAddress': emailAddress }, function(err, user) {
-
-//                 if (err)
-//                     return done(err);
-//                 if (!user)
-//                     return done(null, false, { message: 'No user found.' });
-
-//                 if (!user.validPassword(password))
-//                     return done(null, false, { message: 'Oops! Wrong password.' });
-
-
-//                 else {
-//                     return done(null, user, { message: 'Login successful' });
-//                 }
-//             });
-//         } catch (error) {
-//             return done(error);
-//         }
-//     }));
-
-// };

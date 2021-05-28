@@ -1,7 +1,7 @@
 // const { model } = require("mongoose");
 
 // Update the count down every 1 second
-let x = setInterval(function () {
+let x = setInterval(function() {
 
     // get required section
     let orderTables = document.getElementsByClassName("orderTable");
@@ -10,15 +10,13 @@ let x = setInterval(function () {
     let discountedPrices = document.getElementsByClassName("discountedPrice");
     for (let i = 0; i < orderTables.length; i++) {
         let tds = orderTables[i].getElementsByTagName("td")
-        // let timeStamp;
         let orderTime;
         let timeRemaining;
 
+
         for (let j = 0; j < tds.length; j++) {
-            // if (tds[j].className == "dicountTime") {
-            //     timeStamp = parseInt(tds[j].innerHTML)
-            // }
-            if (tds[j].className == "orderTime") {
+
+            if (tds[j].className == "updateTime") {
                 orderTime = new Date(tds[j].innerHTML)
             }
             if (tds[j].className == "timeRemaining") {
@@ -43,7 +41,10 @@ let x = setInterval(function () {
 
         // If the count down is over, write some text
         if (distance < 0) {
+            // udpate message
             timeRemaining.innerHTML = "20% off awarded !";
+
+            // update total price after discount award
             let total = totalPrices[i].innerHTML.substring(8, totalPrices[i].innerHTML.length)
             total = Math.round(parseInt(total) * 0.8);
             discountedPrices[i].innerHTML = "Total after discount: $" + total.toString();
@@ -52,8 +53,8 @@ let x = setInterval(function () {
 
 }, 1000);
 
-// list order food details of outstanding orders
-let orderDetail = document.getElementsByClassName("orderTable")
+// list order food details of orders
+let orderDetail = document.getElementsByClassName("oneOrder")
 
 for (let i = 0; i < orderDetail.length; i++) {
     let tds = orderDetail[i].getElementsByTagName("td");
@@ -77,33 +78,4 @@ for (let i = 0; i < orderDetail.length; i++) {
         `
 
     }
-}
-
-// list order food details of fulfilled orders
-let completedOrderDetail = document.getElementsByClassName("completedTable")
-
-for (let i = 0; i < completedOrderDetail.length; i++) {
-    let tds = completedOrderDetail[i].getElementsByTagName("td");
-    let foods;
-    let details;
-
-    for (let j = 0; j < tds.length; j++) {
-        if (tds[j].className == "detail") {
-            foods = JSON.parse(tds[j].innerHTML);
-            details = tds[j];
-        }
-    }
-    details.innerHTML = ``;
-    for (let j = 0; j < foods.length; j++) {
-        details.innerHTML += `
-        <tr>
-        <td>foodname: </td>
-        <td>${foods[j].foodName}</td>
-        <td>quantity: </td>
-        <td>${foods[j].quantity}</td>
-        </tr>
-        `
-
-    }
-
 }

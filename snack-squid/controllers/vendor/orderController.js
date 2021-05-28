@@ -1,43 +1,43 @@
 const Order = require('../../model/order')
 const Van = require('../../model/van')
 const ObjectId = require('mongoose').Types.ObjectId;
+const mongoose = require('mongoose')
+const Timestamp = mongoose.model('Timestamp')
 
-
-
-
-
+// Get outstanding orders and fulfilled orders
 const getOrder = async(req, res) => {
     let vanId = req.session.vanId
     vanId = new ObjectId(vanId)
     try {
         // find van detail
         const van = await Van.findOne({ _id: vanId })
-            // find order under that customer
-        const outstanding = await Order.find({ vanId: van._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("customerId", "givenName-_id").lean()
-        const fulfilled = await Order.find({ vanId: van._id, status: "fulfilled" }, {}).populate("customerId", "givenName-_id").lean()
-        const completed = await Order.find({ vanId: van._id, status: "completed" }, {}).populate("customerId", "givenName-_id").lean()
+            // Find order under that customer
+        const outstanding = await Order.find({ vanId: van._id, status: "preparing" }, {}).sort({ 'orderNo': -1 }).populate("customerId", "givenName-_id").lean()
+        const fulfilled = await Order.find({ vanId: van._id, status: "fulfilled" }, {}).sort({ 'orderNo': -1 }).populate("customerId", "givenName-_id").lean()
 
+        //const completed = await Order.find({ vanId: van._id, status: "completed" }, {}).populate("customerId", "givenName-_id").lean()
+
+        //Stringify the order list
         for (let i = 0; i < outstanding.length; i++) {
             outstanding[i].details = JSON.stringify(outstanding[i].details);
         }
 
         for (let i = 0; i < fulfilled.length; i++) {
             fulfilled[i].details = JSON.stringify(fulfilled[i].details);
-
         }
-        for (let i = 0; i < fulfilled.length; i++) {
-            completed[i].details = JSON.stringify(completed[i].details);
+        // get discount order timestamp
+        const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {}).lean()
 
-        }
-        res.render('vendor/order', { "preparingOrders": outstanding, "completedOrders": fulfilled, "completed": completed });
+
+        res.render('vendor/order', { "preparingOrders": outstanding, "fulfilledOrders": fulfilled, "discountTime": discountAwardLimit });
     } catch (err) {
-        return res.redirect('/404-NOT-FOUND')
+        return res.redirect('/vendor')
     }
 }
 
 // Fulfill the order 
 const fulfillOrder = async(req, res) => {
-    let id = req.body._id
+    let id = req.body.orderId
         // Find the order to be fulfilled by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")
@@ -45,9 +45,23 @@ const fulfillOrder = async(req, res) => {
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
+            let now = new Date();
+            let updatetime = new Date(result.updateTime);
+
+            const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {})
+            let timeStamp = parseInt(discountAwardLimit.limit);
+
+            let dist = now - updatetime;
+            if ((dist / 1000) / 60 > timeStamp) {
+                console.log("update discount");
+                let price = parseInt(result.total) * 0.8;
+                await Order.updateOne({ _id: id }, { $set: { discount: true, total: price } }, { timestamps: false })
+            }
+
             // Set status as fulfilled
-            await Order.updateOne({ _id: id }, { $set: { status: 'fulfilled' } })
-            return res.send('fulfilled')
+            await Order.updateOne({ _id: id }, { $set: { status: 'fulfilled' } }, { timestamps: false })
+            console.log('order ' + id + ' fulfilled')
+            return res.redirect('/vendor/order')
         } else {
             return res.send('no order found,please enter order id')
         }
@@ -56,22 +70,27 @@ const fulfillOrder = async(req, res) => {
     }
 }
 
+// Complete the order
 const completeOrder = async(req, res) => {
-    let id = req.body._id
-        // Find the order to be fulfilled by the order id
+    let id = req.body.orderId
+        // Find the order to be completed by the order id
     if (id === undefined || id === null) {
         return res.send("no order found")
     }
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
-            // Set status as fulfilled
-            await Order.updateOne({ _id: id }, { $set: { status: 'complete' } })
+
+            // Set status as complete
+            await Order.updateOne({ _id: id }, { $set: { status: 'completed' } }, { timestamps: false })
+            console.log('order ' + id + ' complete')
+            return res.redirect('/vendor/order')
+
         } else {
             return res.send('no order found,please enter order id')
         }
     } catch (err) {
-        return res.status(400).send('Database query failed')
+        console.log(err)
     }
 }
 module.exports = { getOrder, fulfillOrder, completeOrder }

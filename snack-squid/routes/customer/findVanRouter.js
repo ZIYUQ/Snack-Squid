@@ -3,7 +3,11 @@ const express = require("express")
 const findVanRouter = express.Router();
 const findVanController = require('../../controllers/customer/findVanController')
 
-findVanRouter.get('/', findVanController.getAllVan);
-findVanRouter.post('/', findVanController.chooseVan)
+// render map page
+findVanRouter.get('/', findVanController.renderMap);
+
+// post a van to choose that van
+findVanRouter.post('/:vanName', findVanController.chooseVan)
+
 
 module.exports = findVanRouter

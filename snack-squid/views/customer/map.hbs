@@ -1,4 +1,3 @@
-<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
 <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
 <link rel="stylesheet" href="/customer/css/menu.css">
 
@@ -8,96 +7,45 @@
     <main class='map-container' id=>
 
 
-        <section id='map'></section>
+        <section id='map'>
+        </section>
 
         <section class='location'>
-        
-        <a id="map-profile" class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
 
-        <a href="/customer">
-            <div id="icon-map" class="icon"></div>
-        </a>
+            <div class="top-bar">
 
-        <div class="mapvan"></div>
+                <a href="/customer">
+                    <div id="icon-map" class="icon"></div>
+                </a>
 
-            {{#each Vans}}
-            <div class="vanListing">
-                <p class="vanName">{{this.vanName}}</p>
-                <p class="vanLocation">{{this.location}}</p>
-                <span class="vanId">{{this._id}}</span>
-                <br>
-                <button id="chooseVan"> This Van! </button>
+                <div class="mapvan"></div>
+
+                <a id="map-profile" class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
+
             </div>
 
-            <div id="lineMap" class="line"></div>
-            {{/each}}
+            <div class="vanContainer">
+                {{#each Vans}}
+                <div class="vanListing">
+                    <div class="oneVan">
+                        <p class="vanName">{{this.vanName}}</p>
+                        <p class="vanLocation">{{this.textLocation}}</p>
+                        <p class="geoLocation" hidden>{{this.location}}</p>
+                        <br>
+                    </div>
+                </div>
+                <div id="lineMap" class="line"></div>
+
+                {{/each}}
+            </div>
+
         </section>
     </main>
 
 
 
-    <script type="text/javascript">
-
-        let vans = document.querySelectorAll('.vanListing')
-        console.log(vans)
-        for (let i = 0; i < vans.length; i++) {
-            let vanName = vans[i].querySelector('.vanName').innerHTML
-            let vanLocation = vans[i].querySelector('.vanLocation').innerHTML
-            let vanId = vans[i].querySelector(".vanId").innerHTML
-            let vanbtn = vans[i].querySelector("#chooseVan")
-            vanbtn.addEventListener('click', function () {
-
-                const options = {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ 'vanName': vanName }),
-                    redirect: 'follow'
-                }
-                try {
-                    url = window.location.href
-                    fetch(url, options).then(res => {
-                        if (res.redirected) {
-                            window.location.href = "/customer/menu/van=" + vanName
-                        }
-                    })
-                }
-                catch (err) {
-                    console.log(err)
-                }
-            })
-        }
 
 
-        window.onload = async function () {
-            L.mapquest.key = 'A1HigpvtAiVmfrECeAqUXlsnN6wDUshM';
-            let vans = document.querySelectorAll('.vanListing')
-            var map = L.mapquest.map('map', {
-                center: [-37.816166, 144.966639],
-                layers: L.mapquest.tileLayer('map'),
-                zoom: 15
-            });
-            let geocoder = L.mapquest.geocoding();
-            for (i = 0; i < vans.length; i++) {
-                let vanName = vans[i].querySelector('.vanName').innerHTML
-                let vanLocation = vans[i].querySelector('.vanLocation').innerHTML
-
-                function geocodingCallback(error, result) {
-                    let coordinate = []
-                    L.mapquest.textMarker(coordinate, {
-                        text: vanName,
-                        position: 'right',
-                        type: 'marker',
-                        title: vanId,
-                        icon: {
-                            primaryColor: '#333333',
-                            secondaryColor: '#333333',
-                            size: 'sm'
-                        }
-                    }).addTo(map);
-                }
-            }
-        }
-    </script>
 </section>
+<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+<script src="/customer/js/map.js"></script>

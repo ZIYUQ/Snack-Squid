@@ -1,219 +1,162 @@
 <section id="showOrder">
     <link rel="stylesheet" href="/customer/css/menu.css">
 
-<div class = "container" id="orderContainer">
-    <a class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
-    <a href="/customer"><div class="icon"></div></a>
-
-    <h1 id="title">ORDER</h1>  
-
+    <div class="container" id="orderContainer">
+        <a class="profile" href="/customer/profile">
+            <i class="fas fa-user-circle"></i>
+        </a>
+        <a href="/customer">
+            <div class="icon"></div>
+        </a>
+        <h1 id="title">ORDER</h1>
         <div class="timestamp">
             <p id="alterTime">{{alterTime.limit}}</p>
             <p id="discountTime">{{discountTime.limit}}</p>
         </div>
-
-        <h2 class="notification">You can change your order within 10 minutes</h2>
-
+        <h2 class="notification">You can change your order within {{alterTime.limit}} minutes</h2>
         <div class="state">
-            <button id="preparingButton" onclick="preparingButton()">Outstanding </button>
-            <button id="fulfilledButton" onclick="fulfilledButton()">Fulfilled</button>
-        </div>   
+            <button id="preparingButton" onclick="preparingButton()">Preparing </button>
+            <button id="fulfilledButton" onclick="fulfilledButton()">Ready</button>
+            <button id="completedButton" onclick="completedButton()">Completed</button>
+        </div>
 
-    <div class='preparingOrders' id="preparingOrders">
-        {{#each preparingOrders}}
-        <p id = '{{this._id}}time' hidden>{{this.updateTime}}</p>
-        
-                <table class="orderTable">
-                    <tr>
-                        <td class="orderID">Order ID: {{this._id}} ({{this.vanId.vanName}})</td>
-                        <td class="timeRemaining"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail">{{this.details}}</td>
-                        <td class="orderTime" hidden>{{this.updateTime}}</td>
-                        <td class="ordertime"><span class="thinfont">Order Time: </span>{{moment this.updateTime format="dddd DD.MM.YYYY HH:mm"}}</td>
-                    </tr>
-
-                    <tr>
-                        <td class="totalPrice">Total: ${{this.total}}</td>
-                    </tr>
-                    <tr>
-                        <td class="discountedPrice"></td>
-                    </tr>
-
-
-                    {{#if (isExpired this.updateTime ../alterTime.limit)}}
-                    <tr>
-                    
-                        <td> </td>
-                        <td><a class="change-cancel" href="javascript:void(0);" onclick="changeOrder('{{this._id}}', '0');">cancel order</a>
-                        <br> 
-                        <a class="change-cancel" href="javascript:void(0);" onclick="changeOrder('{{this._id}}', '1');">change order</a></td>
-                    {{/if}}
-                    </tr>
-
-                    
-                </table>
-
-                <div class="line" id="lineOrder"></div>
-
-                <form method="post" action="/customer/order/change/orderId={{this._id}}" id="changeOrder{{this._id}}">
-                    <input type="hidden" name="orderid" id="change{{this._id}}"/>
-                </form>
-
-                <form method="post" action="/customer/order/cancel/orderId={{this._id}}" id="cancelOrder{{this._id}}">
-                    <input type="hidden" name="orderid" id="cancel{{this._id}}"/>
-                </form>
-
-                
-            
-        {{/each}}
-    </div>
-    
-
-    <div class='completedOrders' id='completedOrders'>
-        {{#each completedOrders}}
-            <table class="completedTable">
+        <div class='preparingOrders' id="preparingOrders">
+            {{#each preparingOrders}}
+            <table class="oneOrder orderTable">
                 <tr>
-                    <td>Order ID:</td><td>{{this._id}}</td>
+                    <td class="orderID" hidden>Order ID: {{this._id}} </td>
+                    <td class="orderID">Order No: {{this.orderNo}} ({{this.vanId.vanName}})</td>
+                    <td class="timeRemaining"></td>
                 </tr>
-				<tr>
-                    <td>Details</td>
+                <tr>
                     <td class="detail">{{this.details}}</td>
+                    <td class="updateTime" hidden>{{this.updateTime}}</td>
+                    <td class="ordertime"><span class="thinfont">Order Time: </span>{{moment this.updateTime
+                        format="dddd DD.MM.YYYY HH:mm"}}</td>
                 </tr>
                 <tr>
-                    <td>total amount:</td>
-                    <td>{{this.total}}</td>
+                    <td class="totalPrice">Total: ${{this.total}}</td>
+                    {{#if (isExpired this.updateTime ../alterTime.limit)}}
+                    <td>
+                        <a class="change-cancel" href="javascript:void(0);"
+                            onclick="changeOrder('{{this._id}}', '0');">cancel order</a>
+                        <br>
+                        <a class="change-cancel" href="javascript:void(0);"
+                            onclick="changeOrder('{{this._id}}', '1');">change order</a>
+                    </td>
+                    {{/if}}
                 </tr>
                 <tr>
-                    <td>Van Name:</td>
-                    <td>{{this.vanId.vanName}}</td>
-                </tr>
-                <tr>
-                    <td>Order Time:</td>
-                    <td class="orderTime">{{moment this.orderTime format="dddd DD.MM.YYYY HH:mm"}}</td>
-                </tr>
-                
-                <tr>
-                    <td>get 20% off:</td>
-                    <td>{{this.discount}}</td>
+                    <td class="discountedPrice"></td>
                 </tr>
             </table>
-        {{/each}}
+            <div class="line" id="lineOrder"></div>
+            <form method="post" action="/customer/order/change/orderId={{this._id}}" id="changeOrder{{this._id}}">
+            </form>
+            <form method="post" action="/customer/order/cancel/orderId={{this._id}}" id="cancelOrder{{this._id}}">
+            </form>
+            {{/each}}
+        </div>
+
+        <div class='fulfilledOrders' id='fulfilledOrders'>
+            {{#each fulfilledOrders}}
+            <table class="oneOrder fulfilledTable">
+                <tr>
+                    <td class="orderID" hidden>Order ID: {{this._id}} </td>
+                    <td class="orderID">Order No: {{this.orderNo}} ({{this.vanId.vanName}})</td>
+                    <td class="timeRemaining"></td>
+                </tr>
+                <tr>
+                    <td class="detail">{{this.details}}</td>
+                    <td class="updateTime" hidden>{{this.updateTime}}</td>
+                    <td class="ordertime">
+                        <span class="thinfont">Order Time: </span>
+                        {{moment this.updateTime format="dddd DD.MM.YYYY HH:mm"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="totalPrice">Total: ${{this.total}}</td>
+                    <td> <span class="thinfont">get 20% off:</span> {{this.discount}}</td>
+                </tr>
+            </table>
+            <div class="line" id="lineOrder"></div>
+            {{/each}}
+        </div>
+
+        <div class='completedOrders' id='completedOrders'>
+            {{#each completedOrders}}
+            <table class="oneOrder completedTable">
+                <tr>
+                    <td class="orderID" hidden>Order ID: {{this._id}} </td>
+                    <td class="orderID">Order No: {{this.orderNo}} ({{this.vanId.vanName}})</td>
+                    <td class="timeRemaining"></td>
+                </tr>
+                <tr>
+                    <td class="detail">{{this.details}}</td>
+                    <td class="updateTime" hidden>{{this.updateTime}}</td>
+                    <td class="ordertime">
+                        <span class="thinfont">Order Time: </span>
+                        {{moment this.updateTime format="dddd DD.MM.YYYY HH:mm"}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="totalPrice">Total: ${{this.total}}</td>
+                    <td>
+                        <span class="thinfont">get 20% off:</span>
+                        {{this.discount}}
+                    </td>
+                </tr>
+            </table>
+            <div class="line" id="lineOrder"></div>
+            {{/each}}
+        </div>
     </div>
-    
-    <script src="/customer/js/order.js"></script>
-    <script src='/customer/js/helper.js'></script>
-</div>
 </section>
-{{!-- 
-    <div class = "container">
-        <a class="profile" href="/customer/profile"><i class="fas fa-user-circle"></i></a>
-        <h1 id="title">ORDER</h1>
 
-        <div class="orderInfo">
-            <div class="state">
-                <span>preparing orders</span>
-                <span>fulfilled orders</span>
-            </div>
+<script src="/customer/js/order.js"></script>
+<script src='/customer/js/helper.js'></script>
 
-            <div class="preparing">
-                <div class="tableLeft">
-                    {{#each preparingOrders}}
-                        <div class="tableRight">
-                            <p>Order ID:</p>
-                            <p>Details</p>
-                            <p>total amount:</p>
-                            <p>Van Name:</p>
-                            <p>Order Time:</p>
-                            <p>You can change the order in:</p>
-                            <p>Order will be completed in:</p>
-                        </div>
 
-                        <div class="tableRight">     
-                            <p>{{this._id}}</p>
-                            <p class="details">{{this.details}}</p>
-                            <p>{{this.total}}</p>
-                            <p>{{this.vanId.vanName}}</p>
-                            <p class="orderTime">{{this.updateTime}}</p>
-                            <p class="timeStamp">{{this.timestamp.alterOrderLimit}}mins</p>
-                            <p class="dicountTime">{{this.timestamp.discountAwardLimit}}mins</p>
-                            <p class="timeRemaining"></p>
-                        </div>
-
-                        <div class="line"></div>                            
-
-                    {{/each}}
-                </div>
-
-            </div>
-
-            <div class="completed">
-                <div class="tableLeft">
-                    {{#each completedOrders}}
-                            <p>Order ID:</p>
-                            <p>Details</p>
-                            <p>total amount:</p>
-                            <p>Van Name:</p>
-                            <p>Order Time:</p>
-                            <p>get 20% off:</p>
-                            <div class="line"></div>
-                    {{/each}}
-                </div>
-
-                <div class="tableRight">        
-                    {{#each completedOrders}}
-                            <p>{{this._id}}</p>
-                            <p class="details">{{this.details}}</p>
-                            <p>{{this.total}}</p>
-                            <p>{{this.vanId.vanName}}</p>
-                            <p class="orderTime">{{this.updateTime}}</p>
-                            <p>{{this.discount}}</p>
-                            <div class="line"></div>
-                    {{/each}}
-                </div>
-
-            </div>
-
-        </div>
-
-    </div> --}}
-
-    {{!-- <div id="{{this._id}}popup" class="modal-background">
-        <div class="modal-foreground">
-            <p id="popupMessage">Sorry, you cannot change order after {{this.timestamp.alterOrderLimit}}mins</p>
-            <p><span style="font-size: 40px" onclick="closeModal()">&times;</span></p>
-        </div>
-    </div> --}}
-                
 <script>
-
-
     function changeOrder(orderId, status) {
-        
-        if (status === '1'){
-            document.getElementById('changeOrder'+ String(orderId)).submit();
-        }else{
-            document.getElementById('cancelOrder'+ String(orderId)).submit();
+        if (status === '1') {
+            document.getElementById('changeOrder' + String(orderId)).submit();
+        } else {
+            document.getElementById('cancelOrder' + String(orderId)).submit();
         }
     }
 
-
-
-    function preparingButton(){
-        document.getElementById('fulfilledButton').style.background="none";
-        document.getElementById('preparingButton').style.background="#DBCAC2";
-        document.getElementById('preparingOrders').style.display="flex";
-        document.getElementById('completedOrders').style.display="none";
-
+    function preparingButton() {
+        document.getElementById('fulfilledButton').style.background = "none";
+        document.getElementById('fulfilledButton').style.transition = "ease-in-out, .1s ease-in-out";
+        document.getElementById('completedButton').style.background = "none";
+        document.getElementById('completedButton').style.transition = "ease-in-out, .1s ease-in-out";
+        document.getElementById('preparingButton').style.background = "#DBCAC2";
+        document.getElementById('preparingOrders').style.display = "flex";
+        document.getElementById('fulfilledOrders').style.display = "none";
+        document.getElementById('completedOrders').style.display = "none";
     }
 
-    function fulfilledButton(){
-        document.getElementById('preparingButton').style.background="none";
-        document.getElementById('fulfilledButton').style.background="#DBCAC2";
-        document.getElementById('preparingOrders').style.display="none";
-        document.getElementById('completedOrders').style.display="flex";
+    function fulfilledButton() {
+        document.getElementById('preparingButton').style.background = "none";
+        document.getElementById('preparingButton').style.transition = "ease-in-out, .1s ease-in-out";
+        document.getElementById('completedButton').style.background = "none";
+        document.getElementById('completedButton').style.transition = "ease-in-out, .1s ease-in-out";
+        document.getElementById('fulfilledButton').style.background = "#DBCAC2";
+        document.getElementById('preparingOrders').style.display = "none";
+        document.getElementById('fulfilledOrders').style.display = "flex";
+        document.getElementById('completedOrders').style.display = "none";
+    }
 
+    function completedButton() {
+        document.getElementById('preparingButton').style.background = "none";
+        document.getElementById('preparingButton').style.transition = "ease-in-out, .1s ease-in-out";
+        document.getElementById('fulfilledButton').style.background = "none";
+        document.getElementById('fulfilledButton').style.transition = "ease-in-out, .1s ease-in-out";
+        document.getElementById('completedButton').style.background = "#DBCAC2";
+        document.getElementById('preparingOrders').style.display = "none";
+        document.getElementById('fulfilledOrders').style.display = "none";
+        document.getElementById('completedOrders').style.display = "flex";
     }
 
 </script>
