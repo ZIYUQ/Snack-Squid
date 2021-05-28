@@ -1,7 +1,7 @@
 // const { model } = require("mongoose");
 
 // Update the count down every 1 second
-let x = setInterval(function () {
+let x = setInterval(function() {
 
     // get required section
     let orderTables = document.getElementsByClassName("orderTable");
@@ -12,7 +12,7 @@ let x = setInterval(function () {
         let tds = orderTables[i].getElementsByTagName("td")
         let orderTime;
         let timeRemaining;
-       
+
 
         for (let j = 0; j < tds.length; j++) {
 
@@ -53,8 +53,8 @@ let x = setInterval(function () {
 
 }, 1000);
 
-// list order food details of outstanding orders
-let orderDetail = document.getElementsByClassName("orderTable")
+// list order food details of orders
+let orderDetail = document.getElementsByClassName("oneOrder")
 
 for (let i = 0; i < orderDetail.length; i++) {
     let tds = orderDetail[i].getElementsByTagName("td");
@@ -78,32 +78,4 @@ for (let i = 0; i < orderDetail.length; i++) {
         `
 
     }
-}
-
-// list order food details of fulfilled orders
-let completedOrderDetail = document.getElementsByClassName("completedTable")
-
-for (let i = 0; i < completedOrderDetail.length; i++) {
-    let tds = completedOrderDetail[i].getElementsByTagName("td");
-    let foods;
-    let details;
-
-    for (let j = 0; j < tds.length; j++) {
-        if (tds[j].className == "detail") {
-            foods = JSON.parse(tds[j].innerHTML);
-            details = tds[j];
-        }
-    }
-    details.innerHTML = ``;
-    for (let j = 0; j < foods.length; j++) {
-        details.innerHTML += `
-        <tr>
-        <td>${foods[j].quantity}</td>
-        <td>${foods[j].foodName}</td>
-        <br>
-        </tr>
-        `
-
-    }
-
 }
