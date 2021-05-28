@@ -99,13 +99,10 @@ const getOrder = async(req, res) => {
         for (let i = 0; i < fulfilledOrders.length; i++) {
             fulfilledOrders[i].details = JSON.stringify(fulfilledOrders[i].details);
         }
-
+        console.log(completedOrders.length)
         for (let i = 0; i < completedOrders.length; i++) {
             completedOrders[i].details = JSON.stringify(completedOrders[i].details);
         }
-
-        console.log(outstandingOrders[0].details)
-        console.log(fulfilledOrders[0].details)
 
         // get the timestamp 
         const alterOrderLimit = await Timestamp.findOne({ timeLimitType: "alterOrderLimit" }, {}).lean()
@@ -113,6 +110,7 @@ const getOrder = async(req, res) => {
         alterOrderLimit.limit = JSON.stringify(alterOrderLimit.limit)
         res.render('customer/showOrder', { "preparingOrders": outstandingOrders, "fulfilledOrders": fulfilledOrders, "completedOrders": completedOrders ,"alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
     } catch (err) {
+        console.log(err)
         return res.redirect('/404-NOT-FOUND')
     }
 }
