@@ -81,29 +81,37 @@ const placeOrder = async(req, res) => {
 }
 
 
-// get all outstanding and fulfilled order
+// get all outstanding, fulfilled and completed orders
 const getOrder = async(req, res) => {
     let userId = req.session.userId
     userId = new ObjectId(userId)
     try {
         // find customer detail
         const customer = await Customer.findOne({ _id: userId })
-            // find order under that customer
-        const outstandingOrder = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
-        const fulfilledOrder = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).populate("vanId", "vanName-_id").lean()
-        for (let i = 0; i < outstandingOrder.length; i++) {
-            outstandingOrder[i].details = JSON.stringify(outstandingOrder[i].details);
+        // find order under that customer
+        const outstandingOrders = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
+        const fulfilledOrders = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
+        const completedOrders = await Order.find({ customerId: customer._id, status: "completed" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
+        for (let i = 0; i < outstandingOrders.length; i++) {
+            outstandingOrders[i].details = JSON.stringify(outstandingOrders[i].details);
         }
 
-        for (let i = 0; i < fulfilledOrder.length; i++) {
-            fulfilledOrder[i].details = JSON.stringify(fulfilledOrder[i].details);
+        for (let i = 0; i < fulfilledOrders.length; i++) {
+            fulfilledOrders[i].details = JSON.stringify(fulfilledOrders[i].details);
         }
+
+        for (let i = 0; i < completedOrders.length; i++) {
+            completedOrders[i].details = JSON.stringify(completedOrders[i].details);
+        }
+
+        console.log(outstandingOrders[0].details)
+        console.log(fulfilledOrders[0].details)
 
         // get the timestamp 
         const alterOrderLimit = await Timestamp.findOne({ timeLimitType: "alterOrderLimit" }, {}).lean()
         const discountAwardLimit = await Timestamp.findOne({ timeLimitType: "discountAwardLimit" }, {}).lean()
         alterOrderLimit.limit = JSON.stringify(alterOrderLimit.limit)
-        res.render('customer/showOrder', { "preparingOrders": outstandingOrder, "completedOrders": fulfilledOrder, "alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
+        res.render('customer/showOrder', { "preparingOrders": outstandingOrders, "fulfilledOrders": fulfilledOrders, "completedOrders": completedOrders ,"alterTime": alterOrderLimit, "discountTime": discountAwardLimit });
     } catch (err) {
         return res.redirect('/404-NOT-FOUND')
     }
@@ -148,7 +156,6 @@ const changeOrder = async(req, res) => {
     let orderId = req.params.orderId
     if (orderId) {
         let result = await Order.findOne({ _id: orderId }, {})
-
         if (result === null || result === undefined) {
             return res.send("no order found")
         }
@@ -180,5 +187,6 @@ const renderChangeOrderPage = async(req, res) => {
         return res.status(400).send("Database query 'Order' failed")
     }
 }
+
 
 module.exports = { placeOrder, getOrder, changeOrder, cancelOrder, renderChangeOrderPage }

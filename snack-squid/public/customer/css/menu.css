@@ -486,6 +486,10 @@ h2,
     background: none;
 }
 
+#completedButton{
+    background: none;
+}
+
 table {
     padding: 8px;
     background-color: #F1E9E1;
@@ -496,6 +500,7 @@ table {
 }
 
 .preparingOrders,
+.fulfilledOrders,
 .completedOrders {
     grid-area: preparingOrders;
     display: flex;
@@ -507,6 +512,7 @@ table {
     font-weight: 600;
 }
 
+.fulfilledOrders,
 .completedOrders{
     display: none;
 }
@@ -698,6 +704,7 @@ p {
         margin-left: 5%;
     }
     .preparingOrders,
+    .fulfilledOrders,
     .completedOrders {
         font-size: 17px;
         line-height: 28px;
