@@ -850,5 +850,10 @@ p {
         margin: 5px 0 10px 0;
 
     }
-    
+
+    .state button {
+        width: 134px;
+        height: 38px;
+        font-family: 'Josefin Slab', serif;
+    }
 }
