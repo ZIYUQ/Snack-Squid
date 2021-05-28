@@ -31,14 +31,20 @@ Project is created with:
 * Express : 4.17.1
 * mongoose : 5.12.3
 
+### Accessing MongoDB Atlas
+- Username: ziyuq@student.unimelb.edu.au
+- Password: Shsss06@20
+
+### URL of heroku
+    http://snack-squid.herokuapp.com/customer/ for customer app
+    http://snack-squid.herokuapp.com/vendor/   for vendor app
+
+### Commit id
+
 ## Deliverable 2 Instruction
 ### Notes: 
 1. Use *Postman* to test our routes.
 2. If the route is working, a json formatted output will be sent to you.
-
-### Accessing MongoDB Atlas
-- Username: ziyuq@student.unimelb.edu.au
-- Password: Shsss06@20
 
 ### Customer
 1. To see the menu, go to [https://snack-squid.herokuapp.com/customer/menu] with GET method.
@@ -101,6 +107,6 @@ To logout, use http://snack-squid.herokuapp.com/customer/profile and click logou
 - [x] User Interface (UI)mockup
 - [x] App server mockup
 - [x] Front-end + back-end (one feature)
-- [ ] Complete system + source code
+- [x] Complete system + source code
 - [ ] Report on your work(+ test1 feature)
 

@@ -11,7 +11,7 @@ const logout = async(req, res) => {
 const close = async(req, res) => {
     let ID = req.session.vanId;
     try {
-        
+
         geolocation = {
             'latitude': 0.0,
             'longitude': 0.0
