@@ -43,7 +43,7 @@ Project is created with:
 
 ### Dummy Customer
     1. email address: cathy@gmail.com   password: a123123a
-    2. email address:   password:
+    2. email address: ziyuq@gmail.com   password: a123123a
     3. email address:   password:
     4. email address:   password:
     5. email address:   password:

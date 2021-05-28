@@ -6,6 +6,7 @@ const passport = require('passport');
 require('../../config/passport')(passport);
 
 
+// vendor register
 registerRouter.post('/', passport.authenticate('van-signup', {
     successRedirect: '/vendor/', // redirect to the homepage
     failureRedirect: '/customer/signup/', // redirect to signup page

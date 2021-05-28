@@ -29,7 +29,7 @@
         <div class="detail-img">
             <img src="/customer/images/{{this.photo}}">
         </div>
-
+        {{!-- In food detail page, there is a section to add into cart --}}
         <div class="foodListing" id="detailListing">
             <h1 class="foodName">{{this.foodName}}</h1>
             <span class="description">description: {{this.description}}</span>
@@ -45,8 +45,6 @@
                 <button id="cartbutton" onclick="on()"><img id="Cart-img"
                         src="/customer/images/Shopping cartS.png"></button>
             </div>
-
-
         </div>
         {{/each}}
 
