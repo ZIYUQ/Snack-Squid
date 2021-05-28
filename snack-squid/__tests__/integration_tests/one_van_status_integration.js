@@ -8,7 +8,7 @@ const Van = require('../../model/van')
 
 const app = require('../../app');
 
-describe('Integration test: set van status', () => {
+describe('Integration test: set van status open', () => {
 
     let agent = request.agent(app);
 
@@ -17,8 +17,6 @@ describe('Integration test: set van status', () => {
     beforeAll(() => agent
         // send a POST request to login
         .post('/vendor')
-        // IMPORTANT: without the content type setting your request
-        // will be ignored by express
         .set('Content-Type', 'application/x-www-form-urlencoded')
         // send the username and password
         .send({
@@ -35,17 +33,28 @@ describe('Integration test: set van status', () => {
                 .map(item => item.split(';')[0])
                 .join(';')
         })
+
     );
 
+    // Test 1: test van open
     test("check if van can open", async() => {
         let location = { location: "new location" }
+        // get response from routes
         const response = await agent.post('/vendor/open-for-business/open').send(location);
-        expect(response.statusCode).toBe(200);
+
+        expect(response.statusCode).toBe(302);
+        expect(response.text).toContain('/vendor/order');
     })
 
+
+    // Test2: test close van
     test("check if van can close", async() => {
         const response = await agent
             .get('/vendor/profile/close');
-        expect(response.statusCode).toBe(200);
+        expect(response.statusCode).toBe(302);
+        expect(response.text).toContain('/vendor/');
     })
-})
+
+    
+});
+

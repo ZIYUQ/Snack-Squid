@@ -6,8 +6,8 @@ describe('openController', function() {
         redirect: jest.fn()
 }
 
-    // request object does not require any properties to test
-    // getAllAuthors
+    //  properties needed for request to test
+    //  function close
     const req = {
         session:{vanId: '60ab52f48210f61385c3d5a7'},
         logout: jest.fn()
@@ -17,8 +17,7 @@ describe('openController', function() {
         // clear the render method (also read about mockReset)
         res.redirect.mockClear();
         
-        // mock the Mongoose find() method return a
-        // dummy list of authors
+        // mock the Mongoose updateOne method
         Van.updateOne = jest.fn().mockResolvedValue([
             {
                 _id: '60ab52f48210f61385c3d5a7',
@@ -26,9 +25,7 @@ describe('openController', function() {
                 open: "true"
             }
         ]);
-        // We are using the lean() method, so need to 
-        // mock that as well. I'm mocking the function
-        // to return Plain Old JavaScript Object (POJO)
+         // mock lean() method
         Van.updateOne.mockImplementationOnce(() => ({
             lean: jest.fn().mockReturnValue(
                 {
@@ -51,26 +48,22 @@ describe('openController', function() {
     });
     afterEach(() => {
         // Clear mock (all calls etc) after each test. 
-        // It's needed when you're using console somewhere in the tests so you have clean mock each time
         console.log.mockClear();
     });
 
-
-      test("console log", ()=>{
+    // Test 1: test the console
+    test("Test 1: test console log, expecting van 60ab52f48210f61385c3d5a7 logout", ()=>{
         expect(console.log).toBeCalledTimes(1);
         expect(console.log).toHaveBeenLastCalledWith('van 60ab52f48210f61385c3d5a7 logout')
-      });
+    });
 
-      test("Test case: testing with existing van id \
-      60ab52f48210f61385c3d5a7, update van status to close, expecting redirect to homepage\
-      with console", () => {
-        // when I run the controller, I expect that the render method will
+    test("Test 2: testing with existing van id 60ab52f48210f61385c3d5a7, set van status to close,\
+     expecting redirect to homepage ", () => {
+        // when I run the controller, I expect that the redirect method will
         // be called exactly once        
         expect(res.redirect.mock.calls.length).toEqual(1);
-        // and because I'm looking up a food that I expect to be in my
-        // database, the controller should render the page and not
-        // return an error message!
-        // expect(console.log).toHaveBeenCalledWith('the van is open');
+        
+        // expect to redirect to homepage route
         expect(res.redirect).toHaveBeenCalledWith('/vendor/');
         });
     })
