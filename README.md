@@ -39,7 +39,10 @@ Project is created with:
     http://snack-squid.herokuapp.com/customer/ for customer app
     http://snack-squid.herokuapp.com/vendor/   for vendor app
 
-### Commit id
+### Testing 
+    npm test -- open_controller_unit.js   unit testing van's open status
+    npm test -- profile_controller_unit.js   unit testing van's close status
+    npm test one_van_status_integration.js   integration test van's status
 
 ### Dummy Customer
     1. email address: cathy@gmail.com   password: 1234qwer
