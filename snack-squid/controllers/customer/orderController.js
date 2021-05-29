@@ -16,6 +16,7 @@ const placeOrder = async(req, res) => {
         let foodName = cart[i]["foodName"]
         try {
             let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
+            // update cart details
             cart[i]["foodName"] = foodDetails.foodName
             cart[i]["price"] = foodDetails.price
         } catch (err) {
@@ -92,6 +93,7 @@ const getOrder = async(req, res) => {
         const outstandingOrders = await Order.find({ customerId: customer._id, status: "preparing" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
         const fulfilledOrders = await Order.find({ customerId: customer._id, status: "fulfilled" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
         const completedOrders = await Order.find({ customerId: customer._id, status: "completed" }, {}).sort({ '_id': -1 }).populate("vanId", "vanName-_id").lean()
+        // stringfy food details in each order
         for (let i = 0; i < outstandingOrders.length; i++) {
             outstandingOrders[i].details = JSON.stringify(outstandingOrders[i].details);
         }
@@ -114,6 +116,7 @@ const getOrder = async(req, res) => {
     }
 }
 
+// cancel order
 const cancelOrder = async(req, res) => {
     let orderId = req.params.orderId
     if (orderId === undefined || orderId === null) {
@@ -122,7 +125,7 @@ const cancelOrder = async(req, res) => {
     try {
         let result = await Order.findOne({ _id: orderId }, {})
 
-        // Set status as fulfilled
+        // update order status
         await Order.updateOne({ _id: orderId }, { $set: { status: 'cancelled' } }, { timestamps: false })
         console.log("cancel order", orderId, "successfully!")
         return res.redirect('/customer/order')
@@ -132,15 +135,17 @@ const cancelOrder = async(req, res) => {
     }
 }
 
+// function to change order food
 const changeOrder = async(req, res) => {
     let cart = req.body;
     // get food price and calculate the total price
     let totalPrice = 0;
     for (let i = 0; i < cart.length; i++) {
-        // get the food price
+        
         let foodName = cart[i]["foodName"]
         try {
             let foodDetails = await Menu.findOne({ foodName: foodName }, { foodName: true, price: true })
+            // update cart details 
             cart[i]["foodName"] = foodDetails.foodName
             cart[i]["price"] = foodDetails.price
         } catch (err) {
@@ -150,6 +155,7 @@ const changeOrder = async(req, res) => {
         totalPrice += cart[i]["price"] * cart[i]["quantity"]
     }
 
+    // get changing order id
     let orderId = req.params.orderId
     if (orderId) {
         let result = await Order.findOne({ _id: orderId }, {})
@@ -158,7 +164,7 @@ const changeOrder = async(req, res) => {
         }
 
         const orderChanged = { details: cart, total: totalPrice }
-
+        // udpate order
         await Order.findOneAndUpdate({ _id: orderId }, orderChanged, { new: true });
         console.log("order", orderId, "updated successfully!")
         return res.redirect('/customer/order')
@@ -166,13 +172,15 @@ const changeOrder = async(req, res) => {
     }
 }
 
+// render change order page
 const renderChangeOrderPage = async(req, res) => {
     let orderId = req.params.orderId
-        // orderId = new ObjectId(orderId)
+        
     if (orderId === undefined || orderId === null) {
         return res.send("no order found")
     }
     try {
+        // get all menus
         const order = await Order.findOne({ _id: orderId }, { details: true }).lean()
         const snacks = await Menu.find({ type: 'snack' }, {}).lean()
         const drinks = await Menu.find({ type: 'drink' }, {}).lean()

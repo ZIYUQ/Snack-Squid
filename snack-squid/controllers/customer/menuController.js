@@ -8,6 +8,7 @@ const getMenu = async(req, res) => {
         const snacks = await Menu.find({ type: 'snack' }, {}).lean()
         const drinks = await Menu.find({ type: 'drink' }, {}).lean()
         const van = await Van.findOne({vanName: vanName}, {}).lean()
+        // if no van, redirect to error page
         if (van.length == 0) {
             return res.redirect('/404-NOT-FOUND')
         }
@@ -27,6 +28,7 @@ const getMenu = async(req, res) => {
 // get food details and render the foodDetails page
 const getFoodDetails = async(req, res) => {
     try {
+        // find the food
         const food = await Menu.find({ tag: req.params.tag }, { foodName: true, price: true, photo: true, description: true }).lean()
             // if food does not exist
         if (food.length == 0) {

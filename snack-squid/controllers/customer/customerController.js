@@ -37,11 +37,13 @@ const renderProfilePage = async(req, res, status) => {
     try {
         let result = await Customer.findOne({ _id: userId }, { givenName: true, familyName: true, emailAddress: true }).lean()
         if (result) {
+            // render to view profile page
             if (status === 1) {
                 res.render('customer/profile', { "customer": result })
             }
-            if (status === 0) {
 
+            // render to edit profile page
+            if (status === 0) {
                 res.render('customer/editProfile', { "customer": result })
             }
         } else {
@@ -62,6 +64,7 @@ const logout = (req, res) => {
     return res.redirect('/customer/')
 }
 
+// used to update customer profile
 const updateProfile = async(req, res) => {
 
     const customerid = req.params.customerid;
@@ -71,6 +74,7 @@ const updateProfile = async(req, res) => {
         let familyname = req.body.familyName;
         let password = req.body.password;
 
+        // udpate the information that customer has changed
         if (givenname){
             await Customer.updateOne({ _id: customerid }, { $set: { givenName: givenname } })
         }
@@ -80,11 +84,11 @@ const updateProfile = async(req, res) => {
         if (password){
             await Customer.updateOne({ _id: customerid }, { $set: { password: customer.generateHash(req.body.password) } })
         }
-           
+        
+        // get customer after updating
         customer = await Customer.findOne({ _id: customerid }, { givenName: true, familyName: true, emailAddress: true }).lean()
 
         if (customer) {
-            // res.render('customer/profile', { "customer": customer })
             console.log("update profile sucessfully")
             res.render('customer/profile', { "customer": customer })
         } else {

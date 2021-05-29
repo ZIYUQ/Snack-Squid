@@ -1,3 +1,4 @@
+// initialise all variable needed
 let foodListings = document.querySelectorAll('.foodListing')
 let foods = []
 let addCarts = []
@@ -11,8 +12,7 @@ if (cartItems == null) {
     
 }
 
-
-
+// update href 
 let hrefFoodDetailSelectors = document.querySelectorAll('.hrefFoodDetail');
 let url = window.location.href;
 for (let i = 0; i < hrefFoodDetailSelectors.length; i++){
@@ -21,6 +21,7 @@ for (let i = 0; i < hrefFoodDetailSelectors.length; i++){
     hrefFoodDetailSelectors[i].href = url + "/" + foodTag
 }
 
+// get food that customer added to cart
 for (let i = 0; i < foodListings.length; i++) {
     let foodName = foodListings[i].querySelector('.foodName').innerHTML
     let foodPrice = parseInt(foodListings[i].querySelector('.foodPrice').innerHTML.charAt(1))
@@ -47,12 +48,14 @@ for (let i = 0; i < foodListings.length; i++) {
         quantitySelector.innerHTML = 0
     }
 
+    // update cart details
     let addCart = foodListings[i].querySelector('.addCart')
     addCarts.push(addCart)
     let removeCart = foodListings[i].querySelector('.removeCart')
     removeCarts.push(removeCart)
 }
 
+// update cart number shown in cart
 let cartNumbers = localStorage.getItem('cartNumbers');
 if (cartNumbers == undefined) {
     document.getElementById("basket_span").innerHTML = 0;

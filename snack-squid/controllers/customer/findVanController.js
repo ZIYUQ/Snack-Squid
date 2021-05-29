@@ -1,5 +1,6 @@
 const Van = require('../../model/van')
 
+// render map page
 const renderMap = async(req, res) => {
     try {
         const openVans = await Van.find({ open: true }, { vanName: true, location: true, textLocation: true }).lean()
@@ -13,6 +14,7 @@ const renderMap = async(req, res) => {
     }
 }
 
+// used to choose van
 const chooseVan = (req, res) => {
     let vanName = req.body.vanName
     console.log('choosing van:', vanName)
