@@ -29,7 +29,6 @@ const close = async(req, res) => {
 const changetextLocation = async(req, res) => {
     let ID = req.session.vanId;
     let newLocation = req.body.newLocation
-    console.log(newLocation)
     try {
         await Van.updateOne({ _id: ID }, { $set: { textLocation: newLocation, open: true } })
         console.log('change to ' + newLocation)
