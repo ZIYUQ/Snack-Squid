@@ -9,7 +9,7 @@ describe('openController', function() {
     //  properties needed for request to test
     //  function close
     const req = {
-        session:{vanId: '60ab52f48210f61385c3d5a7'},
+        session:{vanId: '60b22de29833ae2d9238ddf7'},
         logout: jest.fn()
     };
 
@@ -20,8 +20,8 @@ describe('openController', function() {
         // mock the Mongoose updateOne method
         Van.updateOne = jest.fn().mockResolvedValue([
             {
-                _id: '60ab52f48210f61385c3d5a7',
-                vanName: "Alvy",
+                _id: '60b22de29833ae2d9238ddf7',
+                vanName: "SnackSquid",
                 open: "true"
             }
         ]);
@@ -29,8 +29,8 @@ describe('openController', function() {
         Van.updateOne.mockImplementationOnce(() => ({
             lean: jest.fn().mockReturnValue(
                 {
-                    _id: '60ab52f48210f61385c3d5a7',
-                    vanName: "Alvy",
+                    _id: '60b22de29833ae2d9238ddf7',
+                    vanName: "SnackSquid",
                     open: "true"
                 }),
                 
@@ -52,12 +52,12 @@ describe('openController', function() {
     });
 
     // Test 1: test the console
-    test("Test 1: test console log, expecting van 60ab52f48210f61385c3d5a7 logout", ()=>{
+    test("Test 1: test console log, expecting van logout", ()=>{
         expect(console.log).toBeCalledTimes(1);
-        expect(console.log).toHaveBeenLastCalledWith('van 60ab52f48210f61385c3d5a7 logout')
+        expect(console.log).toHaveBeenLastCalledWith('van 60b22de29833ae2d9238ddf7 logout')
     });
 
-    test("Test 2: testing with existing van id 60ab52f48210f61385c3d5a7, set van status to close,\
+    test("Test 2: testing with existing van, set van status to close,\
      expecting redirect to homepage ", () => {
         // when I run the controller, I expect that the redirect method will
         // be called exactly once        

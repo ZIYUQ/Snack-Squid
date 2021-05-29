@@ -20,8 +20,8 @@ describe('Integration test: set van status open', () => {
         .set('Content-Type', 'application/x-www-form-urlencoded')
         // send the username and password
         .send({
-            vanName: 'Alvy',
-            password: '123123',
+            vanName: 'SnackSquid',
+            password: '1234qwer',
         })
         // when we get back the cookie, store it in a variable.
         // If the API server returns a token store it here instead

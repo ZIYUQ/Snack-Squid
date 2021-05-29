@@ -20,8 +20,8 @@ describe('openController', function() {
         // mock the Mongoose updateOne method
         Van.updateOne = jest.fn().mockResolvedValue([
             {
-                _id: '60ab52f48210f61385c3d5a7',
-                vanName: "Alvy",
+                _id: '60b22de29833ae2d9238ddf7',
+                vanName: "SnackSquid",
                 open: "false"
             }
         ]);
@@ -30,8 +30,8 @@ describe('openController', function() {
         Van.updateOne.mockImplementationOnce(() => ({
             lean: jest.fn().mockReturnValue(
                 {
-                    _id: '60ab52f48210f61385c3d5a7',
-                    vanName: "Alvy",
+                    _id: '60b22de29833ae2d9238ddf7',
+                    vanName: "SnackSquid",
                     open: "false"
                 }),
                 
@@ -59,8 +59,7 @@ describe('openController', function() {
      });
 
     // Test 2: testing correct redirect routes 
-    test("Test 2: testing with existing van id \
-      60ab52f48210f61385c3d5a7, update van status to open, expecting redirect to order page \
+    test("Test 2: testing with existing van, update van status to open, expecting redirect to order page \
       with console", () => {
         // when I run the controller, I expect that the redirect method will
         // be called exactly once        
