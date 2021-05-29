@@ -11,7 +11,7 @@ const checkLocation = async(req, res) => {
             return res.render('vendor/open')
         }
     } catch (err) {
-        console.log("Database query collection 'menu' failed!")
+        console.log("Database query collection 'van' failed!")
         return res.redirect('/vendor')
     }
 }
@@ -29,7 +29,7 @@ const openForBusiness = async(req, res) => {
 
 
     } catch (err) {
-        console.log("Database query collection 'menu' failed!")
+        console.log("Database query collection 'van' failed!")
         return res.redirect('/vendor')
     }
 }
@@ -41,7 +41,7 @@ const updateLocation = async(ID, vanLocation, res) => {
         await Van.updateOne({ _id: ID }, { $set: { textLocation: vanLocation } })
         return 1
     } catch (err) {
-        console.log("Database query collection 'menu' failed!")
+        console.log("Database query collection 'van' failed!")
         return res.redirect('/vendor')
     }
 }
@@ -54,7 +54,7 @@ const updategeoLocation = async(req, res) => {
         geoLocation = req.body;
         await Van.updateOne({ _id: ID }, { $set: { location: geoLocation } })
     } catch (err) {
-        console.log("Database query collection 'menu' failed!")
+        console.log("Database query collection 'van' failed!")
         return res.redirect('/vendor')
     }
 }

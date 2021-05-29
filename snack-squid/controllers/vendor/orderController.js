@@ -31,6 +31,7 @@ const getOrder = async(req, res) => {
 
         res.render('vendor/order', { "preparingOrders": outstanding, "fulfilledOrders": fulfilled, "discountTime": discountAwardLimit });
     } catch (err) {
+        console.log("Database query collection 'van' failed!")
         return res.redirect('/vendor')
     }
 }
@@ -39,9 +40,6 @@ const getOrder = async(req, res) => {
 const fulfillOrder = async(req, res) => {
     let id = req.body.orderId
         // Find the order to be fulfilled by the order id
-    if (id === undefined || id === null) {
-        return res.send("no order found")
-    }
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
@@ -66,7 +64,8 @@ const fulfillOrder = async(req, res) => {
             return res.send('no order found,please enter order id')
         }
     } catch (err) {
-        return res.status(400).send('Database query failed')
+        console.log("Database query collection 'order' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 
@@ -74,9 +73,6 @@ const fulfillOrder = async(req, res) => {
 const completeOrder = async(req, res) => {
     let id = req.body.orderId
         // Find the order to be completed by the order id
-    if (id === undefined || id === null) {
-        return res.send("no order found")
-    }
     try {
         result = await Order.findOne({ _id: id }, {})
         if (result) {
@@ -90,7 +86,8 @@ const completeOrder = async(req, res) => {
             return res.send('no order found,please enter order id')
         }
     } catch (err) {
-        console.log(err)
+        console.log("Database query collection 'order' failed!")
+        return res.redirect('/404-NOT-FOUND')
     }
 }
 module.exports = { getOrder, fulfillOrder, completeOrder }
