@@ -5,8 +5,10 @@ const registerRouter = express.Router()
 const passport = require('passport');
 require('../../config/passport')(passport);
 
+const pageController = require('../../controllers/vendor/pageController')
 
-// vendor register
+registerRouter.get('/', pageController.renderRegisterPage)
+    // vendor register
 registerRouter.post('/', passport.authenticate('van-signup', {
     successRedirect: '/vendor/', // redirect to the homepage
     failureRedirect: '/customer/signup/', // redirect to signup page

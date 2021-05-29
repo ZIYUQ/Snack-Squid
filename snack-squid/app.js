@@ -87,18 +87,6 @@ app.use('/customer/order', orderRouterCT)
 
 app.use('/customer/choose-van', findVanRouterCT);
 // Vendor app
-app.get('/vendor', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/vendor/index.html'))
-})
-
-app.get('/vendor/register', (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/vendor/registration.html'))
-})
-
-
-// app.get("/vendor/order/:vanName", (req, res) => {
-//     res.send('You can mark an order by its id to be fulfilled')
-// })
 
 
 app.use('/vendor/open-for-business', openRouterVD)
