@@ -87,3 +87,7 @@ span {
     margin-top: 5px;
     visibility: hidden;
 }
+
+#errorMessage {
+    color: red;
+}

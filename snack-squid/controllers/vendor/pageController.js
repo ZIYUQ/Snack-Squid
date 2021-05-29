@@ -1,9 +1,11 @@
 const renderLoginPage = (req, res) => {
-    res.render('vendor/login')
+    let error = req.flash("loginMessage");
+    res.render('vendor/login', { error: error})
 }
 
 
 const renderRegisterPage = (req, res) => {
-    res.render('vendor/registration')
+    let error = req.flash("signupMessage");
+    res.render('vendor/registration', { error: error})
 }
 module.exports = { renderLoginPage, renderRegisterPage }
