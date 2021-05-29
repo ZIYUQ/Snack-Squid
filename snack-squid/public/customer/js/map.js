@@ -16,11 +16,9 @@ window.onload = async function() {
 
     // If the customer's location cannot be found, it will show all vans by default
     vans = document.querySelectorAll('.vanListing')
-    console.log(vans)
     for (let i = 0; i < vans.length; i++) {
         let vanName = vans[i].querySelector('.vanName').innerHTML
         let vanbtn = vans[i].querySelector(".oneVan")
-        console.log(vanbtn)
         vanbtn.addEventListener('click', function() {
 
             const options = {
@@ -50,6 +48,7 @@ async function geoFindMe(map) {
         const latitude = position.coords.latitude.toFixed(4);
         const longitude = position.coords.longitude.toFixed(4);
         coordinate = [latitude, longitude]
+        console.log(coordinate)
         L.mapquest.textMarker(coordinate, {
             text: 'Me',
             position: 'right',
@@ -111,10 +110,8 @@ async function geoFindMe(map) {
 
         // Make each van clickable and after click, it will send van's name to the server
         vans = document.querySelectorAll('.vanListing')
-        console.log(vans)
         for (let i = 0; i < vans.length; i++) {
             let vanName = vans[i].querySelector('.vanName').innerHTML
-            console.log(vanName)
             let vanbtn = vans[i].querySelector(".oneVan")
             vanbtn.addEventListener('click', function() {
 

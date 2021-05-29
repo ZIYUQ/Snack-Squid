@@ -42,17 +42,17 @@ Project is created with:
 ### Commit id
 
 ### Dummy Customer
-    1. email address: cathy@gmail.com   password: a123123a
-    2. email address: ziyuq@gmail.com   password: a123123a
-    3. email address:   password:
-    4. email address:   password:
-    5. email address:   password:
+    1. email address: cathy@gmail.com   password: 1234qwer
+    2. email address: ziyuq@gmail.com   password: 1234qwer
+    3. email address: tom@gmail.com     password: 1234qwer
+    4. email address: hehe@gmail.com    password: 1234qwer
+    5. email address: chenyi@gmail.com  password: 1234qwer
 ### Dummy Van
-    1. van name:     password:
-    2. van name:     password:
-    3. van name:     password:
-    4. van name:     password:
-    5. van name:     password:
+    1. van name: SnackSquid    password: 1234qwer
+    2. van name: Pinacolada    password: 1234qwer
+    3. van name: Okie          password: 1234qwer
+    4. van name: JuicyBaby     password: 1234qwer
+    5. van name: TomVanGood    password: 1234qwer
 
 ## Deliverable 2 Instruction
 ### Notes: 
