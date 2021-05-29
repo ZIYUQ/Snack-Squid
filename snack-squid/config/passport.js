@@ -164,7 +164,7 @@ module.exports = function(passport) {
                     }
                     if (existingUser) {
                         console.log("Vendor signup failed:", vanName, "ALREADY REGISTERED!");
-                        return done(null, false, req.flash('signupMessage', 'That van name is already taken.'));
+                        return done(null, false, req.flash('signupMessage', 'This van name is already taken.'));
                     } else {
                         // otherwise
                         // create a new user
