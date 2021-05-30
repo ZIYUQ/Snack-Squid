@@ -5,13 +5,7 @@ let vans = document.querySelectorAll('.vanListing')
 window.onload = async function() {
     L.mapquest.key = 'A1HigpvtAiVmfrECeAqUXlsnN6wDUshM';
     vans = document.querySelectorAll('.vanListing')
-
-    let map = L.mapquest.map('map', {
-        center: [-37.816166, 144.966639],
-        layers: L.mapquest.tileLayer('map'),
-        zoom: 15
-    });
-    // Get the location of the customer
+        // Get the location of the customer
     await geoFindMe(map)
 
     // If the customer's location cannot be found, it will show all vans by default
@@ -43,11 +37,16 @@ window.onload = async function() {
     }
 }
 
-async function geoFindMe(map) {
+async function geoFindMe() {
     function success(position) {
         const latitude = position.coords.latitude.toFixed(4);
         const longitude = position.coords.longitude.toFixed(4);
         coordinate = [latitude, longitude]
+        let map = L.mapquest.map('map', {
+            center: [latitude, longitude],
+            layers: L.mapquest.tileLayer('map'),
+            zoom: 15
+        });
         console.log(coordinate)
         L.mapquest.textMarker(coordinate, {
             text: 'Me',
