@@ -36,8 +36,8 @@ Project is created with:
 - Password: Shsss06@20
 
 ### URL of heroku
-    http://snack-squid.herokuapp.com/customer/ for customer app
-    http://snack-squid.herokuapp.com/vendor/   for vendor app
+    https://snack-squid.herokuapp.com/customer/ for customer app
+    https://snack-squid.herokuapp.com/vendor/   for vendor app
 
 ### Testing 
     npm test -- open_controller_unit.js   unit testing van's open status
@@ -83,13 +83,13 @@ Project is created with:
     An order detail will be sent to you in json format once the order has been sent successfully. Please note that you are only required to insert foodTag and quantity as you are assummed logged in and a van is assummed selected.
 
 ### Vendor
-1. To set the van status, using the route [http://snack-squid.herokuapp.com/vendor/open-for-business/:[samplevan]] using POST method. If you have "location" in you req.body, it will update the location and change open status as true. If you have no location, it will send a message "You have to enter location"
+1. To set the van status, using the route [https://snack-squid.herokuapp.com/vendor/open-for-business/:[samplevan]] using POST method. If you have "location" in you req.body, it will update the location and change open status as true. If you have no location, it will send a message "You have to enter location"
 
     ![img-04](img/img-04.png)
-2. To show the list of all outstanding orders,go to [http://snack-squid.herokuapp.com/vendor/order] and it will show the orders of all vans. If want to get orders for specific van, using [http://snack-squid.herokuapp.com/vendor/order/:vanName]
+2. To show the list of all outstanding orders,go to [https://snack-squid.herokuapp.com/vendor/order] and it will show the orders of all vans. If want to get orders for specific van, using [https://snack-squid.herokuapp.com/vendor/order/:vanName]
 
     ![img-05](img/img-05.png)
-3. To mark an order as "fulfilled", go to [http://snack-squid.herokuapp.com/vendor/order/:vanName] and use "_id" in req.body to look up specific order of the van and mark it as fulfilled. The status of order in mongodb will be "fulfilled"
+3. To mark an order as "fulfilled", go to [https://snack-squid.herokuapp.com/vendor/order/:vanName] and use "_id" in req.body to look up specific order of the van and mark it as fulfilled. The status of order in mongodb will be "fulfilled"
 
     ![img-06](img/img-06.png)
 
@@ -104,9 +104,9 @@ Password: 123123
 We only have one van open, which is SnackSquid.
 
 ### URL details
-http://snack-squid.herokuapp.com/customer/ The homepage of customer app, you can login and signup, press "Find a nearby van" can redirect to menu page
+https://snack-squid.herokuapp.com/customer/ The homepage of customer app, you can login and signup, press "Find a nearby van" can redirect to menu page
 
-http://snack-squid.herokuapp.com/customer/menu/van=SnackSquid We assume customers have choosen van "SnackSquid", press “+” and "-" button will add the product into cart.
+https://snack-squid.herokuapp.com/customer/menu/van=SnackSquid We assume customers have choosen van "SnackSquid", press “+” and "-" button will add the product into cart.
 
 If press the image, you will be redirected to detail page and you can also modify cart on this page.
 
@@ -116,7 +116,7 @@ If the user has not logged in, you cannot checkout and will be rendered to login
 
 After placing order, the page will redirect to order page.
 
-To logout, use http://snack-squid.herokuapp.com/customer/profile and click logout button
+To logout, use https://snack-squid.herokuapp.com/customer/profile and click logout button
 **Now Get ready to complete all the tasks:**
 
 - [x] Read the Project handouts carefully
